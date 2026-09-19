@@ -781,6 +781,214 @@ footer .text-paper-600 {
   }
 }
 
+  
+
+/* ==========================================================================
+   WARM EDITORIAL BALANCE — soften the white minimalist system
+   ========================================================================== */
+
+:root {
+  --paper: #F1EFE9;
+  --paper-deep: #E8E5DC;
+  --white: #FAF9F5;
+  --ink: #151515;
+  --muted: #625F59;
+  --line: rgba(21,21,21,.13);
+  --line-soft: rgba(21,21,21,.075);
+  --coral: #FF5A3C;
+  --coral-dark: #E04326;
+}
+
+/* Main canvas */
+html,
+body {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+}
+
+/* Warm paper instead of pure white */
+.bg-tech-grid {
+  background-color: var(--paper) !important;
+  background-size: 52px 52px !important;
+  background-image:
+    linear-gradient(to right, rgba(21,21,21,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21,21,21,.045) 1px, transparent 1px) !important;
+}
+
+/* Dark utility backgrounds become warm charcoal/paper rather than stark white */
+.bg-space-950,
+.bg-space-900,
+.bg-space-850,
+.bg-space-800,
+.bg-space-700 {
+  background-color: #E8E5DC !important;
+}
+
+.bg-space-950 {
+  background-color: #E8E5DC !important;
+}
+
+.bg-space-900 {
+  background-color: #ECEAE4 !important;
+}
+
+/* White surfaces remain available as intentional contrast */
+.bg-white\/\[\.025\],
+.bg-white\/\[\.03\],
+.bg-white\/\[\.04\] {
+  background-color: rgba(250,249,245,.72) !important;
+}
+
+/* Typography */
+.text-paper-100,
+.text-paper-200 {
+  color: var(--ink) !important;
+}
+
+.text-paper-400,
+.text-paper-500,
+.text-paper-600 {
+  color: var(--muted) !important;
+}
+
+.text-coral-400,
+.text-coral-500,
+.text-coral-600 {
+  color: var(--coral) !important;
+}
+
+/* Borders */
+.border-paper-100\/10,
+.border-paper-100\/15 {
+  border-color: var(--line) !important;
+}
+
+.border-paper-100\/20 {
+  border-color: rgba(21,21,21,.17) !important;
+}
+
+.border-paper-100\/30 {
+  border-color: rgba(21,21,21,.22) !important;
+}
+
+/* Top metadata strip */
+aside[aria-label="Exhibit Metadata"] {
+  background: #E8E5DC !important;
+  border-color: var(--line) !important;
+}
+
+/* Navigation */
+header {
+  background: rgba(241,239,233,.94) !important;
+  border-color: var(--line) !important;
+}
+
+#mobile-menu {
+  background: #E8E5DC !important;
+  border-color: var(--line) !important;
+}
+
+/* Hero */
+main > section:first-child {
+  background-color: var(--paper) !important;
+}
+
+.hero-headline {
+  color: var(--ink) !important;
+}
+
+/* Hero technical readout gets a slightly lighter paper panel */
+main > section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
+  background: rgba(250,249,245,.68) !important;
+  border-color: var(--line) !important;
+}
+
+/* Archive: alternate paper tone keeps the page from becoming one white slab */
+#archive {
+  background: #E8E5DC !important;
+}
+
+#hardware-grid > * {
+  background: #FAF9F5 !important;
+  border-color: rgba(21,21,21,.11) !important;
+}
+
+#hardware-grid > *:hover {
+  background: #FFFFFF !important;
+  border-color: rgba(255,90,60,.45) !important;
+}
+
+/* Science */
+#science {
+  background: #F7F5F0 !important;
+}
+
+#science article:hover {
+  background: #ECEAE4 !important;
+}
+
+/* Interactive section */
+#interactive {
+  background-color: #E8E5DC !important;
+  background-image:
+    linear-gradient(to right, rgba(21,21,21,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21,21,21,.045) 1px, transparent 1px) !important;
+  background-size: 52px 52px !important;
+}
+
+#interactive > div > div {
+  background: #F7F5F0 !important;
+  border-color: var(--line) !important;
+}
+
+#interactive .bg-space-900 {
+  background: #ECEAE4 !important;
+}
+
+/* Footer */
+footer {
+  background: #DDD9D0 !important;
+  border-color: rgba(21,21,21,.14) !important;
+}
+
+/* Solar System modal */
+#solar-system-modal {
+  background: rgba(232,229,220,.97) !important;
+}
+
+#solar-system-modal > div:first-child {
+  background: #E8E5DC !important;
+  border-color: var(--line) !important;
+}
+
+#solar-system-modal > div:last-child {
+  background: #DDD9D0 !important;
+}
+
+/* Keep the accent restrained */
+.btn-primary,
+button[onclick="openSolarModal()"].bg-coral-500 {
+  background: var(--coral) !important;
+}
+
+.btn-primary:hover,
+button[onclick="openSolarModal()"].bg-coral-500:hover {
+  background: var(--coral-dark) !important;
+}
+
+/* Slightly more compact desktop rhythm */
+@media (min-width: 1024px) {
+  main > section {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+
+  main > section:first-child {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+}
+
   </style>
 </head>
 
