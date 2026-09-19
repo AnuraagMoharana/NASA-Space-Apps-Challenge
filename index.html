@@ -1,141 +1,255 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <meta
     name="description"
     content="Relics of the Solar System — Explore humanity's robotic explorers and discover the science they unlocked across our cosmic neighborhood."
   />
 
-  <meta name="theme-color" content="#0B070C" />
+  <meta
+    name="theme-color"
+    content="#0B070C"
+  />
 
   <title>Relics of the Solar System</title>
 
-  <!-- Tailwind CSS -->
+
+  <!-- =========================================================
+       TAILWIND CSS
+  ========================================================== -->
+
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Model Viewer -->
-  <script
-    type="module"
-    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
-  </script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- =========================================================
+       FONTS
+  ========================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
 
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet"
   />
 
+
+  <!-- =========================================================
+       TAILWIND CONFIG
+  ========================================================== -->
+
   <script>
+
     tailwind.config = {
+
       theme: {
+
         extend: {
+
           fontFamily: {
-            sans: ["DM Sans", "sans-serif"],
-            display: ["Space Grotesk", "sans-serif"],
+
+            sans: [
+              "DM Sans",
+              "sans-serif"
+            ],
+
+            display: [
+              "Space Grotesk",
+              "sans-serif"
+            ]
+
           },
+
 
           colors: {
+
             obsidian: "#0B070C",
+
             plum: "#180C19",
+
             gold: "#FFB84D",
+
             amber: "#FF9F43",
+
             coral: "#FF625F",
-            cyan: "#52F7E8",
+
+            cyan: "#52F7E8"
+
           },
 
+
           boxShadow: {
-            glow: "0 0 60px rgba(255, 159, 67, .13)",
-            coral: "0 20px 70px rgba(255, 98, 95, .15)",
+
+            glow:
+              "0 0 60px rgba(255,159,67,.13)",
+
+            coral:
+              "0 20px 70px rgba(255,98,95,.15)"
+
           }
+
         }
+
       }
-    }
+
+    };
+
   </script>
 
+
+  <!-- =========================================================
+       CUSTOM UI STYLES
+  ========================================================== -->
+
   <style>
+
+    /* ---------------------------------------------------------
+       BASE
+    --------------------------------------------------------- */
+
     html {
       scroll-behavior: smooth;
     }
 
+
     body {
+
+      min-height: 100vh;
+
       background:
+
         radial-gradient(
           circle at 15% 0%,
-          rgba(255, 98, 95, .12),
+          rgba(255,98,95,.12),
           transparent 30%
         ),
+
         radial-gradient(
           circle at 85% 15%,
-          rgba(82, 247, 232, .08),
+          rgba(82,247,232,.08),
           transparent 25%
         ),
+
         radial-gradient(
           circle at 55% 75%,
-          rgba(255, 184, 77, .06),
+          rgba(255,184,77,.06),
           transparent 32%
         ),
+
         #0B070C;
+
     }
+
 
     ::selection {
+
       background: #FFB84D;
+
       color: #0B070C;
+
     }
 
-    /* =========================================================
+
+    /* ---------------------------------------------------------
        STAR FIELD
-    ========================================================== */
+    --------------------------------------------------------- */
 
     .stars {
+
       position: fixed;
+
       inset: 0;
-      pointer-events: none;
+
       z-index: -1;
+
+      pointer-events: none;
+
       overflow: hidden;
+
     }
+
 
     .stars::before,
     .stars::after {
+
       content: "";
+
       position: absolute;
+
       inset: 0;
 
       background-image:
-        radial-gradient(circle, rgba(255,255,255,.75) 1px, transparent 1px),
-        radial-gradient(circle, rgba(82,247,232,.55) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,184,77,.4) 1px, transparent 1px);
+
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.75) 1px,
+          transparent 1px
+        ),
+
+        radial-gradient(
+          circle,
+          rgba(82,247,232,.55) 1px,
+          transparent 1px
+        ),
+
+        radial-gradient(
+          circle,
+          rgba(255,184,77,.4) 1px,
+          transparent 1px
+        );
 
       background-position:
+
         0 0,
         40px 60px,
         120px 150px;
 
       background-size:
+
         160px 160px,
         230px 230px,
         310px 310px;
 
       opacity: .25;
+
     }
+
 
     .stars::after {
+
       transform: scale(1.25);
+
       opacity: .12;
+
     }
 
-    /* =========================================================
-       GLASS
-    ========================================================== */
+
+    /* ---------------------------------------------------------
+       GLASSMORPHISM
+    --------------------------------------------------------- */
 
     .glass {
+
       background:
+
         linear-gradient(
           135deg,
           rgba(255,255,255,.075),
@@ -145,27 +259,36 @@
       border: 1px solid rgba(255,255,255,.1);
 
       box-shadow:
+
         inset 0 1px 0 rgba(255,255,255,.05),
+
         0 25px 80px rgba(0,0,0,.25);
 
       backdrop-filter: blur(18px);
+
       -webkit-backdrop-filter: blur(18px);
+
     }
 
-    /* =========================================================
-       MOUSE SPOTLIGHT CARDS
-    ========================================================== */
+
+    /* ---------------------------------------------------------
+       SPOTLIGHT CARDS
+    --------------------------------------------------------- */
 
     .spotlight-card {
+
       --mouse-x: 50%;
+
       --mouse-y: 50%;
 
       position: relative;
+
       overflow: hidden;
 
       isolation: isolate;
 
       background:
+
         linear-gradient(
           145deg,
           rgba(255,255,255,.075),
@@ -175,14 +298,22 @@
       border: 1px solid rgba(255,255,255,.11);
 
       transition:
+
         transform .3s ease,
+
         border-color .3s ease,
+
         box-shadow .3s ease;
+
     }
 
+
     .spotlight-card::after {
+
       content: "";
+
       position: absolute;
+
       inset: 0;
 
       pointer-events: none;
@@ -190,11 +321,16 @@
       border-radius: inherit;
 
       box-shadow:
+
         inset 0 1px 0 rgba(255,255,255,.05);
+
     }
 
+
     .spotlight-overlay {
+
       position: absolute;
+
       inset: 0;
 
       z-index: 1;
@@ -204,56 +340,93 @@
       opacity: 0;
 
       background:
+
         radial-gradient(
-          circle 260px at var(--mouse-x) var(--mouse-y),
+          circle 260px at
+          var(--mouse-x)
+          var(--mouse-y),
+
           rgba(255,184,77,.16),
+
           rgba(255,159,67,.07) 25%,
+
           transparent 68%
         );
 
       transition: opacity .25s ease;
+
     }
 
+
     .spotlight-card:hover {
+
       transform: translateY(-6px);
 
       border-color: rgba(255,184,77,.34);
 
       box-shadow:
+
         0 30px 80px rgba(0,0,0,.35),
+
         0 0 45px rgba(255,159,67,.08);
+
     }
 
-    .spotlight-card:hover .spotlight-overlay {
+
+    .spotlight-card:hover
+    .spotlight-overlay {
+
       opacity: 1;
+
     }
 
-    /* Cyan variation for interactive/3D cards */
+
+    /* ---------------------------------------------------------
+       CYAN SPOTLIGHT VARIANT
+    --------------------------------------------------------- */
 
     .spotlight-cyan:hover {
-      border-color: rgba(82,247,232,.30);
+
+      border-color:
+        rgba(82,247,232,.30);
 
       box-shadow:
+
         0 30px 80px rgba(0,0,0,.35),
+
         0 0 45px rgba(82,247,232,.07);
+
     }
 
-    .spotlight-cyan .spotlight-overlay {
+
+    .spotlight-cyan
+    .spotlight-overlay {
+
       background:
+
         radial-gradient(
-          circle 300px at var(--mouse-x) var(--mouse-y),
+          circle 300px at
+          var(--mouse-x)
+          var(--mouse-y),
+
           rgba(82,247,232,.14),
+
           rgba(82,247,232,.05) 25%,
+
           transparent 68%
         );
+
     }
 
-    /* =========================================================
-       GRADIENT TEXT
-    ========================================================== */
+
+    /* ---------------------------------------------------------
+       WARM GRADIENT TEXT
+    --------------------------------------------------------- */
 
     .warm-gradient {
+
       background:
+
         linear-gradient(
           90deg,
           #FFD07A 0%,
@@ -263,91 +436,392 @@
         );
 
       -webkit-background-clip: text;
+
       background-clip: text;
+
       color: transparent;
+
     }
 
-    /* =========================================================
-       MODEL VIEWER
-    ========================================================== */
 
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      min-height: 460px;
+    /* ---------------------------------------------------------
+       ARCHIVE CARD IMAGE / VISUAL
+    --------------------------------------------------------- */
 
-      --poster-color: transparent;
+    .hardware-preview {
+
+      position: relative;
+
+      overflow: hidden;
+
+      background:
+
+        radial-gradient(
+          circle at 70% 30%,
+          rgba(255,184,77,.18),
+          transparent 30%
+        ),
+
+        linear-gradient(
+          135deg,
+          #251526,
+          #171018 55%,
+          #0d090e
+        );
+
     }
 
-    /* =========================================================
+
+    .hardware-preview::after {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+
+        linear-gradient(
+          to bottom,
+          transparent 45%,
+          rgba(0,0,0,.65)
+        );
+
+    }
+
+
+    /* ---------------------------------------------------------
+       MOCK SPACECRAFT
+    --------------------------------------------------------- */
+
+    .mock-spacecraft {
+
+      position: relative;
+
+      width: 90px;
+
+      height: 68px;
+
+      transition:
+
+        transform .5s ease;
+
+    }
+
+
+    .group:hover
+    .mock-spacecraft {
+
+      transform:
+        scale(1.1)
+        rotate(-4deg);
+
+    }
+
+
+    .mock-body {
+
+      position: absolute;
+
+      left: 20px;
+
+      top: 15px;
+
+      width: 50px;
+
+      height: 38px;
+
+      border-radius: 8px;
+
+      transform: rotate(-10deg);
+
+      border:
+        1px solid
+        rgba(255,184,77,.4);
+
+      background:
+
+        linear-gradient(
+          135deg,
+          rgba(255,184,77,.4),
+          rgba(255,159,67,.1)
+        );
+
+      box-shadow:
+
+        0 0 50px
+        rgba(255,184,77,.18);
+
+    }
+
+
+    .mock-panel-left,
+    .mock-panel-right {
+
+      position: absolute;
+
+      top: 20px;
+
+      width: 45px;
+
+      height: 25px;
+
+      border-radius: 4px;
+
+      transform: rotate(-10deg);
+
+      border:
+        1px solid
+        rgba(82,247,232,.2);
+
+      background:
+
+        linear-gradient(
+          135deg,
+          rgba(82,247,232,.12),
+          rgba(82,247,232,.03)
+        );
+
+    }
+
+
+    .mock-panel-left {
+
+      left: -22px;
+
+    }
+
+
+    .mock-panel-right {
+
+      right: -22px;
+
+    }
+
+
+    .mock-antenna {
+
+      position: absolute;
+
+      left: 43px;
+
+      top: -15px;
+
+      width: 25px;
+
+      height: 25px;
+
+      border:
+
+        1px solid
+        rgba(255,255,255,.3);
+
+      border-radius: 50%;
+
+    }
+
+
+    /* ---------------------------------------------------------
+       BUTTON ARROW
+    --------------------------------------------------------- */
+
+    .arrow-button {
+
+      transition:
+
+        transform .25s ease,
+
+        background-color .25s ease,
+
+        color .25s ease,
+
+        border-color .25s ease;
+
+    }
+
+
+    .group:hover
+    .arrow-button {
+
+      transform: translateX(2px);
+
+      border-color:
+        rgba(255,184,77,.3);
+
+      background:
+        rgba(255,184,77,.1);
+
+      color: #FFB84D;
+
+    }
+
+
+    /* ---------------------------------------------------------
+       FOOTER
+    --------------------------------------------------------- */
+
+    footer {
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+    }
+
+
+    /* ---------------------------------------------------------
        SCROLLBAR
-    ========================================================== */
+    --------------------------------------------------------- */
 
     ::-webkit-scrollbar {
+
       width: 9px;
+
     }
+
 
     ::-webkit-scrollbar-track {
+
       background: #0B070C;
+
     }
+
 
     ::-webkit-scrollbar-thumb {
+
       background: #38253A;
+
       border-radius: 999px;
+
     }
+
 
     ::-webkit-scrollbar-thumb:hover {
+
       background: #5A3658;
+
     }
 
-    /* =========================================================
+
+    /* ---------------------------------------------------------
        ACCESSIBILITY
-    ========================================================== */
+    --------------------------------------------------------- */
 
     :focus-visible {
-      outline: 2px solid #52F7E8;
+
+      outline:
+        2px solid
+        #52F7E8;
+
       outline-offset: 4px;
+
     }
 
-    @media (prefers-reduced-motion: reduce) {
+
+    @media
+    (prefers-reduced-motion: reduce) {
+
       html {
+
         scroll-behavior: auto;
+
       }
+
 
       .spotlight-card {
+
         transition: none;
+
       }
 
+
       .spotlight-overlay {
+
         transition: none;
+
       }
+
+
+      .mock-spacecraft {
+
+        transition: none;
+
+      }
+
     }
+
+
+    /* ---------------------------------------------------------
+       MOBILE
+    --------------------------------------------------------- */
+
+    @media (max-width: 640px) {
+
+      .spotlight-card:hover {
+
+        transform: translateY(-3px);
+
+      }
+
+    }
+
   </style>
+
 </head>
 
 
-<body class="min-h-screen text-white antialiased">
+<body
+  class="min-h-screen
+         bg-obsidian
+         font-sans
+         text-white
+         antialiased"
+>
 
-  <div class="stars"></div>
+
+  <!-- =========================================================
+       BACKGROUND
+  ========================================================== -->
+
+  <div
+    class="stars"
+    aria-hidden="true"
+  ></div>
 
 
   <!-- =========================================================
        HEADER
   ========================================================== -->
 
-  <header class="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+  <header
+    class="fixed inset-x-0 top-0 z-50 px-4 pt-4"
+  >
 
     <nav
-      class="glass mx-auto flex max-w-7xl items-center justify-between
+      class="glass mx-auto flex max-w-7xl
+             items-center justify-between
              rounded-2xl px-5 py-3"
       aria-label="Main navigation"
     >
 
-      <a href="#" class="flex items-center gap-3">
+
+      <!-- BRAND -->
+
+      <a
+        href="#"
+        class="flex items-center gap-3"
+        aria-label="Relics of the Solar System home"
+      >
 
         <div
-          class="flex h-10 w-10 items-center justify-center
-                 rounded-xl border border-gold/20 bg-gold/10"
+          class="flex h-10 w-10
+                 items-center justify-center
+                 rounded-xl
+                 border border-gold/20
+                 bg-gold/10"
         >
 
           <svg
@@ -358,27 +832,51 @@
             stroke-width="1.8"
             aria-hidden="true"
           >
-            <circle cx="12" cy="12" r="3.5"></circle>
-            <path d="M3 12c3-5 15-5 18 0s-15 5-18 0Z"></path>
+
+            <circle
+              cx="12"
+              cy="12"
+              r="3.5"
+            ></circle>
+
+            <path
+              d="M3 12c3-5 15-5 18 0s-15 5-18 0Z"
+            ></path>
+
           </svg>
 
         </div>
 
+
         <div>
 
           <div
-            class="font-display text-sm font-bold tracking-tight sm:text-base"
+            class="font-display text-sm
+                   font-bold tracking-tight
+                   sm:text-base"
           >
+
             Relics
-            <span class="text-white/40">of the</span>
+
+            <span class="text-white/40">
+              of the
+            </span>
+
             Solar System
+
           </div>
 
+
           <div
-            class="mt-0.5 hidden text-[10px] font-semibold
-                   uppercase tracking-[.22em] text-white/35 sm:block"
+            class="mt-0.5 hidden
+                   text-[10px] font-semibold
+                   uppercase tracking-[.22em]
+                   text-white/35
+                   sm:block"
           >
+
             Space Archaeology
+
           </div>
 
         </div>
@@ -386,28 +884,41 @@
       </a>
 
 
-      <div class="hidden items-center gap-7 md:flex">
+      <!-- DESKTOP NAV -->
+
+      <div
+        class="hidden items-center
+               gap-7 md:flex"
+      >
 
         <a
           href="#archive"
-          class="text-sm font-medium text-white/55
-                 transition hover:text-white"
+          class="text-sm font-medium
+                 text-white/55
+                 transition
+                 hover:text-white"
         >
           The Archive
         </a>
 
+
         <a
-          href="#viewer"
-          class="text-sm font-medium text-white/55
-                 transition hover:text-white"
+          href="#explorer"
+          class="text-sm font-medium
+                 text-white/55
+                 transition
+                 hover:text-white"
         >
           3D Explorer
         </a>
 
+
         <a
           href="#science"
-          class="text-sm font-medium text-white/55
-                 transition hover:text-white"
+          class="text-sm font-medium
+                 text-white/55
+                 transition
+                 hover:text-white"
         >
           Science
         </a>
@@ -415,27 +926,43 @@
       </div>
 
 
+      <!-- STATUS -->
+
       <div
-        class="flex items-center gap-2 rounded-full border border-cyan/20
-               bg-cyan/[.07] px-3 py-1.5"
+        class="flex items-center gap-2
+               rounded-full
+               border border-cyan/20
+               bg-cyan/[.07]
+               px-3 py-1.5"
       >
 
-        <span class="relative flex h-2 w-2">
+        <span
+          class="relative flex h-2 w-2"
+          aria-hidden="true"
+        >
 
           <span
-            class="absolute inline-flex h-full w-full animate-ping
-                   rounded-full bg-cyan opacity-60"
+            class="absolute inline-flex
+                   h-full w-full
+                   animate-ping
+                   rounded-full
+                   bg-cyan opacity-60"
           ></span>
 
           <span
-            class="relative inline-flex h-2 w-2 rounded-full bg-cyan"
+            class="relative inline-flex
+                   h-2 w-2 rounded-full
+                   bg-cyan"
           ></span>
 
         </span>
 
+
         <span
-          class="text-[10px] font-bold uppercase
-                 tracking-[.15em] text-cyan sm:text-xs"
+          class="text-[10px] font-bold
+                 uppercase tracking-[.15em]
+                 text-cyan
+                 sm:text-xs"
         >
           Archive Online
         </span>
@@ -447,48 +974,104 @@
   </header>
 
 
+  <!-- =========================================================
+       MAIN
+  ========================================================== -->
+
   <main>
 
 
-    <!-- =========================================================
+    <!-- =======================================================
          HERO
-    ========================================================== -->
+    ======================================================== -->
 
     <section
-      class="relative mx-auto flex min-h-screen max-w-7xl
-             items-center px-6 pb-20 pt-32 lg:px-8"
+      class="relative mx-auto flex
+             min-h-screen max-w-7xl
+             items-center
+             px-6 pb-20 pt-32
+             lg:px-8"
     >
 
+
+      <!-- Ambient coral glow -->
+
       <div
-        class="pointer-events-none absolute right-[-10%] top-[20%]
-               h-[500px] w-[500px] rounded-full
-               bg-coral/[.07] blur-[120px]"
+        class="pointer-events-none
+               absolute right-[-10%]
+               top-[20%]
+               h-[500px]
+               w-[500px]
+               rounded-full
+               bg-coral/[.07]
+               blur-[120px]"
+        aria-hidden="true"
       ></div>
 
 
-      <div class="relative z-10 max-w-5xl">
+      <!-- Ambient gold glow -->
+
+      <div
+        class="pointer-events-none
+               absolute left-[-15%]
+               top-[55%]
+               h-[400px]
+               w-[400px]
+               rounded-full
+               bg-gold/[.05]
+               blur-[120px]"
+        aria-hidden="true"
+      ></div>
+
+
+      <div
+        class="relative z-10 max-w-5xl"
+      >
+
+
+        <!-- NASA BADGE -->
 
         <div
-          class="mb-7 inline-flex items-center gap-3 rounded-full
-                 border border-white/10 bg-white/[.04]
-                 px-4 py-2 backdrop-blur-xl"
+          class="mb-7 inline-flex
+                 items-center gap-3
+                 rounded-full
+                 border border-white/10
+                 bg-white/[.04]
+                 px-4 py-2
+                 backdrop-blur-xl"
         >
 
-          <span class="text-lg">🛰️</span>
+          <span
+            class="text-lg"
+            aria-hidden="true"
+          >
+            🛰️
+          </span>
+
 
           <span
-            class="text-xs font-bold uppercase
-                   tracking-[.18em] text-white/65"
+            class="text-xs font-bold
+                   uppercase tracking-[.18em]
+                   text-white/65"
           >
             NASA Space Apps Challenge
           </span>
 
-          <span
-            class="hidden h-1 w-1 rounded-full bg-white/30 sm:block"
-          ></span>
 
           <span
-            class="hidden text-xs font-medium text-gold sm:block"
+            class="hidden h-1 w-1
+                   rounded-full
+                   bg-white/30
+                   sm:block"
+            aria-hidden="true"
+          ></span>
+
+
+          <span
+            class="hidden text-xs
+                   font-medium
+                   text-gold
+                   sm:block"
           >
             Mission Archive 01
           </span>
@@ -496,87 +1079,144 @@
         </div>
 
 
+        <!-- HEADLINE -->
+
         <h1
-          class="max-w-5xl font-display text-5xl font-bold
-                 leading-[.98] tracking-[-.045em]
-                 sm:text-6xl md:text-7xl lg:text-[92px]"
+          class="max-w-5xl
+                 font-display
+                 text-5xl font-bold
+                 leading-[.98]
+                 tracking-[-.045em]
+                 sm:text-6xl
+                 md:text-7xl
+                 lg:text-[92px]"
         >
+
           They crossed the void.
 
           <span class="warm-gradient block">
             We kept their stories.
           </span>
+
         </h1>
 
 
+        <!-- SUBCOPY -->
+
         <p
-          class="mt-8 max-w-2xl text-lg leading-8 text-white/55
+          class="mt-8 max-w-2xl
+                 text-lg leading-8
+                 text-white/55
                  sm:text-xl"
         >
-          Meet the spacecraft humanity sent into the unknown — from
-          machines still whispering across billions of kilometers to
-          silent explorers resting on alien worlds.
+
+          Meet the spacecraft humanity sent
+          into the unknown — from machines
+          still whispering across billions of
+          kilometers to silent explorers resting
+          on alien worlds.
+
         </p>
 
 
-        <div class="mt-10 flex flex-wrap items-center gap-4">
+        <!-- CTA -->
+
+        <div
+          class="mt-10 flex
+                 flex-wrap
+                 items-center gap-4"
+        >
 
           <a
             href="#archive"
-            class="group inline-flex items-center gap-3 rounded-full
-                   bg-gold px-6 py-3.5 font-bold text-obsidian
+            class="group inline-flex
+                   items-center gap-3
+                   rounded-full
+                   bg-gold
+                   px-6 py-3.5
+                   font-bold text-obsidian
                    shadow-[0_0_35px_rgba(255,184,77,.16)]
-                   transition hover:-translate-y-1 hover:bg-[#FFC96B]"
+                   transition
+                   hover:-translate-y-1
+                   hover:bg-[#FFC96B]"
           >
+
             Explore the relics
 
             <svg
               viewBox="0 0 24 24"
               fill="none"
-              class="h-4 w-4 transition-transform
+              class="h-4 w-4
+                     transition-transform
                      group-hover:translate-x-1"
               stroke="currentColor"
               stroke-width="2"
               aria-hidden="true"
             >
-              <path d="M5 12h14M13 6l6 6-6 6"></path>
+
+              <path
+                d="M5 12h14M13 6l6 6-6 6"
+              ></path>
+
             </svg>
 
           </a>
 
 
           <a
-            href="#viewer"
-            class="inline-flex items-center gap-2 rounded-full
-                   border border-white/10 bg-white/[.04]
-                   px-6 py-3.5 font-semibold text-white/75
-                   backdrop-blur-xl transition
-                   hover:border-white/20 hover:bg-white/[.08]
+            href="#explorer"
+            class="inline-flex
+                   items-center gap-2
+                   rounded-full
+                   border border-white/10
+                   bg-white/[.04]
+                   px-6 py-3.5
+                   font-semibold
+                   text-white/75
+                   backdrop-blur-xl
+                   transition
+                   hover:border-white/20
+                   hover:bg-white/[.08]
                    hover:text-white"
           >
-            <span>✦</span>
-            Open 3D Explorer
+
+            <span aria-hidden="true">
+              ✦
+            </span>
+
+            Meet the explorers
+
           </a>
 
         </div>
 
 
+        <!-- STATS -->
+
         <div
-          class="mt-16 grid max-w-2xl grid-cols-3
-                 divide-x divide-white/10"
+          class="mt-16 grid
+                 max-w-2xl
+                 grid-cols-3
+                 divide-x
+                 divide-white/10"
         >
 
           <div class="pr-5">
 
             <div
-              class="font-display text-2xl font-bold text-gold sm:text-3xl"
+              class="font-display
+                     text-2xl font-bold
+                     text-gold
+                     sm:text-3xl"
             >
               60+
             </div>
 
             <div
-              class="mt-1 text-xs uppercase
-                     tracking-[.15em] text-white/35"
+              class="mt-1 text-xs
+                     uppercase
+                     tracking-[.15em]
+                     text-white/35"
             >
               Years exploring
             </div>
@@ -587,14 +1227,19 @@
           <div class="px-5">
 
             <div
-              class="font-display text-2xl font-bold text-coral sm:text-3xl"
+              class="font-display
+                     text-2xl font-bold
+                     text-coral
+                     sm:text-3xl"
             >
               5
             </div>
 
             <div
-              class="mt-1 text-xs uppercase
-                     tracking-[.15em] text-white/35"
+              class="mt-1 text-xs
+                     uppercase
+                     tracking-[.15em]
+                     text-white/35"
             >
               Worlds visited
             </div>
@@ -605,14 +1250,19 @@
           <div class="pl-5">
 
             <div
-              class="font-display text-2xl font-bold text-cyan sm:text-3xl"
+              class="font-display
+                     text-2xl font-bold
+                     text-cyan
+                     sm:text-3xl"
             >
               24B+
             </div>
 
             <div
-              class="mt-1 text-xs uppercase
-                     tracking-[.15em] text-white/35"
+              class="mt-1 text-xs
+                     uppercase
+                     tracking-[.15em]
+                     text-white/35"
             >
               km travelled
             </div>
@@ -626,73 +1276,118 @@
     </section>
 
 
-    <!-- =========================================================
+    <!-- =======================================================
          ARCHIVE
-    ========================================================== -->
+    ======================================================== -->
 
     <section
       id="archive"
-      class="mx-auto max-w-7xl scroll-mt-28 px-6 py-24 lg:px-8"
+      class="mx-auto max-w-7xl
+             scroll-mt-28
+             px-6 py-24
+             lg:px-8"
     >
 
+
+      <!-- SECTION HEADER -->
+
       <div
-        class="mb-12 flex flex-col justify-between gap-7
-               md:flex-row md:items-end"
+        class="mb-12 flex
+               flex-col justify-between
+               gap-7
+               md:flex-row
+               md:items-end"
       >
 
         <div>
 
           <div
-            class="mb-3 text-xs font-bold uppercase
-                   tracking-[.25em] text-coral"
+            class="mb-3 text-xs
+                   font-bold uppercase
+                   tracking-[.25em]
+                   text-coral"
           >
             01 / The Archive
           </div>
 
+
           <h2
-            class="font-display text-4xl font-bold tracking-tight
+            class="font-display
+                   text-4xl font-bold
+                   tracking-tight
                    sm:text-5xl"
           >
+
             Humanity's footprints
+
             <span class="text-white/25">
               among the stars.
             </span>
+
           </h2>
 
+
           <p
-            class="mt-4 max-w-2xl leading-7 text-white/45"
+            class="mt-4 max-w-2xl
+                   leading-7
+                   text-white/45"
           >
-            Every probe has a personality, a purpose, and a story.
-            Select a relic to discover where it went and what it
-            taught us.
+
+            Every probe has a personality,
+            a purpose, and a story.
+            Select a relic to discover where
+            it went and what it taught us.
+
           </p>
 
         </div>
 
 
-        <div class="flex flex-wrap gap-2">
+        <!-- FILTER UI -->
+
+        <div
+          class="flex flex-wrap gap-2"
+        >
 
           <button
-            class="rounded-full border border-gold/25
-                   bg-gold/10 px-4 py-2 text-xs
-                   font-bold text-gold"
+            type="button"
+            class="rounded-full
+                   border border-gold/25
+                   bg-gold/10
+                   px-4 py-2
+                   text-xs font-bold
+                   text-gold"
           >
             All relics
           </button>
 
+
           <button
-            class="rounded-full border border-white/10
-                   px-4 py-2 text-xs font-semibold text-white/45
-                   transition hover:bg-white/[.05]
+            type="button"
+            class="rounded-full
+                   border border-white/10
+                   px-4 py-2
+                   text-xs
+                   font-semibold
+                   text-white/45
+                   transition
+                   hover:bg-white/[.05]
                    hover:text-white"
           >
             Active
           </button>
 
+
           <button
-            class="rounded-full border border-white/10
-                   px-4 py-2 text-xs font-semibold text-white/45
-                   transition hover:bg-white/[.05]
+            type="button"
+            class="rounded-full
+                   border border-white/10
+                   px-4 py-2
+                   text-xs
+                   font-semibold
+                   text-white/45
+                   transition
+                   hover:bg-white/[.05]
                    hover:text-white"
           >
             Silent
@@ -705,26 +1400,44 @@
 
       <!-- =====================================================
            HARDWARE GRID
-           JavaScript dynamically renders hardware.json here.
+
+           IMPORTANT FOR PERSON 2:
+
+           Keep this ID exactly as-is.
+           app.js can dynamically populate this container.
+
+           The static card below is only a visual template.
       ====================================================== -->
 
       <div
         id="hardware-grid"
-        class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+        class="grid gap-5
+               md:grid-cols-2
+               lg:grid-cols-3"
       >
 
 
         <!-- ===================================================
-             SAMPLE SPOTLIGHT CARD
+             STATIC MOCK CARD
+             
+             UI TEMPLATE ONLY.
+             
+             Person 2 can replace/populate this card
+             through js/app.js.
         ==================================================== -->
 
         <article
-          class="spotlight-card group relative overflow-hidden
-                 rounded-[28px] p-3"
+          id="hardware-card-template"
+          class="spotlight-card
+                 group relative
+                 overflow-hidden
+                 rounded-[28px]
+                 p-3"
           data-status="active"
         >
 
-          <!-- Mouse-tracking spotlight -->
+
+          <!-- SPOTLIGHT -->
 
           <div
             class="spotlight-overlay"
@@ -732,182 +1445,296 @@
           ></div>
 
 
-          <!-- ALL CARD CONTENT -->
+          <!-- CONTENT -->
 
-          <div class="relative z-10">
+          <div
+            class="relative z-10"
+          >
 
-            <div
-              class="relative h-56 overflow-hidden rounded-[22px]
-                     bg-gradient-to-br from-[#251526]
-                     via-[#171018] to-[#0d090e]"
+
+            <!-- LIGHTWEIGHT PREVIEW -->
+
+            <a
+              id="hardware-link"
+              href="explorer.html"
+              class="block"
+              aria-label="Explore Voyager 1 in 3D"
             >
 
               <div
-                class="absolute inset-0
-                       bg-[radial-gradient(circle_at_70%_30%,rgba(255,184,77,.18),transparent_30%)]"
-              ></div>
-
-
-              <div
-                class="absolute inset-0 flex items-center
-                       justify-center"
-                aria-hidden="true"
+                id="hardware-preview"
+                class="hardware-preview
+                       relative h-56
+                       rounded-[22px]"
               >
 
-                <div class="relative">
+
+                <!-- Mock spacecraft -->
+
+                <div
+                  class="absolute inset-0
+                         flex items-center
+                         justify-center"
+                  aria-hidden="true"
+                >
 
                   <div
-                    class="h-16 w-20 rotate-[-10deg] rounded-lg
-                           border border-gold/40
-                           bg-gradient-to-br from-gold/40
-                           to-amber/10
-                           shadow-[0_0_50px_rgba(255,184,77,.18)]"
-                  ></div>
+                    class="mock-spacecraft"
+                  >
 
-                  <div
-                    class="absolute left-[-62px] top-5 h-7 w-16
-                           rotate-[-10deg] rounded-sm
-                           border border-cyan/20 bg-cyan/10"
-                  ></div>
+                    <div
+                      class="mock-body"
+                    ></div>
 
-                  <div
-                    class="absolute right-[-62px] top-5 h-7 w-16
-                           rotate-[-10deg] rounded-sm
-                           border border-cyan/20 bg-cyan/10"
-                  ></div>
+                    <div
+                      class="mock-panel-left"
+                    ></div>
 
-                  <div
-                    class="absolute left-7 top-[-28px]
-                           h-8 w-8 rounded-full
-                           border border-white/30"
-                  ></div>
+                    <div
+                      class="mock-panel-right"
+                    ></div>
+
+                    <div
+                      class="mock-antenna"
+                    ></div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div
+                  class="absolute
+                         left-4 top-4"
+                >
+
+                  <span
+                    id="hardware-status"
+                    class="inline-flex
+                           items-center gap-2
+                           rounded-full
+                           border border-cyan/20
+                           bg-[#071513]/80
+                           px-3 py-1.5
+                           text-[10px]
+                           font-bold uppercase
+                           tracking-[.15em]
+                           text-cyan
+                           backdrop-blur-md"
+                  >
+
+                    <span
+                      class="h-1.5 w-1.5
+                             rounded-full
+                             bg-cyan"
+                      aria-hidden="true"
+                    ></span>
+
+                    Active
+
+                  </span>
+
+                </div>
+
+
+                <!-- RELIC NUMBER -->
+
+                <div
+                  class="absolute
+                         right-4 top-4
+                         font-display
+                         text-xs font-bold
+                         text-white/25"
+                >
+
+                  RELIC / 01
+
+                </div>
+
+
+                <!-- 3D CTA -->
+
+                <div
+                  class="absolute
+                         bottom-4
+                         right-4
+                         rounded-full
+                         border border-white/10
+                         bg-black/50
+                         px-3 py-1.5
+                         text-[10px]
+                         font-bold uppercase
+                         tracking-[.15em]
+                         text-white/60
+                         backdrop-blur-md"
+                >
+
+                  ↗ 3D Explorer
 
                 </div>
 
               </div>
 
+            </a>
 
-              <div class="absolute left-4 top-4">
 
-                <span
-                  class="inline-flex items-center gap-2 rounded-full
-                         border border-cyan/20
-                         bg-[#071513]/80 px-3 py-1.5
-                         text-[10px] font-bold uppercase
-                         tracking-[.15em] text-cyan
-                         backdrop-blur-md"
-                >
+            <!-- CARD INFORMATION -->
 
-                  <span
-                    class="h-1.5 w-1.5 rounded-full bg-cyan"
-                  ></span>
-
-                  Active
-
-                </span>
-
-              </div>
+            <div
+              class="p-4 pb-5 pt-5"
+            >
 
 
               <div
-                class="absolute right-4 top-4 font-display
-                       text-xs font-bold text-white/25"
-              >
-                RELIC / 01
-              </div>
-
-            </div>
-
-
-            <div class="p-4 pb-5 pt-5">
-
-              <div
-                class="mb-3 flex items-start
-                       justify-between gap-4"
+                class="mb-3 flex
+                       items-start
+                       justify-between
+                       gap-4"
               >
 
                 <div>
 
                   <p
-                    class="mb-1 text-[10px] font-bold uppercase
-                           tracking-[.2em] text-gold"
+                    id="hardware-program"
+                    class="mb-1 text-[10px]
+                           font-bold uppercase
+                           tracking-[.2em]
+                           text-gold"
                   >
+
                     Voyager Program · 1977
+
                   </p>
 
+
                   <h3
-                    class="font-display text-2xl font-bold
+                    id="hardware-name"
+                    class="font-display
+                           text-2xl font-bold
                            tracking-tight"
                   >
+
                     Voyager 1
+
                   </h3>
 
                 </div>
 
 
                 <div
-                  class="flex h-10 w-10 shrink-0
-                         items-center justify-center
-                         rounded-full border border-white/10
-                         text-white/45 transition
-                         group-hover:border-gold/30
-                         group-hover:bg-gold/10
-                         group-hover:text-gold"
+                  class="arrow-button
+                         flex h-10 w-10
+                         shrink-0
+                         items-center
+                         justify-center
+                         rounded-full
+                         border border-white/10
+                         text-white/45"
+                  aria-hidden="true"
                 >
+
                   ↗
+
                 </div>
 
               </div>
 
 
-              <p class="text-sm leading-6 text-white/45">
-                The most distant human-made object — carrying a golden
-                message from Earth into interstellar space.
+              <!-- DESCRIPTION -->
+
+              <p
+                id="hardware-description"
+                class="text-sm
+                       leading-6
+                       text-white/45"
+              >
+
+                The most distant
+                human-made object —
+                carrying a golden message
+                from Earth into
+                interstellar space.
+
               </p>
 
 
+              <!-- DIVIDER -->
+
               <div
-                class="my-5 h-px bg-gradient-to-r
-                       from-transparent via-white/10
+                class="my-5 h-px
+                       bg-gradient-to-r
+                       from-transparent
+                       via-white/10
                        to-transparent"
               ></div>
 
 
+              <!-- SCIENCE -->
+
               <div>
 
-                <div class="mb-3 flex items-center gap-2">
-
-                  <span class="text-sm">🔬</span>
+                <div
+                  class="mb-3
+                         flex items-center gap-2"
+                >
 
                   <span
-                    class="text-[10px] font-bold uppercase
-                           tracking-[.18em] text-white/35"
+                    class="text-sm"
+                    aria-hidden="true"
                   >
+                    🔬
+                  </span>
+
+
+                  <span
+                    class="text-[10px]
+                           font-bold uppercase
+                           tracking-[.18em]
+                           text-white/35"
+                  >
+
                     Science unlocked
+
                   </span>
 
                 </div>
 
 
-                <div class="flex flex-wrap gap-2">
+                <div
+                  id="hardware-science"
+                  class="flex flex-wrap gap-2"
+                >
 
                   <span
-                    class="rounded-full bg-white/[.05]
-                           px-3 py-1.5 text-xs text-white/60"
+                    class="rounded-full
+                           bg-white/[.05]
+                           px-3 py-1.5
+                           text-xs
+                           text-white/60"
                   >
                     Jupiter's rings
                   </span>
 
+
                   <span
-                    class="rounded-full bg-white/[.05]
-                           px-3 py-1.5 text-xs text-white/60"
+                    class="rounded-full
+                           bg-white/[.05]
+                           px-3 py-1.5
+                           text-xs
+                           text-white/60"
                   >
                     Io volcanoes
                   </span>
 
+
                   <span
-                    class="rounded-full bg-white/[.05]
-                           px-3 py-1.5 text-xs text-white/60"
+                    class="rounded-full
+                           bg-white/[.05]
+                           px-3 py-1.5
+                           text-xs
+                           text-white/60"
                   >
                     Interstellar plasma
                   </span>
@@ -917,26 +1744,41 @@
               </div>
 
 
+              <!-- METADATA -->
+
               <div
-                class="mt-6 grid grid-cols-2 gap-3
-                       rounded-2xl border border-white/[.06]
+                class="mt-6 grid
+                       grid-cols-2 gap-3
+                       rounded-2xl
+                       border border-white/[.06]
                        bg-black/20 p-3"
               >
 
                 <div>
 
                   <div
-                    class="text-[9px] font-bold uppercase
-                           tracking-[.15em] text-white/25"
+                    class="text-[9px]
+                           font-bold uppercase
+                           tracking-[.15em]
+                           text-white/25"
                   >
+
                     Distance
+
                   </div>
 
+
                   <div
-                    class="mt-1 font-display text-sm
-                           font-semibold text-white/75"
+                    id="hardware-distance"
+                    class="mt-1
+                           font-display
+                           text-sm
+                           font-semibold
+                           text-white/75"
                   >
+
                     25B+ km
+
                   </div>
 
                 </div>
@@ -945,17 +1787,28 @@
                 <div>
 
                   <div
-                    class="text-[9px] font-bold uppercase
-                           tracking-[.15em] text-white/25"
+                    class="text-[9px]
+                           font-bold uppercase
+                           tracking-[.15em]
+                           text-white/25"
                   >
+
                     Destination
+
                   </div>
 
+
                   <div
-                    class="mt-1 font-display text-sm
-                           font-semibold text-white/75"
+                    id="hardware-destination"
+                    class="mt-1
+                           font-display
+                           text-sm
+                           font-semibold
+                           text-white/75"
                   >
+
                     Interstellar
+
                   </div>
 
                 </div>
@@ -973,23 +1826,36 @@
     </section>
 
 
-    <!-- =========================================================
-         3D EXPLORER
-    ========================================================== -->
+    <!-- =======================================================
+         3D EXPLORER PROMO
+
+         IMPORTANT:
+         NO MODEL-VIEWER HERE.
+
+         This section is intentionally lightweight.
+         Clicking it takes the user to explorer.html.
+    ======================================================== -->
 
     <section
-      id="viewer"
-      class="mx-auto max-w-7xl scroll-mt-28 px-6 py-24 lg:px-8"
+      id="explorer"
+      class="mx-auto max-w-7xl
+             scroll-mt-28
+             px-6 py-24
+             lg:px-8"
     >
 
+
       <div
-        class="spotlight-card spotlight-cyan
-               group relative overflow-hidden
+        class="spotlight-card
+               spotlight-cyan
+               group relative
+               overflow-hidden
                rounded-[34px]
                shadow-glow"
       >
 
-        <!-- Spotlight -->
+
+        <!-- SPOTLIGHT -->
 
         <div
           class="spotlight-overlay"
@@ -997,45 +1863,80 @@
         ></div>
 
 
-        <!-- Content -->
+        <!-- CONTENT -->
 
-        <div class="relative z-10">
+        <div
+          class="relative z-10"
+        >
 
-          <div class="grid lg:grid-cols-[.8fr_1.2fr]">
+          <div
+            class="grid
+                   lg:grid-cols-[.8fr_1.2fr]"
+          >
+
+
+            <!-- TEXT -->
 
             <div
-              class="flex flex-col justify-center
-                     border-b border-white/10 p-8
-                     sm:p-12 lg:border-b-0 lg:border-r"
+              class="flex flex-col
+                     justify-center
+                     border-b
+                     border-white/10
+                     p-8
+                     sm:p-12
+                     lg:border-b-0
+                     lg:border-r"
             >
 
               <div
-                class="mb-5 text-xs font-bold uppercase
-                       tracking-[.25em] text-cyan"
+                class="mb-5
+                       text-xs font-bold
+                       uppercase
+                       tracking-[.25em]
+                       text-cyan"
               >
+
                 02 / Interactive Explorer
+
               </div>
 
+
               <h2
-                class="font-display text-4xl font-bold
-                       tracking-tight sm:text-5xl"
+                class="font-display
+                       text-4xl font-bold
+                       tracking-tight
+                       sm:text-5xl"
               >
+
                 Get closer than
+
                 <span class="warm-gradient">
                   the museum glass.
                 </span>
+
               </h2>
 
+
               <p
-                class="mt-6 max-w-lg leading-7 text-white/45"
+                class="mt-6 max-w-lg
+                       leading-7
+                       text-white/45"
               >
-                Rotate, zoom and inspect spacecraft in three dimensions.
-                Explore the machines that carried humanity's curiosity
-                farther than any person has travelled.
+
+                Rotate, zoom and inspect
+                spacecraft in three dimensions.
+                Explore the machines that carried
+                humanity's curiosity farther than
+                any person has travelled.
+
               </p>
 
 
-              <div class="mt-8 space-y-3">
+              <!-- BENEFITS -->
+
+              <div
+                class="mt-8 space-y-3"
+              >
 
                 <div
                   class="flex items-center gap-3
@@ -1043,9 +1944,12 @@
                 >
 
                   <div
-                    class="flex h-8 w-8 items-center
-                           justify-center rounded-lg
-                           bg-gold/10 text-gold"
+                    class="flex h-8 w-8
+                           items-center
+                           justify-center
+                           rounded-lg
+                           bg-gold/10
+                           text-gold"
                   >
                     ↻
                   </div>
@@ -1061,9 +1965,12 @@
                 >
 
                   <div
-                    class="flex h-8 w-8 items-center
-                           justify-center rounded-lg
-                           bg-cyan/10 text-cyan"
+                    class="flex h-8 w-8
+                           items-center
+                           justify-center
+                           rounded-lg
+                           bg-cyan/10
+                           text-cyan"
                   >
                     +
                   </div>
@@ -1079,9 +1986,12 @@
                 >
 
                   <div
-                    class="flex h-8 w-8 items-center
-                           justify-center rounded-lg
-                           bg-coral/10 text-coral"
+                    class="flex h-8 w-8
+                           items-center
+                           justify-center
+                           rounded-lg
+                           bg-coral/10
+                           text-coral"
                   >
                     ✦
                   </div>
@@ -1092,75 +2002,230 @@
 
               </div>
 
+
+              <!-- EXPLORER CTA -->
+
+              <a
+                href="explorer.html"
+                class="mt-9 inline-flex
+                       w-fit items-center gap-3
+                       rounded-full
+                       bg-cyan
+                       px-6 py-3
+                       font-bold
+                       text-obsidian
+                       transition
+                       hover:-translate-y-1
+                       hover:bg-[#76FFF3]"
+              >
+
+                Open 3D Explorer
+
+                <span
+                  class="transition-transform
+                         group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+
+              </a>
+
             </div>
 
 
+            <!-- LIGHTWEIGHT VISUAL -->
+
             <div
-              class="relative min-h-[500px]
-                     bg-[radial-gradient(circle_at_center,rgba(255,184,77,.08),transparent_55%)]"
+              class="relative
+                     min-h-[430px]
+                     overflow-hidden
+                     bg-[radial-gradient(circle_at_center,rgba(255,184,77,.10),transparent_55%)]"
             >
 
-              <model-viewer
-                id="spacecraft-model"
-                src=""
-                alt="Interactive 3D spacecraft model"
-                camera-controls
-                auto-rotate
-                rotation-per-second="12deg"
-                shadow-intensity="1"
-                exposure="1.1"
-                environment-image="neutral"
-                interaction-prompt="auto"
-              >
-              </model-viewer>
+
+              <!-- Cosmic glow -->
+
+              <div
+                class="absolute
+                       left-1/2 top-1/2
+                       h-72 w-72
+                       -translate-x-1/2
+                       -translate-y-1/2
+                       rounded-full
+                       bg-cyan/[.05]
+                       blur-[90px]"
+                aria-hidden="true"
+              ></div>
+
+
+              <!-- Orbit -->
+
+              <div
+                class="absolute
+                       left-1/2 top-1/2
+                       h-64 w-64
+                       -translate-x-1/2
+                       -translate-y-1/2
+                       rounded-full
+                       border
+                       border-cyan/10
+                       rotate-[-20deg]"
+                aria-hidden="true"
+              ></div>
 
 
               <div
-                class="absolute left-5 top-5 rounded-full
-                       border border-white/10 bg-black/40
-                       px-3 py-1.5 text-[10px]
-                       font-bold uppercase tracking-[.16em]
-                       text-white/55 backdrop-blur-xl"
+                class="absolute
+                       left-1/2 top-1/2
+                       h-48 w-48
+                       -translate-x-1/2
+                       -translate-y-1/2
+                       rounded-full
+                       border
+                       border-gold/10
+                       rotate-[30deg]"
+                aria-hidden="true"
+              ></div>
+
+
+              <!-- Lightweight spacecraft -->
+
+              <div
+                class="absolute
+                       left-1/2 top-1/2
+                       -translate-x-1/2
+                       -translate-y-1/2
+                       scale-125"
+                aria-hidden="true"
               >
-                ◉ Interactive model
+
+                <div
+                  class="relative h-24 w-32"
+                >
+
+                  <div
+                    class="absolute
+                           left-10 top-5
+                           h-14 w-12
+                           rounded-lg
+                           border
+                           border-gold/40
+                           bg-gradient-to-br
+                           from-gold/30
+                           to-amber/5
+                           shadow-[0_0_70px_rgba(255,184,77,.20)]"
+                  ></div>
+
+
+                  <div
+                    class="absolute
+                           left-[-35px]
+                           top-8
+                           h-10 w-12
+                           border
+                           border-cyan/20
+                           bg-cyan/5"
+                  ></div>
+
+
+                  <div
+                    class="absolute
+                           right-[-35px]
+                           top-8
+                           h-10 w-12
+                           border
+                           border-cyan/20
+                           bg-cyan/5"
+                  ></div>
+
+
+                  <div
+                    class="absolute
+                           left-[58px]
+                           top-[-25px]
+                           h-7 w-7
+                           rounded-full
+                           border
+                           border-white/25"
+                  ></div>
+
+                </div>
+
               </div>
 
 
+              <!-- 3D badge -->
+
               <div
-                class="absolute bottom-5 left-5 right-5
-                       flex items-center justify-between
-                       rounded-2xl border border-white/10
-                       bg-black/40 px-4 py-3
+                class="absolute
+                       left-5 top-5
+                       rounded-full
+                       border border-white/10
+                       bg-black/40
+                       px-3 py-1.5
+                       text-[10px]
+                       font-bold uppercase
+                       tracking-[.16em]
+                       text-white/55
                        backdrop-blur-xl"
+              >
+
+                ◉ 3D EXPLORER
+
+              </div>
+
+
+              <!-- Bottom CTA -->
+
+              <a
+                href="explorer.html"
+                class="absolute
+                       bottom-5
+                       left-5 right-5
+                       flex items-center
+                       justify-between
+                       rounded-2xl
+                       border border-white/10
+                       bg-black/40
+                       px-4 py-3
+                       backdrop-blur-xl
+                       transition
+                       hover:border-cyan/30
+                       hover:bg-black/55"
               >
 
                 <div>
 
                   <div
-                    class="text-[9px] font-bold uppercase
-                           tracking-[.18em] text-white/30"
+                    class="text-[9px]
+                           font-bold uppercase
+                           tracking-[.18em]
+                           text-white/30"
                   >
-                    Now viewing
+                    Next destination
                   </div>
 
+
                   <div
-                    class="mt-1 font-display text-sm
-                           font-semibold"
+                    class="mt-1
+                           font-display
+                           text-sm font-semibold"
                   >
-                    Select a relic
+                    Enter the spacecraft lab
                   </div>
 
                 </div>
 
 
                 <span
-                  class="rounded-full bg-gold/10 px-3 py-1
-                         text-xs font-semibold text-gold"
+                  class="text-cyan"
+                  aria-hidden="true"
                 >
-                  3D
+                  →
                 </span>
 
-              </div>
+              </a>
 
             </div>
 
@@ -1173,52 +2238,87 @@
     </section>
 
 
-    <!-- =========================================================
+    <!-- =======================================================
          SCIENCE
-    ========================================================== -->
+    ======================================================== -->
 
     <section
       id="science"
-      class="mx-auto max-w-7xl scroll-mt-28 px-6 py-24 lg:px-8"
+      class="mx-auto max-w-7xl
+             scroll-mt-28
+             px-6 py-24
+             lg:px-8"
     >
 
-      <div class="mx-auto max-w-3xl text-center">
+
+      <!-- SECTION INTRO -->
+
+      <div
+        class="mx-auto max-w-3xl
+               text-center"
+      >
 
         <div
-          class="mb-4 text-xs font-bold uppercase
-                 tracking-[.25em] text-gold"
+          class="mb-4 text-xs
+                 font-bold uppercase
+                 tracking-[.25em]
+                 text-gold"
         >
+
           03 / Why they matter
+
         </div>
 
+
         <h2
-          class="font-display text-4xl font-bold
-                 tracking-tight sm:text-5xl"
+          class="font-display
+                 text-4xl font-bold
+                 tracking-tight
+                 sm:text-5xl"
         >
+
           Every relic left us
+
           <span class="warm-gradient">
             a piece of the universe.
           </span>
+
         </h2>
 
+
         <p
-          class="mx-auto mt-5 max-w-2xl leading-7 text-white/45"
+          class="mx-auto mt-5
+                 max-w-2xl
+                 leading-7
+                 text-white/45"
         >
-          These spacecraft aren't just machines. They're our eyes,
-          ears and fingerprints across the Solar System.
+
+          These spacecraft aren't just machines.
+          They're our eyes, ears and fingerprints
+          across the Solar System.
+
         </p>
 
       </div>
 
 
-      <div class="mt-14 grid gap-5 md:grid-cols-3">
+      <!-- SCIENCE CARDS -->
+
+      <div
+        class="mt-14 grid
+               gap-5
+               md:grid-cols-3"
+      >
 
 
-        <!-- Science Card 1 -->
+        <!-- SCIENCE CARD 1 -->
 
         <article
-          class="spotlight-card group relative overflow-hidden
-                 rounded-[26px] p-7"
+          class="spotlight-card
+                 group relative
+                 overflow-hidden
+                 rounded-[26px]
+                 p-7"
         >
 
           <div
@@ -1226,32 +2326,58 @@
             aria-hidden="true"
           ></div>
 
-          <div class="relative z-10">
+
+          <div
+            class="relative z-10"
+          >
 
             <div
-              class="mb-6 flex h-12 w-12 items-center
-                     justify-center rounded-2xl bg-gold/10 text-xl"
+              class="mb-6 flex h-12 w-12
+                     items-center
+                     justify-center
+                     rounded-2xl
+                     bg-gold/10
+                     text-xl"
+              aria-hidden="true"
             >
               🌋
             </div>
 
+
             <div
-              class="mb-2 text-[10px] font-bold uppercase
-                     tracking-[.2em] text-gold"
+              class="mb-2 text-[10px]
+                     font-bold uppercase
+                     tracking-[.2em]
+                     text-gold"
             >
+
               Discovery 01
+
             </div>
 
-            <h3 class="font-display text-xl font-bold">
+
+            <h3
+              class="font-display
+                     text-xl font-bold"
+            >
+
               Worlds can be alive
+
             </h3>
 
+
             <p
-              class="mt-3 text-sm leading-6 text-white/45"
+              class="mt-3 text-sm
+                     leading-6
+                     text-white/45"
             >
-              Robotic explorers revealed active volcanoes, moving
-              atmospheres and dynamic geology on worlds once thought
-              frozen and dead.
+
+              Robotic explorers revealed
+              active volcanoes, moving
+              atmospheres and dynamic
+              geology on worlds once
+              thought frozen and dead.
+
             </p>
 
           </div>
@@ -1259,11 +2385,14 @@
         </article>
 
 
-        <!-- Science Card 2 -->
+        <!-- SCIENCE CARD 2 -->
 
         <article
-          class="spotlight-card group relative overflow-hidden
-                 rounded-[26px] p-7"
+          class="spotlight-card
+                 group relative
+                 overflow-hidden
+                 rounded-[26px]
+                 p-7"
         >
 
           <div
@@ -1271,32 +2400,58 @@
             aria-hidden="true"
           ></div>
 
-          <div class="relative z-10">
+
+          <div
+            class="relative z-10"
+          >
 
             <div
-              class="mb-6 flex h-12 w-12 items-center
-                     justify-center rounded-2xl bg-cyan/10 text-xl"
+              class="mb-6 flex h-12 w-12
+                     items-center
+                     justify-center
+                     rounded-2xl
+                     bg-cyan/10
+                     text-xl"
+              aria-hidden="true"
             >
               💧
             </div>
 
+
             <div
-              class="mb-2 text-[10px] font-bold uppercase
-                     tracking-[.2em] text-cyan"
+              class="mb-2 text-[10px]
+                     font-bold uppercase
+                     tracking-[.2em]
+                     text-cyan"
             >
+
               Discovery 02
+
             </div>
 
-            <h3 class="font-display text-xl font-bold">
+
+            <h3
+              class="font-display
+                     text-xl font-bold"
+            >
+
               Water is everywhere
+
             </h3>
 
+
             <p
-              class="mt-3 text-sm leading-6 text-white/45"
+              class="mt-3 text-sm
+                     leading-6
+                     text-white/45"
             >
-              Missions found evidence of ancient rivers, buried ice
-              and enormous oceans hidden beneath the crusts of
+
+              Missions found evidence of
+              ancient rivers, buried ice
+              and enormous oceans hidden
+              beneath the crusts of
               distant moons.
+
             </p>
 
           </div>
@@ -1304,11 +2459,14 @@
         </article>
 
 
-        <!-- Science Card 3 -->
+        <!-- SCIENCE CARD 3 -->
 
         <article
-          class="spotlight-card group relative overflow-hidden
-                 rounded-[26px] p-7"
+          class="spotlight-card
+                 group relative
+                 overflow-hidden
+                 rounded-[26px]
+                 p-7"
         >
 
           <div
@@ -1316,32 +2474,58 @@
             aria-hidden="true"
           ></div>
 
-          <div class="relative z-10">
+
+          <div
+            class="relative z-10"
+          >
 
             <div
-              class="mb-6 flex h-12 w-12 items-center
-                     justify-center rounded-2xl bg-coral/10 text-xl"
+              class="mb-6 flex h-12 w-12
+                     items-center
+                     justify-center
+                     rounded-2xl
+                     bg-coral/10
+                     text-xl"
+              aria-hidden="true"
             >
               📡
             </div>
 
+
             <div
-              class="mb-2 text-[10px] font-bold uppercase
-                     tracking-[.2em] text-coral"
+              class="mb-2 text-[10px]
+                     font-bold uppercase
+                     tracking-[.2em]
+                     text-coral"
             >
+
               Discovery 03
+
             </div>
 
-            <h3 class="font-display text-xl font-bold">
+
+            <h3
+              class="font-display
+                     text-xl font-bold"
+            >
+
               The frontier never ends
+
             </h3>
 
+
             <p
-              class="mt-3 text-sm leading-6 text-white/45"
+              class="mt-3 text-sm
+                     leading-6
+                     text-white/45"
             >
-              Some explorers continue sending measurements decades
-              after launch, carrying our instruments beyond the
-              planets and toward interstellar space.
+
+              Some explorers continue
+              sending measurements decades
+              after launch, carrying our
+              instruments beyond the planets
+              and toward interstellar space.
+
             </p>
 
           </div>
@@ -1359,33 +2543,50 @@
        FOOTER
   ========================================================== -->
 
-  <footer class="border-t border-white/[.07]">
+  <footer>
 
     <div
-      class="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-10
-             sm:flex-row sm:items-center sm:justify-between
+      class="mx-auto flex max-w-7xl
+             flex-col gap-5
+             px-6 py-10
+             sm:flex-row
+             sm:items-center
+             sm:justify-between
              lg:px-8"
     >
 
       <div>
 
-        <div class="font-display font-bold">
+        <div
+          class="font-display font-bold"
+        >
           Relics of the Solar System
         </div>
 
-        <div class="mt-1 text-xs text-white/30">
-          Built with curiosity for NASA Space Apps.
+
+        <div
+          class="mt-1 text-xs
+                 text-white/30"
+        >
+          Built with curiosity for
+          NASA Space Apps.
         </div>
 
       </div>
 
 
       <div
-        class="text-xs leading-5 text-white/25
-               sm:max-w-sm sm:text-right"
+        class="text-xs
+               leading-5
+               text-white/25
+               sm:max-w-sm
+               sm:text-right"
       >
-        Educational exploration experience inspired by humanity's
-        robotic missions across the Solar System.
+
+        Educational exploration experience
+        inspired by humanity's robotic
+        missions across the Solar System.
+
       </div>
 
     </div>
@@ -1394,23 +2595,41 @@
 
 
   <!-- =========================================================
-       YOUR EXISTING APP JAVASCRIPT
+       PERSON 2'S APPLICATION JAVASCRIPT
+
+       DO NOT REMOVE THIS.
+
+       Person 2 owns:
+       - hardware.json
+       - dynamic card rendering
+       - filtering
+       - application/data logic
+       - navigation/data binding
   ========================================================== -->
 
   <script src="js/app.js"></script>
 
 
   <!-- =========================================================
-       MOUSE-TRACKING SPOTLIGHT
+       UI-ONLY MOUSE SPOTLIGHT
+
+       This script does NOT handle application data.
+       It only controls the visual cursor glow.
   ========================================================== -->
 
   <script>
 
     (() => {
 
-      const cards = document.querySelectorAll(".spotlight-card");
+      const cards =
+        document.querySelectorAll(
+          ".spotlight-card"
+        );
 
-      if (!cards.length) return;
+
+      if (!cards.length) {
+        return;
+      }
 
 
       cards.forEach((card) => {
@@ -1418,38 +2637,52 @@
         let rect = null;
 
 
-        const updatePosition = (event) => {
-
-          rect = rect || card.getBoundingClientRect();
-
-          const x = event.clientX - rect.left;
-          const y = event.clientY - rect.top;
-
-          card.style.setProperty(
-            "--mouse-x",
-            `${x}px`
-          );
-
-          card.style.setProperty(
-            "--mouse-y",
-            `${y}px`
-          );
-
-        };
-
-
         const handleEnter = () => {
 
-          rect = card.getBoundingClientRect();
+          rect =
+            card.getBoundingClientRect();
+
 
           card.style.setProperty(
             "--mouse-x",
             `${rect.width / 2}px`
           );
 
+
           card.style.setProperty(
             "--mouse-y",
             `${rect.height / 2}px`
+          );
+
+        };
+
+
+        const handleMove = (event) => {
+
+          rect =
+            rect ||
+            card.getBoundingClientRect();
+
+
+          const x =
+            event.clientX -
+            rect.left;
+
+
+          const y =
+            event.clientY -
+            rect.top;
+
+
+          card.style.setProperty(
+            "--mouse-x",
+            `${x}px`
+          );
+
+
+          card.style.setProperty(
+            "--mouse-y",
+            `${y}px`
           );
 
         };
@@ -1462,10 +2695,12 @@
             "50%"
           );
 
+
           card.style.setProperty(
             "--mouse-y",
             "50%"
           );
+
 
           rect = null;
 
@@ -1475,19 +2710,27 @@
         card.addEventListener(
           "mouseenter",
           handleEnter,
-          { passive: true }
+          {
+            passive: true
+          }
         );
+
 
         card.addEventListener(
           "mousemove",
-          updatePosition,
-          { passive: true }
+          handleMove,
+          {
+            passive: true
+          }
         );
+
 
         card.addEventListener(
           "mouseleave",
           handleLeave,
-          { passive: true }
+          {
+            passive: true
+          }
         );
 
       });
@@ -1497,567 +2740,7 @@
   </script>
 
 
-  <!-- =========================================================
-       HARDWARE DATA + CARD GENERATION
-  ========================================================== -->
-
-  <script>
-
-    const hardwareGrid =
-      document.getElementById("hardware-grid");
-
-    const modelViewer =
-      document.getElementById("spacecraft-model");
-
-
-    function getStatusStyles(status = "") {
-
-      const value = status.toLowerCase();
-
-      if (value === "active") {
-
-        return {
-          badge: "border-cyan/20 bg-cyan/10 text-cyan",
-          dot: "bg-cyan"
-        };
-
-      }
-
-
-      if (value === "interstellar") {
-
-        return {
-          badge: "border-gold/20 bg-gold/10 text-gold",
-          dot: "bg-gold"
-        };
-
-      }
-
-
-      return {
-        badge: "border-white/10 bg-white/[.06] text-white/45",
-        dot: "bg-white/40"
-      };
-
-    }
-
-
-    function createHardwareCard(item, index) {
-
-      const status =
-        getStatusStyles(item.status);
-
-
-      const scienceFacts =
-        Array.isArray(item.science)
-          ? item.science
-          : [];
-
-
-      const article =
-        document.createElement("article");
-
-
-      article.className =
-        "spotlight-card group relative overflow-hidden rounded-[28px] p-3";
-
-
-      article.innerHTML = `
-
-        <!-- Mouse-tracking spotlight -->
-
-        <div
-          class="spotlight-overlay"
-          aria-hidden="true"
-        ></div>
-
-
-        <!-- Card content -->
-
-        <div class="relative z-10">
-
-          <div
-            class="relative h-56 overflow-hidden rounded-[22px]
-                   bg-gradient-to-br from-[#251526]
-                   via-[#171018] to-[#0d090e]"
-          >
-
-            ${
-              item.image
-                ? `
-                  <img
-                    src="${item.image}"
-                    alt="${item.name || "Spacecraft"}"
-                    class="h-full w-full object-cover
-                           opacity-80 transition duration-500
-                           group-hover:scale-105"
-                    loading="lazy"
-                  />
-                `
-                : `
-                  <div
-                    class="absolute inset-0
-                           bg-[radial-gradient(circle_at_center,rgba(255,184,77,.12),transparent_45%)]"
-                  ></div>
-
-                  <div
-                    class="absolute inset-0 flex items-center
-                           justify-center text-5xl opacity-60"
-                    aria-hidden="true"
-                  >
-                    🛰️
-                  </div>
-                `
-            }
-
-
-            <div
-              class="absolute inset-x-0 bottom-0 h-24
-                     bg-gradient-to-t from-black/70
-                     to-transparent"
-            ></div>
-
-
-            <div class="absolute left-4 top-4">
-
-              <span
-                class="inline-flex items-center gap-2 rounded-full
-                       border px-3 py-1.5 text-[10px]
-                       font-bold uppercase tracking-[.15em]
-                       backdrop-blur-md
-                       ${status.badge}"
-              >
-
-                <span
-                  class="h-1.5 w-1.5 rounded-full
-                         ${status.dot}"
-                ></span>
-
-                ${item.status || "Unknown"}
-
-              </span>
-
-            </div>
-
-
-            <div
-              class="absolute right-4 top-4 font-display
-                     text-xs font-bold text-white/40"
-            >
-              RELIC /
-              ${String(index + 1).padStart(2, "0")}
-            </div>
-
-          </div>
-
-
-          <div class="p-4 pb-5 pt-5">
-
-            <div
-              class="mb-3 flex items-start
-                     justify-between gap-4"
-            >
-
-              <div>
-
-                <p
-                  class="mb-1 text-[10px] font-bold uppercase
-                         tracking-[.2em] text-gold"
-                >
-                  ${item.program || "Space Mission"}
-
-                  ${
-                    item.year
-                      ? ` · ${item.year}`
-                      : ""
-                  }
-
-                </p>
-
-                <h3
-                  class="font-display text-2xl font-bold
-                         tracking-tight"
-                >
-                  ${item.name || "Unknown Relic"}
-                </h3>
-
-              </div>
-
-
-              <div
-                class="flex h-10 w-10 shrink-0
-                       items-center justify-center
-                       rounded-full border border-white/10
-                       text-white/45 transition
-                       group-hover:border-gold/30
-                       group-hover:bg-gold/10
-                       group-hover:text-gold"
-              >
-                ↗
-              </div>
-
-            </div>
-
-
-            <p
-              class="text-sm leading-6 text-white/45"
-            >
-              ${
-                item.description ||
-                "A robotic explorer from humanity's journey across the Solar System."
-              }
-            </p>
-
-
-            <div
-              class="my-5 h-px bg-gradient-to-r
-                     from-transparent via-white/10
-                     to-transparent"
-            ></div>
-
-
-            <div>
-
-              <div class="mb-3 flex items-center gap-2">
-
-                <span>🔬</span>
-
-                <span
-                  class="text-[10px] font-bold uppercase
-                         tracking-[.18em] text-white/35"
-                >
-                  Science unlocked
-                </span>
-
-              </div>
-
-
-              <div class="flex flex-wrap gap-2">
-
-                ${
-                  scienceFacts.length
-                    ? scienceFacts
-                        .map(
-                          (fact) => `
-                            <span
-                              class="rounded-full
-                                     bg-white/[.05]
-                                     px-3 py-1.5
-                                     text-xs text-white/60"
-                            >
-                              ${fact}
-                            </span>
-                          `
-                        )
-                        .join("")
-                    : `
-                      <span
-                        class="text-xs italic text-white/30"
-                      >
-                        Mission discoveries
-                      </span>
-                    `
-                }
-
-              </div>
-
-            </div>
-
-
-            <div
-              class="mt-6 grid grid-cols-2 gap-3
-                     rounded-2xl border border-white/[.06]
-                     bg-black/20 p-3"
-            >
-
-              <div>
-
-                <div
-                  class="text-[9px] font-bold uppercase
-                         tracking-[.15em] text-white/25"
-                >
-                  Distance
-                </div>
-
-                <div
-                  class="mt-1 font-display text-sm
-                         font-semibold text-white/75"
-                >
-                  ${item.distance || "—"}
-                </div>
-
-              </div>
-
-
-              <div>
-
-                <div
-                  class="text-[9px] font-bold uppercase
-                         tracking-[.15em] text-white/25"
-                >
-                  Destination
-                </div>
-
-                <div
-                  class="mt-1 font-display text-sm
-                         font-semibold text-white/75"
-                >
-                  ${item.destination || "Deep Space"}
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-
-      /*
-       * Clicking a relic loads its 3D model.
-       */
-
-      article.addEventListener("click", () => {
-
-        if (!item.model) return;
-
-
-        modelViewer.src = item.model;
-
-
-        const nowViewing =
-          document.querySelector(
-            "#viewer .absolute.bottom-5 .font-display"
-          );
-
-
-        if (nowViewing) {
-          nowViewing.textContent = item.name;
-        }
-
-
-        document
-          .getElementById("viewer")
-          .scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-
-      });
-
-
-      /*
-       * IMPORTANT:
-       *
-       * The cards are created dynamically AFTER the original
-       * spotlight script runs.
-       *
-       * Therefore the dynamically-created card gets its own
-       * mouse listeners here.
-       */
-
-      setupSpotlight(article);
-
-
-      return article;
-
-    }
-
-
-    /*
-     * =========================================================
-     * SPOTLIGHT INITIALIZER
-     * =========================================================
-     *
-     * This function is shared by:
-     *
-     * 1. Static cards already in HTML
-     * 2. Cards dynamically loaded from hardware.json
-     */
-
-    function setupSpotlight(card) {
-
-      let rect = null;
-
-
-      const updatePosition = (event) => {
-
-        rect =
-          rect ||
-          card.getBoundingClientRect();
-
-
-        const x =
-          event.clientX - rect.left;
-
-
-        const y =
-          event.clientY - rect.top;
-
-
-        card.style.setProperty(
-          "--mouse-x",
-          `${x}px`
-        );
-
-
-        card.style.setProperty(
-          "--mouse-y",
-          `${y}px`
-        );
-
-      };
-
-
-      const handleEnter = () => {
-
-        rect =
-          card.getBoundingClientRect();
-
-
-        card.style.setProperty(
-          "--mouse-x",
-          `${rect.width / 2}px`
-        );
-
-
-        card.style.setProperty(
-          "--mouse-y",
-          `${rect.height / 2}px`
-        );
-
-      };
-
-
-      const handleLeave = () => {
-
-        card.style.setProperty(
-          "--mouse-x",
-          "50%"
-        );
-
-
-        card.style.setProperty(
-          "--mouse-y",
-          "50%"
-        );
-
-
-        rect = null;
-
-      };
-
-
-      card.addEventListener(
-        "mouseenter",
-        handleEnter,
-        { passive: true }
-      );
-
-
-      card.addEventListener(
-        "mousemove",
-        updatePosition,
-        { passive: true }
-      );
-
-
-      card.addEventListener(
-        "mouseleave",
-        handleLeave,
-        { passive: true }
-      );
-
-    }
-
-
-    /*
-     * Initialize spotlight on all static cards.
-     */
-
-    document
-      .querySelectorAll(".spotlight-card")
-      .forEach(setupSpotlight);
-
-
-    /*
-     * =========================================================
-     * LOAD HARDWARE JSON
-     * =========================================================
-     */
-
-    async function loadHardware() {
-
-      try {
-
-        const response =
-          await fetch("data/hardware.json");
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            `HTTP ${response.status}: Could not load hardware.json`
-          );
-
-        }
-
-
-        const hardware =
-          await response.json();
-
-
-        if (
-          !Array.isArray(hardware) ||
-          hardware.length === 0
-        ) {
-
-          return;
-
-        }
-
-
-        /*
-         * Remove the sample card once real data is available.
-         */
-
-        hardwareGrid.innerHTML = "";
-
-
-        hardware.forEach(
-          (item, index) => {
-
-            hardwareGrid.appendChild(
-              createHardwareCard(item, index)
-            );
-
-          }
-        );
-
-
-      } catch (error) {
-
-        /*
-         * The built-in Voyager card remains visible if
-         * hardware.json isn't available.
-         */
-
-        console.info(
-          "Relics Archive: using built-in preview card.",
-          error
-        );
-
-      }
-
-    }
-
-
-    loadHardware();
-
-  </script>
-
 </body>
+
 </html>
 ```
