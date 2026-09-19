@@ -1548,6 +1548,37 @@ body > header {
   }
 }
 
+      /* CINEMATIC INTRO — sticky viewport blueprint */
+    .intro-scroll{position:relative!important;height:300vh!important;width:100%!important}
+    .sticky-scene{position:sticky!important;top:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;background:#F1EFE9!important;isolation:isolate}
+    .museum-grid-bg,.intro-grid{position:absolute!important;inset:0!important;pointer-events:none!important;opacity:.34;background-image:linear-gradient(to right,rgba(36,35,33,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,35,33,.035) 1px,transparent 1px);background-size:64px 64px}
+    .saturn-viewport{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;z-index:2!important}
+    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(540px,46vw)!important;height:min(540px,46vw)!important;opacity:.82!important;color:#514E47!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
+    #intro-planet svg{display:block;width:100%;height:100%;overflow:visible}
+    #intro-planet-sphere,#intro-planet-orbit,#intro-ring-details{transform-box:fill-box;transform-origin:center;will-change:transform}
+    #intro-ring-details{stroke:#625E56}
+    .editorial-column{position:absolute!important;top:50%!important;left:max(7vw,2rem)!important;transform:translateY(-50%)!important;width:min(43vw,590px)!important;max-width:590px!important;z-index:10!important;pointer-events:none}
+    .editorial-column>*{pointer-events:auto}
+    #intro-title{position:relative!important;left:auto!important;top:auto!important;width:auto!important;max-width:14ch!important;margin:0 0 1.4rem!important;font-family:'Fraunces',serif!important;font-size:clamp(2.9rem,5.3vw,5rem)!important;line-height:.98!important;letter-spacing:-.035em!important;color:#151515!important;opacity:0!important;transform:translateY(90px)!important;will-change:opacity,transform}
+    #intro-title em{font-weight:300}
+    #intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:0!important;will-change:opacity,transform}
+    #intro-eyebrow{display:flex;align-items:center;gap:.55rem;margin:0 0 1rem;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#625F59;transform:translateY(20px)}
+    #intro-description{max-width:44ch;margin:0 0 1.8rem;color:#625F59;font-family:'IBM Plex Sans',sans-serif;font-size:1rem;line-height:1.65;font-weight:300;transform:translateY(20px)}
+    #intro-actions{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;transform:translateY(20px)}
+    #intro-readout{position:absolute!important;right:7vw!important;bottom:10vh!important;width:min(330px,28vw)!important;z-index:8!important;font-family:'IBM Plex Mono',monospace;color:#625F59;transform:translateY(18px)}
+    .intro-readout-head,.intro-readout-foot{display:flex;justify-content:space-between;gap:1rem;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+    .intro-readout-head{padding-bottom:.6rem;border-bottom:1px solid #D8D4CB}
+    .intro-readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1.5rem;padding:.8rem 0;border-bottom:1px solid #D8D4CB}
+    .intro-readout-grid small,.intro-readout-grid strong{display:block}.intro-readout-grid small{font-size:8px;color:#8A867D}.intro-readout-grid strong{margin-top:.2rem;font-size:9px;font-weight:400;color:#242321}
+    .intro-readout-foot{padding-top:.6rem;color:#8A867D}
+    body>header,body>aside[aria-label="Exhibit Metadata"]{transition:none!important;will-change:opacity}
+    .intro-mark-top{position:absolute!important;top:7vh!important;left:7vw!important;z-index:9!important;display:flex;gap:1rem;font:9px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8A867D}
+    .intro-mark-bottom{position:absolute!important;bottom:5vh!important;left:7vw!important;z-index:9!important;display:flex;align-items:center;gap:.75rem;font:9px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8A867D}
+    .intro-scroll-line{width:42px;height:1px;background:#B9B4AA}
+    @media(max-width:900px){.intro-scroll{height:270vh!important}#intro-planet.saturn-canvas-wrapper{width:min(480px,58vw)!important;height:min(480px,58vw)!important}.editorial-column{left:6vw!important;width:50vw!important}#intro-title{font-size:clamp(2.5rem,6.8vw,4rem)!important}.intro-readout{right:5vw!important;width:30vw!important}}
+    @media(max-width:640px){.intro-scroll{height:250vh!important}#intro-planet.saturn-canvas-wrapper{width:min(390px,72vw)!important;height:min(390px,72vw)!important}.editorial-column{left:20px!important;top:52%!important;width:calc(100vw - 40px)!important;max-width:none!important}#intro-title{max-width:12ch!important;font-size:clamp(2.45rem,12vw,3.8rem)!important}.intro-readout{display:none!important}.intro-mark-top{top:4vh!important;left:20px!important}.intro-mark-bottom{left:20px!important}}
+    @media(prefers-reduced-motion:reduce){.intro-scroll{height:auto!important}.intro-planet.saturn-canvas-wrapper{transform:translate3d(27vw,0,0) scale(.62)!important}.editorial-column{opacity:1!important}#intro-title,#intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:1!important;transform:none!important}body>header,body>aside[aria-label="Exhibit Metadata"]{opacity:1!important;pointer-events:auto!important}}
+
   </style>
 </head>
 
@@ -1630,106 +1661,76 @@ body > header {
 
     <!-- CINEMATIC SCROLL INTRO -->
     <section id="intro-scroll" class="intro-scroll" aria-label="Exhibition introduction">
-      <div class="intro-stage">
-        <div class="intro-grid" aria-hidden="true"></div>
+      <div class="sticky-scene" id="sticky-scene">
+        <div class="museum-grid-bg" aria-hidden="true"></div>
 
-        <div id="intro-planet" class="intro-planet" aria-hidden="true">
-          <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Saturn wire mesh: the planet spins; the ring plane only tilts slowly. -->
-            <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.9">
-              <!-- Latitude mesh -->
-              <ellipse cx="300" cy="300" rx="205" ry="205"/>
-              <ellipse cx="300" cy="300" rx="205" ry="170"/>
-              <ellipse cx="300" cy="300" rx="205" ry="132"/>
-              <ellipse cx="300" cy="300" rx="205" ry="92"/>
-              <ellipse cx="300" cy="300" rx="205" ry="50"/>
-              <ellipse cx="300" cy="300" rx="205" ry="20" opacity=".72"/>
-              <!-- Longitude mesh -->
-              <ellipse cx="300" cy="300" rx="175" ry="205"/>
-              <ellipse cx="300" cy="300" rx="135" ry="205"/>
-              <ellipse cx="300" cy="300" rx="92" ry="205"/>
-              <ellipse cx="300" cy="300" rx="48" ry="205"/>
-              <!-- Slightly asymmetric meridian lines make the rotation readable -->
-              <path d="M300 95 C250 148 226 220 226 300 C226 380 250 452 300 505"/>
-              <path d="M300 95 C272 152 260 226 260 300 C260 374 272 448 300 505"/>
-              <path d="M300 95 C328 152 340 226 340 300 C340 374 328 448 300 505"/>
-              <path d="M300 95 C350 148 374 220 374 300 C374 380 350 452 300 505"/>
-            </g>
-
-            <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.9">
-              <ellipse cx="300" cy="300" rx="286" ry="74"/>
-              <ellipse cx="300" cy="300" rx="312" ry="88" opacity=".36"/>
-              <ellipse cx="300" cy="300" rx="255" ry="58" opacity=".5"/>
-            </g>
-
-            <!-- Saturn's rings: separate from the planet so their angle can evolve independently. -->
-            <g id="intro-ring-details" stroke="currentColor" stroke-width=".7" opacity=".62">
-              <ellipse cx="300" cy="300" rx="250" ry="61"/>
-              <ellipse cx="300" cy="300" rx="220" ry="51"/>
-              <ellipse cx="300" cy="300" rx="190" ry="43"/>
-              <ellipse cx="300" cy="300" rx="160" ry="34"/>
-            </g>
-
-            <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 12" opacity=".34"/>
-            <circle cx="78" cy="250" r="3" fill="#FF5A3C"/>
-            <circle cx="520" cy="356" r="3" fill="#FF5A3C"/>
-          </svg>
+        <div class="saturn-viewport" aria-hidden="true">
+          <div id="intro-planet" class="saturn-canvas-wrapper">
+            <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.9">
+                <ellipse cx="300" cy="300" rx="205" ry="205"/><ellipse cx="300" cy="300" rx="205" ry="170"/>
+                <ellipse cx="300" cy="300" rx="205" ry="132"/><ellipse cx="300" cy="300" rx="205" ry="92"/>
+                <ellipse cx="300" cy="300" rx="205" ry="50"/><ellipse cx="300" cy="300" rx="205" ry="20" opacity=".72"/>
+                <ellipse cx="300" cy="300" rx="175" ry="205"/><ellipse cx="300" cy="300" rx="135" ry="205"/>
+                <ellipse cx="300" cy="300" rx="92" ry="205"/><ellipse cx="300" cy="300" rx="48" ry="205"/>
+                <path d="M300 95 C250 148 226 220 226 300 C226 380 250 452 300 505"/>
+                <path d="M300 95 C272 152 260 226 260 300 C260 374 272 448 300 505"/>
+                <path d="M300 95 C328 152 340 226 340 300 C340 374 328 448 300 505"/>
+                <path d="M300 95 C350 148 374 220 374 300 C374 380 350 452 300 505"/>
+              </g>
+              <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.9">
+                <ellipse cx="300" cy="300" rx="286" ry="74"/><ellipse cx="300" cy="300" rx="312" ry="88" opacity=".36"/><ellipse cx="300" cy="300" rx="255" ry="58" opacity=".5"/>
+              </g>
+              <g id="intro-ring-details" stroke="currentColor" stroke-width=".7" opacity=".62">
+                <ellipse cx="300" cy="300" rx="250" ry="61"/><ellipse cx="300" cy="300" rx="220" ry="51"/><ellipse cx="300" cy="300" rx="190" ry="43"/><ellipse cx="300" cy="300" rx="160" ry="34"/>
+              </g>
+              <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 12" opacity=".34"/>
+              <circle cx="78" cy="250" r="3" fill="#FF5A3C"/><circle cx="520" cy="356" r="3" fill="#FF5A3C"/>
+            </svg>
+          </div>
         </div>
 
-        <div class="intro-mark intro-mark-top">
-          <span>REL 01</span>
-          <span>EXHIBITION ENTRY</span>
+        <div class="intro-mark intro-mark-top" aria-hidden="true">
+          <span>REL 01</span><span>EXHIBITION ENTRY</span>
+        </div>
+        <div class="intro-mark intro-mark-bottom" aria-hidden="true">
+          <span>SCROLL TO ENTER</span><span class="intro-scroll-line"></span>
         </div>
 
-        <div class="intro-mark intro-mark-bottom">
-          <span>SCROLL TO ENTER</span>
-          <span class="intro-scroll-line"></span>
-        </div>
+        <div class="editorial-column" id="editorial-column">
+          <h1 id="intro-title">Relics of the<br /><em>Solar System</em></h1>
 
-        <div id="intro-content" class="intro-content">
-          <div class="intro-copy">
-            <div class="intro-eyebrow">
-              <span class="intro-dot"></span>
-              A UNIVERSE OF HUMAN CURIOSITY
-            </div>
-            <h1 id="intro-title">Relics of the<br /><em>Solar System</em></h1>
-            <p>
-              Real objects. Extraordinary journeys. A living archive of the
-              spacecraft, probes, and landers that expand our understanding
-              of the universe.
-            </p>
-            <div class="intro-actions">
-              <button onclick="openSolarModal()" class="btn-primary">
-                Launch 3D Orbit Map
-              </button>
-              <a href="#archive" class="intro-secondary">
-                Explore the archive <span>↓</span>
-              </a>
-            </div>
+          <div id="intro-eyebrow" class="intro-eyebrow">
+            <span class="intro-dot"></span>
+            A UNIVERSE OF HUMAN CURIOSITY
           </div>
 
-          <div class="intro-readout">
-            <div class="intro-readout-head">
-              <span>SYSTEM // SOLAR SYSTEM</span>
-              <span>EXHIBIT</span>
-            </div>
-            <div class="intro-readout-grid">
-              <div><small>MODE</small><strong>INTERACTIVE</strong></div>
-              <div><small>OBJECT</small><strong>WIRE MESH</strong></div>
-              <div><small>ARCHIVE</small><strong>SPACECRAFT</strong></div>
-              <div><small>STATUS</small><strong>SCROLL LINKED</strong></div>
-            </div>
-            <div class="intro-readout-foot">
-              <span>REL 01 / SOLAR ARCHIVE</span>
-              <span>NASA SPACE APPS</span>
-            </div>
+          <p id="intro-description">
+            Real objects. Extraordinary journeys. A living archive of the
+            spacecraft, probes, and landers that expand our understanding
+            of the universe.
+          </p>
+
+          <div id="intro-actions" class="intro-actions">
+            <button onclick="openSolarModal()" class="btn-primary">Launch 3D Orbit Map</button>
+            <a href="#archive" class="intro-secondary">Explore the archive <span>↓</span></a>
           </div>
+        </div>
+
+        <div id="intro-readout" class="intro-readout" aria-hidden="true">
+          <div class="intro-readout-head"><span>SYSTEM // SOLAR SYSTEM</span><span>EXHIBIT</span></div>
+          <div class="intro-readout-grid">
+            <div><small>MODE</small><strong>INTERACTIVE</strong></div>
+            <div><small>OBJECT</small><strong>WIRE MESH</strong></div>
+            <div><small>ARCHIVE</small><strong>SPACECRAFT</strong></div>
+            <div><small>STATUS</small><strong>SCROLL LINKED</strong></div>
+          </div>
+          <div class="intro-readout-foot"><span>REL 01 / SOLAR ARCHIVE</span><span>NASA SPACE APPS</span></div>
         </div>
 
         <div class="intro-section-number" aria-hidden="true">00</div>
       </div>
     </section>
-
     <!-- ARCHIVE / HARDWARE SECTION -->
     <section id="archive" class="py-20 sm:py-28 border-b border-paper-100/10 bg-white/[.025] relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-8">
@@ -1968,124 +1969,86 @@ body > header {
 
 
   <script>
-    /* Scroll-driven exhibition intro — UI-only. */
+    /* Cinematic exhibition intro — UI-only presentation controller. */
     (function(){
       const intro=document.getElementById('intro-scroll');
-      const planet=document.getElementById('intro-planet');
+      const scene=document.getElementById('sticky-scene');
+      const saturn=document.getElementById('intro-planet');
       const sphere=document.getElementById('intro-planet-sphere');
       const orbit=document.getElementById('intro-planet-orbit');
-      const ringDetails=document.getElementById('intro-ring-details');
-      const content=document.getElementById('intro-content');
+      const rings=document.getElementById('intro-ring-details');
       const title=document.getElementById('intro-title');
-      const marks=document.querySelectorAll('.intro-mark, .intro-section-number');
+      const eyebrow=document.getElementById('intro-eyebrow');
+      const description=document.getElementById('intro-description');
+      const actions=document.getElementById('intro-actions');
+      const readout=document.getElementById('intro-readout');
+      const marks=document.querySelectorAll('.intro-mark,.intro-section-number');
       const header=document.querySelector('body > header');
       const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
 
-      if(!intro||!planet||!sphere||!orbit||!ringDetails||!content||!title)return;
+      if(!intro||!scene||!saturn||!sphere||!orbit||!rings||!title)return;
 
       let ticking=false;
       const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
-      const smoothstep=(v)=>{
-        const x=clamp(v,0,1);
-        return x*x*(3-2*x);
-      };
+      const smooth=(v)=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
+      const lerp=(a,b,t)=>a+(b-a)*clamp(t,0,1);
 
-      function updateIntro(){
-        const pageMax=Math.max(document.documentElement.scrollHeight-window.innerHeight,1);
-        const pageProgress=clamp(window.scrollY/pageMax,0,1);
+      function updateScene(){
+        const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
+        const progress=clamp(-intro.getBoundingClientRect().top/scrollable,0,1);
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
 
-        /* Saturn remains the visual anchor and gradually moves right. */
-        const startX=50;
-        const endX=small?72:(mobile?70:78);
-        const planetTravel=smoothstep(clamp(pageProgress/.22,0,1));
-        const x=startX+(endX-startX)*planetTravel;
+        /* Saturn: centered at rest, then shifts right and shrinks. */
+        const saturnShift=smooth((progress-.16)/.44);
+        const x=lerp(0,small?16:(mobile?21:27),saturnShift);
+        const scale=lerp(1,small?.62:(mobile?.68:.62),saturnShift);
+        saturn.style.transform='translate3d('+x.toFixed(2)+'vw,0,0) scale('+scale.toFixed(3)+')';
 
-        const startScale=small?.72:1;
-        const endScale=small?.36:(mobile?.46:.54);
-        const scale=startScale+(endScale-startScale)*planetTravel;
+        /* Scroll-linked planet rotation and independent ring-plane rotation. */
+        sphere.style.transform='rotate('+(progress*360).toFixed(2)+'deg)';
+        const ringAngle=lerp(-20,18,progress);
+        orbit.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
+        rings.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
 
-        planet.style.transform=
-          'translate3d(calc(-50% + '+(x-50)+'vw),-50%,0) scale('+scale+')';
-
-        sphere.style.transform='rotate('+(pageProgress*720)+'deg)';
-
-        const ringAngle=-18+(pageProgress*42);
-        orbit.style.transform='rotate('+ringAngle+'deg)';
-        ringDetails.style.transform='rotate('+ringAngle+'deg)';
-
-        /*
-         * Scroll reveal:
-         * - 0%: planet only.
-         * - 0–38%: title fades in and rises into the middle.
-         * - 25–70%: supporting text fades in.
-         * - 45–85%: title slides to the middle-left.
-         * - 75–100%: normal navigation returns.
-         */
-        const reveal=clamp(window.scrollY/(window.innerHeight*0.90),0,1);
-
-        const titleFade=smoothstep(reveal/0.38);
-        const titleRise=smoothstep(reveal/0.32);
-        const titleSlide=smoothstep((reveal-0.42)/0.43);
-
-        const titleLeft=50+(7-50)*titleSlide;
-        const titleTop=68+(45-68)*titleRise;
-
+        /* Title: invisible at load, rises into the fixed middle-left column. */
+        const titleFade=smooth((progress-.025)/.30);
+        const titleRise=smooth((progress-.025)/.32);
         title.style.opacity=titleFade.toFixed(3);
-        title.style.left=titleLeft.toFixed(2)+'vw';
-        title.style.top=titleTop.toFixed(2)+'vh';
-        title.style.transform='translate3d(-50%,-50%,0)';
+        title.style.transform='translateY('+lerp(90,0,titleRise).toFixed(2)+'px)';
 
-        const eyebrow=content.querySelector('.intro-eyebrow');
-        const copyText=content.querySelector('.intro-copy p');
-        const actions=content.querySelector('.intro-actions');
-        const readout=content.querySelector('.intro-readout');
+        /* Supporting copy follows the title with deliberate delays. */
+        const eyebrowP=smooth((progress-.34)/.18);
+        const descP=smooth((progress-.43)/.20);
+        const actionsP=smooth((progress-.58)/.20);
+        const readoutP=smooth((progress-.64)/.20);
 
-        const supportFade=smoothstep((reveal-0.25)/0.42);
-        const actionFade=smoothstep((reveal-0.55)/0.35);
-        const readoutFade=smoothstep((reveal-0.45)/0.40);
+        if(eyebrow){eyebrow.style.opacity=eyebrowP.toFixed(3);eyebrow.style.transform='translateY('+lerp(20,0,eyebrowP).toFixed(2)+'px)';}
+        if(description){description.style.opacity=descP.toFixed(3);description.style.transform='translateY('+lerp(20,0,descP).toFixed(2)+'px)';}
+        if(actions){actions.style.opacity=actionsP.toFixed(3);actions.style.transform='translateY('+lerp(20,0,actionsP).toFixed(2)+'px)';}
+        if(readout){readout.style.opacity=readoutP.toFixed(3);readout.style.transform='translateY('+lerp(18,0,readoutP).toFixed(2)+'px)';}
 
-        if(eyebrow) eyebrow.style.opacity=supportFade.toFixed(3);
-        if(copyText) copyText.style.opacity=supportFade.toFixed(3);
-        if(actions) actions.style.opacity=actionFade.toFixed(3);
-        if(readout) readout.style.opacity=readoutFade.toFixed(3);
+        /* Page chrome returns only after the opening composition is established. */
+        const chrome=smooth((progress-.72)/.22);
+        if(header){header.style.opacity=chrome.toFixed(3);header.style.pointerEvents=chrome>.65?'auto':'none';}
+        if(metadata){metadata.style.opacity=chrome.toFixed(3);metadata.style.pointerEvents=chrome>.65?'auto':'none';}
 
-        const chromeFade=smoothstep((reveal-0.72)/0.28);
-        if(header){
-          header.style.opacity=chromeFade.toFixed(3);
-          header.style.pointerEvents=chromeFade>.7?'auto':'none';
-        }
-        if(metadata){
-          metadata.style.opacity=chromeFade.toFixed(3);
-          metadata.style.pointerEvents=chromeFade>.7?'auto':'none';
-        }
+        const markP=smooth((progress-.78)/.16);
+        marks.forEach(mark=>mark.style.opacity=markP.toFixed(3));
 
-        content.style.pointerEvents=reveal>.78?'auto':'none';
-
-        const introProgress=clamp(
-          -intro.getBoundingClientRect().top/
-          Math.max(intro.offsetHeight-window.innerHeight,1),
-          0,1
-        );
-        const markReveal=smoothstep((introProgress-.72)/.20);
-        marks.forEach(function(mark){
-          mark.style.opacity=markReveal.toFixed(3);
-        });
-
+        scene.style.pointerEvents=progress>.86?'auto':'none';
         ticking=false;
       }
 
       function requestUpdate(){
-        if(!ticking){
-          requestAnimationFrame(updateIntro);
-          ticking=true;
-        }
+        if(!ticking){ticking=true;requestAnimationFrame(updateScene);}
       }
 
       window.addEventListener('scroll',requestUpdate,{passive:true});
-      window.addEventListener('resize',requestUpdate,{passive:true});
-      updateIntro();
+      window.addEventListener('resize',requestUpdate);
+      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateScene);
+      else updateScene();
+      window.addEventListener('load',updateScene);
     })();
   </script>
 
