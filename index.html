@@ -1303,7 +1303,45 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
 }
   
 /* ==========================================================================
-   REFINED SCROLL FADE — transparent text that emerges with the first scroll
+   CINEMATIC TITLE TRANSITION — centered origin to editorial left lockup
+   ========================================================================== */
+#intro-content {
+  opacity: 0;
+  transform: none;
+  transition: none !important;
+  will-change: opacity, transform;
+}
+
+#intro-title {
+  opacity: 0;
+  transform: none;
+  will-change: opacity, transform;
+}
+
+.intro-copy,
+.intro-copy > *,
+.intro-readout {
+  will-change: opacity, transform;
+}
+
+/* Keep the title visually independent so it can travel from center-bottom
+   into its final editorial position before the supporting copy appears. */
+#intro-title {
+  position: relative;
+}
+
+/* The opening stays deliberately quiet: no visible typography at load. */
+#intro-scroll .intro-content,
+#intro-scroll #intro-title,
+#intro-scroll .intro-copy p,
+#intro-scroll .intro-eyebrow,
+#intro-scroll .intro-actions,
+#intro-scroll .intro-readout {
+  visibility: visible;
+}
+
+/* ==========================================================================
+   PERSISTENT SATURN EXHIBIT — follows the visitor through the full page
    ========================================================================== */
 #intro-content {
   opacity: 0;
@@ -1844,36 +1882,44 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
         ringDetails.style.transform='rotate('+ringAngle+'deg)';
 
         /*
-         * True opacity reveal: the opening is completely transparent except
-         * for Saturn. As soon as the visitor scrolls, the typography emerges
-         * continuously from 0 → 1 with no positional trickery or pop-in.
+         * Cinematic title sequence:
+         * 1. Empty opening — Saturn only.
+         * 2. Title rises from the lower-middle and fades in.
+         * 3. Title travels into its final left editorial position.
+         * 4. Supporting copy/readout then fades in.
+         * 5. The normal exhibition page takes over.
          */
-        const introProgress=clamp(-intro.getBoundingClientRect().top/
-          Math.max(intro.offsetHeight-window.innerHeight,1),0,1);
-        const pageFade=clamp(window.scrollY/(window.innerHeight*1.05),0,1);
+        const titleProgress=clamp(window.scrollY/(window.innerHeight*0.95),0,1);
+        const titleFade=smoothstep(titleProgress/0.34);
+        const titleTravel=smoothstep((titleProgress-0.16)/0.62);
+        const supportFade=smoothstep((titleProgress-0.62)/0.34);
 
-        /* Title leads the reveal, then supporting copy and controls follow. */
-        const titleReveal=smoothstep(pageFade/0.58);
-        const bodyReveal=smoothstep((pageFade-0.16)/0.68);
-        const eyebrowReveal=smoothstep((pageFade-0.08)/0.50);
-        const actionsReveal=smoothstep((pageFade-0.34)/0.58);
-        const readoutReveal=smoothstep((pageFade-0.24)/0.62);
-
-        title.style.opacity=titleReveal.toFixed(3);
-        content.style.opacity=Math.max(titleReveal,bodyReveal*.92).toFixed(3);
-        content.style.transform='none';
-
+        const copy=content.querySelector('.intro-copy');
         const eyebrow=content.querySelector('.intro-eyebrow');
         const copyText=content.querySelector('.intro-copy p');
         const actions=content.querySelector('.intro-actions');
         const readout=content.querySelector('.intro-readout');
-        if(eyebrow) eyebrow.style.opacity=eyebrowReveal.toFixed(3);
-        if(copyText) copyText.style.opacity=bodyReveal.toFixed(3);
-        if(actions) actions.style.opacity=actionsReveal.toFixed(3);
-        if(readout) readout.style.opacity=readoutReveal.toFixed(3);
 
-        content.style.pointerEvents=pageFade>.82?'auto':'none';
+        /* Title starts lower and centered, then settles into the left column. */
+        title.style.opacity=titleFade.toFixed(3);
+        title.style.transform=
+          'translate3d('+((1-titleTravel)*30)+'vw,'+
+          ((1-titleTravel)*30)+'vh,0)';
 
+        /* Keep the surrounding content quiet until the title has settled. */
+        content.style.opacity=supportFade.toFixed(3);
+        content.style.transform='none';
+
+        if(copy) copy.style.opacity='1';
+        if(eyebrow) eyebrow.style.opacity=supportFade.toFixed(3);
+        if(copyText) copyText.style.opacity=supportFade.toFixed(3);
+        if(actions) actions.style.opacity=smoothstep((titleProgress-.72)/.28).toFixed(3);
+        if(readout) readout.style.opacity=supportFade.toFixed(3);
+
+        content.style.pointerEvents=titleProgress>.88?'auto':'none';
+
+        const introProgress=clamp(-intro.getBoundingClientRect().top/
+          Math.max(intro.offsetHeight-window.innerHeight,1),0,1);
         const markReveal=smoothstep((introProgress-.72)/.20);
         marks.forEach(function(mark){
           mark.style.opacity=markReveal.toFixed(3);
