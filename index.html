@@ -1427,9 +1427,10 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
 /* Title is independent of the copy column so it can genuinely travel
    from the lower-middle of the viewport into the left editorial position. */
 #intro-title {
+  /* Absolute to #intro-content, not .intro-copy, so viewport coordinates are real. */
   position: absolute !important;
   left: 50%;
-  top: 68vh;
+  top: 72vh;
   width: min(900px, 84vw);
   margin: 0 !important;
   opacity: 0;
@@ -1449,13 +1450,35 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   will-change: opacity;
 }
 
-#intro-copy,
-.intro-copy {
-  position: relative;
+/* Do not create a positioned containing block around the title. */
+#intro-content .intro-copy {
+  position: static !important;
+  padding-top: 0;
 }
 
-#intro-content .intro-copy {
-  padding-top: clamp(130px, 15vh, 190px);
+/* Once the title has settled, supporting copy belongs to the same left
+   editorial column instead of being vertically centered by the grid. */
+#intro-content .intro-eyebrow,
+#intro-content .intro-copy p,
+#intro-content .intro-actions {
+  position: absolute;
+  left: 7vw;
+  max-width: 570px;
+}
+
+#intro-content .intro-eyebrow {
+  top: 36vh;
+  margin: 0;
+}
+
+#intro-content .intro-copy p {
+  top: 58vh;
+  margin: 0;
+}
+
+#intro-content .intro-actions {
+  top: 70vh;
+  margin: 0;
 }
 
 /* Navigation and metadata also enter only after the cinematic opening. */
@@ -1476,8 +1499,19 @@ body > header {
   }
 
   #intro-content .intro-copy {
-    padding-top: 150px;
+    padding-top: 0;
   }
+
+  #intro-content .intro-eyebrow,
+  #intro-content .intro-copy p,
+  #intro-content .intro-actions {
+    left: 6vw;
+    max-width: 88vw;
+  }
+
+  #intro-content .intro-eyebrow { top: 34vh; }
+  #intro-content .intro-copy p { top: 56vh; }
+  #intro-content .intro-actions { top: 69vh; }
 }
 
 @media (max-width: 640px) {
@@ -1489,8 +1523,19 @@ body > header {
   }
 
   #intro-content .intro-copy {
-    padding-top: 120px;
+    padding-top: 0;
   }
+
+  #intro-content .intro-eyebrow,
+  #intro-content .intro-copy p,
+  #intro-content .intro-actions {
+    left: 20px;
+    max-width: calc(100vw - 40px);
+  }
+
+  #intro-content .intro-eyebrow { top: 33vh; }
+  #intro-content .intro-copy p { top: 55vh; }
+  #intro-content .intro-actions { top: 69vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2000,8 +2045,8 @@ body > header {
         const supportFade=smoothstep((titleProgress-0.68)/0.28);
         const chromeFade=smoothstep((titleProgress-0.82)/0.18);
 
-        const titleLeft=50+(8-50)*titleSlide;
-        const titleTop=68+(43-68)*titleRise;
+        const titleLeft=50+(7-50)*titleSlide;
+        const titleTop=72+(50-72)*titleRise;
         const titleX=(1-titleSlide)*-50;
 
         title.style.opacity=titleFade.toFixed(3);
