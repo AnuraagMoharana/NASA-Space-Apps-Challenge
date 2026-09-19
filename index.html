@@ -1409,29 +1409,27 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
 
   
 /* ==========================================================================
-   FINAL CINEMATIC OPENING — planet first, typography revealed by scroll
+   FINAL CINEMATIC OPENING — clean left-column reveal
    ========================================================================== */
 
-/* The opening viewport contains only the planet. */
 #intro-scroll {
   height: 180vh !important;
 }
 
+/* The intro wrapper itself is always present; individual elements fade. */
 #intro-content {
   opacity: 1 !important;
   transform: none !important;
   pointer-events: none;
-  will-change: auto;
 }
 
-/* Title is independent of the copy column so it can genuinely travel
-   from the lower-middle of the viewport into the left editorial position. */
+/* Title has a controlled editorial width so it cannot spill across the planet. */
 #intro-title {
-  /* Absolute to #intro-content, not .intro-copy, so viewport coordinates are real. */
   position: absolute !important;
   left: 50%;
-  top: 72vh;
-  width: min(900px, 84vw);
+  top: 68vh;
+  width: min(620px, 44vw);
+  max-width: 620px;
   margin: 0 !important;
   opacity: 0;
   transform: translate3d(-50%, -50%, 0);
@@ -1440,7 +1438,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   z-index: 5;
 }
 
-/* Supporting typography stays invisible until the title has settled. */
+/* Smaller text remains hidden until scrolling begins. */
 #intro-content .intro-eyebrow,
 #intro-content .intro-copy p,
 #intro-content .intro-actions,
@@ -1450,29 +1448,28 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   will-change: opacity;
 }
 
-/* Do not create a positioned containing block around the title. */
+/* Keep the title independent of the copy grid. */
 #intro-content .intro-copy {
   position: static !important;
-  padding-top: 0;
+  padding-top: 0 !important;
 }
 
-/* Once the title has settled, supporting copy belongs to the same left
-   editorial column instead of being vertically centered by the grid. */
+/* Final editorial positions: middle-left, with the supporting text below. */
 #intro-content .intro-eyebrow,
 #intro-content .intro-copy p,
 #intro-content .intro-actions {
   position: absolute;
   left: 7vw;
-  max-width: 570px;
+  max-width: 44vw;
 }
 
 #intro-content .intro-eyebrow {
-  top: 36vh;
+  top: 31vh;
   margin: 0;
 }
 
 #intro-content .intro-copy p {
-  top: 58vh;
+  top: 56vh;
   margin: 0;
 }
 
@@ -1481,7 +1478,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   margin: 0;
 }
 
-/* Navigation and metadata also enter only after the cinematic opening. */
+/* The opening viewport is intentionally clean: chrome also fades in later. */
 body > aside[aria-label="Exhibit Metadata"],
 body > header {
   opacity: 0;
@@ -1494,36 +1491,30 @@ body > header {
   #intro-scroll { height: 170vh !important; }
 
   #intro-title {
-    width: min(760px, 88vw);
-    top: 65vh;
-  }
-
-  #intro-content .intro-copy {
-    padding-top: 0;
+    width: min(560px, 72vw);
+    max-width: 72vw;
+    top: 66vh;
   }
 
   #intro-content .intro-eyebrow,
   #intro-content .intro-copy p,
   #intro-content .intro-actions {
     left: 6vw;
-    max-width: 88vw;
+    max-width: 72vw;
   }
 
-  #intro-content .intro-eyebrow { top: 34vh; }
-  #intro-content .intro-copy p { top: 56vh; }
-  #intro-content .intro-actions { top: 69vh; }
+  #intro-content .intro-eyebrow { top: 31vh; }
+  #intro-content .intro-copy p { top: 54vh; }
+  #intro-content .intro-actions { top: 70vh; }
 }
 
 @media (max-width: 640px) {
   #intro-scroll { height: 160vh !important; }
 
   #intro-title {
-    width: 90vw;
-    top: 63vh;
-  }
-
-  #intro-content .intro-copy {
-    padding-top: 0;
+    width: calc(100vw - 40px);
+    max-width: none;
+    top: 64vh;
   }
 
   #intro-content .intro-eyebrow,
@@ -1533,15 +1524,15 @@ body > header {
     max-width: calc(100vw - 40px);
   }
 
-  #intro-content .intro-eyebrow { top: 33vh; }
-  #intro-content .intro-copy p { top: 55vh; }
+  #intro-content .intro-eyebrow { top: 30vh; }
+  #intro-content .intro-copy p { top: 53vh; }
   #intro-content .intro-actions { top: 69vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   #intro-title {
     opacity: 1 !important;
-    left: 8vw !important;
+    left: 7vw !important;
     top: 43vh !important;
     transform: translate3d(0, -50%, 0) !important;
   }
@@ -1549,10 +1540,7 @@ body > header {
   #intro-content .intro-eyebrow,
   #intro-content .intro-copy p,
   #intro-content .intro-actions,
-  #intro-content .intro-readout {
-    opacity: 1 !important;
-  }
-
+  #intro-content .intro-readout,
   body > aside[aria-label="Exhibit Metadata"],
   body > header {
     opacity: 1 !important;
@@ -2005,83 +1993,81 @@ body > header {
       function updateIntro(){
         const pageMax=Math.max(document.documentElement.scrollHeight-window.innerHeight,1);
         const pageProgress=clamp(window.scrollY/pageMax,0,1);
-
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
 
-        /* Saturn follows the visitor through the complete page. */
+        /* Saturn remains the visual anchor and gradually moves right. */
         const startX=50;
         const endX=small?72:(mobile?70:78);
-        const travel=smoothstep(clamp(pageProgress/.22,0,1));
-        const x=startX+(endX-startX)*travel;
+        const planetTravel=smoothstep(clamp(pageProgress/.22,0,1));
+        const x=startX+(endX-startX)*planetTravel;
 
         const startScale=small?.72:1;
         const endScale=small?.36:(mobile?.46:.54);
-        const scale=startScale+(endScale-startScale)*travel;
+        const scale=startScale+(endScale-startScale)*planetTravel;
 
         planet.style.transform=
           'translate3d(calc(-50% + '+(x-50)+'vw),-50%,0) scale('+scale+')';
-        planet.classList.add('intro-planet-follow');
 
-        /* Continuous planet rotation + slow ring-plane evolution. */
         sphere.style.transform='rotate('+(pageProgress*720)+'deg)';
+
         const ringAngle=-18+(pageProgress*42);
         orbit.style.transform='rotate('+ringAngle+'deg)';
         ringDetails.style.transform='rotate('+ringAngle+'deg)';
 
         /*
-         * CINEMATIC OPENING
-         *
-         * 0.00 → 0.28 : the title rises from the lower-middle and fades in.
-         * 0.28 → 0.76 : the title travels slowly from center to the left.
-         * 0.68 → 0.96 : supporting copy fades in after the title settles.
-         * 0.82 → 1.00 : navigation/metadata quietly return.
+         * Scroll reveal:
+         * - 0%: planet only.
+         * - 0–38%: title fades in and rises into the middle.
+         * - 25–70%: supporting text fades in.
+         * - 45–85%: title slides to the middle-left.
+         * - 75–100%: normal navigation returns.
          */
-        const titleProgress=clamp(window.scrollY/(window.innerHeight*0.95),0,1);
+        const reveal=clamp(window.scrollY/(window.innerHeight*0.90),0,1);
 
-        const titleFade=smoothstep(titleProgress/0.30);
-        const titleRise=smoothstep(titleProgress/0.30);
-        const titleSlide=smoothstep((titleProgress-0.28)/0.48);
-        const supportFade=smoothstep((titleProgress-0.68)/0.28);
-        const chromeFade=smoothstep((titleProgress-0.82)/0.18);
+        const titleFade=smoothstep(reveal/0.38);
+        const titleRise=smoothstep(reveal/0.32);
+        const titleSlide=smoothstep((reveal-0.42)/0.43);
 
         const titleLeft=50+(7-50)*titleSlide;
-        const titleTop=72+(50-72)*titleRise;
-        const titleX=(1-titleSlide)*-50;
+        const titleTop=68+(45-68)*titleRise;
 
         title.style.opacity=titleFade.toFixed(3);
         title.style.left=titleLeft.toFixed(2)+'vw';
         title.style.top=titleTop.toFixed(2)+'vh';
-        title.style.transform=
-          'translate3d('+titleX.toFixed(2)+'%, -50%, 0)';
+        title.style.transform='translate3d(-50%,-50%,0)';
 
         const eyebrow=content.querySelector('.intro-eyebrow');
         const copyText=content.querySelector('.intro-copy p');
         const actions=content.querySelector('.intro-actions');
         const readout=content.querySelector('.intro-readout');
 
+        const supportFade=smoothstep((reveal-0.25)/0.42);
+        const actionFade=smoothstep((reveal-0.55)/0.35);
+        const readoutFade=smoothstep((reveal-0.45)/0.40);
+
         if(eyebrow) eyebrow.style.opacity=supportFade.toFixed(3);
         if(copyText) copyText.style.opacity=supportFade.toFixed(3);
-        if(actions) actions.style.opacity=smoothstep((titleProgress-.80)/.20).toFixed(3);
-        if(readout) readout.style.opacity=smoothstep((titleProgress-.74)/.26).toFixed(3);
+        if(actions) actions.style.opacity=actionFade.toFixed(3);
+        if(readout) readout.style.opacity=readoutFade.toFixed(3);
 
-        content.style.pointerEvents=titleProgress>.86?'auto':'none';
-
+        const chromeFade=smoothstep((reveal-0.72)/0.28);
         if(header){
           header.style.opacity=chromeFade.toFixed(3);
-          header.style.pointerEvents=chromeFade>.82?'auto':'none';
+          header.style.pointerEvents=chromeFade>.7?'auto':'none';
         }
         if(metadata){
           metadata.style.opacity=chromeFade.toFixed(3);
-          metadata.style.pointerEvents=chromeFade>.82?'auto':'none';
+          metadata.style.pointerEvents=chromeFade>.7?'auto':'none';
         }
+
+        content.style.pointerEvents=reveal>.78?'auto':'none';
 
         const introProgress=clamp(
           -intro.getBoundingClientRect().top/
           Math.max(intro.offsetHeight-window.innerHeight,1),
           0,1
         );
-
         const markReveal=smoothstep((introProgress-.72)/.20);
         marks.forEach(function(mark){
           mark.style.opacity=markReveal.toFixed(3);
@@ -2104,6 +2090,7 @@ body > header {
   </script>
 
   <!-- 
+    DYNAMIC DATA LOADER SCRIPT  <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
   -->
