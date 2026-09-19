@@ -1577,7 +1577,7 @@ body > header {
     .intro-scroll-line{width:42px;height:1px;background:#B9B4AA}
     @media(max-width:900px){.intro-scroll{height:340vh!important}#intro-planet.saturn-canvas-wrapper{width:min(480px,58vw)!important;height:min(480px,58vw)!important}.editorial-column{left:6vw!important;width:50vw!important}#intro-title{font-size:clamp(2.5rem,6.8vw,4rem)!important}.intro-readout{right:5vw!important;width:30vw!important}}
     @media(max-width:640px){.intro-scroll{height:310vh!important}#intro-planet.saturn-canvas-wrapper{width:min(390px,72vw)!important;height:min(390px,72vw)!important}.editorial-column{left:20px!important;top:52%!important;width:calc(100vw - 40px)!important;max-width:none!important}#intro-title{max-width:12ch!important;font-size:clamp(2.45rem,12vw,3.8rem)!important}.intro-readout{display:none!important}.intro-mark-top{top:4vh!important;left:20px!important}.intro-mark-bottom{left:20px!important}}
-    @media(prefers-reduced-motion:reduce){.intro-scroll{height:auto!important}.intro-planet.saturn-canvas-wrapper{transform:translate3d(27vw,0,0) scale(.62)!important}.editorial-column{opacity:1!important}#intro-title,#intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:1!important;transform:none!important}body>header,body>aside[aria-label="Exhibit Metadata"]{opacity:1!important;pointer-events:auto!important}}
+    /* Keep the cinematic sequence scroll-driven even when the device reports reduced motion. */
 
   
 
