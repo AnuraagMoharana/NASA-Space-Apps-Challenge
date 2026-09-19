@@ -1432,7 +1432,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   top: 68vh;
   width: min(900px, 84vw);
   margin: 0 !important;
-  opacity: 0 !important;
+  opacity: 0;
   transform: translate3d(-50%, -50%, 0);
   transition: none !important;
   will-change: left, top, transform, opacity;
@@ -1444,7 +1444,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
 #intro-content .intro-copy p,
 #intro-content .intro-actions,
 #intro-content .intro-readout {
-  opacity: 0 !important;
+  opacity: 0;
   transition: none !important;
   will-change: opacity;
 }
@@ -1461,8 +1461,8 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
 /* Navigation and metadata also enter only after the cinematic opening. */
 body > aside[aria-label="Exhibit Metadata"],
 body > header {
-  opacity: 0 !important;
-  pointer-events: none !important;
+  opacity: 0;
+  pointer-events: none;
   transition: none !important;
   will-change: opacity;
 }
@@ -2059,7 +2059,6 @@ body > header {
   </script>
 
   <!-- 
-    DYNAMIC DATA LOADER SCRIPT  <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
   -->
