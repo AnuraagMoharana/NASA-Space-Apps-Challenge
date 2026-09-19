@@ -339,6 +339,448 @@ code,
   }
 }
 
+  
+
+/* ==========================================================================
+   MINIMALIST NASA EXHIBITION SYSTEM
+   Final visual override — light archival / scientific catalogue direction.
+   ========================================================================== */
+
+:root {
+  --paper: #FAF9F5;
+  --white: #FFFFFF;
+  --ink: #111111;
+  --muted: #666666;
+  --line: rgba(17,17,17,.10);
+  --line-soft: rgba(17,17,17,.06);
+  --coral: #FF5A3C;
+  --coral-dark: #E04326;
+}
+
+/* Base */
+html,
+body {
+  background: var(--paper) !important;
+  color: #222 !important;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--coral) !important;
+  color: #fff !important;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--coral) !important;
+}
+
+/* Quiet architectural grid */
+.bg-tech-grid {
+  background-color: var(--paper) !important;
+  background-size: 48px 48px !important;
+  background-image:
+    linear-gradient(to right, rgba(17,17,17,.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17,17,17,.035) 1px, transparent 1px) !important;
+}
+
+/* Convert existing dark utility surfaces into paper/white surfaces */
+.bg-space-950,
+.bg-space-900,
+.bg-space-850,
+.bg-space-800,
+.bg-space-700 {
+  background-color: var(--paper) !important;
+}
+
+.bg-space-950\/95 {
+  background-color: rgba(250,249,245,.96) !important;
+}
+
+.bg-space-900\/80,
+.bg-space-900\/30 {
+  background-color: rgba(255,255,255,.72) !important;
+}
+
+.bg-white\/\[\.025\],
+.bg-white\/\[\.03\],
+.bg-white\/\[\.04\] {
+  background-color: #fff !important;
+}
+
+.bg-white\/\[\.03\] {
+  background-color: rgba(255,255,255,.7) !important;
+}
+
+/* Text becomes editorial black/grey */
+.text-paper-100,
+.text-paper-200 {
+  color: var(--ink) !important;
+}
+
+.text-paper-400,
+.text-paper-500,
+.text-paper-600 {
+  color: var(--muted) !important;
+}
+
+.text-coral-400,
+.text-coral-500,
+.text-coral-600 {
+  color: var(--coral) !important;
+}
+
+.border-paper-100\/10,
+.border-paper-100\/15 {
+  border-color: var(--line) !important;
+}
+
+.border-paper-100\/20 {
+  border-color: rgba(17,17,17,.14) !important;
+}
+
+.border-paper-100\/30 {
+  border-color: rgba(17,17,17,.20) !important;
+}
+
+/* Top exhibition metadata */
+aside[aria-label="Exhibit Metadata"] {
+  background: #fff !important;
+  color: var(--muted) !important;
+  border-color: var(--line) !important;
+}
+
+/* Navigation */
+header {
+  background: rgba(250,249,245,.94) !important;
+  border-color: var(--line) !important;
+  backdrop-filter: blur(10px);
+}
+
+header .text-paper-100,
+header .text-paper-200 {
+  color: var(--ink) !important;
+}
+
+header .text-paper-400 {
+  color: var(--muted) !important;
+}
+
+header .bg-space-900 {
+  background: #fff !important;
+}
+
+#mobile-menu {
+  background: #fff !important;
+  border-color: var(--line) !important;
+}
+
+/* Hero */
+.hero-section {
+  min-height: calc(85vh - 80px);
+}
+
+main > section {
+  border-color: var(--line) !important;
+}
+
+main > section:first-child {
+  background-color: var(--paper) !important;
+}
+
+main > section:not(:first-child) {
+  background-color: transparent !important;
+}
+
+.hero-headline {
+  font-family: 'Fraunces', serif !important;
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -.025em;
+  color: var(--ink) !important;
+  max-width: 20ch;
+}
+
+.hero-orbital-bg {
+  opacity: .30 !important;
+  mix-blend-mode: multiply;
+}
+
+main > section:first-child .text-paper-100,
+main > section:first-child .text-paper-200 {
+  color: var(--ink) !important;
+}
+
+main > section:first-child .text-paper-400 {
+  color: #555 !important;
+}
+
+/* Remove dashboard/card feeling from hero readout */
+main > section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
+  background: rgba(255,255,255,.55) !important;
+  border-color: var(--line) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+main > section:first-child .bg-space-950 {
+  background: #fff !important;
+  border-color: var(--line) !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--coral) !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
+
+.btn-primary:hover {
+  background: var(--coral-dark) !important;
+}
+
+button[onclick="openSolarModal()"] {
+  border-radius: 0 !important;
+}
+
+button[onclick="openSolarModal()"].bg-coral-500 {
+  background: var(--coral) !important;
+  color: #fff !important;
+  border-color: var(--coral) !important;
+}
+
+button[onclick="openSolarModal()"].bg-coral-500:hover {
+  background: var(--coral-dark) !important;
+}
+
+a[href="#archive"] {
+  background: transparent !important;
+  color: var(--ink) !important;
+  border-color: var(--line) !important;
+}
+
+a[href="#archive"]:hover {
+  background: #fff !important;
+  border-color: rgba(17,17,17,.22) !important;
+}
+
+/* Section architecture */
+.section-number {
+  font-family: 'IBM Plex Mono', monospace;
+  color: rgba(255,90,60,.15) !important;
+  font-weight: 300;
+}
+
+section h2 {
+  font-family: 'Fraunces', serif !important;
+  color: var(--ink) !important;
+  font-weight: 400 !important;
+}
+
+section h3 {
+  font-family: 'Fraunces', serif !important;
+}
+
+section p {
+  color: #555 !important;
+}
+
+/* Hardware archive — museum catalogue entries */
+#hardware-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+  gap: 2rem !important;
+  padding-top: 1rem !important;
+}
+
+#hardware-grid > * {
+  background: #fff !important;
+  color: var(--ink) !important;
+  border: 1px solid rgba(17,17,17,.08) !important;
+  border-radius: 0 !important;
+  padding: 2rem !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  transition: border-color .2s ease, background-color .2s ease !important;
+}
+
+#hardware-grid > *:hover {
+  background: #fff !important;
+  border-color: rgba(255,90,60,.45) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#hardware-grid h3,
+#hardware-grid .card-title {
+  font-family: 'Fraunces', serif !important;
+  font-weight: 500 !important;
+  font-size: 1.25rem !important;
+  color: var(--ink) !important;
+}
+
+#hardware-grid p,
+#hardware-grid .card-desc,
+#hardware-grid .description {
+  color: #444 !important;
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  line-height: 1.6 !important;
+}
+
+#hardware-grid .tag,
+#hardware-grid .status-pill,
+#hardware-grid .catalog-number,
+#hardware-grid .metadata {
+  font-family: 'IBM Plex Mono', monospace !important;
+  color: #666 !important;
+  border-color: rgba(17,17,17,.10) !important;
+  background: transparent !important;
+}
+
+/* Science editorial list */
+#science {
+  background: #fff !important;
+}
+
+#science article {
+  background: transparent !important;
+}
+
+#science article:hover {
+  background: #FAF9F5 !important;
+}
+
+#science article h3 {
+  color: var(--ink) !important;
+}
+
+#science article p {
+  color: #555 !important;
+}
+
+.divide-paper-100\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--line) !important;
+}
+
+/* 3D section */
+#interactive {
+  background: var(--paper) !important;
+  background-image:
+    linear-gradient(to right, rgba(17,17,17,.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17,17,17,.035) 1px, transparent 1px) !important;
+  background-size: 48px 48px !important;
+}
+
+#interactive > div > div {
+  background: #fff !important;
+  border-color: var(--line) !important;
+  box-shadow: none !important;
+}
+
+#interactive .bg-space-900 {
+  background: #fff !important;
+  border-color: var(--line) !important;
+}
+
+#interactive .text-paper-100,
+#interactive .text-paper-200 {
+  color: var(--ink) !important;
+}
+
+#interactive .text-paper-400 {
+  color: #555 !important;
+}
+
+/* Keep orbital accent restrained */
+#interactive .bg-amber-500\/80 {
+  background-color: #111 !important;
+  box-shadow: none !important;
+}
+
+/* Footer */
+footer {
+  background: #fff !important;
+  border-color: var(--line) !important;
+}
+
+footer .text-paper-100,
+footer .text-paper-200 {
+  color: var(--ink) !important;
+}
+
+footer .text-paper-400,
+footer .text-paper-600 {
+  color: var(--muted) !important;
+}
+
+/* Solar System modal — clean exhibition shell */
+#solar-system-modal {
+  background: rgba(250,249,245,.96) !important;
+  backdrop-filter: blur(8px);
+}
+
+#solar-system-modal > div:first-child {
+  background: #fff !important;
+  border-color: var(--line) !important;
+}
+
+#solar-system-modal .text-paper-100,
+#solar-system-modal .text-paper-200 {
+  color: var(--ink) !important;
+}
+
+#solar-system-modal .text-paper-400,
+#solar-system-modal .text-paper-600 {
+  color: var(--muted) !important;
+}
+
+#solar-system-modal > div:last-child {
+  background: #FAF9F5 !important;
+}
+
+#solar-iframe {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Kill decorative dashboard effects that conflict with minimalism */
+.shadow-\[0_0_20px_rgba\(245\,158\,11\,0\.8\)\] {
+  box-shadow: none !important;
+}
+
+.blur-\[120px\] {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #hardware-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  #hardware-grid > * {
+    padding: 1.5rem !important;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.5rem, 12vw, 4rem) !important;
+  }
+}
+
   </style>
 </head>
 
