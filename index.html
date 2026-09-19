@@ -769,43 +769,126 @@
     }
 
 
-    /* INTERACTIVE SOLAR SYSTEM MODAL — UI ONLY */
-    #solar-system-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:stretch;justify-content:center;background:rgba(6,3,8,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
-    #solar-system-modal.is-open{opacity:1;visibility:visible;pointer-events:auto}
-    .solar-map-backdrop{position:absolute;inset:0;background:transparent;cursor:default}
+    /* =========================================================
+   JULIAN GARNIER SOLAR SYSTEM MODAL
+   The actual Solar System runs from the original integrated
+   source in /solar-system/.
+========================================================= */
 
-    .solar-system-shell{position:relative;width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(255,184,77,.10),transparent 28%),radial-gradient(circle at 20% 20%,rgba(82,247,232,.06),transparent 25%),radial-gradient(circle at 80% 80%,rgba(255,98,95,.06),transparent 28%),#09060b}
-    .solar-system-shell:before,.solar-system-shell:after{content:"";position:absolute;inset:0;pointer-events:none}
-    .solar-system-shell:before{background-image:radial-gradient(circle,rgba(255,255,255,.72) 1px,transparent 1px),radial-gradient(circle,rgba(82,247,232,.5) 1px,transparent 1px);background-size:180px 180px,270px 270px;background-position:15px 35px,85px 120px;opacity:.18}
-    .solar-system-shell:after{background:radial-gradient(circle at center,transparent 0 28%,rgba(0,0,0,.34) 72%,rgba(0,0,0,.7) 100%)}
-    .solar-map-header{position:absolute;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.25rem}
-    .solar-map-title{display:inline-flex;align-items:center;gap:.75rem;padding:.7rem .9rem;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(12,8,14,.56);box-shadow:0 20px 60px rgba(0,0,0,.24);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-    .solar-map-close{border:1px solid rgba(255,255,255,.12);background:rgba(12,8,14,.58);color:rgba(255,255,255,.82);border-radius:999px;padding:.7rem 1rem;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:transform .2s ease,border-color .2s ease,background .2s ease;cursor:pointer;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-    .solar-map-close:hover{transform:translateY(-1px);border-color:rgba(255,184,77,.34);background:rgba(255,184,77,.10);color:#fff}
-    .solar-system-stage{position:absolute;inset:0;display:grid;place-items:center;perspective:1400px;overflow:hidden}
-    .ss-system{position:relative;width:min(92vw,980px);height:min(72vw,720px);min-width:680px;min-height:520px;transform-style:preserve-3d;transform:rotateX(56deg) scale(.92);transition:transform .45s ease}
-    .ss-orbit{position:absolute;left:50%;top:50%;width:var(--orbit);height:var(--orbit);transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.10);border-radius:50%;box-shadow:0 0 36px rgba(255,255,255,.025),inset 0 0 28px rgba(255,255,255,.02);transform-style:preserve-3d}
-    .ss-orbit .ss-planet-wrap{position:absolute;left:50%;top:50%;width:100%;height:100%;margin-left:calc(var(--orbit)/-2);margin-top:calc(var(--orbit)/-2);border-radius:50%;animation:ss-orbit var(--speed) linear infinite;transform-style:preserve-3d}
-    .ss-planet{position:absolute;left:100%;top:50%;transform:translate(-50%,-50%);width:var(--size);height:var(--size);border-radius:50%;box-shadow:0 0 24px rgba(255,255,255,.10),inset -7px -7px 15px rgba(0,0,0,.34);backface-visibility:hidden}
-    .ss-sun{position:absolute;left:50%;top:50%;width:106px;height:106px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff4c1 0 8%,#ffd66e 28%,#ff9f43 58%,#ff625f 100%);box-shadow:0 0 28px #ffb84d,0 0 95px rgba(255,159,67,.50),0 0 180px rgba(255,98,95,.16);z-index:10}
-    .ss-moon{width:11px;height:11px;border-radius:50%;background:#cfc9ca;box-shadow:0 0 10px rgba(255,255,255,.24);position:absolute;right:-14px;top:-9px;animation:ss-moon 2.6s linear infinite}
-    .ss-mercury{--orbit:138px;--size:11px;--speed:11s}.ss-venus{--orbit:194px;--size:17px;--speed:16s}.ss-earth{--orbit:256px;--size:19px;--speed:20s}.ss-mars{--orbit:322px;--size:15px;--speed:27s}.ss-jupiter{--orbit:422px;--size:34px;--speed:39s}.ss-saturn{--orbit:520px;--size:30px;--speed:48s}.ss-uranus{--orbit:612px;--size:25px;--speed:59s}.ss-neptune{--orbit:704px;--size:24px;--speed:67s}
-    .ss-mercury .ss-planet{background:radial-gradient(circle at 35% 30%,#ded5cc,#8e837c 58%,#4c4744)}.ss-venus .ss-planet{background:radial-gradient(circle at 35% 30%,#ffe8b1,#d9a762 58%,#8e643a)}.ss-earth .ss-planet{background:radial-gradient(circle at 30% 26%,#8ae9ff,#2771c6 44%,#173b77 72%,#0f1f3d)}.ss-mars .ss-planet{background:radial-gradient(circle at 35% 28%,#ffc2a0,#c75935 55%,#733024)}.ss-jupiter .ss-planet{background:repeating-linear-gradient(0deg,#d7b07e 0 5px,#9b6f4f 5px 9px,#e2c596 9px 13px)}.ss-saturn .ss-planet{background:repeating-linear-gradient(0deg,#e7d4a7 0 6px,#b89463 6px 11px,#f0ddb4 11px 16px)}.ss-uranus .ss-planet{background:radial-gradient(circle at 35% 30%,#b6ffff,#72d7d8 58%,#3a7f88)}.ss-neptune .ss-planet{background:radial-gradient(circle at 35% 30%,#6a9dff,#2858c9 58%,#142d72)}
-    .ss-saturn .ss-planet:before{content:"";position:absolute;left:50%;top:50%;width:62px;height:22px;transform:translate(-50%,-50%) rotateX(70deg) rotateZ(-10deg);border:3px solid rgba(241,214,158,.72);border-radius:50%;box-shadow:0 0 8px rgba(255,220,170,.18);z-index:-1}
-    .ss-controls,.ss-planet-labels{position:absolute;z-index:25;display:flex;flex-wrap:wrap;gap:.5rem}
-    .ss-controls{left:1.25rem;bottom:1.25rem;max-width:min(94vw,760px)}
-    .ss-planet-labels{right:1.25rem;bottom:1.25rem;justify-content:flex-end;max-width:min(94vw,680px)}
-    .ss-control,.ss-planet-chip{border:1px solid rgba(255,255,255,.10);background:rgba(12,8,14,.58);color:rgba(255,255,255,.72);border-radius:999px;padding:.55rem .75rem;font-size:.7rem;font-weight:700;cursor:pointer;transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-    .ss-control:hover,.ss-planet-chip:hover,.ss-planet-chip.is-active{transform:translateY(-1px);color:#fff;background:rgba(255,184,77,.11);border-color:rgba(255,184,77,.30)}
-    .ss-planet-chip.is-active{box-shadow:0 0 25px rgba(255,184,77,.10)}
-    .ss-attribution{position:absolute;right:1.25rem;top:4.9rem;z-index:25;font-size:.65rem;color:rgba(255,255,255,.34);text-align:right}
-    .ss-attribution a{color:#52F7E8;text-decoration:none}.ss-attribution a:hover{text-decoration:underline}
-    @keyframes ss-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-    @media(prefers-reduced-motion:reduce){.ss-orbit .ss-planet-wrap,.ss-moon{animation:none!important}}
-@keyframes ss-moon{from{transform:rotate(0) translateX(20px) rotate(0)}to{transform:rotate(360deg) translateX(20px) rotate(-360deg)}}
-    #solar-system-modal.ss-flat .ss-system{transform:rotateX(0deg) scale(.92)}#solar-system-modal.ss-zoom .ss-system{transform:rotateX(56deg) scale(1.08)}#solar-system-modal.ss-flat.ss-zoom .ss-system{transform:rotateX(0deg) scale(1.08)}
-    @media(max-width:780px){.ss-system{min-width:520px;min-height:420px;width:720px;height:560px;transform:rotateX(56deg) scale(.68)}#solar-system-modal.ss-flat .ss-system{transform:rotateX(0deg) scale(.68)}#solar-system-modal.ss-zoom .ss-system{transform:rotateX(56deg) scale(.82)}#solar-system-modal.ss-flat.ss-zoom .ss-system{transform:rotateX(0deg) scale(.82)}.solar-map-title span:last-child{display:none}.ss-controls{bottom:.9rem;left:.9rem}.ss-planet-labels{bottom:4.2rem;left:.9rem;right:.9rem;justify-content:flex-start}.ss-attribution{top:4.6rem;right:.9rem;max-width:240px}}
-  </style>
+    #solar-system-modal{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:flex;
+      align-items:stretch;
+      justify-content:center;
+      background:#08090a;
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:opacity .35s ease, visibility .35s ease;
+    }
+
+    #solar-system-modal.is-open{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+    }
+
+    .solar-system-shell{
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      background:#08090a;
+    }
+
+    .solar-system-frame{
+      display:block;
+      width:100%;
+      height:100%;
+      border:0;
+      background:#08090a;
+    }
+
+    .solar-map-close{
+      position:absolute;
+      top:16px;
+      right:18px;
+      z-index:120;
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      min-height:42px;
+      padding:.7rem 1rem;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      background:rgba(8,9,10,.78);
+      color:rgba(255,255,255,.88);
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      cursor:pointer;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 12px 35px rgba(0,0,0,.35);
+      transition:transform .2s ease,border-color .2s ease,background .2s ease;
+    }
+
+    .solar-map-close:hover{
+      transform:translateY(-1px);
+      border-color:rgba(255,184,77,.5);
+      background:rgba(255,184,77,.14);
+      color:#fff;
+    }
+
+    .solar-map-attribution{
+      position:absolute;
+      left:18px;
+      bottom:16px;
+      z-index:120;
+      max-width:min(420px,calc(100% - 36px));
+      padding:.55rem .75rem;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:999px;
+      background:rgba(8,9,10,.68);
+      color:rgba(255,255,255,.38);
+      font-size:.65rem;
+      line-height:1.35;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+
+    .solar-map-attribution a{
+      color:#52F7E8;
+      text-decoration:none;
+    }
+
+    .solar-map-attribution a:hover{
+      text-decoration:underline;
+    }
+
+    @media(max-width:640px){
+      .solar-map-close{
+        top:10px;
+        right:10px;
+        padding:.62rem .78rem;
+        font-size:.64rem;
+      }
+
+      .solar-map-attribution{
+        left:10px;
+        bottom:10px;
+        font-size:.58rem;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      #solar-system-modal{
+        transition:none;
+      }
+    }</style>
 
 </head>
 
@@ -2641,8 +2724,8 @@
 
 
   <!-- =========================================================
-       INTERACTIVE 3D SOLAR SYSTEM MODAL
-       UI ONLY — no data fetching or application logic
+       INTERACTIVE 3D SOLAR SYSTEM
+       Powered by Julian Garnier's original project
   ========================================================== -->
 
   <div
@@ -2650,306 +2733,44 @@
     aria-hidden="true"
   >
 
-    <div
-      class="solar-map-backdrop"
-      aria-hidden="true"
-      onclick="closeSolarModal()"
-    ></div>
-
     <section
       class="solar-system-shell"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="solar-map-heading"
+      aria-label="Julian Garnier 3D Solar System"
     >
 
-      <div class="solar-map-header">
-
-        <div class="solar-map-title">
-          <span aria-hidden="true">🌐</span>
-
-          <span>
-            <strong
-              id="solar-map-heading"
-              class="block text-sm font-bold tracking-wide text-white"
-            >
-              Interactive 3D Orbit Map
-            </strong>
-
-            <span
-              class="mt-0.5 block text-[10px] uppercase tracking-[.18em] text-white/35"
-            >
-              Solar System · Visual Explorer
-            </span>
-          </span>
-        </div>
+      <iframe
+        id="julian-solar-system-frame"
+        class="solar-system-frame"
+        src="solar-system/index.html"
+        title="Interactive 3D Solar System by Julian Garnier"
+        loading="lazy"
+      ></iframe>
 
 
-        <button
-          type="button"
-          class="solar-map-close"
-          onclick="closeSolarModal()"
-          aria-label="Close interactive Solar System map"
-        >
-          ✕ Close Map
-        </button>
-
-      </div>
-
-
-      <div class="solar-system-stage">
-
-        <div class="ss-system">
-
-          <!-- SUN -->
-
-          <div
-            class="ss-sun"
-            aria-label="Sun"
-          ></div>
-
-
-          <!-- MERCURY -->
-
-          <div
-            class="ss-orbit ss-mercury"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Mercury</span>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- VENUS -->
-
-          <div
-            class="ss-orbit ss-venus"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Venus</span>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- EARTH + MOON -->
-
-          <div
-            class="ss-orbit ss-earth"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-
-              <div class="ss-planet">
-
-                <span class="sr-only">Earth</span>
-
-                <div class="ss-moon-orbit">
-                  <div class="ss-moon"></div>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-
-
-          <!-- MARS -->
-
-          <div
-            class="ss-orbit ss-mars"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Mars</span>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- JUPITER -->
-
-          <div
-            class="ss-orbit ss-jupiter"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Jupiter</span>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- SATURN -->
-
-          <div
-            class="ss-orbit ss-saturn"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Saturn</span>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- URANUS -->
-
-          <div
-            class="ss-orbit ss-uranus"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Uranus</span>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- NEPTUNE -->
-
-          <div
-            class="ss-orbit ss-neptune"
-            aria-hidden="true"
-          >
-            <div class="ss-planet-wrap">
-              <div class="ss-planet">
-                <span class="sr-only">Neptune</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- MAP CONTROLS -->
-
-      <div class="ss-controls">
-
-        <button
-          type="button"
-          class="ss-control"
-          onclick="toggleSolarFlat()"
-        >
-          ◇ 3D / 2D
-        </button>
-
-        <button
-          type="button"
-          class="ss-control"
-          onclick="toggleSolarZoom()"
-        >
-          ⊕ Zoom
-        </button>
-
-      </div>
-
-
-      <!-- PLANET SELECTOR -->
-
-      <div
-        class="ss-planet-labels"
-        aria-label="Select a planet to highlight"
+      <button
+        type="button"
+        class="solar-map-close"
+        onclick="closeSolarModal()"
+        aria-label="Close Solar System"
       >
-
-        <button
-          type="button"
-          class="ss-planet-chip is-active"
-          onclick="selectSolarPlanet('sun', this)"
-        >
-          ☀ Sun
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('mercury', this)"
-        >
-          Mercury
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('venus', this)"
-        >
-          Venus
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('earth', this)"
-        >
-          Earth
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('mars', this)"
-        >
-          Mars
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('jupiter', this)"
-        >
-          Jupiter
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('saturn', this)"
-        >
-          Saturn
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('uranus', this)"
-        >
-          Uranus
-        </button>
-
-        <button
-          type="button"
-          class="ss-planet-chip"
-          onclick="selectSolarPlanet('neptune', this)"
-        >
-          Neptune
-        </button>
-
-      </div>
+        ✕ Close Map
+      </button>
 
 
-      <!-- ATTRIBUTION -->
+      <div class="solar-map-attribution">
 
-      <div class="ss-attribution">
-
-        3D Engine based on
+        Original Solar System visualisation by
         <a
           href="https://github.com/juliangarnier/3D-CSS-Solar-System"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Julian Garnier's 3D CSS Solar System
+          Julian Garnier
         </a>
+
+        · MIT licensed
 
       </div>
 
@@ -2960,13 +2781,27 @@
 
   <!-- SOLAR MAP UI SCRIPT — UI ONLY -->
   <script>
-    function openSolarModal(){const m=document.getElementById("solar-system-modal");if(!m)return;m.classList.add("is-open");m.setAttribute("aria-hidden","false");document.body.style.overflow="hidden"}
-    function closeSolarModal(){const m=document.getElementById("solar-system-modal");if(!m)return;m.classList.remove("is-open");m.setAttribute("aria-hidden","true");document.body.style.overflow=""}
-    function toggleSolarFlat(){document.getElementById("solar-system-modal")?.classList.toggle("ss-flat")}
-    function toggleSolarZoom(){document.getElementById("solar-system-modal")?.classList.toggle("ss-zoom")}
-    function selectSolarPlanet(name,button){document.querySelectorAll(".ss-planet-chip").forEach(c=>c.classList.remove("is-active"));button?.classList.add("is-active");document.querySelectorAll(".ss-orbit,.ss-sun").forEach(e=>{e.style.filter="none";e.style.opacity=".45"});const el=name==="sun"?document.querySelector(".ss-sun"):document.querySelector(".ss-"+name);if(el){el.style.filter="brightness(1.3) drop-shadow(0 0 24px rgba(255,184,77,.28))";el.style.opacity="1"}}
-    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSolarModal()});
-    document.addEventListener("click",e=>{const m=document.getElementById("solar-system-modal");if(m&&m.classList.contains("is-open")&&e.target===m)closeSolarModal()});
+    function openSolarModal(){
+      const modal=document.getElementById("solar-system-modal");
+      if(!modal)return;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow="hidden";
+    }
+
+    function closeSolarModal(){
+      const modal=document.getElementById("solar-system-modal");
+      if(!modal)return;
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow="";
+    }
+
+    document.addEventListener("keydown",function(event){
+      if(event.key==="Escape"){
+        closeSolarModal();
+      }
+    });
   </script>
 
   <!-- =========================================================
