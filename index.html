@@ -1796,7 +1796,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
         const scale=startScale+(endScale-startScale)*travel;
 
         planet.style.transform=
-          'translate3d('+(-50+(x-50))+'vw,-50%,0) scale('+scale+')';
+          'translate3d(calc(-50% + '+(x-50)+'vw),-50%,0) scale('+scale+')';
         planet.classList.add('intro-planet-follow');
 
         /* Planet rotation is continuous for the whole page. */
