@@ -1579,7 +1579,25 @@ body > header {
     @media(max-width:640px){.intro-scroll{height:310vh!important}#intro-planet.saturn-canvas-wrapper{width:min(390px,72vw)!important;height:min(390px,72vw)!important}.editorial-column{left:20px!important;top:52%!important;width:calc(100vw - 40px)!important;max-width:none!important}#intro-title{max-width:12ch!important;font-size:clamp(2.45rem,12vw,3.8rem)!important}.intro-readout{display:none!important}.intro-mark-top{top:4vh!important;left:20px!important}.intro-mark-bottom{left:20px!important}}
     @media(prefers-reduced-motion:reduce){.intro-scroll{height:auto!important}.intro-planet.saturn-canvas-wrapper{transform:translate3d(27vw,0,0) scale(.62)!important}.editorial-column{opacity:1!important}#intro-title,#intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:1!important;transform:none!important}body>header,body>aside[aria-label="Exhibit Metadata"]{opacity:1!important;pointer-events:auto!important}}
 
-  </style>
+  
+
+/* ==========================================================================
+   BLACK-TO-PAPER CINEMATIC OPENING
+   ========================================================================== */
+#intro-scroll .sticky-scene{
+  background:#050505 !important;
+  transition:none !important;
+}
+#intro-scroll .museum-grid-bg{opacity:0 !important;}
+body.cinematic-opening{background:#050505 !important;}
+#intro-scroll #intro-planet{color:#D8D4CB !important;}
+@media (prefers-reduced-motion: reduce){
+  body.cinematic-opening,
+  #intro-scroll .sticky-scene{background:var(--paper,#F1EFE9) !important;}
+  #intro-scroll .museum-grid-bg{opacity:.34 !important;}
+  #intro-scroll #intro-planet{color:#514E47 !important;}
+}
+</style>
 </head>
 
 <body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
@@ -1970,7 +1988,7 @@ body > header {
 
   <script>
     /* Cinematic exhibition intro — UI-only presentation controller. */
-    (function(){
+(function(){
       const intro=document.getElementById('intro-scroll');
       const scene=document.getElementById('sticky-scene');
       const saturn=document.getElementById('intro-planet');
@@ -1985,6 +2003,7 @@ body > header {
       const marks=document.querySelectorAll('.intro-mark,.intro-section-number');
       const header=document.querySelector('body > header');
       const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
+      const root=document.documentElement;
 
       if(!intro||!scene||!saturn||!sphere||!orbit||!rings||!title)return;
 
@@ -1998,6 +2017,29 @@ body > header {
         const progress=clamp(-intro.getBoundingClientRect().top/scrollable,0,1);
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
+
+        /* Black at rest, then a slow reveal into the exhibition's warm paper. */
+        const colorP=smooth(progress/.30);
+        const mix=(a,b,t)=>{
+          const ah=parseInt(a.slice(1),16), bh=parseInt(b.slice(1),16);
+          const ar=ah>>16, ag=(ah>>8)&255, ab=ah&255;
+          const br=bh>>16, bg=(bh>>8)&255, bb=bh&255;
+          const r=Math.round(lerp(ar,br,t));
+          const g=Math.round(lerp(ag,bg,t));
+          const b=Math.round(lerp(ab,bb,t));
+          return 'rgb('+r+','+g+','+b+')';
+        };
+        const openingBg=mix('#050505','#F1EFE9',colorP);
+        scene.style.setProperty('background-color',openingBg,'important');
+        document.body.style.setProperty('background-color',openingBg,'important');
+        root.style.setProperty('--cinematic-opening-progress',colorP.toFixed(3));
+
+        /* Saturn shifts from a luminous wireframe on black to archival ink. */
+        const planetColor=mix('#D8D4CB','#514E47',colorP);
+        saturn.style.setProperty('color',planetColor,'important');
+
+        const grid=document.querySelector('.museum-grid-bg');
+        if(grid) grid.style.setProperty('opacity',(colorP*.34).toFixed(3),'important');
 
         /* Saturn: centered at rest, then shifts right and shrinks. */
         const saturnShift=smooth((progress-.16)/.44);
@@ -2059,6 +2101,7 @@ body > header {
       else updateScene();
       window.addEventListener('load',updateScene);
     })();
+
   </script>
 
   <!-- 
