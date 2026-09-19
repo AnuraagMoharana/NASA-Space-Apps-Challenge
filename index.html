@@ -772,6 +772,8 @@
     /* INTERACTIVE SOLAR SYSTEM MODAL — UI ONLY */
     #solar-system-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:stretch;justify-content:center;background:rgba(6,3,8,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
     #solar-system-modal.is-open{opacity:1;visibility:visible;pointer-events:auto}
+    .solar-map-backdrop{position:absolute;inset:0;background:transparent;cursor:default}
+
     .solar-system-shell{position:relative;width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(255,184,77,.10),transparent 28%),radial-gradient(circle at 20% 20%,rgba(82,247,232,.06),transparent 25%),radial-gradient(circle at 80% 80%,rgba(255,98,95,.06),transparent 28%),#09060b}
     .solar-system-shell:before,.solar-system-shell:after{content:"";position:absolute;inset:0;pointer-events:none}
     .solar-system-shell:before{background-image:radial-gradient(circle,rgba(255,255,255,.72) 1px,transparent 1px),radial-gradient(circle,rgba(82,247,232,.5) 1px,transparent 1px);background-size:180px 180px,270px 270px;background-position:15px 35px,85px 120px;opacity:.18}
@@ -798,7 +800,9 @@
     .ss-planet-chip.is-active{box-shadow:0 0 25px rgba(255,184,77,.10)}
     .ss-attribution{position:absolute;right:1.25rem;top:4.9rem;z-index:25;font-size:.65rem;color:rgba(255,255,255,.34);text-align:right}
     .ss-attribution a{color:#52F7E8;text-decoration:none}.ss-attribution a:hover{text-decoration:underline}
-    @keyframes ss-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes ss-moon{from{transform:rotate(0) translateX(20px) rotate(0)}to{transform:rotate(360deg) translateX(20px) rotate(-360deg)}}
+    @keyframes ss-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    @media(prefers-reduced-motion:reduce){.ss-orbit .ss-planet-wrap,.ss-moon{animation:none!important}}
+@keyframes ss-moon{from{transform:rotate(0) translateX(20px) rotate(0)}to{transform:rotate(360deg) translateX(20px) rotate(-360deg)}}
     #solar-system-modal.ss-flat .ss-system{transform:rotateX(0deg) scale(.92)}#solar-system-modal.ss-zoom .ss-system{transform:rotateX(56deg) scale(1.08)}#solar-system-modal.ss-flat.ss-zoom .ss-system{transform:rotateX(0deg) scale(1.08)}
     @media(max-width:780px){.ss-system{min-width:520px;min-height:420px;width:720px;height:560px;transform:rotateX(56deg) scale(.68)}#solar-system-modal.ss-flat .ss-system{transform:rotateX(0deg) scale(.68)}#solar-system-modal.ss-zoom .ss-system{transform:rotateX(56deg) scale(.82)}#solar-system-modal.ss-flat.ss-zoom .ss-system{transform:rotateX(0deg) scale(.82)}.solar-map-title span:last-child{display:none}.ss-controls{bottom:.9rem;left:.9rem}.ss-planet-labels{bottom:4.2rem;left:.9rem;right:.9rem;justify-content:flex-start}.ss-attribution{top:4.6rem;right:.9rem;max-width:240px}}
   </style>
@@ -823,7 +827,6 @@
     class="stars"
     aria-hidden="true"
   ></div>
-
 
   <!-- =========================
 
@@ -1162,6 +1165,8 @@
                  items-center gap-4"
         >
 
+          <!-- EXPLORE -->
+
           <a
             href="#archive"
             class="group inline-flex
@@ -1188,15 +1193,15 @@
               stroke-width="2"
               aria-hidden="true"
             >
-
               <path
                 d="M5 12h14M13 6l6 6-6 6"
               ></path>
-
             </svg>
 
           </a>
 
+
+          <!-- MEET THE EXPLORERS -->
 
           <a
             href="#explorer"
@@ -1215,9 +1220,7 @@
                    hover:text-white"
           >
 
-            <span aria-hidden="true">
-              ✦
-            </span>
+            <span aria-hidden="true">✦</span>
 
             Meet the explorers
             <button
@@ -2635,6 +2638,324 @@
     </div>
 
   </footer>
+
+
+  <!-- =========================================================
+       INTERACTIVE 3D SOLAR SYSTEM MODAL
+       UI ONLY — no data fetching or application logic
+  ========================================================== -->
+
+  <div
+    id="solar-system-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="solar-map-backdrop"
+      aria-hidden="true"
+      onclick="closeSolarModal()"
+    ></div>
+
+    <section
+      class="solar-system-shell"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="solar-map-heading"
+    >
+
+      <div class="solar-map-header">
+
+        <div class="solar-map-title">
+          <span aria-hidden="true">🌐</span>
+
+          <span>
+            <strong
+              id="solar-map-heading"
+              class="block text-sm font-bold tracking-wide text-white"
+            >
+              Interactive 3D Orbit Map
+            </strong>
+
+            <span
+              class="mt-0.5 block text-[10px] uppercase tracking-[.18em] text-white/35"
+            >
+              Solar System · Visual Explorer
+            </span>
+          </span>
+        </div>
+
+
+        <button
+          type="button"
+          class="solar-map-close"
+          onclick="closeSolarModal()"
+          aria-label="Close interactive Solar System map"
+        >
+          ✕ Close Map
+        </button>
+
+      </div>
+
+
+      <div class="solar-system-stage">
+
+        <div class="ss-system">
+
+          <!-- SUN -->
+
+          <div
+            class="ss-sun"
+            aria-label="Sun"
+          ></div>
+
+
+          <!-- MERCURY -->
+
+          <div
+            class="ss-orbit ss-mercury"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Mercury</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- VENUS -->
+
+          <div
+            class="ss-orbit ss-venus"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Venus</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- EARTH + MOON -->
+
+          <div
+            class="ss-orbit ss-earth"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+
+              <div class="ss-planet">
+
+                <span class="sr-only">Earth</span>
+
+                <div class="ss-moon-orbit">
+                  <div class="ss-moon"></div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- MARS -->
+
+          <div
+            class="ss-orbit ss-mars"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Mars</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- JUPITER -->
+
+          <div
+            class="ss-orbit ss-jupiter"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Jupiter</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- SATURN -->
+
+          <div
+            class="ss-orbit ss-saturn"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Saturn</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- URANUS -->
+
+          <div
+            class="ss-orbit ss-uranus"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Uranus</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- NEPTUNE -->
+
+          <div
+            class="ss-orbit ss-neptune"
+            aria-hidden="true"
+          >
+            <div class="ss-planet-wrap">
+              <div class="ss-planet">
+                <span class="sr-only">Neptune</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MAP CONTROLS -->
+
+      <div class="ss-controls">
+
+        <button
+          type="button"
+          class="ss-control"
+          onclick="toggleSolarFlat()"
+        >
+          ◇ 3D / 2D
+        </button>
+
+        <button
+          type="button"
+          class="ss-control"
+          onclick="toggleSolarZoom()"
+        >
+          ⊕ Zoom
+        </button>
+
+      </div>
+
+
+      <!-- PLANET SELECTOR -->
+
+      <div
+        class="ss-planet-labels"
+        aria-label="Select a planet to highlight"
+      >
+
+        <button
+          type="button"
+          class="ss-planet-chip is-active"
+          onclick="selectSolarPlanet('sun', this)"
+        >
+          ☀ Sun
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('mercury', this)"
+        >
+          Mercury
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('venus', this)"
+        >
+          Venus
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('earth', this)"
+        >
+          Earth
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('mars', this)"
+        >
+          Mars
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('jupiter', this)"
+        >
+          Jupiter
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('saturn', this)"
+        >
+          Saturn
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('uranus', this)"
+        >
+          Uranus
+        </button>
+
+        <button
+          type="button"
+          class="ss-planet-chip"
+          onclick="selectSolarPlanet('neptune', this)"
+        >
+          Neptune
+        </button>
+
+      </div>
+
+
+      <!-- ATTRIBUTION -->
+
+      <div class="ss-attribution">
+
+        3D Engine based on
+        <a
+          href="https://github.com/juliangarnier/3D-CSS-Solar-System"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Julian Garnier's 3D CSS Solar System
+        </a>
+
+      </div>
+
+    </section>
+
+  </div>
 
 
   <!-- SOLAR MAP UI SCRIPT — UI ONLY -->
