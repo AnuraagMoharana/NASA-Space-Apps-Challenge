@@ -1301,6 +1301,38 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
     transform: none !important;
   }
 }
+  
+/* ==========================================================================
+   PERSISTENT SATURN EXHIBIT — follows the visitor through the full page
+   ========================================================================== */
+#intro-planet {
+  position: fixed !important;
+  left: 50vw !important;
+  top: 50vh !important;
+  z-index: 2 !important;
+  transition: none !important;
+}
+
+#intro-planet.intro-planet-follow {
+  pointer-events: none !important;
+}
+
+/* Keep page content readable while Saturn remains present as an exhibit layer. */
+main, footer, header, aside[aria-label="Exhibit Metadata"] {
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  #intro-planet {
+    opacity: .24 !important;
+  }
+}
+@media (max-width: 640px) {
+  #intro-planet {
+    opacity: .17 !important;
+  }
+}
+
   </style>
 </head>
 
@@ -1742,54 +1774,56 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
       };
 
       function updateIntro(){
-        const rect=intro.getBoundingClientRect();
-        const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
-        const progress=clamp(-rect.top/scrollable,0,1);
+        const pageMax=Math.max(document.documentElement.scrollHeight-window.innerHeight,1);
+        const pageProgress=clamp(window.scrollY/pageMax,0,1);
 
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
 
-        /* The Saturn starts centered, then drifts right and shrinks as the exhibit opens. */
-        const endX=small?24:(mobile?20:35);
-        const x=-50+(endX+50)*progress;
+        /*
+         * Saturn now follows the visitor for the ENTIRE document.
+         * It starts centered during the opening, then gradually settles
+         * toward the right side and remains there through archive, science,
+         * interactive and footer.
+         */
+        const startX=50;
+        const endX=small?72:(mobile?70:78);
+        const travel=smoothstep(clamp(pageProgress/.22,0,1));
+        const x=startX+(endX-startX)*travel;
 
         const startScale=small?.72:1;
-        const endScale=small?.48:(mobile?.60:.62);
-        const scale=startScale+(endScale-startScale)*progress;
+        const endScale=small?.36:(mobile?.46:.54);
+        const scale=startScale+(endScale-startScale)*travel;
 
-        planet.style.transform='translate3d('+x+'%,-50%,0) scale('+scale+')';
+        planet.style.transform=
+          'translate3d('+(-50+(x-50))+'vw,-50%,0) scale('+scale+')';
+        planet.classList.add('intro-planet-follow');
 
-        /* The planet itself rotates through the scroll — not the rings. */
-        sphere.style.transform='rotate('+(progress*270)+'deg)';
+        /* Planet rotation is continuous for the whole page. */
+        sphere.style.transform='rotate('+(pageProgress*720)+'deg)';
 
-        /*
-         * Saturn's ring plane changes angle slowly, like the changing viewing
-         * geometry of Saturn's tilted system. It does NOT spin independently.
-         */
-        const ringAngle=-18+(progress*34);
+        /* Ring plane changes slowly and deliberately, never free-spinning. */
+        const ringAngle=-18+(pageProgress*42);
         orbit.style.transform='rotate('+ringAngle+'deg)';
         ringDetails.style.transform='rotate('+ringAngle+'deg)';
 
         /*
-         * TITLE REVEAL
-         * The words "Relics of the Solar System" get their own deliberate fade,
-         * beginning before the rest of the copy.
+         * Intro text starts at zero opacity. Nothing is visible before the
+         * reveal threshold; then the title fades first, followed by the rest.
          */
-        const titleReveal=smoothstep((progress-.28)/.30);
+        const introProgress=clamp(-intro.getBoundingClientRect().top/
+          Math.max(intro.offsetHeight-window.innerHeight,1),0,1);
+
+        const titleReveal=smoothstep((introProgress-.28)/.32);
         title.style.opacity=titleReveal.toFixed(3);
         title.style.transform='translateY('+((1-titleReveal)*18)+'px)';
 
-        /*
-         * BODY CONTENT
-         * Blank opening first, then a slower editorial fade.
-         */
-        const reveal=smoothstep((progress-.42)/.40);
-        content.style.opacity=reveal.toFixed(3);
-        content.style.transform='translateY('+((1-reveal)*42)+'px)';
-        content.style.pointerEvents=reveal>.96?'auto':'none';
+        const contentReveal=smoothstep((introProgress-.44)/.38);
+        content.style.opacity=contentReveal.toFixed(3);
+        content.style.transform='translateY('+((1-contentReveal)*42)+'px)';
+        content.style.pointerEvents=contentReveal>.96?'auto':'none';
 
-        /* Technical labels arrive last so the opening remains clean. */
-        const markReveal=smoothstep((progress-.70)/.22);
+        const markReveal=smoothstep((introProgress-.72)/.20);
         marks.forEach(function(mark){
           mark.style.opacity=markReveal.toFixed(3);
         });
