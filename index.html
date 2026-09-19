@@ -1244,6 +1244,32 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
 @media(max-width:900px){.intro-scroll{height:205vh}.intro-planet{width:520px;height:520px;left:68%;top:39%;opacity:.42}.intro-content{grid-template-columns:1fr;align-items:end;padding:100px 28px 80px}.intro-readout{display:none}}
 @media(max-width:640px){.intro-scroll{height:190vh}.intro-stage{min-height:620px}.intro-planet{width:390px;height:390px;left:72%;top:31%;opacity:.30}.intro-mark-top{top:22px;left:20px}.intro-section-number{top:22px;right:20px}.intro-mark-bottom{bottom:22px;white-space:nowrap}.intro-content{padding:90px 20px 62px}.intro-copy h1{font-size:clamp(3rem,15vw,4.5rem)}.intro-copy p{font-size:.96rem}}
 @media(prefers-reduced-motion:reduce){.intro-planet{transform:translate3d(-50%,-50%,0) scale(.72)!important}.intro-content{opacity:1!important;transform:none!important}}
+  
+
+/* ==========================================================================
+   PURE PLANET OPENING — text stays completely absent at first
+   ========================================================================== */
+
+.intro-mark,
+.intro-section-number {
+  opacity: 0;
+  transition: none;
+}
+
+.intro-content {
+  opacity: 0 !important;
+  transform: translateY(42px);
+}
+
+.intro-planet {
+  opacity: .82;
+}
+
+@media (max-width: 640px) {
+  .intro-planet {
+    opacity: .68;
+  }
+}
   </style>
 </head>
 
@@ -1657,33 +1683,84 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
       const sphere=document.getElementById('intro-planet-sphere');
       const orbit=document.getElementById('intro-planet-orbit');
       const content=document.getElementById('intro-content');
+      const marks=document.querySelectorAll('.intro-mark, .intro-section-number');
+
       if(!intro||!planet||!sphere||!orbit||!content)return;
+
       let ticking=false;
+
       const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
+
       function updateIntro(){
         const rect=intro.getBoundingClientRect();
         const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
         const progress=clamp(-rect.top/scrollable,0,1);
+
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
+
+        /*
+         * The planet is the ONLY visual focus at the beginning.
+         * Text remains completely invisible until the user has
+         * meaningfully entered the scroll sequence.
+         */
         const endX=small?24:(mobile?20:35);
         const x=-50+(endX+50)*progress;
+
         const startScale=small?.72:1;
         const endScale=small?.48:(mobile?.60:.62);
         const scale=startScale+(endScale-startScale)*progress;
-        planet.style.transform='translate3d('+x+'%,-50%,0) scale('+scale+')';
+
+        planet.style.transform=
+          'translate3d('+x+'%,-50%,0) scale('+scale+')';
+
+        /* Scroll-linked planetary rotation */
         sphere.style.transform='rotate('+(progress*360)+'deg)';
         orbit.style.transform='rotate('+(-16+progress*55)+'deg)';
-        const reveal=clamp((progress-.42)/.42,0,1);
+
+        /*
+         * CONTENT REVEAL
+         *
+         * 0–45%:
+         * absolutely nothing except the planet.
+         *
+         * 45–75%:
+         * extremely slow fade-in.
+         *
+         * 75–100%:
+         * content reaches full visibility.
+         */
+        const reveal=clamp((progress-.45)/.38,0,1);
         const eased=reveal*reveal*(3-2*reveal);
+
         content.style.opacity=eased.toFixed(3);
-        content.style.transform='translateY('+((1-eased)*34)+'px)';
-        content.style.pointerEvents=eased>.92?'auto':'none';
+        content.style.transform=
+          'translateY('+((1-eased)*42)+'px)';
+
+        content.style.pointerEvents=eased>.96?'auto':'none';
+
+        /*
+         * Keep the small technical labels almost invisible during
+         * the blank opening and introduce them later.
+         */
+        const markReveal=clamp((progress-.68)/.25,0,1);
+        marks.forEach(function(mark){
+          mark.style.opacity=markReveal.toFixed(3);
+        });
+
         ticking=false;
       }
-      function requestUpdate(){if(!ticking){requestAnimationFrame(updateIntro);ticking=true}}
-      addEventListener('scroll',requestUpdate,{passive:true});
-      addEventListener('resize',requestUpdate,{passive:true});
+
+      function requestUpdate(){
+        if(!ticking){
+          requestAnimationFrame(updateIntro);
+          ticking=true;
+        }
+      }
+
+      window.addEventListener('scroll',requestUpdate,{passive:true});
+      window.addEventListener('resize',requestUpdate,{passive:true});
+
       updateIntro();
     })();
   </script>
