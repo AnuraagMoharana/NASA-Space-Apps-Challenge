@@ -1303,6 +1303,42 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
 }
   
 /* ==========================================================================
+   REFINED SCROLL FADE — transparent text that emerges with the first scroll
+   ========================================================================== */
+#intro-content {
+  opacity: 0;
+  transform: none;
+  transition: none !important;
+  will-change: opacity;
+}
+
+#intro-title {
+  opacity: 0;
+  transform: none;
+  transition: none !important;
+  will-change: opacity;
+}
+
+.intro-copy p,
+.intro-eyebrow,
+.intro-actions,
+.intro-readout {
+  opacity: 0;
+  transition: none !important;
+  will-change: opacity;
+}
+
+/* The opening should feel intentionally empty: only Saturn is present. */
+#intro-scroll .intro-content,
+#intro-scroll #intro-title,
+#intro-scroll .intro-copy p,
+#intro-scroll .intro-eyebrow,
+#intro-scroll .intro-actions,
+#intro-scroll .intro-readout {
+  visibility: visible;
+}
+
+/* ==========================================================================
    PERSISTENT SATURN EXHIBIT — follows the visitor through the full page
    ========================================================================== */
 #intro-planet {
@@ -1808,20 +1844,35 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
         ringDetails.style.transform='rotate('+ringAngle+'deg)';
 
         /*
-         * Intro text starts at zero opacity. Nothing is visible before the
-         * reveal threshold; then the title fades first, followed by the rest.
+         * True opacity reveal: the opening is completely transparent except
+         * for Saturn. As soon as the visitor scrolls, the typography emerges
+         * continuously from 0 → 1 with no positional trickery or pop-in.
          */
         const introProgress=clamp(-intro.getBoundingClientRect().top/
           Math.max(intro.offsetHeight-window.innerHeight,1),0,1);
+        const pageFade=clamp(window.scrollY/(window.innerHeight*1.05),0,1);
 
-        const titleReveal=smoothstep((introProgress-.28)/.32);
+        /* Title leads the reveal, then supporting copy and controls follow. */
+        const titleReveal=smoothstep(pageFade/0.58);
+        const bodyReveal=smoothstep((pageFade-0.16)/0.68);
+        const eyebrowReveal=smoothstep((pageFade-0.08)/0.50);
+        const actionsReveal=smoothstep((pageFade-0.34)/0.58);
+        const readoutReveal=smoothstep((pageFade-0.24)/0.62);
+
         title.style.opacity=titleReveal.toFixed(3);
-        title.style.transform='translateY('+((1-titleReveal)*18)+'px)';
+        content.style.opacity=Math.max(titleReveal,bodyReveal*.92).toFixed(3);
+        content.style.transform='none';
 
-        const contentReveal=smoothstep((introProgress-.44)/.38);
-        content.style.opacity=contentReveal.toFixed(3);
-        content.style.transform='translateY('+((1-contentReveal)*42)+'px)';
-        content.style.pointerEvents=contentReveal>.96?'auto':'none';
+        const eyebrow=content.querySelector('.intro-eyebrow');
+        const copyText=content.querySelector('.intro-copy p');
+        const actions=content.querySelector('.intro-actions');
+        const readout=content.querySelector('.intro-readout');
+        if(eyebrow) eyebrow.style.opacity=eyebrowReveal.toFixed(3);
+        if(copyText) copyText.style.opacity=bodyReveal.toFixed(3);
+        if(actions) actions.style.opacity=actionsReveal.toFixed(3);
+        if(readout) readout.style.opacity=readoutReveal.toFixed(3);
+
+        content.style.pointerEvents=pageFade>.82?'auto':'none';
 
         const markReveal=smoothstep((introProgress-.72)/.20);
         marks.forEach(function(mark){
