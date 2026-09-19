@@ -1,2955 +1,537 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
-
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relics of the Solar System — NASA Archival Exhibit</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <meta
-    name="description"
-    content="Relics of the Solar System — Explore humanity's robotic explorers and discover the science they unlocked across our cosmic neighborhood."
-  />
-
-  <meta
-    name="theme-color"
-    content="#0B070C"
-  />
-
-  <title>Relics of the Solar System</title>
-
-
-  <!-- =========================================================
-       TAILWIND CSS
-  ========================================================== -->
-
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-
-  <!-- =========================================================
-       FONTS
-  ========================================================== -->
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-
-  <!-- =========================================================
-       TAILWIND CONFIG
-  ========================================================== -->
-
   <script>
-
     tailwind.config = {
-
       theme: {
-
         extend: {
-
-          fontFamily: {
-
-            sans: [
-              "DM Sans",
-              "sans-serif"
-            ],
-
-            display: [
-              "Space Grotesk",
-              "sans-serif"
-            ]
-
-          },
-
-
           colors: {
-
-            obsidian: "#0B070C",
-
-            plum: "#180C19",
-
-            gold: "#FFB84D",
-
-            amber: "#FF9F43",
-
-            coral: "#FF625F",
-
-            cyan: "#52F7E8"
-
+            space: {
+              950: '#050505',
+              900: '#0a0a0a',
+              850: '#121212',
+              800: '#181818',
+              700: '#262626'
+            },
+            paper: {
+              50: '#faf9f5',
+              100: '#f2efe9',
+              200: '#e2ded4',
+              400: '#a09c94',
+              600: '#6e6a62'
+            },
+            coral: {
+              400: '#ff6b4a',
+              500: '#ff5533',
+              600: '#e04422'
+            }
           },
-
-
-          boxShadow: {
-
-            glow:
-              "0 0 60px rgba(255,159,67,.13)",
-
-            coral:
-              "0 20px 70px rgba(255,98,95,.15)"
-
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            serif: ['"Fraunces"', 'serif']
           }
-
         }
-
       }
-
     };
-
   </script>
 
-
-  <!-- =========================================================
-       CUSTOM UI STYLES
-  ========================================================== -->
+  <!-- Google Fonts: IBM Plex Sans, IBM Plex Mono & Fraunces -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-
-    /* ---------------------------------------------------------
-       BASE
-    --------------------------------------------------------- */
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-
-    body {
-
-      min-height: 100vh;
-
-      background:
-
-        radial-gradient(
-          circle at 15% 0%,
-          rgba(255,98,95,.12),
-          transparent 30%
-        ),
-
-        radial-gradient(
-          circle at 85% 15%,
-          rgba(82,247,232,.08),
-          transparent 25%
-        ),
-
-        radial-gradient(
-          circle at 55% 75%,
-          rgba(255,184,77,.06),
-          transparent 32%
-        ),
-
-        #0B070C;
-
-    }
-
-
-    ::selection {
-
-      background: #FFB84D;
-
-      color: #0B070C;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       STAR FIELD
-    --------------------------------------------------------- */
-
-    .stars {
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: -1;
-
-      pointer-events: none;
-
-      overflow: hidden;
-
-    }
-
-
-    .stars::before,
-    .stars::after {
-
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      background-image:
-
-        radial-gradient(
-          circle,
-          rgba(255,255,255,.75) 1px,
-          transparent 1px
-        ),
-
-        radial-gradient(
-          circle,
-          rgba(82,247,232,.55) 1px,
-          transparent 1px
-        ),
-
-        radial-gradient(
-          circle,
-          rgba(255,184,77,.4) 1px,
-          transparent 1px
-        );
-
-      background-position:
-
-        0 0,
-        40px 60px,
-        120px 150px;
-
-      background-size:
-
-        160px 160px,
-        230px 230px,
-        310px 310px;
-
-      opacity: .25;
-
-    }
-
-
-    .stars::after {
-
-      transform: scale(1.25);
-
-      opacity: .12;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       GLASSMORPHISM
-    --------------------------------------------------------- */
-
-    .glass {
-
-      background:
-
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.075),
-          rgba(255,255,255,.025)
-        );
-
-      border: 1px solid rgba(255,255,255,.1);
-
-      box-shadow:
-
-        inset 0 1px 0 rgba(255,255,255,.05),
-
-        0 25px 80px rgba(0,0,0,.25);
-
-      backdrop-filter: blur(18px);
-
-      -webkit-backdrop-filter: blur(18px);
-
-    }
-
-
-    /* ---------------------------------------------------------
-       SPOTLIGHT CARDS
-    --------------------------------------------------------- */
-
-    .spotlight-card {
-
-      --mouse-x: 50%;
-
-      --mouse-y: 50%;
-
-      position: relative;
-
-      overflow: hidden;
-
-      isolation: isolate;
-
-      background:
-
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.075),
-          rgba(255,255,255,.025)
-        );
-
-      border: 1px solid rgba(255,255,255,.11);
-
-      transition:
-
-        transform .3s ease,
-
-        border-color .3s ease,
-
-        box-shadow .3s ease;
-
-    }
-
-
-    .spotlight-card::after {
-
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      border-radius: inherit;
-
-      box-shadow:
-
-        inset 0 1px 0 rgba(255,255,255,.05);
-
-    }
-
-
-    .spotlight-overlay {
-
-      position: absolute;
-
-      inset: 0;
-
-      z-index: 1;
-
-      pointer-events: none;
-
-      opacity: 0;
-
-      background:
-
-        radial-gradient(
-          circle 260px at
-          var(--mouse-x)
-          var(--mouse-y),
-
-          rgba(255,184,77,.16),
-
-          rgba(255,159,67,.07) 25%,
-
-          transparent 68%
-        );
-
-      transition: opacity .25s ease;
-
-    }
-
-
-    .spotlight-card:hover {
-
-      transform: translateY(-6px);
-
-      border-color: rgba(255,184,77,.34);
-
-      box-shadow:
-
-        0 30px 80px rgba(0,0,0,.35),
-
-        0 0 45px rgba(255,159,67,.08);
-
-    }
-
-
-    .spotlight-card:hover
-    .spotlight-overlay {
-
-      opacity: 1;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       CYAN SPOTLIGHT VARIANT
-    --------------------------------------------------------- */
-
-    .spotlight-cyan:hover {
-
-      border-color:
-        rgba(82,247,232,.30);
-
-      box-shadow:
-
-        0 30px 80px rgba(0,0,0,.35),
-
-        0 0 45px rgba(82,247,232,.07);
-
-    }
-
-
-    .spotlight-cyan
-    .spotlight-overlay {
-
-      background:
-
-        radial-gradient(
-          circle 300px at
-          var(--mouse-x)
-          var(--mouse-y),
-
-          rgba(82,247,232,.14),
-
-          rgba(82,247,232,.05) 25%,
-
-          transparent 68%
-        );
-
-    }
-
-
-    /* ---------------------------------------------------------
-       WARM GRADIENT TEXT
-    --------------------------------------------------------- */
-
-    .warm-gradient {
-
-      background:
-
-        linear-gradient(
-          90deg,
-          #FFD07A 0%,
-          #FF9F43 35%,
-          #FF625F 72%,
-          #FF8D91 100%
-        );
-
-      -webkit-background-clip: text;
-
-      background-clip: text;
-
-      color: transparent;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       ARCHIVE CARD IMAGE / VISUAL
-    --------------------------------------------------------- */
-
-    .hardware-preview {
-
-      position: relative;
-
-      overflow: hidden;
-
-      background:
-
-        radial-gradient(
-          circle at 70% 30%,
-          rgba(255,184,77,.18),
-          transparent 30%
-        ),
-
-        linear-gradient(
-          135deg,
-          #251526,
-          #171018 55%,
-          #0d090e
-        );
-
-    }
-
-
-    .hardware-preview::after {
-
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      background:
-
-        linear-gradient(
-          to bottom,
-          transparent 45%,
-          rgba(0,0,0,.65)
-        );
-
-    }
-
-
-    /* ---------------------------------------------------------
-       MOCK SPACECRAFT
-    --------------------------------------------------------- */
-
-    .mock-spacecraft {
-
-      position: relative;
-
-      width: 90px;
-
-      height: 68px;
-
-      transition:
-
-        transform .5s ease;
-
-    }
-
-
-    .group:hover
-    .mock-spacecraft {
-
-      transform:
-        scale(1.1)
-        rotate(-4deg);
-
-    }
-
-
-    .mock-body {
-
-      position: absolute;
-
-      left: 20px;
-
-      top: 15px;
-
-      width: 50px;
-
-      height: 38px;
-
-      border-radius: 8px;
-
-      transform: rotate(-10deg);
-
-      border:
-        1px solid
-        rgba(255,184,77,.4);
-
-      background:
-
-        linear-gradient(
-          135deg,
-          rgba(255,184,77,.4),
-          rgba(255,159,67,.1)
-        );
-
-      box-shadow:
-
-        0 0 50px
-        rgba(255,184,77,.18);
-
-    }
-
-
-    .mock-panel-left,
-    .mock-panel-right {
-
-      position: absolute;
-
-      top: 20px;
-
-      width: 45px;
-
-      height: 25px;
-
-      border-radius: 4px;
-
-      transform: rotate(-10deg);
-
-      border:
-        1px solid
-        rgba(82,247,232,.2);
-
-      background:
-
-        linear-gradient(
-          135deg,
-          rgba(82,247,232,.12),
-          rgba(82,247,232,.03)
-        );
-
-    }
-
-
-    .mock-panel-left {
-
-      left: -22px;
-
-    }
-
-
-    .mock-panel-right {
-
-      right: -22px;
-
-    }
-
-
-    .mock-antenna {
-
-      position: absolute;
-
-      left: 43px;
-
-      top: -15px;
-
-      width: 25px;
-
-      height: 25px;
-
-      border:
-
-        1px solid
-        rgba(255,255,255,.3);
-
-      border-radius: 50%;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       BUTTON ARROW
-    --------------------------------------------------------- */
-
-    .arrow-button {
-
-      transition:
-
-        transform .25s ease,
-
-        background-color .25s ease,
-
-        color .25s ease,
-
-        border-color .25s ease;
-
-    }
-
-
-    .group:hover
-    .arrow-button {
-
-      transform: translateX(2px);
-
-      border-color:
-        rgba(255,184,77,.3);
-
-      background:
-        rgba(255,184,77,.1);
-
-      color: #FFB84D;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       FOOTER
-    --------------------------------------------------------- */
-
-    footer {
-
-      border-top:
-        1px solid
-        rgba(255,255,255,.07);
-
-    }
-
-
-    /* ---------------------------------------------------------
-       SCROLLBAR
-    --------------------------------------------------------- */
-
+    /* Custom Scrollbar */
     ::-webkit-scrollbar {
-
-      width: 9px;
-
+      width: 6px;
+      height: 6px;
     }
-
-
     ::-webkit-scrollbar-track {
-
-      background: #0B070C;
-
+      background: #050505;
     }
-
-
     ::-webkit-scrollbar-thumb {
-
-      background: #38253A;
-
-      border-radius: 999px;
-
+      background: #262626;
+      border-radius: 0px;
     }
-
-
     ::-webkit-scrollbar-thumb:hover {
-
-      background: #5A3658;
-
+      background: #ff5533;
     }
 
-
-    /* ---------------------------------------------------------
-       ACCESSIBILITY
-    --------------------------------------------------------- */
-
-    :focus-visible {
-
-      outline:
-        2px solid
-        #52F7E8;
-
-      outline-offset: 4px;
-
+    /* Grid Overlay Pattern */
+    .bg-tech-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(242, 239, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(242, 239, 233, 0.03) 1px, transparent 1px);
     }
 
-
-    @media
-    (prefers-reduced-motion: reduce) {
-
-      html {
-
-        scroll-behavior: auto;
-
-      }
-
-
-      .spotlight-card {
-
-        transition: none;
-
-      }
-
-
-      .spotlight-overlay {
-
-        transition: none;
-
-      }
-
-
-      .mock-spacecraft {
-
-        transition: none;
-
-      }
-
+    /* Target styling for dynamic children inside #hardware-grid populated by js/app.js */
+    #hardware-grid > * {
+      background-color: #0a0a0a;
+      border: 1px solid rgba(242, 239, 233, 0.12);
+      padding: 1.5rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
     }
-
-
-    /* ---------------------------------------------------------
-       MOBILE
-    --------------------------------------------------------- */
-
-    @media (max-width: 640px) {
-
-      .spotlight-card:hover {
-
-        transform: translateY(-3px);
-
-      }
-
+    #hardware-grid > *:hover {
+      border-color: rgba(255, 85, 51, 0.5);
+      background-color: #121212;
+      transform: translateY(-2px);
     }
-
-
-    /* =========================================================
-   JULIAN GARNIER SOLAR SYSTEM MODAL
-   The actual Solar System runs from the original integrated
-   source in /solar-system/.
-========================================================= */
-
-    #solar-system-modal{
-      position:fixed;
-      inset:0;
-      z-index:100;
-      display:flex;
-      align-items:stretch;
-      justify-content:center;
-      background:#08090a;
-      opacity:0;
-      visibility:hidden;
-      pointer-events:none;
-      transition:opacity .35s ease, visibility .35s ease;
+    #hardware-grid h3, #hardware-grid .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      color: #f2efe9;
+      margin-bottom: 0.5rem;
     }
-
-    #solar-system-modal.is-open{
-      opacity:1;
-      visibility:visible;
-      pointer-events:auto;
+    #hardware-grid p, #hardware-grid .card-desc {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      color: #a09c94;
+      line-height: 1.5;
     }
-
-    .solar-system-shell{
-      position:relative;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-      background:#08090a;
+    #hardware-grid .tag, #hardware-grid .status-pill {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #ff5533;
+      border: 1px solid rgba(255, 85, 51, 0.3);
+      padding: 0.2rem 0.5rem;
+      width: fit-content;
+      margin-top: 1rem;
     }
-
-    .solar-system-frame{
-      display:block;
-      width:100%;
-      height:100%;
-      border:0;
-      background:#08090a;
-    }
-
-    .solar-map-close{
-      position:absolute;
-      top:16px;
-      right:18px;
-      z-index:120;
-      display:inline-flex;
-      align-items:center;
-      gap:.55rem;
-      min-height:42px;
-      padding:.7rem 1rem;
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:999px;
-      background:rgba(8,9,10,.78);
-      color:rgba(255,255,255,.88);
-      font-size:.72rem;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      cursor:pointer;
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      box-shadow:0 12px 35px rgba(0,0,0,.35);
-      transition:transform .2s ease,border-color .2s ease,background .2s ease;
-    }
-
-    .solar-map-close:hover{
-      transform:translateY(-1px);
-      border-color:rgba(255,184,77,.5);
-      background:rgba(255,184,77,.14);
-      color:#fff;
-    }
-
-    .solar-map-attribution{
-      position:absolute;
-      left:18px;
-      bottom:16px;
-      z-index:120;
-      max-width:min(420px,calc(100% - 36px));
-      padding:.55rem .75rem;
-      border:1px solid rgba(255,255,255,.09);
-      border-radius:999px;
-      background:rgba(8,9,10,.68);
-      color:rgba(255,255,255,.38);
-      font-size:.65rem;
-      line-height:1.35;
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-    }
-
-    .solar-map-attribution a{
-      color:#52F7E8;
-      text-decoration:none;
-    }
-
-    .solar-map-attribution a:hover{
-      text-decoration:underline;
-    }
-
-    @media(max-width:640px){
-      .solar-map-close{
-        top:10px;
-        right:10px;
-        padding:.62rem .78rem;
-        font-size:.64rem;
-      }
-
-      .solar-map-attribution{
-        left:10px;
-        bottom:10px;
-        font-size:.58rem;
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      #solar-system-modal{
-        transition:none;
-      }
-    }</style>
-
+  </style>
 </head>
 
+<body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
 
-<body
-  class="min-h-screen
-         bg-obsidian
-         font-sans
-         text-white
-         antialiased"
->
+  <!-- TOP BAR / EXHIBIT READOUT STRIP -->
+  <aside aria-label="Exhibit Metadata" class="w-full bg-space-900 border-b border-paper-100/10 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
+    <div class="flex items-center gap-4">
+      <span class="inline-flex items-center gap-1.5 text-paper-200">
+        <span class="w-2 h-2 rounded-full bg-coral-500"></span>
+        EXHIBIT: RELICS OF THE SOLAR SYSTEM
+      </span>
+      <span class="hidden md:inline text-paper-600">|</span>
+      <span class="hidden md:inline">CATALOGUE — ARCHIVAL EXHIBIT</span>
+    </div>
+    <div class="flex items-center gap-4 text-paper-400">
+      <span class="hidden lg:inline">MODE — INTERACTIVE</span>
+      <span class="text-coral-500 font-medium">NASA SPACE APPS CHALLENGE</span>
+    </div>
+  </aside>
 
-
-  <!-- =========================================================
-       BACKGROUND
-  ========================================================== -->
-
-  <div
-    class="stars"
-    aria-hidden="true"
-  ></div>
-
-  <!-- =========================
-
-
-       HEADER
-  ========================================================== -->
-
-  <header
-    class="fixed inset-x-0 top-0 z-50 px-4 pt-4"
-  >
-
-    <nav
-      class="glass mx-auto flex max-w-7xl
-             items-center justify-between
-             rounded-2xl px-5 py-3"
-      aria-label="Main navigation"
-    >
-
-
-      <!-- BRAND -->
-
-      <a
-        href="#"
-        class="flex items-center gap-3"
-        aria-label="Relics of the Solar System home"
-      >
-
-        <div
-          class="flex h-10 w-10
-                 items-center justify-center
-                 rounded-xl
-                 border border-gold/20
-                 bg-gold/10"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            class="h-5 w-5 text-gold"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-
-            <circle
-              cx="12"
-              cy="12"
-              r="3.5"
-            ></circle>
-
-            <path
-              d="M3 12c3-5 15-5 18 0s-15 5-18 0Z"
-            ></path>
-
-          </svg>
-
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-40 w-full bg-space-950/90 backdrop-blur-md border-b border-paper-100/10 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="group flex items-center gap-3 focus:outline-none">
+        <div class="w-8 h-8 border border-paper-100/30 group-hover:border-coral-500 flex items-center justify-center transition-colors">
+          <div class="w-2 h-2 bg-coral-500"></div>
         </div>
-
-
-        <div>
-
-          <div
-            class="font-display text-sm
-                   font-bold tracking-tight
-                   sm:text-base"
-          >
-
-            Relics
-
-            <span class="text-white/40">
-              of the
-            </span>
-
-            Solar System
-
-          </div>
-
-
-          <div
-            class="mt-0.5 hidden
-                   text-[10px] font-semibold
-                   uppercase tracking-[.22em]
-                   text-white/35
-                   sm:block"
-          >
-
-            Space Archaeology
-
-          </div>
-
+        <div class="flex flex-col">
+          <span class="font-mono text-xs tracking-widest text-paper-400 uppercase leading-none">NASA EXHIBIT</span>
+          <span class="font-serif text-lg font-bold tracking-tight text-paper-100 group-hover:text-coral-400 transition-colors leading-tight">RELICS // SOLAR SYSTEM</span>
         </div>
-
       </a>
 
-
-      <!-- DESKTOP NAV -->
-
-      <div
-        class="hidden items-center
-               gap-7 md:flex"
-      >
-
-        <a
-          href="#archive"
-          class="text-sm font-medium
-                 text-white/55
-                 transition
-                 hover:text-white"
-        >
-          The Archive
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-wider text-paper-400 uppercase">
+        <a href="#archive" class="hover:text-coral-500 transition-colors flex items-center gap-1">
+          <span class="text-coral-500">01.</span> ARCHIVE
         </a>
-
-
-        <a
-          href="#explorer"
-          class="text-sm font-medium
-                 text-white/55
-                 transition
-                 hover:text-white"
-        >
-          3D Explorer
+        <a href="#science" class="hover:text-coral-500 transition-colors flex items-center gap-1">
+          <span class="text-coral-500">02.</span> SCIENCE
         </a>
-
-
-        <a
-          href="#science"
-          class="text-sm font-medium
-                 text-white/55
-                 transition
-                 hover:text-white"
-        >
-          Science
+        <a href="#interactive" class="hover:text-coral-500 transition-colors flex items-center gap-1">
+          <span class="text-coral-500">03.</span> ORBIT MAP
         </a>
+      </nav>
 
+      <!-- Action & Mobile Toggle -->
+      <div class="flex items-center gap-4">
+        <button onclick="openSolarModal()" class="hidden sm:inline-flex items-center gap-2 border border-coral-500/50 bg-coral-500/10 hover:bg-coral-500 hover:text-space-950 text-coral-400 text-xs font-mono tracking-wider uppercase px-4 py-2.5 transition-all duration-200">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Launch 3D Map
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+            <path id="menu-icon-close" class="hidden" stroke-linecap="square" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
+    </div>
 
-
-      <!-- STATUS -->
-
-      <div
-        class="flex items-center gap-2
-               rounded-full
-               border border-cyan/20
-               bg-cyan/[.07]
-               px-3 py-1.5"
-      >
-
-        <span
-          class="relative flex h-2 w-2"
-          aria-hidden="true"
-        >
-
-          <span
-            class="absolute inline-flex
-                   h-full w-full
-                   animate-ping
-                   rounded-full
-                   bg-cyan opacity-60"
-          ></span>
-
-          <span
-            class="relative inline-flex
-                   h-2 w-2 rounded-full
-                   bg-cyan"
-          ></span>
-
-        </span>
-
-
-        <span
-          class="text-[10px] font-bold
-                 uppercase tracking-[.15em]
-                 text-cyan
-                 sm:text-xs"
-        >
-          Archive Online
-        </span>
-
-      </div>
-
-    </nav>
-
+    <!-- Mobile Nav Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-paper-100/10 bg-space-900 px-6 py-6 font-mono text-sm uppercase tracking-wider space-y-4">
+      <a href="#archive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">01. Archive</a>
+      <a href="#science" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">02. Science</a>
+      <a href="#interactive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">03. Orbit Map</a>
+      <button onclick="toggleMobileMenu(); openSolarModal();" class="w-full mt-4 text-center border border-coral-500 bg-coral-500/10 text-coral-400 py-3 font-mono text-xs uppercase tracking-wider">
+        🌐 Launch Interactive 3D Orbit Map
+      </button>
+    </div>
   </header>
 
-
-  <!-- =========================================================
-       MAIN
-  ========================================================== -->
-
-  <main>
-
-
-    <!-- =======================================================
-         HERO
-    ======================================================== -->
-
-    <section
-      class="relative mx-auto flex
-             min-h-screen max-w-7xl
-             items-center
-             px-6 pb-20 pt-32
-             lg:px-8"
-    >
-
-
-      <!-- Ambient coral glow -->
-
-      <div
-        class="pointer-events-none
-               absolute right-[-10%]
-               top-[20%]
-               h-[500px]
-               w-[500px]
-               rounded-full
-               bg-coral/[.07]
-               blur-[120px]"
-        aria-hidden="true"
-      ></div>
-
-
-      <!-- Ambient gold glow -->
-
-      <div
-        class="pointer-events-none
-               absolute left-[-15%]
-               top-[55%]
-               h-[400px]
-               w-[400px]
-               rounded-full
-               bg-gold/[.05]
-               blur-[120px]"
-        aria-hidden="true"
-      ></div>
-
-
-      <div
-        class="relative z-10 max-w-5xl"
-      >
-
-
-        <!-- NASA BADGE -->
-
-        <div
-          class="mb-7 inline-flex
-                 items-center gap-3
-                 rounded-full
-                 border border-white/10
-                 bg-white/[.04]
-                 px-4 py-2
-                 backdrop-blur-xl"
-        >
-
-          <span
-            class="text-lg"
-            aria-hidden="true"
-          >
-            🛰️
-          </span>
-
-
-          <span
-            class="text-xs font-bold
-                   uppercase tracking-[.18em]
-                   text-white/65"
-          >
-            NASA Space Apps Challenge
-          </span>
-
-
-          <span
-            class="hidden h-1 w-1
-                   rounded-full
-                   bg-white/30
-                   sm:block"
-            aria-hidden="true"
-          ></span>
-
-
-          <span
-            class="hidden text-xs
-                   font-medium
-                   text-gold
-                   sm:block"
-          >
-            Mission Archive 01
-          </span>
-
-        </div>
-
-
-        <!-- HEADLINE -->
-
-        <h1
-          class="max-w-5xl
-                 font-display
-                 text-5xl font-bold
-                 leading-[.98]
-                 tracking-[-.045em]
-                 sm:text-6xl
-                 md:text-7xl
-                 lg:text-[92px]"
-        >
-
-          They crossed the void.
-
-          <span class="warm-gradient block">
-            We kept their stories.
-          </span>
-
-        </h1>
-
-
-        <!-- SUBCOPY -->
-
-        <p
-          class="mt-8 max-w-2xl
-                 text-lg leading-8
-                 text-white/55
-                 sm:text-xl"
-        >
-
-          Meet the spacecraft humanity sent
-          into the unknown — from machines
-          still whispering across billions of
-          kilometers to silent explorers resting
-          on alien worlds.
-
-        </p>
-
-
-        <!-- CTA -->
-
-        <div
-          class="mt-10 flex
-                 flex-wrap
-                 items-center gap-4"
-        >
-
-          <!-- EXPLORE -->
-
-          <a
-            href="#archive"
-            class="group inline-flex
-                   items-center gap-3
-                   rounded-full
-                   bg-gold
-                   px-6 py-3.5
-                   font-bold text-obsidian
-                   shadow-[0_0_35px_rgba(255,184,77,.16)]
-                   transition
-                   hover:-translate-y-1
-                   hover:bg-[#FFC96B]"
-          >
-
-            Explore the relics
-
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              class="h-4 w-4
-                     transition-transform
-                     group-hover:translate-x-1"
-              stroke="currentColor"
-              stroke-width="2"
-              aria-hidden="true"
-            >
-              <path
-                d="M5 12h14M13 6l6 6-6 6"
-              ></path>
-            </svg>
-
-          </a>
-
-
-          <!-- MEET THE EXPLORERS -->
-
-          <a
-            href="#explorer"
-            class="inline-flex
-                   items-center gap-2
-                   rounded-full
-                   border border-white/10
-                   bg-white/[.04]
-                   px-6 py-3.5
-                   font-semibold
-                   text-white/75
-                   backdrop-blur-xl
-                   transition
-                   hover:border-white/20
-                   hover:bg-white/[.08]
-                   hover:text-white"
-          >
-
-            <span aria-hidden="true">✦</span>
-
-            Meet the explorers
-            <button
-  type="button"
-  onclick="openSolarModal()"
-  class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-6 py-3.5 font-semibold text-gold backdrop-blur-xl transition hover:-translate-y-1 hover:border-gold/50 hover:bg-gold/15 hover:text-white"
->
-  <span aria-hidden="true">🌐</span>
-  Launch Interactive 3D Orbit Map
-</button>
-
-          </a>
-
-        </div>
-
-
-        <!-- STATS -->
-
-        <div
-          class="mt-16 grid
-                 max-w-2xl
-                 grid-cols-3
-                 divide-x
-                 divide-white/10"
-        >
-
-          <div class="pr-5">
-
-            <div
-              class="font-display
-                     text-2xl font-bold
-                     text-gold
-                     sm:text-3xl"
-            >
-              60+
-            </div>
-
-            <div
-              class="mt-1 text-xs
-                     uppercase
-                     tracking-[.15em]
-                     text-white/35"
-            >
-              Years exploring
-            </div>
-
-          </div>
-
-
-          <div class="px-5">
-
-            <div
-              class="font-display
-                     text-2xl font-bold
-                     text-coral
-                     sm:text-3xl"
-            >
-              5
-            </div>
-
-            <div
-              class="mt-1 text-xs
-                     uppercase
-                     tracking-[.15em]
-                     text-white/35"
-            >
-              Worlds visited
-            </div>
-
-          </div>
-
-
-          <div class="pl-5">
-
-            <div
-              class="font-display
-                     text-2xl font-bold
-                     text-cyan
-                     sm:text-3xl"
-            >
-              24B+
-            </div>
-
-            <div
-              class="mt-1 text-xs
-                     uppercase
-                     tracking-[.15em]
-                     text-white/35"
-            >
-              km travelled
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =======================================================
-         ARCHIVE
-    ======================================================== -->
-
-    <section
-      id="archive"
-      class="mx-auto max-w-7xl
-             scroll-mt-28
-             px-6 py-24
-             lg:px-8"
-    >
-
-
-      <!-- SECTION HEADER -->
-
-      <div
-        class="mb-12 flex
-               flex-col justify-between
-               gap-7
-               md:flex-row
-               md:items-end"
-      >
-
-        <div>
-
-          <div
-            class="mb-3 text-xs
-                   font-bold uppercase
-                   tracking-[.25em]
-                   text-coral"
-          >
-            01 / The Archive
-          </div>
-
-
-          <h2
-            class="font-display
-                   text-4xl font-bold
-                   tracking-tight
-                   sm:text-5xl"
-          >
-
-            Humanity's footprints
-
-            <span class="text-white/25">
-              among the stars.
-            </span>
-
-          </h2>
-
-
-          <p
-            class="mt-4 max-w-2xl
-                   leading-7
-                   text-white/45"
-          >
-
-            Every probe has a personality,
-            a purpose, and a story.
-            Select a relic to discover where
-            it went and what it taught us.
-
-          </p>
-
-        </div>
-
-
-        <!-- FILTER UI -->
-
-        <div
-          class="flex flex-wrap gap-2"
-        >
-
-          <button
-            type="button"
-            class="rounded-full
-                   border border-gold/25
-                   bg-gold/10
-                   px-4 py-2
-                   text-xs font-bold
-                   text-gold"
-          >
-            All relics
-          </button>
-
-
-          <button
-            type="button"
-            class="rounded-full
-                   border border-white/10
-                   px-4 py-2
-                   text-xs
-                   font-semibold
-                   text-white/45
-                   transition
-                   hover:bg-white/[.05]
-                   hover:text-white"
-          >
-            Active
-          </button>
-
-
-          <button
-            type="button"
-            class="rounded-full
-                   border border-white/10
-                   px-4 py-2
-                   text-xs
-                   font-semibold
-                   text-white/45
-                   transition
-                   hover:bg-white/[.05]
-                   hover:text-white"
-          >
-            Silent
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- =====================================================
-           HARDWARE GRID
-
-           IMPORTANT FOR PERSON 2:
-
-           Keep this ID exactly as-is.
-           app.js can dynamically populate this container.
-
-           The static card below is only a visual template.
-      ====================================================== -->
-
-      <div
-        id="hardware-grid"
-        class="grid gap-5
-               md:grid-cols-2
-               lg:grid-cols-3"
-      >
-
-
-        <!-- ===================================================
-             STATIC MOCK CARD
-             
-             UI TEMPLATE ONLY.
-             
-             Person 2 can replace/populate this card
-             through js/app.js.
-        ==================================================== -->
-
-        <article
-          id="hardware-card-template"
-          class="spotlight-card
-                 group relative
-                 overflow-hidden
-                 rounded-[28px]
-                 p-3"
-          data-status="active"
-        >
-
-
-          <!-- SPOTLIGHT -->
-
-          <div
-            class="spotlight-overlay"
-            aria-hidden="true"
-          ></div>
-
-
-          <!-- CONTENT -->
-
-          <div
-            class="relative z-10"
-          >
-
-
-            <!-- LIGHTWEIGHT PREVIEW -->
-
-            <a
-              id="hardware-link"
-              href="explorer.html"
-              class="block"
-              aria-label="Explore Voyager 1 in 3D"
-            >
-
-              <div
-                id="hardware-preview"
-                class="hardware-preview
-                       relative h-56
-                       rounded-[22px]"
-              >
-
-
-                <!-- Mock spacecraft -->
-
-                <div
-                  class="absolute inset-0
-                         flex items-center
-                         justify-center"
-                  aria-hidden="true"
-                >
-
-                  <div
-                    class="mock-spacecraft"
-                  >
-
-                    <div
-                      class="mock-body"
-                    ></div>
-
-                    <div
-                      class="mock-panel-left"
-                    ></div>
-
-                    <div
-                      class="mock-panel-right"
-                    ></div>
-
-                    <div
-                      class="mock-antenna"
-                    ></div>
-
-                  </div>
-
-                </div>
-
-
-                <!-- STATUS -->
-
-                <div
-                  class="absolute
-                         left-4 top-4"
-                >
-
-                  <span
-                    id="hardware-status"
-                    class="inline-flex
-                           items-center gap-2
-                           rounded-full
-                           border border-cyan/20
-                           bg-[#071513]/80
-                           px-3 py-1.5
-                           text-[10px]
-                           font-bold uppercase
-                           tracking-[.15em]
-                           text-cyan
-                           backdrop-blur-md"
-                  >
-
-                    <span
-                      class="h-1.5 w-1.5
-                             rounded-full
-                             bg-cyan"
-                      aria-hidden="true"
-                    ></span>
-
-                    Active
-
-                  </span>
-
-                </div>
-
-
-                <!-- RELIC NUMBER -->
-
-                <div
-                  class="absolute
-                         right-4 top-4
-                         font-display
-                         text-xs font-bold
-                         text-white/25"
-                >
-
-                  RELIC / 01
-
-                </div>
-
-
-                <!-- 3D CTA -->
-
-                <div
-                  class="absolute
-                         bottom-4
-                         right-4
-                         rounded-full
-                         border border-white/10
-                         bg-black/50
-                         px-3 py-1.5
-                         text-[10px]
-                         font-bold uppercase
-                         tracking-[.15em]
-                         text-white/60
-                         backdrop-blur-md"
-                >
-
-                  ↗ 3D Explorer
-
-                </div>
-
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-grow">
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[85vh] flex items-center border-b border-paper-100/10 bg-tech-grid overflow-hidden py-16 sm:py-24">
+      
+      <!-- Radial Glow Accent -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-coral-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch">
+          
+          <!-- Hero Text Column -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-8">
+            <div class="space-y-6">
+              
+              <!-- Eyebrow Tag -->
+              <div class="inline-flex items-center gap-2 border border-paper-100/20 bg-space-900 px-3 py-1 font-mono text-xs text-paper-400 uppercase tracking-widest">
+                <span class="w-1.5 h-1.5 bg-coral-500"></span>
+                NASA ARCHIVAL CATALOGUE // EXHIBIT 01
               </div>
 
-            </a>
+              <!-- Main Heading -->
+              <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-paper-100 tracking-tight leading-[1.08]">
+                MACHINES BUILT ON EARTH.<br />
+                <span class="italic font-light text-paper-200">STORIES WRITTEN ACROSS SPACE.</span>
+              </h1>
 
-
-            <!-- CARD INFORMATION -->
-
-            <div
-              class="p-4 pb-5 pt-5"
-            >
-
-
-              <div
-                class="mb-3 flex
-                       items-start
-                       justify-between
-                       gap-4"
-              >
-
-                <div>
-
-                  <p
-                    id="hardware-program"
-                    class="mb-1 text-[10px]
-                           font-bold uppercase
-                           tracking-[.2em]
-                           text-gold"
-                  >
-
-                    Voyager Program · 1977
-
-                  </p>
-
-
-                  <h3
-                    id="hardware-name"
-                    class="font-display
-                           text-2xl font-bold
-                           tracking-tight"
-                  >
-
-                    Voyager 1
-
-                  </h3>
-
-                </div>
-
-
-                <div
-                  class="arrow-button
-                         flex h-10 w-10
-                         shrink-0
-                         items-center
-                         justify-center
-                         rounded-full
-                         border border-white/10
-                         text-white/45"
-                  aria-hidden="true"
-                >
-
-                  ↗
-
-                </div>
-
-              </div>
-
-
-              <!-- DESCRIPTION -->
-
-              <p
-                id="hardware-description"
-                class="text-sm
-                       leading-6
-                       text-white/45"
-              >
-
-                The most distant
-                human-made object —
-                carrying a golden message
-                from Earth into
-                interstellar space.
-
+              <!-- Subtitle -->
+              <p class="font-sans text-base sm:text-lg text-paper-400 max-w-xl font-light leading-relaxed">
+                Explore the artificial relics humanity has dispatched into the cosmic deep. Trace their trajectories, unearth their discoveries, and navigate the solar system they illuminated.
               </p>
-
-
-              <!-- DIVIDER -->
-
-              <div
-                class="my-5 h-px
-                       bg-gradient-to-r
-                       from-transparent
-                       via-white/10
-                       to-transparent"
-              ></div>
-
-
-              <!-- SCIENCE -->
-
-              <div>
-
-                <div
-                  class="mb-3
-                         flex items-center gap-2"
-                >
-
-                  <span
-                    class="text-sm"
-                    aria-hidden="true"
-                  >
-                    🔬
-                  </span>
-
-
-                  <span
-                    class="text-[10px]
-                           font-bold uppercase
-                           tracking-[.18em]
-                           text-white/35"
-                  >
-
-                    Science unlocked
-
-                  </span>
-
-                </div>
-
-
-                <div
-                  id="hardware-science"
-                  class="flex flex-wrap gap-2"
-                >
-
-                  <span
-                    class="rounded-full
-                           bg-white/[.05]
-                           px-3 py-1.5
-                           text-xs
-                           text-white/60"
-                  >
-                    Jupiter's rings
-                  </span>
-
-
-                  <span
-                    class="rounded-full
-                           bg-white/[.05]
-                           px-3 py-1.5
-                           text-xs
-                           text-white/60"
-                  >
-                    Io volcanoes
-                  </span>
-
-
-                  <span
-                    class="rounded-full
-                           bg-white/[.05]
-                           px-3 py-1.5
-                           text-xs
-                           text-white/60"
-                  >
-                    Interstellar plasma
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <!-- METADATA -->
-
-              <div
-                class="mt-6 grid
-                       grid-cols-2 gap-3
-                       rounded-2xl
-                       border border-white/[.06]
-                       bg-black/20 p-3"
-              >
-
-                <div>
-
-                  <div
-                    class="text-[9px]
-                           font-bold uppercase
-                           tracking-[.15em]
-                           text-white/25"
-                  >
-
-                    Distance
-
-                  </div>
-
-
-                  <div
-                    id="hardware-distance"
-                    class="mt-1
-                           font-display
-                           text-sm
-                           font-semibold
-                           text-white/75"
-                  >
-
-                    25B+ km
-
-                  </div>
-
-                </div>
-
-
-                <div>
-
-                  <div
-                    class="text-[9px]
-                           font-bold uppercase
-                           tracking-[.15em]
-                           text-white/25"
-                  >
-
-                    Destination
-
-                  </div>
-
-
-                  <div
-                    id="hardware-destination"
-                    class="mt-1
-                           font-display
-                           text-sm
-                           font-semibold
-                           text-white/75"
-                  >
-
-                    Interstellar
-
-                  </div>
-
-                </div>
-
-              </div>
-
             </div>
 
+            <!-- CTA Actions -->
+            <div class="pt-4 flex flex-wrap items-center gap-4">
+              <button onclick="openSolarModal()" class="group inline-flex items-center gap-3 border border-coral-500 bg-coral-500 text-space-950 font-mono text-xs font-semibold tracking-wider uppercase px-6 py-4 hover:bg-coral-400 transition-all duration-200">
+                <svg class="w-4 h-4 fill-current transition-transform group-hover:rotate-45" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                Launch 3D Orbit Map
+              </button>
+
+              <a href="#archive" class="inline-flex items-center gap-2 border border-paper-100/20 bg-space-900/50 hover:bg-space-850 hover:border-paper-100/40 text-paper-200 font-mono text-xs tracking-wider uppercase px-6 py-4 transition-all duration-200">
+                Explore Hardware Archive
+                <span class="text-coral-500">↓</span>
+              </a>
+            </div>
           </div>
 
-        </article>
+          <!-- Technical Readout Panel (Accurate Labels) -->
+          <div class="lg:col-span-5 flex flex-col justify-between border border-paper-100/10 bg-space-900/80 p-6 sm:p-8 backdrop-blur-sm relative">
+            <div class="absolute top-0 right-0 border-t border-r border-coral-500 w-4 h-4"></div>
+            <div class="absolute bottom-0 left-0 border-b border-l border-coral-500 w-4 h-4"></div>
 
-      </div>
-
-    </section>
-
-
-    <!-- =======================================================
-         3D EXPLORER PROMO
-
-         IMPORTANT:
-         NO MODEL-VIEWER HERE.
-
-         This section is intentionally lightweight.
-         Clicking it takes the user to explorer.html.
-    ======================================================== -->
-
-    <section
-      id="explorer"
-      class="mx-auto max-w-7xl
-             scroll-mt-28
-             px-6 py-24
-             lg:px-8"
-    >
-
-
-      <div
-        class="spotlight-card
-               spotlight-cyan
-               group relative
-               overflow-hidden
-               rounded-[34px]
-               shadow-glow"
-      >
-
-
-        <!-- SPOTLIGHT -->
-
-        <div
-          class="spotlight-overlay"
-          aria-hidden="true"
-        ></div>
-
-
-        <!-- CONTENT -->
-
-        <div
-          class="relative z-10"
-        >
-
-          <div
-            class="grid
-                   lg:grid-cols-[.8fr_1.2fr]"
-          >
-
-
-            <!-- TEXT -->
-
-            <div
-              class="flex flex-col
-                     justify-center
-                     border-b
-                     border-white/10
-                     p-8
-                     sm:p-12
-                     lg:border-b-0
-                     lg:border-r"
-            >
-
-              <div
-                class="mb-5
-                       text-xs font-bold
-                       uppercase
-                       tracking-[.25em]
-                       text-cyan"
-              >
-
-                02 / Interactive Explorer
-
+            <div class="space-y-6">
+              <div class="flex items-center justify-between border-b border-paper-100/10 pb-4">
+                <span class="font-mono text-xs text-coral-500 tracking-widest uppercase">SYSTEM — SOLAR SYSTEM</span>
+                <span class="font-mono text-xs bg-coral-500/10 text-coral-400 border border-coral-500/30 px-2 py-0.5">EXHIBIT</span>
               </div>
 
+              <!-- Readout Grid -->
+              <div class="grid grid-cols-2 gap-4 font-mono text-xs">
+                <div class="border-l-2 border-paper-100/20 pl-3">
+                  <div class="text-paper-600 uppercase text-[10px]">Data Source</div>
+                  <div class="text-paper-200 font-medium mt-0.5">NASA SPACE SCIENCE</div>
+                </div>
+                <div class="border-l-2 border-paper-100/20 pl-3">
+                  <div class="text-paper-600 uppercase text-[10px]">Mode</div>
+                  <div class="text-paper-200 font-medium mt-0.5">INTERACTIVE</div>
+                </div>
+                <div class="border-l-2 border-paper-100/20 pl-3">
+                  <div class="text-paper-600 uppercase text-[10px]">3D Engine</div>
+                  <div class="text-paper-200 font-medium mt-0.5">GARNIER CSS 3D</div>
+                </div>
+                <div class="border-l-2 border-paper-100/20 pl-3">
+                  <div class="text-paper-600 uppercase text-[10px]">Projection</div>
+                  <div class="text-paper-200 font-medium mt-0.5">HELIOCENTRIC</div>
+                </div>
+              </div>
 
-              <h2
-                class="font-display
-                       text-4xl font-bold
-                       tracking-tight
-                       sm:text-5xl"
-              >
+              <!-- Graphic Accent -->
+              <div class="border border-paper-100/10 bg-space-950 p-4 relative overflow-hidden flex items-center justify-between h-28">
+                <div class="flex flex-col justify-center space-y-1 z-10">
+                  <span class="font-mono text-[10px] text-paper-600 uppercase">ORBITAL MATRIX</span>
+                  <span class="font-mono text-xs text-paper-200">8 PLANETARY BODIES</span>
+                  <span class="font-mono text-[10px] text-coral-500">INTERACTIVE ORBITAL MODEL</span>
+                </div>
+                <div class="w-20 h-20 border border-dashed border-paper-100/20 rounded-full flex items-center justify-center relative animate-spin" style="animation-duration: 20s;">
+                  <div class="w-12 h-12 border border-coral-500/40 rounded-full"></div>
+                  <div class="w-2 h-2 bg-coral-500 rounded-full absolute top-1 left-1"></div>
+                </div>
+              </div>
+            </div>
 
-                Get closer than
+            <div class="pt-6 border-t border-paper-100/10 font-mono text-[11px] text-paper-600 flex justify-between items-center">
+              <span>REF: ARCHIVE_SYS</span>
+              <span class="text-paper-400">NASA SPACE APPS</span>
+            </div>
+          </div>
 
-                <span class="warm-gradient">
-                  the museum glass.
-                </span>
+        </div>
+      </div>
+    </section>
 
+    <!-- ARCHIVE / HARDWARE SECTION -->
+    <section id="archive" class="py-20 sm:py-28 border-b border-paper-100/10 bg-space-900/40 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-12 gap-6">
+          <div class="space-y-2">
+            <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 01 // DOSSIER CATALOGUE</div>
+            <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal">HARDWARE ARCHIVE</h2>
+          </div>
+          <p class="font-sans text-sm text-paper-400 max-w-md font-light">
+            Spacecraft, probes, landers, and rovers that expanded the frontiers of human awareness.
+          </p>
+        </div>
+
+        <!-- 
+          EMPTY DYNAMIC CONTAINER
+          js/app.js owns this container and populates all cards dynamically.
+        -->
+        <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+      </div>
+    </section>
+
+    <!-- SCIENCE UNLOCKED SECTION -->
+    <section id="science" class="py-20 sm:py-28 border-b border-paper-100/10 bg-space-950 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-16 gap-6">
+          <div class="space-y-2">
+            <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 02 // KNOWLEDGE BASE</div>
+            <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal">SCIENCE UNLOCKED</h2>
+          </div>
+          <p class="font-sans text-sm text-paper-400 max-w-md font-light">
+            Key physical insights and scientific milestones unlocked through automated deep space exploration.
+          </p>
+        </div>
+
+        <!-- Editorial Articles List -->
+        <div class="space-y-0 divide-y divide-paper-100/10 border-t border-b border-paper-100/10">
+          
+          <!-- Article 01 -->
+          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
+            <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">01</div>
+            <div class="lg:col-span-4 space-y-2">
+              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">CELESTIAL MECHANICS</span>
+              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Gravitational Assist Slingshots</h3>
+            </div>
+            <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
+              By stealing a fraction of a planet's orbital angular momentum, probes like Voyager and Cassini accelerated to velocities unattainable with conventional chemical propellants alone—paving the way to the outer gas giants.
+            </div>
+          </article>
+
+          <!-- Article 02 -->
+          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
+            <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">02</div>
+            <div class="lg:col-span-4 space-y-2">
+              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">ASTROBIOLOGY & HYDROLOGY</span>
+              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Subsurface Ocean Worlds</h3>
+            </div>
+            <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
+              Data from the Galileo and Cassini missions revealed liquid water oceans hiding beneath the icy crusts of Europa and Enceladus, shifting our search for extraterrestrial life away from Goldilocks planets toward icy moons.
+            </div>
+          </article>
+
+          <!-- Article 03 -->
+          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
+            <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">03</div>
+            <div class="lg:col-span-4 space-y-2">
+              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">HELIOPHYSICS</span>
+              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Heliospheric Boundary Dynamics</h3>
+            </div>
+            <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
+              Crossing the heliopause into the interstellar medium, instruments recorded the dramatic drop in solar wind particles and the influx of galactic cosmic rays—defining the physical edge of our Sun's magnetic realm.
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D ORBIT MAP PROMOTIONAL SECTION -->
+    <section id="interactive" class="py-20 sm:py-28 bg-space-900/80 border-b border-paper-100/10 relative overflow-hidden bg-tech-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+        <div class="border border-paper-100/10 bg-space-950 p-8 sm:p-14 relative">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-8 space-y-6">
+              <div class="inline-flex items-center gap-2 border border-coral-500/30 bg-coral-500/10 px-3 py-1 font-mono text-xs text-coral-400 uppercase tracking-widest">
+                <span class="w-1.5 h-1.5 bg-coral-500"></span>
+                INTERACTIVE SIMULATION
+              </div>
+
+              <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal leading-tight">
+                THE SOLAR SYSTEM,<br />IN MOTION.
               </h2>
 
-
-              <p
-                class="mt-6 max-w-lg
-                       leading-7
-                       text-white/45"
-              >
-
-                Rotate, zoom and inspect
-                spacecraft in three dimensions.
-                Explore the machines that carried
-                humanity's curiosity farther than
-                any person has travelled.
-
+              <p class="font-sans text-sm sm:text-base text-paper-400 font-light max-w-xl leading-relaxed">
+                Step into an interactive 3D orbital laboratory. Adjust orbital speeds, zoom across planetary distances, and experience the gravitational choreography of our celestial neighborhood.
               </p>
 
-
-              <!-- BENEFITS -->
-
-              <div
-                class="mt-8 space-y-3"
-              >
-
-                <div
-                  class="flex items-center gap-3
-                         text-sm text-white/55"
-                >
-
-                  <div
-                    class="flex h-8 w-8
-                           items-center
-                           justify-center
-                           rounded-lg
-                           bg-gold/10
-                           text-gold"
-                  >
-                    ↻
-                  </div>
-
-                  Drag to rotate the spacecraft
-
-                </div>
-
-
-                <div
-                  class="flex items-center gap-3
-                         text-sm text-white/55"
-                >
-
-                  <div
-                    class="flex h-8 w-8
-                           items-center
-                           justify-center
-                           rounded-lg
-                           bg-cyan/10
-                           text-cyan"
-                  >
-                    +
-                  </div>
-
-                  Scroll or pinch to zoom
-
-                </div>
-
-
-                <div
-                  class="flex items-center gap-3
-                         text-sm text-white/55"
-                >
-
-                  <div
-                    class="flex h-8 w-8
-                           items-center
-                           justify-center
-                           rounded-lg
-                           bg-coral/10
-                           text-coral"
-                  >
-                    ✦
-                  </div>
-
-                  Discover spacecraft details
-
-                </div>
-
+              <div class="pt-2">
+                <button onclick="openSolarModal()" class="group inline-flex items-center gap-3 border border-coral-500 bg-coral-500 text-space-950 font-mono text-xs font-semibold tracking-wider uppercase px-8 py-4 hover:bg-coral-400 transition-all duration-200">
+                  <svg class="w-4 h-4 fill-current transition-transform group-hover:rotate-45" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                  Launch Interactive 3D Orbit Map
+                </button>
               </div>
-
-
-              <!-- EXPLORER CTA -->
-
-              <a
-                href="explorer.html"
-                class="mt-9 inline-flex
-                       w-fit items-center gap-3
-                       rounded-full
-                       bg-cyan
-                       px-6 py-3
-                       font-bold
-                       text-obsidian
-                       transition
-                       hover:-translate-y-1
-                       hover:bg-[#76FFF3]"
-              >
-
-                Open 3D Explorer
-
-                <span
-                  class="transition-transform
-                         group-hover:translate-x-1"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-
-              </a>
-
             </div>
 
-
-            <!-- LIGHTWEIGHT VISUAL -->
-
-            <div
-              class="relative
-                     min-h-[430px]
-                     overflow-hidden
-                     bg-[radial-gradient(circle_at_center,rgba(255,184,77,.10),transparent_55%)]"
-            >
-
-
-              <!-- Cosmic glow -->
-
-              <div
-                class="absolute
-                       left-1/2 top-1/2
-                       h-72 w-72
-                       -translate-x-1/2
-                       -translate-y-1/2
-                       rounded-full
-                       bg-cyan/[.05]
-                       blur-[90px]"
-                aria-hidden="true"
-              ></div>
-
-
-              <!-- Orbit -->
-
-              <div
-                class="absolute
-                       left-1/2 top-1/2
-                       h-64 w-64
-                       -translate-x-1/2
-                       -translate-y-1/2
-                       rounded-full
-                       border
-                       border-cyan/10
-                       rotate-[-20deg]"
-                aria-hidden="true"
-              ></div>
-
-
-              <div
-                class="absolute
-                       left-1/2 top-1/2
-                       h-48 w-48
-                       -translate-x-1/2
-                       -translate-y-1/2
-                       rounded-full
-                       border
-                       border-gold/10
-                       rotate-[30deg]"
-                aria-hidden="true"
-              ></div>
-
-
-              <!-- Lightweight spacecraft -->
-
-              <div
-                class="absolute
-                       left-1/2 top-1/2
-                       -translate-x-1/2
-                       -translate-y-1/2
-                       scale-125"
-                aria-hidden="true"
-              >
-
-                <div
-                  class="relative h-24 w-32"
-                >
-
-                  <div
-                    class="absolute
-                           left-10 top-5
-                           h-14 w-12
-                           rounded-lg
-                           border
-                           border-gold/40
-                           bg-gradient-to-br
-                           from-gold/30
-                           to-amber/5
-                           shadow-[0_0_70px_rgba(255,184,77,.20)]"
-                  ></div>
-
-
-                  <div
-                    class="absolute
-                           left-[-35px]
-                           top-8
-                           h-10 w-12
-                           border
-                           border-cyan/20
-                           bg-cyan/5"
-                  ></div>
-
-
-                  <div
-                    class="absolute
-                           right-[-35px]
-                           top-8
-                           h-10 w-12
-                           border
-                           border-cyan/20
-                           bg-cyan/5"
-                  ></div>
-
-
-                  <div
-                    class="absolute
-                           left-[58px]
-                           top-[-25px]
-                           h-7 w-7
-                           rounded-full
-                           border
-                           border-white/25"
-                  ></div>
-
-                </div>
-
+            <!-- Orbit Visual Box -->
+            <div class="lg:col-span-4 border border-paper-100/10 bg-space-900 p-6 flex flex-col items-center justify-center text-center space-y-4">
+              <div class="w-32 h-32 rounded-full border border-paper-100/20 relative flex items-center justify-center">
+                <div class="w-24 h-24 rounded-full border border-coral-500/30 animate-ping" style="animation-duration: 4s;"></div>
+                <div class="w-6 h-6 rounded-full bg-amber-500/80 shadow-[0_0_20px_rgba(245,158,11,0.8)]"></div>
               </div>
-
-
-              <!-- 3D badge -->
-
-              <div
-                class="absolute
-                       left-5 top-5
-                       rounded-full
-                       border border-white/10
-                       bg-black/40
-                       px-3 py-1.5
-                       text-[10px]
-                       font-bold uppercase
-                       tracking-[.16em]
-                       text-white/55
-                       backdrop-blur-xl"
-              >
-
-                ◉ 3D EXPLORER
-
+              <div class="font-mono text-xs text-paper-400 uppercase tracking-wider">
+                3D ENGINE: GARNIER CSS 3D
               </div>
-
-
-              <!-- Bottom CTA -->
-
-              <a
-                href="explorer.html"
-                class="absolute
-                       bottom-5
-                       left-5 right-5
-                       flex items-center
-                       justify-between
-                       rounded-2xl
-                       border border-white/10
-                       bg-black/40
-                       px-4 py-3
-                       backdrop-blur-xl
-                       transition
-                       hover:border-cyan/30
-                       hover:bg-black/55"
-              >
-
-                <div>
-
-                  <div
-                    class="text-[9px]
-                           font-bold uppercase
-                           tracking-[.18em]
-                           text-white/30"
-                  >
-                    Next destination
-                  </div>
-
-
-                  <div
-                    class="mt-1
-                           font-display
-                           text-sm font-semibold"
-                  >
-                    Enter the spacecraft lab
-                  </div>
-
-                </div>
-
-
-                <span
-                  class="text-cyan"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-
-              </a>
-
             </div>
-
           </div>
 
         </div>
-
       </div>
-
-    </section>
-
-
-    <!-- =======================================================
-         SCIENCE
-    ======================================================== -->
-
-    <section
-      id="science"
-      class="mx-auto max-w-7xl
-             scroll-mt-28
-             px-6 py-24
-             lg:px-8"
-    >
-
-
-      <!-- SECTION INTRO -->
-
-      <div
-        class="mx-auto max-w-3xl
-               text-center"
-      >
-
-        <div
-          class="mb-4 text-xs
-                 font-bold uppercase
-                 tracking-[.25em]
-                 text-gold"
-        >
-
-          03 / Why they matter
-
-        </div>
-
-
-        <h2
-          class="font-display
-                 text-4xl font-bold
-                 tracking-tight
-                 sm:text-5xl"
-        >
-
-          Every relic left us
-
-          <span class="warm-gradient">
-            a piece of the universe.
-          </span>
-
-        </h2>
-
-
-        <p
-          class="mx-auto mt-5
-                 max-w-2xl
-                 leading-7
-                 text-white/45"
-        >
-
-          These spacecraft aren't just machines.
-          They're our eyes, ears and fingerprints
-          across the Solar System.
-
-        </p>
-
-      </div>
-
-
-      <!-- SCIENCE CARDS -->
-
-      <div
-        class="mt-14 grid
-               gap-5
-               md:grid-cols-3"
-      >
-
-
-        <!-- SCIENCE CARD 1 -->
-
-        <article
-          class="spotlight-card
-                 group relative
-                 overflow-hidden
-                 rounded-[26px]
-                 p-7"
-        >
-
-          <div
-            class="spotlight-overlay"
-            aria-hidden="true"
-          ></div>
-
-
-          <div
-            class="relative z-10"
-          >
-
-            <div
-              class="mb-6 flex h-12 w-12
-                     items-center
-                     justify-center
-                     rounded-2xl
-                     bg-gold/10
-                     text-xl"
-              aria-hidden="true"
-            >
-              🌋
-            </div>
-
-
-            <div
-              class="mb-2 text-[10px]
-                     font-bold uppercase
-                     tracking-[.2em]
-                     text-gold"
-            >
-
-              Discovery 01
-
-            </div>
-
-
-            <h3
-              class="font-display
-                     text-xl font-bold"
-            >
-
-              Worlds can be alive
-
-            </h3>
-
-
-            <p
-              class="mt-3 text-sm
-                     leading-6
-                     text-white/45"
-            >
-
-              Robotic explorers revealed
-              active volcanoes, moving
-              atmospheres and dynamic
-              geology on worlds once
-              thought frozen and dead.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- SCIENCE CARD 2 -->
-
-        <article
-          class="spotlight-card
-                 group relative
-                 overflow-hidden
-                 rounded-[26px]
-                 p-7"
-        >
-
-          <div
-            class="spotlight-overlay"
-            aria-hidden="true"
-          ></div>
-
-
-          <div
-            class="relative z-10"
-          >
-
-            <div
-              class="mb-6 flex h-12 w-12
-                     items-center
-                     justify-center
-                     rounded-2xl
-                     bg-cyan/10
-                     text-xl"
-              aria-hidden="true"
-            >
-              💧
-            </div>
-
-
-            <div
-              class="mb-2 text-[10px]
-                     font-bold uppercase
-                     tracking-[.2em]
-                     text-cyan"
-            >
-
-              Discovery 02
-
-            </div>
-
-
-            <h3
-              class="font-display
-                     text-xl font-bold"
-            >
-
-              Water is everywhere
-
-            </h3>
-
-
-            <p
-              class="mt-3 text-sm
-                     leading-6
-                     text-white/45"
-            >
-
-              Missions found evidence of
-              ancient rivers, buried ice
-              and enormous oceans hidden
-              beneath the crusts of
-              distant moons.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- SCIENCE CARD 3 -->
-
-        <article
-          class="spotlight-card
-                 group relative
-                 overflow-hidden
-                 rounded-[26px]
-                 p-7"
-        >
-
-          <div
-            class="spotlight-overlay"
-            aria-hidden="true"
-          ></div>
-
-
-          <div
-            class="relative z-10"
-          >
-
-            <div
-              class="mb-6 flex h-12 w-12
-                     items-center
-                     justify-center
-                     rounded-2xl
-                     bg-coral/10
-                     text-xl"
-              aria-hidden="true"
-            >
-              📡
-            </div>
-
-
-            <div
-              class="mb-2 text-[10px]
-                     font-bold uppercase
-                     tracking-[.2em]
-                     text-coral"
-            >
-
-              Discovery 03
-
-            </div>
-
-
-            <h3
-              class="font-display
-                     text-xl font-bold"
-            >
-
-              The frontier never ends
-
-            </h3>
-
-
-            <p
-              class="mt-3 text-sm
-                     leading-6
-                     text-white/45"
-            >
-
-              Some explorers continue
-              sending measurements decades
-              after launch, carrying our
-              instruments beyond the planets
-              and toward interstellar space.
-
-            </p>
-
-          </div>
-
-        </article>
-
-      </div>
-
     </section>
 
   </main>
 
-
-  <!-- =========================================================
-       FOOTER
-  ========================================================== -->
-
-  <footer>
-
-    <div
-      class="mx-auto flex max-w-7xl
-             flex-col gap-5
-             px-6 py-10
-             sm:flex-row
-             sm:items-center
-             sm:justify-between
-             lg:px-8"
-    >
-
-      <div>
-
-        <div
-          class="font-display font-bold"
-        >
-          Relics of the Solar System
-        </div>
-
-
-        <div
-          class="mt-1 text-xs
-                 text-white/30"
-        >
-          Built with curiosity for
-          NASA Space Apps.
-        </div>
-
+  <!-- FOOTER -->
+  <footer class="bg-space-950 border-t border-paper-100/10 py-12 px-4 sm:px-8 font-mono text-xs text-paper-600">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+      
+      <div class="md:col-span-5 space-y-3">
+        <div class="font-serif text-lg text-paper-100">RELICS OF THE SOLAR SYSTEM</div>
+        <p class="font-sans text-xs text-paper-400 font-light max-w-sm leading-relaxed">
+          Developed for the NASA Space Apps Challenge. An open archival exhibit honoring human space exploration and space-science data.
+        </p>
       </div>
 
+      <div class="md:col-span-3 space-y-2">
+        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">EXHIBIT INDEX</div>
+        <ul class="space-y-1 text-paper-400">
+          <li><a href="#archive" class="hover:text-coral-500 transition-colors">01. Hardware Archive</a></li>
+          <li><a href="#science" class="hover:text-coral-500 transition-colors">02. Science Unlocked</a></li>
+          <li><a href="#interactive" class="hover:text-coral-500 transition-colors">03. 3D Orbit Map</a></li>
+        </ul>
+      </div>
 
-      <div
-        class="text-xs
-               leading-5
-               text-white/25
-               sm:max-w-sm
-               sm:text-right"
-      >
-
-        Educational exploration experience
-        inspired by humanity's robotic
-        missions across the Solar System.
-
+      <div class="md:col-span-4 space-y-2">
+        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">CREDITS & SOURCE</div>
+        <div class="text-paper-400 space-y-1 font-light">
+          <div>DATA SOURCE: NASA Space Science Archives</div>
+          <div>3D ENGINE: Julian Garnier CSS Solar System</div>
+          <div>EVENT: NASA Space Apps Challenge</div>
+        </div>
       </div>
 
     </div>
 
+    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-paper-100/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+      <div>© RELICS OF THE SOLAR SYSTEM — NASA SPACE APPS PROJECT</div>
+      <div class="text-paper-600">MISSION CONTROL // HELIOCENTRIC ARCHIVE</div>
+    </div>
   </footer>
 
-
-  <!-- =========================================================
-       INTERACTIVE 3D SOLAR SYSTEM
-       Powered by Julian Garnier's original project
-  ========================================================== -->
-
-  <div
-    id="solar-system-modal"
-    aria-hidden="true"
-  >
-
-    <section
-      class="solar-system-shell"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Julian Garnier 3D Solar System"
-    >
-
-      <iframe
-        id="julian-solar-system-frame"
-        class="solar-system-frame"
-        src="solar-system/index.html"
-        title="Interactive 3D Solar System by Julian Garnier"
-        loading="lazy"
-      ></iframe>
-
-
-      <button
-        type="button"
-        class="solar-map-close"
-        onclick="closeSolarModal()"
-        aria-label="Close Solar System"
-      >
-        ✕ Close Map
-      </button>
-
-
-      <div class="solar-map-attribution">
-
-        Original Solar System visualisation by
-        <a
-          href="https://github.com/juliangarnier/3D-CSS-Solar-System"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Julian Garnier
-        </a>
-
-        · MIT licensed
-
+  <!-- 
+    3D SOLAR SYSTEM MODAL
+    Preserved ID: solar-system-modal
+  -->
+  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300">
+    
+    <!-- Modal Header Bar -->
+    <div class="w-full bg-space-900 border-b border-paper-100/10 px-4 sm:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-mono text-xs text-paper-200">
+        <span class="w-2 h-2 bg-coral-500 rounded-full animate-pulse"></span>
+        <span class="font-bold uppercase tracking-wider">3D SOLAR SYSTEM MAP</span>
+        <span class="hidden sm:inline text-paper-600">|</span>
+        <span class="hidden sm:inline text-paper-400 text-[11px]">GARNIER CSS 3D</span>
       </div>
 
-    </section>
+      <button onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
+        <span>CLOSE EXHIBIT</span>
+        <span class="text-coral-500">✕</span>
+      </button>
+    </div>
 
+    <!-- Modal Iframe Container -->
+    <div class="flex-grow w-full h-full relative bg-space-950">
+      <iframe id="solar-iframe" src="" class="w-full h-full border-0" title="Interactive 3D Solar System"></iframe>
+    </div>
   </div>
 
-
-  <!-- SOLAR MAP UI SCRIPT — UI ONLY -->
+  <!-- UI-ONLY MODAL & NAV CONTROLLER -->
   <script>
-    function openSolarModal(){
-      const modal=document.getElementById("solar-system-modal");
-      if(!modal)return;
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden","false");
-      document.body.style.overflow="hidden";
+    function openSolarModal() {
+      const modal = document.getElementById('solar-system-modal');
+      const iframe = document.getElementById('solar-iframe');
+      
+      if (modal && iframe) {
+        if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
+          iframe.src = 'solar-system/index.html';
+        }
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
     }
 
-    function closeSolarModal(){
-      const modal=document.getElementById("solar-system-modal");
-      if(!modal)return;
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden","true");
-      document.body.style.overflow="";
+    function closeSolarModal() {
+      const modal = document.getElementById('solar-system-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
     }
 
-    document.addEventListener("keydown",function(event){
-      if(event.key==="Escape"){
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+      
+      if (menu) {
+        menu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
         closeSolarModal();
       }
     });
   </script>
 
-  <!-- =========================================================
-       PERSON 2'S APPLICATION JAVASCRIPT
-
-       DO NOT REMOVE THIS.
-
-       Person 2 owns:
-       - hardware.json
-       - dynamic card rendering
-       - filtering
-       - application/data logic
-       - navigation/data binding
-  ========================================================== -->
-
+  <!-- 
+    DYNAMIC DATA LOADER SCRIPT
+    Preserved exactly as requested.
+  -->
   <script src="js/app.js"></script>
 
-
-  <!-- =========================================================
-       UI-ONLY MOUSE SPOTLIGHT
-
-       This script does NOT handle application data.
-       It only controls the visual cursor glow.
-  ========================================================== -->
-
-  <script>
-
-    (() => {
-
-      const cards =
-        document.querySelectorAll(
-          ".spotlight-card"
-        );
-
-
-      if (!cards.length) {
-        return;
-      }
-
-
-      cards.forEach((card) => {
-
-        let rect = null;
-
-
-        const handleEnter = () => {
-
-          rect =
-            card.getBoundingClientRect();
-
-
-          card.style.setProperty(
-            "--mouse-x",
-            `${rect.width / 2}px`
-          );
-
-
-          card.style.setProperty(
-            "--mouse-y",
-            `${rect.height / 2}px`
-          );
-
-        };
-
-
-        const handleMove = (event) => {
-
-          rect =
-            rect ||
-            card.getBoundingClientRect();
-
-
-          const x =
-            event.clientX -
-            rect.left;
-
-
-          const y =
-            event.clientY -
-            rect.top;
-
-
-          card.style.setProperty(
-            "--mouse-x",
-            `${x}px`
-          );
-
-
-          card.style.setProperty(
-            "--mouse-y",
-            `${y}px`
-          );
-
-        };
-
-
-        const handleLeave = () => {
-
-          card.style.setProperty(
-            "--mouse-x",
-            "50%"
-          );
-
-
-          card.style.setProperty(
-            "--mouse-y",
-            "50%"
-          );
-
-
-          rect = null;
-
-        };
-
-
-        card.addEventListener(
-          "mouseenter",
-          handleEnter,
-          {
-            passive: true
-          }
-        );
-
-
-        card.addEventListener(
-          "mousemove",
-          handleMove,
-          {
-            passive: true
-          }
-        );
-
-
-        card.addEventListener(
-          "mouseleave",
-          handleLeave,
-          {
-            passive: true
-          }
-        );
-
-      });
-
-    })();
-
-  </script>
-
-
 </body>
-
 </html>
