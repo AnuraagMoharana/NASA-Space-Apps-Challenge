@@ -1203,6 +1203,47 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
     background-color: #D7D3C9 !important;
   }
 }
+  
+
+/* ==========================================================================
+   CINEMATIC SCROLL INTRO
+   ========================================================================== */
+.intro-scroll{position:relative;height:230vh;background:#F1EFE9!important;overflow:clip;border-bottom:1px solid rgba(21,21,21,.12)}
+.intro-stage{position:sticky;top:0;height:100vh;min-height:680px;overflow:hidden;isolation:isolate;color:#151515}
+.intro-grid{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(to right,rgba(21,21,21,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(21,21,21,.035) 1px,transparent 1px);background-size:52px 52px}
+.intro-stage:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 72% 50%,rgba(255,255,255,.48),transparent 34%)}
+.intro-planet{position:absolute;width:min(58vw,680px);height:min(58vw,680px);left:50%;top:50%;z-index:1;color:#5A5750;transform:translate3d(-50%,-50%,0) scale(1);will-change:transform;opacity:.76;pointer-events:none}
+.intro-planet svg{width:100%;height:100%;overflow:visible}
+.intro-mark{position:absolute;z-index:4;display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.13em;color:#625F59;text-transform:uppercase}
+.intro-mark-top{top:30px;left:clamp(24px,5vw,72px)}
+.intro-mark-bottom{bottom:34px;left:50%;transform:translateX(-50%)}
+.intro-scroll-line{width:48px;height:1px;background:#8D8981;position:relative}
+.intro-scroll-line:after{content:"";position:absolute;left:0;top:-2px;width:12px;height:5px;border-top:1px solid #FF5A3C}
+.intro-section-number{position:absolute;right:clamp(24px,5vw,72px);top:30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,90,60,.7);letter-spacing:.12em}
+.intro-content{position:absolute;inset:0;z-index:3;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.55fr);align-items:center;gap:clamp(40px,7vw,120px);padding:100px clamp(24px,7vw,110px) 80px;opacity:0;transform:translateY(34px);pointer-events:none;will-change:opacity,transform}
+.intro-copy{max-width:690px}
+.intro-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:#625F59}
+.intro-dot{width:6px;height:6px;background:#FF5A3C;border-radius:50%}
+.intro-copy h1{margin:0;color:#151515!important;font-family:'Fraunces',serif!important;font-size:clamp(3.4rem,6.5vw,6.8rem);font-weight:400;line-height:.92;letter-spacing:-.045em}
+.intro-copy h1 em{font-weight:300}
+.intro-copy p{max-width:570px;margin:28px 0 0;color:#625F59!important;font-family:'IBM Plex Sans',sans-serif;font-size:clamp(1rem,1.35vw,1.2rem);line-height:1.65}
+.intro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:32px}
+.intro-secondary{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border:1px solid rgba(21,21,21,.12);color:#151515;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;background:rgba(250,249,245,.5)}
+.intro-secondary span{color:#FF5A3C;font-size:15px}
+.intro-readout{width:min(100%,390px);justify-self:end;border-top:1px solid rgba(21,21,21,.15);border-bottom:1px solid rgba(21,21,21,.15);padding:18px 0;background:rgba(250,249,245,.24)}
+.intro-readout-head,.intro-readout-foot{display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:#625F59}
+.intro-readout-head{padding-bottom:14px;border-bottom:1px solid rgba(21,21,21,.09)}
+.intro-readout-head span:first-child{color:#FF5A3C}
+.intro-readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;padding:24px 0}
+.intro-readout-grid div{border-left:2px solid rgba(21,21,21,.10);padding-left:12px}
+.intro-readout-grid small,.intro-readout-grid strong{display:block;font-family:'IBM Plex Mono',monospace}
+.intro-readout-grid small{color:#8A867F;font-size:9px;letter-spacing:.1em}
+.intro-readout-grid strong{margin-top:4px;color:#242321;font-size:10px;letter-spacing:.04em;font-weight:500}
+.intro-readout-foot{padding-top:14px;border-top:1px solid rgba(21,21,21,.09)}
+.intro-readout-foot span:last-child{color:#8A867F}
+@media(max-width:900px){.intro-scroll{height:205vh}.intro-planet{width:520px;height:520px;left:68%;top:39%;opacity:.42}.intro-content{grid-template-columns:1fr;align-items:end;padding:100px 28px 80px}.intro-readout{display:none}}
+@media(max-width:640px){.intro-scroll{height:190vh}.intro-stage{min-height:620px}.intro-planet{width:390px;height:390px;left:72%;top:31%;opacity:.30}.intro-mark-top{top:22px;left:20px}.intro-section-number{top:22px;right:20px}.intro-mark-bottom{bottom:22px;white-space:nowrap}.intro-content{padding:90px 20px 62px}.intro-copy h1{font-size:clamp(3rem,15vw,4.5rem)}.intro-copy p{font-size:.96rem}}
+@media(prefers-reduced-motion:reduce){.intro-planet{transform:translate3d(-50%,-50%,0) scale(.72)!important}.intro-content{opacity:1!important;transform:none!important}}
   </style>
 </head>
 
@@ -1283,131 +1324,91 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
   <!-- MAIN CONTENT CONTAINER -->
   <main class="flex-grow">
 
-    <!-- HERO SECTION -->
-    <section class="relative min-h-[85vh] flex items-center border-b border-paper-100/10 bg-tech-grid overflow-hidden py-16 sm:py-24">
-      
-      <!-- Radial Glow Accent -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-coral-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- CINEMATIC SCROLL INTRO -->
+    <section id="intro-scroll" class="intro-scroll" aria-label="Exhibition introduction">
+      <div class="intro-stage">
+        <div class="intro-grid" aria-hidden="true"></div>
 
-      <!-- Rotating wire-mesh planet background -->
-      <div class="wire-planet" aria-hidden="true">
-        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g class="wire-planet-sphere" stroke="#55524D" stroke-width="0.8">
-            <ellipse cx="300" cy="300" rx="190" ry="190"/>
-            <ellipse cx="300" cy="300" rx="190" ry="150"/>
-            <ellipse cx="300" cy="300" rx="190" ry="110"/>
-            <ellipse cx="300" cy="300" rx="190" ry="70"/>
-            <ellipse cx="300" cy="300" rx="190" ry="32"/>
-            <ellipse cx="300" cy="300" rx="150" ry="190"/>
-            <ellipse cx="300" cy="300" rx="110" ry="190"/>
-            <ellipse cx="300" cy="300" rx="70" ry="190"/>
-            <ellipse cx="300" cy="300" rx="32" ry="190"/>
-            <path d="M300 110 C245 145 220 220 220 300 C220 380 245 455 300 490"/>
-            <path d="M300 110 C270 155 260 225 260 300 C260 375 270 445 300 490"/>
-            <path d="M300 110 C290 160 290 230 290 300 C290 370 290 440 300 490"/>
-            <path d="M300 110 C310 160 310 230 310 300 C310 370 310 440 300 490"/>
-            <path d="M300 110 C330 155 340 225 340 300 C340 375 330 445 300 490"/>
-            <path d="M300 110 C355 145 380 220 380 300 C380 380 355 455 300 490"/>
-          </g>
-          <g class="wire-planet-ring" stroke="#55524D" stroke-width="0.8">
-            <ellipse cx="300" cy="300" rx="255" ry="82" transform="rotate(-17 300 300)"/>
-            <ellipse cx="300" cy="300" rx="265" ry="86" transform="rotate(-17 300 300)" opacity=".45"/>
-          </g>
-          <circle cx="300" cy="300" r="194" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 10" opacity=".45"/>
-        </svg>
-      </div>
+        <div id="intro-planet" class="intro-planet" aria-hidden="true">
+          <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.9">
+              <ellipse cx="300" cy="300" rx="205" ry="205"/>
+              <ellipse cx="300" cy="300" rx="205" ry="164"/>
+              <ellipse cx="300" cy="300" rx="205" ry="122"/>
+              <ellipse cx="300" cy="300" rx="205" ry="82"/>
+              <ellipse cx="300" cy="300" rx="205" ry="43"/>
+              <ellipse cx="300" cy="300" rx="165" ry="205"/>
+              <ellipse cx="300" cy="300" rx="125" ry="205"/>
+              <ellipse cx="300" cy="300" rx="85" ry="205"/>
+              <ellipse cx="300" cy="300" rx="45" ry="205"/>
+              <path d="M300 95 C238 140 208 220 208 300 C208 380 238 460 300 505"/>
+              <path d="M300 95 C264 148 248 224 248 300 C248 376 264 452 300 505"/>
+              <path d="M300 95 C284 155 280 230 280 300 C280 370 284 445 300 505"/>
+              <path d="M300 95 C316 155 320 230 320 300 C320 370 316 445 300 505"/>
+              <path d="M300 95 C336 148 352 224 352 300 C352 376 336 452 300 505"/>
+              <path d="M300 95 C362 140 392 220 392 300 C392 380 362 460 300 505"/>
+            </g>
+            <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.9">
+              <ellipse cx="300" cy="300" rx="285" ry="88" transform="rotate(-16 300 300)"/>
+              <ellipse cx="300" cy="300" rx="305" ry="96" transform="rotate(-16 300 300)" opacity=".38"/>
+            </g>
+            <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 12" opacity=".45"/>
+            <circle cx="86" cy="250" r="3" fill="#FF5A3C"/>
+            <circle cx="492" cy="356" r="3" fill="#FF5A3C"/>
+          </svg>
+        </div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch">
-          
-          <!-- Hero Text Column -->
-          <div class="lg:col-span-7 flex flex-col justify-between space-y-8">
-            <div class="space-y-6">
-              
-              <!-- Eyebrow Tag -->
-              <div class="inline-flex items-center gap-2 border border-white/20 bg-space-900 px-3 py-1 font-mono text-xs text-paper-400 uppercase tracking-widest">
-                <span class="w-1.5 h-1.5 bg-coral-500"></span>
-                NASA ARCHIVAL CATALOGUE // EXHIBIT 01
-              </div>
+        <div class="intro-mark intro-mark-top">
+          <span>REL 01</span>
+          <span>EXHIBITION ENTRY</span>
+        </div>
 
-              <!-- Main Heading -->
-              <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-paper-100 tracking-tight leading-[1.08]">
-                MACHINES BUILT ON EARTH.<br />
-                <span class="italic font-light text-paper-200">STORIES WRITTEN ACROSS SPACE.</span>
-              </h1>
+        <div class="intro-mark intro-mark-bottom">
+          <span>SCROLL TO ENTER</span>
+          <span class="intro-scroll-line"></span>
+        </div>
 
-              <!-- Subtitle -->
-              <p class="font-sans text-base sm:text-lg text-paper-400 max-w-xl font-light leading-relaxed">
-                Explore the artificial relics humanity has dispatched into the cosmic deep. Trace their trajectories, unearth their discoveries, and navigate the solar system they illuminated.
-              </p>
+        <div id="intro-content" class="intro-content">
+          <div class="intro-copy">
+            <div class="intro-eyebrow">
+              <span class="intro-dot"></span>
+              A UNIVERSE OF HUMAN CURIOSITY
             </div>
-
-            <!-- CTA Actions -->
-            <div class="pt-4 flex flex-wrap items-center gap-4">
-              <button onclick="openSolarModal()" class="group inline-flex items-center gap-3 border border-coral-500 bg-coral-500 text-space-950 font-mono text-xs font-semibold tracking-wider uppercase px-6 py-4 hover:bg-coral-400 transition-all duration-200">
-                <svg class="w-4 h-4 fill-current transition-transform group-hover:rotate-45" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <h1>Relics of the<br /><em>Solar System</em></h1>
+            <p>
+              Real objects. Extraordinary journeys. A living archive of the
+              spacecraft, probes, and landers that expand our understanding
+              of the universe.
+            </p>
+            <div class="intro-actions">
+              <button onclick="openSolarModal()" class="btn-primary">
                 Launch 3D Orbit Map
               </button>
-
-              <a href="#archive" class="inline-flex items-center gap-2 border border-paper-100/20 bg-white/[.03] hover:bg-space-850 hover:border-paper-100/40 text-paper-200 font-mono text-xs tracking-wider uppercase px-6 py-4 transition-all duration-200">
-                Explore Hardware Archive
-                <span class="text-coral-500">↓</span>
+              <a href="#archive" class="intro-secondary">
+                Explore the archive <span>↓</span>
               </a>
             </div>
           </div>
 
-          <!-- Technical Readout Panel (Accurate Labels) -->
-          <div class="lg:col-span-5 flex flex-col justify-between border border-paper-100/10 bg-white/[.04] p-6 sm:p-8 backdrop-blur-sm relative">
-            <div class="absolute top-0 right-0 border-t border-r border-coral-500 w-4 h-4"></div>
-            <div class="absolute bottom-0 left-0 border-b border-l border-coral-500 w-4 h-4"></div>
-
-            <div class="space-y-6">
-              <div class="flex items-center justify-between border-b border-paper-100/10 pb-4">
-                <span class="font-mono text-xs text-coral-500 tracking-widest uppercase">SYSTEM — SOLAR SYSTEM</span>
-                <span class="font-mono text-xs bg-coral-500/10 text-coral-400 border border-coral-500/30 px-2 py-0.5">EXHIBIT</span>
-              </div>
-
-              <!-- Readout Grid -->
-              <div class="grid grid-cols-2 gap-4 font-mono text-xs">
-                <div class="border-l-2 border-paper-100/20 pl-3">
-                  <div class="text-paper-600 uppercase text-[10px]">Data Source</div>
-                  <div class="text-paper-200 font-medium mt-0.5">NASA SPACE SCIENCE</div>
-                </div>
-                <div class="border-l-2 border-paper-100/20 pl-3">
-                  <div class="text-paper-600 uppercase text-[10px]">Mode</div>
-                  <div class="text-paper-200 font-medium mt-0.5">INTERACTIVE</div>
-                </div>
-                <div class="border-l-2 border-paper-100/20 pl-3">
-                  <div class="text-paper-600 uppercase text-[10px]">3D Engine</div>
-                  <div class="text-paper-200 font-medium mt-0.5">GARNIER CSS 3D</div>
-                </div>
-                <div class="border-l-2 border-paper-100/20 pl-3">
-                  <div class="text-paper-600 uppercase text-[10px]">Projection</div>
-                  <div class="text-paper-200 font-medium mt-0.5">HELIOCENTRIC</div>
-                </div>
-              </div>
-
-              <!-- Graphic Accent -->
-              <div class="border border-paper-100/10 bg-space-950 p-4 relative overflow-hidden flex items-center justify-between h-28">
-                <div class="flex flex-col justify-center space-y-1 z-10">
-                  <span class="font-mono text-[10px] text-paper-600 uppercase">ORBITAL MATRIX</span>
-                  <span class="font-mono text-xs text-paper-200">8 PLANETARY BODIES</span>
-                  <span class="font-mono text-[10px] text-coral-500">INTERACTIVE ORBITAL MODEL</span>
-                </div>
-                <div class="w-20 h-20 border border-dashed border-paper-100/20 rounded-full flex items-center justify-center relative animate-spin" style="animation-duration: 20s;">
-                  <div class="w-12 h-12 border border-coral-500/40 rounded-full"></div>
-                  <div class="w-2 h-2 bg-coral-500 rounded-full absolute top-1 left-1"></div>
-                </div>
-              </div>
+          <div class="intro-readout">
+            <div class="intro-readout-head">
+              <span>SYSTEM // SOLAR SYSTEM</span>
+              <span>EXHIBIT</span>
             </div>
-
-            <div class="pt-6 border-t border-paper-100/10 font-mono text-[11px] text-paper-600 flex justify-between items-center">
-              <span>REF: ARCHIVE_SYS</span>
-              <span class="text-paper-400">NASA SPACE APPS</span>
+            <div class="intro-readout-grid">
+              <div><small>MODE</small><strong>INTERACTIVE</strong></div>
+              <div><small>OBJECT</small><strong>WIRE MESH</strong></div>
+              <div><small>ARCHIVE</small><strong>SPACECRAFT</strong></div>
+              <div><small>STATUS</small><strong>SCROLL LINKED</strong></div>
+            </div>
+            <div class="intro-readout-foot">
+              <span>REL 01 / SOLAR ARCHIVE</span>
+              <span>NASA SPACE APPS</span>
             </div>
           </div>
-
         </div>
+
+        <div class="intro-section-number" aria-hidden="true">00</div>
       </div>
     </section>
 
@@ -1645,6 +1646,46 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
         closeSolarModal();
       }
     });
+  </script>
+
+
+  <script>
+    /* Scroll-driven exhibition intro — UI-only. */
+    (function(){
+      const intro=document.getElementById('intro-scroll');
+      const planet=document.getElementById('intro-planet');
+      const sphere=document.getElementById('intro-planet-sphere');
+      const orbit=document.getElementById('intro-planet-orbit');
+      const content=document.getElementById('intro-content');
+      if(!intro||!planet||!sphere||!orbit||!content)return;
+      let ticking=false;
+      const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
+      function updateIntro(){
+        const rect=intro.getBoundingClientRect();
+        const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
+        const progress=clamp(-rect.top/scrollable,0,1);
+        const mobile=window.innerWidth<=900;
+        const small=window.innerWidth<=640;
+        const endX=small?24:(mobile?20:35);
+        const x=-50+(endX+50)*progress;
+        const startScale=small?.72:1;
+        const endScale=small?.48:(mobile?.60:.62);
+        const scale=startScale+(endScale-startScale)*progress;
+        planet.style.transform='translate3d('+x+'%,-50%,0) scale('+scale+')';
+        sphere.style.transform='rotate('+(progress*360)+'deg)';
+        orbit.style.transform='rotate('+(-16+progress*55)+'deg)';
+        const reveal=clamp((progress-.42)/.42,0,1);
+        const eased=reveal*reveal*(3-2*reveal);
+        content.style.opacity=eased.toFixed(3);
+        content.style.transform='translateY('+((1-eased)*34)+'px)';
+        content.style.pointerEvents=eased>.92?'auto':'none';
+        ticking=false;
+      }
+      function requestUpdate(){if(!ticking){requestAnimationFrame(updateIntro);ticking=true}}
+      addEventListener('scroll',requestUpdate,{passive:true});
+      addEventListener('resize',requestUpdate,{passive:true});
+      updateIntro();
+    })();
   </script>
 
   <!-- 
