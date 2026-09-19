@@ -2002,8 +2002,17 @@ body > header {
         /* Saturn: centered at rest, then shifts right and shrinks. */
         const saturnShift=smooth((progress-.16)/.44);
         const x=lerp(0,small?16:(mobile?21:27),saturnShift);
+
+        /* The hidden metadata/header still occupy normal document flow at the
+           very first frame. Lift Saturn slightly so its visual center is the
+           actual viewport center immediately on page load. It settles to the
+           true center during the first small scroll movement. */
+        const verticalSettle=smooth(progress/.12);
+        const y=lerp(small?-4.5:-5.5,0,verticalSettle);
+
         const scale=lerp(1,small?.62:(mobile?.68:.62),saturnShift);
-        saturn.style.transform='translate3d('+x.toFixed(2)+'vw,0,0) scale('+scale.toFixed(3)+')';
+        saturn.style.transform=
+          'translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+scale.toFixed(3)+')';
 
         /* Scroll-linked planet rotation and independent ring-plane rotation. */
         sphere.style.transform='rotate('+(progress*360).toFixed(2)+'deg)';
