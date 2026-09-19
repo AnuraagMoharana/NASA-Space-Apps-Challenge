@@ -1407,6 +1407,114 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   }
 }
 
+  
+/* ==========================================================================
+   FINAL CINEMATIC OPENING — planet first, typography revealed by scroll
+   ========================================================================== */
+
+/* The opening viewport contains only the planet. */
+#intro-scroll {
+  height: 180vh !important;
+}
+
+#intro-content {
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: none;
+  will-change: auto;
+}
+
+/* Title is independent of the copy column so it can genuinely travel
+   from the lower-middle of the viewport into the left editorial position. */
+#intro-title {
+  position: absolute !important;
+  left: 50%;
+  top: 68vh;
+  width: min(900px, 84vw);
+  margin: 0 !important;
+  opacity: 0 !important;
+  transform: translate3d(-50%, -50%, 0);
+  transition: none !important;
+  will-change: left, top, transform, opacity;
+  z-index: 5;
+}
+
+/* Supporting typography stays invisible until the title has settled. */
+#intro-content .intro-eyebrow,
+#intro-content .intro-copy p,
+#intro-content .intro-actions,
+#intro-content .intro-readout {
+  opacity: 0 !important;
+  transition: none !important;
+  will-change: opacity;
+}
+
+#intro-copy,
+.intro-copy {
+  position: relative;
+}
+
+#intro-content .intro-copy {
+  padding-top: clamp(130px, 15vh, 190px);
+}
+
+/* Navigation and metadata also enter only after the cinematic opening. */
+body > aside[aria-label="Exhibit Metadata"],
+body > header {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: none !important;
+  will-change: opacity;
+}
+
+@media (max-width: 900px) {
+  #intro-scroll { height: 170vh !important; }
+
+  #intro-title {
+    width: min(760px, 88vw);
+    top: 65vh;
+  }
+
+  #intro-content .intro-copy {
+    padding-top: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  #intro-scroll { height: 160vh !important; }
+
+  #intro-title {
+    width: 90vw;
+    top: 63vh;
+  }
+
+  #intro-content .intro-copy {
+    padding-top: 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intro-title {
+    opacity: 1 !important;
+    left: 8vw !important;
+    top: 43vh !important;
+    transform: translate3d(0, -50%, 0) !important;
+  }
+
+  #intro-content .intro-eyebrow,
+  #intro-content .intro-copy p,
+  #intro-content .intro-actions,
+  #intro-content .intro-readout {
+    opacity: 1 !important;
+  }
+
+  body > aside[aria-label="Exhibit Metadata"],
+  body > header {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
   </style>
 </head>
 
@@ -1837,6 +1945,8 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
       const content=document.getElementById('intro-content');
       const title=document.getElementById('intro-title');
       const marks=document.querySelectorAll('.intro-mark, .intro-section-number');
+      const header=document.querySelector('body > header');
+      const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
 
       if(!intro||!planet||!sphere||!orbit||!ringDetails||!content||!title)return;
 
@@ -1854,12 +1964,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
 
-        /*
-         * Saturn now follows the visitor for the ENTIRE document.
-         * It starts centered during the opening, then gradually settles
-         * toward the right side and remains there through archive, science,
-         * interactive and footer.
-         */
+        /* Saturn follows the visitor through the complete page. */
         const startX=50;
         const endX=small?72:(mobile?70:78);
         const travel=smoothstep(clamp(pageProgress/.22,0,1));
@@ -1873,53 +1978,65 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
           'translate3d(calc(-50% + '+(x-50)+'vw),-50%,0) scale('+scale+')';
         planet.classList.add('intro-planet-follow');
 
-        /* Planet rotation is continuous for the whole page. */
+        /* Continuous planet rotation + slow ring-plane evolution. */
         sphere.style.transform='rotate('+(pageProgress*720)+'deg)';
-
-        /* Ring plane changes slowly and deliberately, never free-spinning. */
         const ringAngle=-18+(pageProgress*42);
         orbit.style.transform='rotate('+ringAngle+'deg)';
         ringDetails.style.transform='rotate('+ringAngle+'deg)';
 
         /*
-         * Cinematic title sequence:
-         * 1. Empty opening — Saturn only.
-         * 2. Title rises from the lower-middle and fades in.
-         * 3. Title travels into its final left editorial position.
-         * 4. Supporting copy/readout then fades in.
-         * 5. The normal exhibition page takes over.
+         * CINEMATIC OPENING
+         *
+         * 0.00 → 0.28 : the title rises from the lower-middle and fades in.
+         * 0.28 → 0.76 : the title travels slowly from center to the left.
+         * 0.68 → 0.96 : supporting copy fades in after the title settles.
+         * 0.82 → 1.00 : navigation/metadata quietly return.
          */
         const titleProgress=clamp(window.scrollY/(window.innerHeight*0.95),0,1);
-        const titleFade=smoothstep(titleProgress/0.34);
-        const titleTravel=smoothstep((titleProgress-0.16)/0.62);
-        const supportFade=smoothstep((titleProgress-0.62)/0.34);
 
-        const copy=content.querySelector('.intro-copy');
+        const titleFade=smoothstep(titleProgress/0.30);
+        const titleRise=smoothstep(titleProgress/0.30);
+        const titleSlide=smoothstep((titleProgress-0.28)/0.48);
+        const supportFade=smoothstep((titleProgress-0.68)/0.28);
+        const chromeFade=smoothstep((titleProgress-0.82)/0.18);
+
+        const titleLeft=50+(8-50)*titleSlide;
+        const titleTop=68+(43-68)*titleRise;
+        const titleX=(1-titleSlide)*-50;
+
+        title.style.opacity=titleFade.toFixed(3);
+        title.style.left=titleLeft.toFixed(2)+'vw';
+        title.style.top=titleTop.toFixed(2)+'vh';
+        title.style.transform=
+          'translate3d('+titleX.toFixed(2)+'%, -50%, 0)';
+
         const eyebrow=content.querySelector('.intro-eyebrow');
         const copyText=content.querySelector('.intro-copy p');
         const actions=content.querySelector('.intro-actions');
         const readout=content.querySelector('.intro-readout');
 
-        /* Title starts lower and centered, then settles into the left column. */
-        title.style.opacity=titleFade.toFixed(3);
-        title.style.transform=
-          'translate3d('+((1-titleTravel)*30)+'vw,'+
-          ((1-titleTravel)*30)+'vh,0)';
-
-        /* Keep the surrounding content quiet until the title has settled. */
-        content.style.opacity=supportFade.toFixed(3);
-        content.style.transform='none';
-
-        if(copy) copy.style.opacity='1';
         if(eyebrow) eyebrow.style.opacity=supportFade.toFixed(3);
         if(copyText) copyText.style.opacity=supportFade.toFixed(3);
-        if(actions) actions.style.opacity=smoothstep((titleProgress-.72)/.28).toFixed(3);
-        if(readout) readout.style.opacity=supportFade.toFixed(3);
+        if(actions) actions.style.opacity=smoothstep((titleProgress-.80)/.20).toFixed(3);
+        if(readout) readout.style.opacity=smoothstep((titleProgress-.74)/.26).toFixed(3);
 
-        content.style.pointerEvents=titleProgress>.88?'auto':'none';
+        content.style.pointerEvents=titleProgress>.86?'auto':'none';
 
-        const introProgress=clamp(-intro.getBoundingClientRect().top/
-          Math.max(intro.offsetHeight-window.innerHeight,1),0,1);
+        if(header){
+          header.style.opacity=chromeFade.toFixed(3);
+          header.style.pointerEvents=chromeFade>.82?'auto':'none';
+        }
+        if(metadata){
+          metadata.style.opacity=chromeFade.toFixed(3);
+          metadata.style.pointerEvents=chromeFade>.82?'auto':'none';
+        }
+
+        const introProgress=clamp(
+          -intro.getBoundingClientRect().top/
+          Math.max(intro.offsetHeight-window.innerHeight,1),
+          0,1
+        );
+
         const markReveal=smoothstep((introProgress-.72)/.20);
         marks.forEach(function(mark){
           mark.style.opacity=markReveal.toFixed(3);
@@ -1942,6 +2059,7 @@ main, footer, header, aside[aria-label="Exhibit Metadata"] {
   </script>
 
   <!-- 
+    DYNAMIC DATA LOADER SCRIPT  <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
   -->
