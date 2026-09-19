@@ -1057,6 +1057,152 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
     opacity: .13;
   }
 }
+  
+
+/* ==========================================================================
+   BALANCED 4-TONE EXHIBITION PALETTE
+   Cream / Ivory / Stone / Charcoal with restrained coral accents
+   ========================================================================== */
+
+:root {
+  --tone-cream: #F1EFE9;
+  --tone-ivory: #FAF9F5;
+  --tone-stone: #E1DED5;
+  --tone-charcoal: #242321;
+  --ink: #151515;
+  --muted: #625F59;
+  --line: rgba(21,21,21,.13);
+  --coral: #FF5A3C;
+  --coral-dark: #E04326;
+}
+
+/* HERO — cream */
+main > section:first-child,
+.hero-section {
+  background-color: var(--tone-cream) !important;
+}
+
+/* ARCHIVE — stone */
+#archive {
+  background-color: var(--tone-stone) !important;
+}
+
+#archive #hardware-grid > * {
+  background-color: var(--tone-ivory) !important;
+}
+
+/* SCIENCE — ivory */
+#science {
+  background-color: var(--tone-ivory) !important;
+}
+
+#science article:hover {
+  background-color: var(--tone-cream) !important;
+}
+
+/* INTERACTIVE — darker stone */
+#interactive {
+  background-color: #D7D3C9 !important;
+}
+
+#interactive > div > div {
+  background-color: var(--tone-ivory) !important;
+}
+
+#interactive .bg-space-900 {
+  background-color: var(--tone-stone) !important;
+}
+
+/* FOOTER — charcoal gives the page a strong visual anchor */
+footer {
+  background-color: var(--tone-charcoal) !important;
+  color: #F1EFE9 !important;
+}
+
+footer .text-paper-100,
+footer .text-paper-200 {
+  color: #FAF9F5 !important;
+}
+
+footer .text-paper-400,
+footer .text-paper-600 {
+  color: #B8B3A9 !important;
+}
+
+footer .border-paper-100\/10 {
+  border-color: rgba(250,249,245,.14) !important;
+}
+
+/* HEADER — between cream and ivory */
+header {
+  background-color: rgba(241,239,233,.96) !important;
+}
+
+aside[aria-label="Exhibit Metadata"] {
+  background-color: var(--tone-stone) !important;
+}
+
+/* MOBILE MENU */
+#mobile-menu {
+  background-color: var(--tone-ivory) !important;
+}
+
+/* HERO READOUT */
+main > section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
+  background-color: rgba(250,249,245,.72) !important;
+}
+
+/* HARDWARE CARD CONTRAST */
+#hardware-grid > * {
+  border-color: rgba(21,21,21,.12) !important;
+}
+
+#hardware-grid > *:hover {
+  background-color: #FFFFFF !important;
+  border-color: rgba(255,90,60,.48) !important;
+}
+
+/* SECTION DIVIDERS */
+main > section,
+.section-container {
+  border-color: var(--line) !important;
+}
+
+/* Keep the wire planet visible but balanced against the four tones */
+.wire-planet {
+  opacity: .21 !important;
+}
+
+.wire-planet-sphere,
+.wire-planet-ring {
+  stroke: #4F4C46;
+}
+
+/* CORAL — accent only, not a background */
+.btn-primary,
+button[onclick="openSolarModal()"].bg-coral-500 {
+  background-color: var(--coral) !important;
+}
+
+.btn-primary:hover,
+button[onclick="openSolarModal()"].bg-coral-500:hover {
+  background-color: var(--coral-dark) !important;
+}
+
+/* MOBILE: preserve the same color distribution */
+@media (max-width: 768px) {
+  #archive {
+    background-color: var(--tone-stone) !important;
+  }
+
+  #science {
+    background-color: var(--tone-ivory) !important;
+  }
+
+  #interactive {
+    background-color: #D7D3C9 !important;
+  }
+}
   </style>
 </head>
 
