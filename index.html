@@ -989,6 +989,74 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
   }
 }
 
+  
+
+/* --------------------------------------------------------------------------
+   ROTATING WIRE-MESH PLANET — subtle background exhibit element
+   -------------------------------------------------------------------------- */
+
+.wire-planet {
+  position: absolute;
+  width: min(46vw, 620px);
+  height: min(46vw, 620px);
+  right: -4%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: .24;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.wire-planet svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wire-planet-sphere {
+  transform-origin: 50% 50%;
+  animation: wirePlanetRotate 32s linear infinite;
+}
+
+.wire-planet-ring {
+  transform-origin: 50% 50%;
+  animation: wirePlanetRing 42s linear infinite;
+}
+
+@keyframes wirePlanetRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes wirePlanetRing {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(352deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wire-planet-sphere,
+  .wire-planet-ring { animation: none; }
+}
+
+@media (max-width: 1024px) {
+  .wire-planet {
+    width: 480px;
+    height: 480px;
+    right: -12%;
+    opacity: .18;
+  }
+}
+
+@media (max-width: 640px) {
+  .wire-planet {
+    width: 360px;
+    height: 360px;
+    right: -22%;
+    top: 28%;
+    opacity: .13;
+  }
+}
   </style>
 </head>
 
@@ -1074,6 +1142,34 @@ button[onclick="openSolarModal()"].bg-coral-500:hover {
       
       <!-- Radial Glow Accent -->
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-coral-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <!-- Rotating wire-mesh planet background -->
+      <div class="wire-planet" aria-hidden="true">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g class="wire-planet-sphere" stroke="#55524D" stroke-width="0.8">
+            <ellipse cx="300" cy="300" rx="190" ry="190"/>
+            <ellipse cx="300" cy="300" rx="190" ry="150"/>
+            <ellipse cx="300" cy="300" rx="190" ry="110"/>
+            <ellipse cx="300" cy="300" rx="190" ry="70"/>
+            <ellipse cx="300" cy="300" rx="190" ry="32"/>
+            <ellipse cx="300" cy="300" rx="150" ry="190"/>
+            <ellipse cx="300" cy="300" rx="110" ry="190"/>
+            <ellipse cx="300" cy="300" rx="70" ry="190"/>
+            <ellipse cx="300" cy="300" rx="32" ry="190"/>
+            <path d="M300 110 C245 145 220 220 220 300 C220 380 245 455 300 490"/>
+            <path d="M300 110 C270 155 260 225 260 300 C260 375 270 445 300 490"/>
+            <path d="M300 110 C290 160 290 230 290 300 C290 370 290 440 300 490"/>
+            <path d="M300 110 C310 160 310 230 310 300 C310 370 310 440 300 490"/>
+            <path d="M300 110 C330 155 340 225 340 300 C340 375 330 445 300 490"/>
+            <path d="M300 110 C355 145 380 220 380 300 C380 380 355 455 300 490"/>
+          </g>
+          <g class="wire-planet-ring" stroke="#55524D" stroke-width="0.8">
+            <ellipse cx="300" cy="300" rx="255" ry="82" transform="rotate(-17 300 300)"/>
+            <ellipse cx="300" cy="300" rx="265" ry="86" transform="rotate(-17 300 300)" opacity=".45"/>
+          </g>
+          <circle cx="300" cy="300" r="194" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 10" opacity=".45"/>
+        </svg>
+      </div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch">
