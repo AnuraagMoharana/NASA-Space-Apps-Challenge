@@ -1999,23 +1999,50 @@ body > header {
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
 
-        /* Saturn: centered at rest, then shifts right and shrinks. */
-        const saturnShift=smooth((progress-.16)/.44);
-        const x=lerp(0,small?16:(mobile?21:27),saturnShift);
+        /* Gemini-style cinematic Saturn timeline.
+           The actual page scroll drives one continuous sequence:
+           0.00–0.20: centered at 0°
+           0.20–0.40: 0° → 5°
+           0.40–0.60: 5° → 10°
+           0.60–0.75: 10° → 15°
+           0.75–0.90: shrink + glide right, 15° → 25°
+           0.90–1.00: final position with a very slow ambient hold. */
+        let saturnRotY=0;
+        let saturnScale=1;
+        let saturnX=0;
 
-        /* The hidden metadata/header still occupy normal document flow at the
-           very first frame. Lift Saturn slightly so its visual center is the
-           actual viewport center immediately on page load. It settles to the
-           true center during the first small scroll movement. */
+        if(progress<=0.20){
+          saturnRotY=0;
+        }else if(progress<=0.40){
+          const t=smooth((progress-0.20)/0.20);
+          saturnRotY=5*t;
+        }else if(progress<=0.60){
+          const t=smooth((progress-0.40)/0.20);
+          saturnRotY=5+t*5;
+        }else if(progress<=0.75){
+          const t=smooth((progress-0.60)/0.15);
+          saturnRotY=10+t*5;
+        }else if(progress<=0.90){
+          const t=smooth((progress-0.75)/0.15);
+          saturnRotY=15+t*10;
+          saturnScale=1-t*0.32;
+          saturnX=t*(small?16:(mobile?21:27));
+        }else{
+          saturnRotY=25;
+          saturnScale=0.68;
+          saturnX=small?16:(mobile?21:27);
+        }
+
+        /* Keep the opening planet centered on the real viewport. */
         const verticalSettle=smooth(progress/.12);
         const y=lerp(small?-4.5:-5.5,0,verticalSettle);
 
-        const scale=lerp(1,small?.62:(mobile?.68:.62),saturnShift);
         saturn.style.transform=
-          'translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+scale.toFixed(3)+')';
+          'translate3d('+saturnX.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+saturnScale.toFixed(3)+')';
 
-        /* Scroll-linked planet rotation and independent ring-plane rotation. */
-        sphere.style.transform='rotate('+(progress*360).toFixed(2)+'deg)';
+        /* The wireframe planet rotates through the same cinematic timeline.
+           The ring plane remains a separate, subtle scroll-linked motion. */
+        sphere.style.transform='rotateY('+saturnRotY.toFixed(2)+'deg)';
         const ringAngle=lerp(-20,18,progress);
         orbit.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
         rings.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
