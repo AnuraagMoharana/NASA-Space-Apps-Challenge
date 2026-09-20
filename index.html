@@ -1925,28 +1925,30 @@ body > header {
 
   <!-- UI-ONLY MODAL & NAV CONTROLLER -->
   <script>
-    function openSolarModal() {
+    window.openSolarModal = function() {
       const modal = document.getElementById('solar-system-modal');
       const iframe = document.getElementById('solar-iframe');
-      
-      if (modal && iframe) {
-        if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
-          iframe.src = 'solar-system/index.html';
-        }
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-      }
-    }
 
-    function closeSolarModal() {
-      const modal = document.getElementById('solar-system-modal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        document.body.style.overflow = '';
+      if (!modal || !iframe) return;
+
+      if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
+        iframe.src = 'solar-system/index.html';
       }
-    }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeSolarModal = function() {
+      const modal = document.getElementById('solar-system-modal');
+
+      if (!modal) return;
+
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    };
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
