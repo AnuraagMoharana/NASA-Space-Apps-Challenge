@@ -2050,9 +2050,6 @@ body > header {
           saturnX=small?16:(mobile?21:27);
         }
 
-        const verticalSettle=smooth(progress/.12);
-        const y=lerp(small?-4.5:-5.5,0,verticalSettle);
-
         saturn.style.transform=
           'translate3d('+saturnX.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+saturnScale.toFixed(3)+')';
 
