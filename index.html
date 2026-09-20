@@ -1976,7 +1976,7 @@ body > header {
       heroCamera.position.set(0,0,12);
 
       const heroRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-      heroRenderer.setSize(window.innerWidth,window.innerHeight);
+      heroRenderer.setSize(heroContainer.clientWidth || window.innerWidth,heroContainer.clientHeight || window.innerHeight);
       heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
       heroContainer.appendChild(heroRenderer.domElement);
 
@@ -2133,9 +2133,9 @@ body > header {
 
       window.addEventListener('scroll',requestUpdate,{passive:true});
       window.addEventListener('resize',()=>{
-        heroCamera.aspect=window.innerWidth/window.innerHeight;
+        heroCamera.aspect=(heroContainer.clientWidth || window.innerWidth)/(heroContainer.clientHeight || window.innerHeight);
         heroCamera.updateProjectionMatrix();
-        heroRenderer.setSize(window.innerWidth,window.innerHeight);
+        heroRenderer.setSize(heroContainer.clientWidth || window.innerWidth,heroContainer.clientHeight || window.innerHeight);
         requestUpdate();
       });
 
