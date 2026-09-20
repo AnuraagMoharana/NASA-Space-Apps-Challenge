@@ -1553,7 +1553,7 @@ body > header {
     .sticky-scene{position:sticky!important;top:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;background:#F1EFE9!important;isolation:isolate}
     .museum-grid-bg,.intro-grid{position:absolute!important;inset:0!important;pointer-events:none!important;opacity:.34;background-image:linear-gradient(to right,rgba(36,35,33,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,35,33,.035) 1px,transparent 1px);background-size:64px 64px}
     .saturn-viewport{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;z-index:2!important}
-    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(540px,46vw)!important;height:min(540px,46vw)!important;opacity:.82!important;color:#514E47!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
+    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(680px,58vw)!important;height:min(680px,58vw)!important;opacity:.82!important;color:#514E47!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
     #intro-planet svg{display:block;width:100%;height:100%;overflow:visible}
     #intro-planet-sphere,#intro-planet-orbit,#intro-ring-details{transform-box:fill-box;transform-origin:center;will-change:transform}
     #intro-ring-details{stroke:#625E56}
@@ -1667,25 +1667,13 @@ body > header {
         <div class="saturn-viewport" aria-hidden="true">
           <div id="intro-planet" class="saturn-canvas-wrapper">
             <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.9">
-                <ellipse cx="300" cy="300" rx="205" ry="205"/><ellipse cx="300" cy="300" rx="205" ry="170"/>
-                <ellipse cx="300" cy="300" rx="205" ry="132"/><ellipse cx="300" cy="300" rx="205" ry="92"/>
-                <ellipse cx="300" cy="300" rx="205" ry="50"/><ellipse cx="300" cy="300" rx="205" ry="20" opacity=".72"/>
-                <ellipse cx="300" cy="300" rx="175" ry="205"/><ellipse cx="300" cy="300" rx="135" ry="205"/>
-                <ellipse cx="300" cy="300" rx="92" ry="205"/><ellipse cx="300" cy="300" rx="48" ry="205"/>
-                <path d="M300 95 C250 148 226 220 226 300 C226 380 250 452 300 505"/>
-                <path d="M300 95 C272 152 260 226 260 300 C260 374 272 448 300 505"/>
-                <path d="M300 95 C328 152 340 226 340 300 C340 374 328 448 300 505"/>
-                <path d="M300 95 C350 148 374 220 374 300 C374 380 350 452 300 505"/>
-              </g>
-              <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.9">
-                <ellipse cx="300" cy="300" rx="286" ry="74"/><ellipse cx="300" cy="300" rx="312" ry="88" opacity=".36"/><ellipse cx="300" cy="300" rx="255" ry="58" opacity=".5"/>
-              </g>
-              <g id="intro-ring-details" stroke="currentColor" stroke-width=".7" opacity=".62">
-                <ellipse cx="300" cy="300" rx="250" ry="61"/><ellipse cx="300" cy="300" rx="220" ry="51"/><ellipse cx="300" cy="300" rx="190" ry="43"/><ellipse cx="300" cy="300" rx="160" ry="34"/>
-              </g>
-              <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 12" opacity=".34"/>
-              <circle cx="78" cy="250" r="3" fill="#FF5A3C"/><circle cx="520" cy="356" r="3" fill="#FF5A3C"/>
+              <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.78" stroke-linecap="round" opacity="0.9"></g>
+              <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.72" opacity="0.58"></g>
+              <g id="intro-ring-details" stroke="currentColor" stroke-width="0.58" opacity="0.42"></g>
+              <g id="intro-ring-accent" stroke="#FF5A3C" stroke-width="0.9" opacity="0.82"></g>
+              <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="0.9" stroke-dasharray="2 12" opacity=".28"/>
+              <circle cx="78" cy="250" r="3" fill="#FF5A3C"/>
+              <circle cx="520" cy="356" r="3" fill="#FF5A3C"/>
             </svg>
           </div>
         </div>
@@ -1994,6 +1982,93 @@ body > header {
       const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
       const smooth=(v)=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
       const lerp=(a,b,t)=>a+(b-a)*clamp(t,0,1);
+
+      /* Build the triangular wire-mesh planet and cross-hatched rings. UI-only visual geometry. */
+      function buildIntroMesh(){
+        const ns='http://www.w3.org/2000/svg';
+        const sphere=document.getElementById('intro-planet-sphere');
+        const orbit=document.getElementById('intro-planet-orbit');
+        const details=document.getElementById('intro-ring-details');
+        const accent=document.getElementById('intro-ring-accent');
+        if(!sphere||!orbit||!details||!accent)return;
+
+        const cx=300, cy=300, R=205, latSteps=11, lonSteps=24;
+        const points=[];
+        for(let i=0;i<=latSteps;i++){
+          const lat=-Math.PI/2+(Math.PI*i/latSteps);
+          const rr=R*Math.cos(lat);
+          const y=cy-R*Math.sin(lat);
+          const row=[];
+          for(let j=0;j<lonSteps;j++){
+            const lon=2*Math.PI*j/lonSteps;
+            row.push([cx+rr*Math.cos(lon),y]);
+          }
+          points.push(row);
+        }
+
+        const line=(parent,a,b)=>{
+          const el=document.createElementNS(ns,'line');
+          el.setAttribute('x1',a[0].toFixed(1)); el.setAttribute('y1',a[1].toFixed(1));
+          el.setAttribute('x2',b[0].toFixed(1)); el.setAttribute('y2',b[1].toFixed(1));
+          parent.appendChild(el);
+        };
+
+        /* Triangulated spherical mesh. */
+        for(let i=1;i<latSteps;i++){
+          for(let j=0;j<lonSteps;j++){
+            line(sphere,points[i][j],points[i][(j+1)%lonSteps]);
+          }
+        }
+        for(let j=0;j<lonSteps;j++){
+          for(let i=0;i<latSteps;i++){
+            line(sphere,points[i][j],points[i+1][j]);
+          }
+        }
+        for(let i=0;i<latSteps;i++){
+          for(let j=0;j<lonSteps;j++){
+            const a=points[i][j], b=points[i][(j+1)%lonSteps];
+            const c=points[i+1][(j+1)%lonSteps], d=points[i+1][j];
+            line(sphere,(i+j)%2===0?a:b,(i+j)%2===0?c:d);
+          }
+        }
+
+        /* Dense elliptical ring mesh matching the reference artwork. */
+        const ring=(parent,rx,ry,rotation,alphaStep)=>{
+          const rows=5, cols=30;
+          const rad=rotation*Math.PI/180;
+          const cos=Math.cos(rad), sin=Math.sin(rad);
+          const p=[];
+          for(let i=0;i<=rows;i++){
+            const scale=0.72+(i/rows)*0.30;
+            const row=[];
+            for(let j=0;j<cols;j++){
+              const a=2*Math.PI*j/cols;
+              const x=rx*scale*Math.cos(a), y=ry*scale*Math.sin(a);
+              row.push([cx+x*cos-y*sin,cy+x*sin+y*cos]);
+            }
+            p.push(row);
+          }
+          for(let i=0;i<=rows;i++){
+            for(let j=0;j<cols;j++) line(parent,p[i][j],p[i][(j+1)%cols]);
+          }
+          for(let i=0;i<rows;i++){
+            for(let j=0;j<cols;j++){
+              const a=p[i][j], b=p[i][(j+1)%cols];
+              const d=p[i+1][j], e=p[i+1][(j+1)%cols];
+              line(parent,(i+j)%2===0?a:b,(i+j)%2===0?e:d);
+            }
+          }
+        };
+
+        ring(orbit,315,92,-18);
+        ring(details,286,80,-18);
+        ring(details,258,70,-18);
+        ring(details,230,61,-18);
+        ring(details,202,53,-18);
+        ring(accent,260,67,-18);
+      }
+
+      buildIntroMesh();
 
       function updateScene(){
         const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
