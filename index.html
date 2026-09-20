@@ -30,6 +30,10 @@
               400: '#ff6b4a',
               500: '#ff5533',
               600: '#e04422'
+            },
+            charcoal: {
+              DEFAULT: '#1C1C1A',
+              80: '#1C1C1ACC'
             }
           },
           fontFamily: {
@@ -74,8 +78,35 @@
 
     /* Gemini Saturn presentation — preserved geometry and 3D transform model. */
     .saturn-viewport{
+      position:absolute!important;
+      inset:0!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      pointer-events:none!important;
+      z-index:10!important;
       perspective:1200px;
       transform-style:preserve-3d;
+    }
+
+    #saturn{
+      position:relative!important;
+      z-index:11!important;
+      opacity:1!important;
+      visibility:visible!important;
+      transform-origin:center center;
+      transform-style:preserve-3d;
+    }
+
+    #saturn-sphere,
+    #saturn-orbit{
+      opacity:1!important;
+      visibility:visible!important;
+    }
+
+    #saturn-sphere svg,
+    #saturn-rings{
+      overflow:visible!important;
     }
     .saturn-container{
       transform-style:preserve-3d;
