@@ -17,6 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<<<<<<< HEAD
     <script>
         tailwind.config = {
             theme: {
@@ -47,6 +48,37 @@
                         mono: ['IBM Plex Mono', 'monospace']
                     }
                 }
+=======
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            space: {
+              950: '#111111',
+              900: '#181818',
+              850: '#242424',
+              800: '#303030',
+              700: '#404040'
+            },
+            paper: {
+              50: '#ffffff',
+              100: '#fbfaf7',
+              200: '#f1efe9',
+              400: '#c7c3ba',
+              600: '#969188'
+            },
+            coral: {
+              400: '#ff6b4a',
+              500: '#ff5533',
+              600: '#e04422'
+            },
+            charcoal: {
+              DEFAULT: '#1C1C1A',
+              80: '#1C1C1ACC'
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
             }
         }
     </script>
@@ -850,9 +882,15 @@
   </script>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   <!-- EXISTING PROJECT DATA / HARDWARE LOGIC
        Do not replace this with Gemini's fallback data. -->
 =======
+=======
+  <!-- Three.js — exact Saturn model implementation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
   <!-- Google Fonts: IBM Plex Sans, IBM Plex Mono & Fraunces -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -881,6 +919,21 @@
       background-image: 
         linear-gradient(to right, rgba(242, 239, 233, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(242, 239, 233, 0.03) 1px, transparent 1px);
+    }
+
+    /* Three.js Saturn model viewport */
+    #canvas-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+    #canvas-container canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
     }
 
     /* Target styling for dynamic children inside #hardware-grid populated by js/app.js */
@@ -2360,13 +2413,13 @@ body > header {
 }
 
       /* CINEMATIC INTRO — sticky viewport blueprint */
-    .intro-scroll{position:relative!important;height:380vh!important;width:100%!important}
+    .intro-scroll{position:relative!important;height:500vh!important;width:100%!important}
     .sticky-scene{position:sticky!important;top:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;background:#F1EFE9!important;isolation:isolate}
     .museum-grid-bg,.intro-grid{position:absolute!important;inset:0!important;pointer-events:none!important;opacity:.34;background-image:linear-gradient(to right,rgba(36,35,33,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,35,33,.035) 1px,transparent 1px);background-size:64px 64px}
     .saturn-viewport{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;z-index:2!important}
-    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(540px,46vw)!important;height:min(540px,46vw)!important;opacity:.82!important;color:#514E47!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
-    #intro-planet svg{display:block;width:100%;height:100%;overflow:visible}
-    #intro-planet-sphere,#intro-planet-orbit,#intro-ring-details{transform-box:fill-box;transform-origin:center;will-change:transform}
+    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(680px,58vw)!important;height:min(680px,58vw)!important;opacity:.82!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
+    #canvas-container{width:100%;height:100%;pointer-events:none}
+    #canvas-container canvas{display:block;width:100%!important;height:100%!important}
     #intro-ring-details{stroke:#625E56}
     .editorial-column{position:absolute!important;top:50%!important;left:max(7vw,2rem)!important;transform:translateY(-50%)!important;width:min(43vw,590px)!important;max-width:590px!important;z-index:10!important;pointer-events:none}
     .editorial-column>*{pointer-events:auto}
@@ -2391,6 +2444,7 @@ body > header {
     /* Keep the cinematic sequence scroll-driven even when the device reports reduced motion. */
 
   
+<<<<<<< HEAD
 
 /* ==========================================================================
    BLACK-TO-PAPER CINEMATIC OPENING
@@ -2409,9 +2463,51 @@ body.cinematic-opening{background:#050505 !important;}
   #intro-scroll #intro-planet{color:#514E47 !important;}
 }
 </style>
+=======
+    /* Floating starfield — subtle exhibition background layer */
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    /* Stability / layering fixes */
+    #solar-system-modal {
+      z-index: 9999 !important;
+    }
+
+    #archive-status {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      border: 1px dashed rgba(21,21,21,.16);
+      background: rgba(250,249,245,.55);
+      text-align: center;
+    }
+
+    #archive-status[hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      #archive-status {
+        min-height: 150px;
+      }
+    }
+
+  </style>
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 </head>
 
 <body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Floating Starfield Background -->
+  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-30" aria-hidden="true"></canvas>
 
   <!-- TOP BAR / EXHIBIT READOUT STRIP -->
   <aside aria-label="Exhibit Metadata" class="w-full bg-space-900 border-b border-white/15 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
@@ -2465,7 +2561,7 @@ body.cinematic-opening{background:#050505 !important;}
         </button>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
             <path id="menu-icon-close" class="hidden" stroke-linecap="square" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
@@ -2493,31 +2589,7 @@ body.cinematic-opening{background:#050505 !important;}
       <div class="sticky-scene" id="sticky-scene">
         <div class="museum-grid-bg" aria-hidden="true"></div>
 
-        <div class="saturn-viewport" aria-hidden="true">
-          <div id="intro-planet" class="saturn-canvas-wrapper">
-            <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.9">
-                <ellipse cx="300" cy="300" rx="205" ry="205"/><ellipse cx="300" cy="300" rx="205" ry="170"/>
-                <ellipse cx="300" cy="300" rx="205" ry="132"/><ellipse cx="300" cy="300" rx="205" ry="92"/>
-                <ellipse cx="300" cy="300" rx="205" ry="50"/><ellipse cx="300" cy="300" rx="205" ry="20" opacity=".72"/>
-                <ellipse cx="300" cy="300" rx="175" ry="205"/><ellipse cx="300" cy="300" rx="135" ry="205"/>
-                <ellipse cx="300" cy="300" rx="92" ry="205"/><ellipse cx="300" cy="300" rx="48" ry="205"/>
-                <path d="M300 95 C250 148 226 220 226 300 C226 380 250 452 300 505"/>
-                <path d="M300 95 C272 152 260 226 260 300 C260 374 272 448 300 505"/>
-                <path d="M300 95 C328 152 340 226 340 300 C340 374 328 448 300 505"/>
-                <path d="M300 95 C350 148 374 220 374 300 C374 380 350 452 300 505"/>
-              </g>
-              <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.9">
-                <ellipse cx="300" cy="300" rx="286" ry="74"/><ellipse cx="300" cy="300" rx="312" ry="88" opacity=".36"/><ellipse cx="300" cy="300" rx="255" ry="58" opacity=".5"/>
-              </g>
-              <g id="intro-ring-details" stroke="currentColor" stroke-width=".7" opacity=".62">
-                <ellipse cx="300" cy="300" rx="250" ry="61"/><ellipse cx="300" cy="300" rx="220" ry="51"/><ellipse cx="300" cy="300" rx="190" ry="43"/><ellipse cx="300" cy="300" rx="160" ry="34"/>
-              </g>
-              <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="1" stroke-dasharray="2 12" opacity=".34"/>
-              <circle cx="78" cy="250" r="3" fill="#FF5A3C"/><circle cx="520" cy="356" r="3" fill="#FF5A3C"/>
-            </svg>
-          </div>
-        </div>
+        <div id="canvas-container" class="absolute inset-0 z-10 pointer-events-none"></div>
 
         <div class="intro-mark intro-mark-top" aria-hidden="true">
           <span>REL 01</span><span>EXHIBITION ENTRY</span>
@@ -2579,7 +2651,15 @@ body.cinematic-opening{background:#050505 !important;}
           EMPTY DYNAMIC CONTAINER
           js/app.js owns this container and populates all cards dynamically.
         -->
-        <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div id="archive-status" class="col-span-full" role="status" aria-live="polite">
+            <div>
+              <div class="font-mono text-[10px] uppercase tracking-[.16em] text-coral-500 mb-2">ARCHIVE FEED</div>
+              <div class="font-serif text-2xl text-paper-100 mb-2">Catalogue module loading</div>
+              <p class="font-sans text-sm text-paper-400 max-w-md mx-auto">Hardware records are supplied by the project data module.</p>
+            </div>
+          </div>
+        </div>
 
       </div>
     </section>
@@ -2670,12 +2750,107 @@ body.cinematic-opening{background:#050505 !important;}
               </div>
             </div>
 
-            <!-- Orbit Visual Box -->
-            <div class="lg:col-span-4 border border-paper-100/10 bg-space-900 p-6 flex flex-col items-center justify-center text-center space-y-4">
-              <div class="w-32 h-32 rounded-full border border-paper-100/20 relative flex items-center justify-center">
-                <div class="w-24 h-24 rounded-full border border-coral-500/30 animate-ping" style="animation-duration: 4s;"></div>
-                <div class="w-6 h-6 rounded-full bg-amber-500/80 shadow-[0_0_20px_rgba(245,158,11,0.8)]"></div>
+            <!-- Orbit Visual Box — editorial technical thumbnail -->
+            <div class="lg:col-span-4 relative overflow-hidden border border-paper-100/15 bg-[#EEECE5] min-h-[300px] lg:min-h-[340px]">
+              <div class="absolute inset-0 bg-tech-grid opacity-50"></div>
+
+              <svg viewBox="0 0 720 500" class="absolute inset-0 w-full h-full" aria-label="Technical solar system preview" role="img">
+                <defs>
+                  <radialGradient id="thumb-sun" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FFB07A"/>
+                    <stop offset="55%" stop-color="#FF6948"/>
+                    <stop offset="100%" stop-color="#D9472D"/>
+                  </radialGradient>
+                  <filter id="thumb-glow">
+                    <feGaussianBlur stdDeviation="9"/>
+                  </filter>
+                </defs>
+
+                <!-- orbital guide rings -->
+                <g fill="none" stroke="#77736C" stroke-width="1" opacity=".28">
+                  <ellipse cx="360" cy="255" rx="330" ry="70"/>
+                  <ellipse cx="360" cy="255" rx="290" ry="62"/>
+                  <ellipse cx="360" cy="255" rx="250" ry="54"/>
+                  <ellipse cx="360" cy="255" rx="210" ry="47"/>
+                  <ellipse cx="360" cy="255" rx="170" ry="40"/>
+                  <ellipse cx="360" cy="255" rx="135" ry="33"/>
+                </g>
+
+                <!-- asteroid belt -->
+                <g fill="#77736C" opacity=".38">
+                  <circle cx="465" cy="222" r="1.6"/><circle cx="480" cy="231" r="1.2"/>
+                  <circle cx="494" cy="239" r="1.5"/><circle cx="508" cy="246" r="1"/>
+                  <circle cx="522" cy="253" r="1.4"/><circle cx="537" cy="259" r="1"/>
+                  <circle cx="551" cy="266" r="1.5"/><circle cx="566" cy="272" r="1"/>
+                  <circle cx="580" cy="279" r="1.4"/><circle cx="595" cy="285" r="1"/>
+                  <circle cx="450" cy="288" r="1"/><circle cx="470" cy="294" r="1.4"/>
+                  <circle cx="490" cy="300" r="1"/><circle cx="510" cy="305" r="1.3"/>
+                  <circle cx="530" cy="311" r="1"/><circle cx="550" cy="317" r="1.5"/>
+                  <circle cx="570" cy="322" r="1"/><circle cx="590" cy="328" r="1.3"/>
+                </g>
+
+                <!-- sun -->
+                <circle cx="74" cy="255" r="74" fill="#FF5A3C" opacity=".13" filter="url(#thumb-glow)"/>
+                <circle cx="74" cy="255" r="48" fill="url(#thumb-sun)"/>
+                <circle cx="74" cy="255" r="40" fill="none" stroke="#FFB08D" opacity=".45"/>
+
+                <!-- planets -->
+                <g stroke="#4F4C47" fill="#EEECE5">
+                  <circle cx="145" cy="244" r="7"/>
+                  <circle cx="190" cy="263" r="10"/>
+                  <circle cx="245" cy="247" r="13"/>
+                  <circle cx="315" cy="265" r="16"/>
+                  <circle cx="402" cy="235" r="28"/>
+                  <circle cx="485" cy="272" r="36"/>
+                  <circle cx="585" cy="240" r="24"/>
+                  <circle cx="650" cy="277" r="19"/>
+                </g>
+
+                <!-- wireframe detail on larger planets -->
+                <g fill="none" stroke="#77736C" stroke-width=".8" opacity=".62">
+                  <ellipse cx="315" cy="265" rx="16" ry="7"/>
+                  <ellipse cx="315" cy="265" rx="7" ry="16"/>
+                  <ellipse cx="402" cy="235" rx="28" ry="12"/>
+                  <ellipse cx="402" cy="235" rx="12" ry="28"/>
+                  <ellipse cx="485" cy="272" rx="36" ry="15"/>
+                  <ellipse cx="485" cy="272" rx="15" ry="36"/>
+                  <ellipse cx="585" cy="240" rx="24" ry="10"/>
+                  <ellipse cx="585" cy="240" rx="10" ry="24"/>
+                  <ellipse cx="650" cy="277" rx="19" ry="8"/>
+                  <ellipse cx="650" cy="277" rx="8" ry="19"/>
+                </g>
+
+                <!-- Saturn ring -->
+                <ellipse cx="485" cy="272" rx="54" ry="16" fill="none" stroke="#FF5A3C" stroke-width="3" opacity=".85" transform="rotate(-12 485 272)"/>
+                <ellipse cx="485" cy="272" rx="62" ry="19" fill="none" stroke="#6F6B64" stroke-width="1" opacity=".55" transform="rotate(-12 485 272)"/>
+
+                <!-- technical registration marks -->
+                <g fill="#FF5A3C">
+                  <rect x="110" y="95" width="5" height="5"/>
+                  <rect x="620" y="82" width="5" height="5"/>
+                  <rect x="674" y="386" width="5" height="5"/>
+                </g>
+              </svg>
+
+              <div class="absolute left-5 top-5 border border-paper-900/20 bg-[#EEECE5]/90 px-3 py-2 font-mono text-[9px] tracking-[.18em] text-paper-900 uppercase">
+                <span class="inline-block w-1.5 h-1.5 bg-coral-500 mr-2"></span>
+                SOLAR SYSTEM SIMULATION
+                <span class="block ml-3 mt-1 text-[8px] text-paper-600">REAL-TIME 3D ORBITS</span>
               </div>
+
+              <div class="absolute right-5 top-5 border-l border-coral-500 pl-3 font-mono text-[9px] leading-4 text-paper-900 uppercase tracking-wider">
+                8 PLANETS<br/>200+ MOONS<br/>REAL PHYSICS
+              </div>
+
+              <div class="absolute left-5 bottom-5 flex items-center gap-3 font-mono text-[9px] tracking-[.16em] uppercase text-paper-900">
+                <span class="flex h-8 w-8 items-center justify-center rounded-full border border-paper-900/50">▶</span>
+                <span>CLICK TO EXPLORE</span>
+              </div>
+
+              <div class="absolute right-5 bottom-5 border border-paper-900/20 bg-[#EEECE5]/80 px-3 py-2 font-mono text-[8px] tracking-[.18em] uppercase text-paper-600">
+                SCALE&nbsp;&nbsp;1.0x
+              </div>
+            </div>
               <div class="font-mono text-xs text-paper-400 uppercase tracking-wider">
                 3D ENGINE: GARNIER CSS 3D
               </div>
@@ -2729,18 +2904,18 @@ body.cinematic-opening{background:#050505 !important;}
     3D SOLAR SYSTEM MODAL
     Preserved ID: solar-system-modal
   -->
-  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300">
+  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="solar-modal-title">
     
     <!-- Modal Header Bar -->
     <div class="w-full bg-space-900 border-b border-paper-100/10 px-4 sm:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3 font-mono text-xs text-paper-200">
         <span class="w-2 h-2 bg-coral-500 rounded-full animate-pulse"></span>
-        <span class="font-bold uppercase tracking-wider">3D SOLAR SYSTEM MAP</span>
+        <span id="solar-modal-title" class="font-bold uppercase tracking-wider">3D SOLAR SYSTEM MAP</span>
         <span class="hidden sm:inline text-paper-600">|</span>
         <span class="hidden sm:inline text-paper-400 text-[11px]">GARNIER CSS 3D</span>
       </div>
 
-      <button onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
+      <button id="solar-modal-close" onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
         <span>CLOSE EXHIBIT</span>
         <span class="text-coral-500">✕</span>
       </button>
@@ -2754,50 +2929,80 @@ body.cinematic-opening{background:#050505 !important;}
 
   <!-- UI-ONLY MODAL & NAV CONTROLLER -->
   <script>
-    function openSolarModal() {
+    let lastFocusedElement = null;
+
+    window.openSolarModal = function() {
       const modal = document.getElementById('solar-system-modal');
       const iframe = document.getElementById('solar-iframe');
-      
-      if (modal && iframe) {
-        if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
-          iframe.src = 'solar-system/index.html';
-        }
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-      }
-    }
+      const closeButton = document.getElementById('solar-modal-close');
 
-    function closeSolarModal() {
-      const modal = document.getElementById('solar-system-modal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        document.body.style.overflow = '';
+      if (!modal || !iframe) return;
+
+      lastFocusedElement = document.activeElement;
+
+      if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
+        iframe.src = 'solar-system/index.html';
       }
-    }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      document.body.setAttribute('data-modal-open', 'true');
+
+      window.setTimeout(() => {
+        if (closeButton) closeButton.focus();
+      }, 0);
+    };
+
+    window.closeSolarModal = function() {
+      const modal = document.getElementById('solar-system-modal');
+      if (!modal) return;
+
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      document.body.removeAttribute('data-modal-open');
+
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+      }
+    };
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       const iconOpen = document.getElementById('menu-icon-open');
       const iconClose = document.getElementById('menu-icon-close');
-      
-      if (menu) {
-        menu.classList.toggle('hidden');
-        iconOpen.classList.toggle('hidden');
-        iconClose.classList.toggle('hidden');
-      }
+      const button = document.getElementById('mobile-menu-btn');
+
+      if (!menu) return;
+
+      const willOpen = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !willOpen);
+
+      if (iconOpen) iconOpen.classList.toggle('hidden', willOpen);
+      if (iconClose) iconClose.classList.toggle('hidden', !willOpen);
+      if (button) button.setAttribute('aria-expanded', String(willOpen));
     }
 
     document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
+      if (event.key !== 'Escape') return;
+
+      const modal = document.getElementById('solar-system-modal');
+      if (modal && !modal.classList.contains('hidden')) {
         closeSolarModal();
+        return;
+      }
+
+      const menu = document.getElementById('mobile-menu');
+      if (menu && !menu.classList.contains('hidden')) {
+        toggleMobileMenu();
       }
     });
   </script>
 
 
   <script>
+<<<<<<< HEAD
     /* Cinematic exhibition intro — UI-only presentation controller. */
 (function(){
       const intro=document.getElementById('intro-scroll');
@@ -2815,20 +3020,31 @@ body.cinematic-opening{background:#050505 !important;}
       const header=document.querySelector('body > header');
       const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
       const root=document.documentElement;
+=======
+    /* Exact Saturn model from the supplied Gemini code, with the existing
+       exhibition page's continuous scroll timeline preserved. */
+    const heroContainer = document.getElementById('canvas-container');
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 
-      if(!intro||!scene||!saturn||!sphere||!orbit||!rings||!title)return;
+    if (!heroContainer || !window.THREE) {
+      if (heroContainer) {
+        heroContainer.setAttribute('aria-hidden', 'true');
+        heroContainer.style.display = 'none';
+      }
+    } else {
+      const heroScene = new THREE.Scene();
+    const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    heroCamera.position.set(0, 0, 12);
 
-      let ticking=false;
-      const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
-      const smooth=(v)=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
-      const lerp=(a,b,t)=>a+(b-a)*clamp(t,0,1);
+    const heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    heroRenderer.setSize(window.innerWidth, window.innerHeight);
+    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    heroContainer.appendChild(heroRenderer.domElement);
 
-      function updateScene(){
-        const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
-        const progress=clamp(-intro.getBoundingClientRect().top/scrollable,0,1);
-        const mobile=window.innerWidth<=900;
-        const small=window.innerWidth<=640;
+    // EXACT MODEL GEOMETRY
+    const saturnGroup = new THREE.Group();
 
+<<<<<<< HEAD
         /* Black at rest, then a slow reveal into the exhibition's warm paper. */
         const colorP=smooth(progress/.30);
         const mix=(a,b,t)=>{
@@ -2855,57 +3071,140 @@ body.cinematic-opening{background:#050505 !important;}
         /* Saturn: centered at rest, then shifts right and shrinks. */
         const saturnShift=smooth((progress-.16)/.44);
         const x=lerp(0,small?16:(mobile?21:27),saturnShift);
+=======
+    const saturnGeo = new THREE.IcosahedronGeometry(2.2, 4);
+    const saturnMat = new THREE.MeshBasicMaterial({
+      color: 0x2A2927,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35
+    });
+    const saturnMesh = new THREE.Mesh(saturnGeo, saturnMat);
+    saturnGroup.add(saturnMesh);
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 
-        /* The hidden metadata/header still occupy normal document flow at the
-           very first frame. Lift Saturn slightly so its visual center is the
-           actual viewport center immediately on page load. It settles to the
-           true center during the first small scroll movement. */
-        const verticalSettle=smooth(progress/.12);
-        const y=lerp(small?-4.5:-5.5,0,verticalSettle);
+    const innerGeo = new THREE.SphereGeometry(2.15, 32, 32);
+    const innerMat = new THREE.MeshBasicMaterial({
+      color: 0xF8F7F2,
+      transparent: true,
+      opacity: 0.95
+    });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    saturnGroup.add(innerMesh);
 
-        const scale=lerp(1,small?.62:(mobile?.68:.62),saturnShift);
-        saturn.style.transform=
-          'translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+scale.toFixed(3)+')';
+    function createRing(innerRadius, outerRadius, opacity, color = 0x2A2927) {
+      const ringGeo = new THREE.RingGeometry(innerRadius, outerRadius, 128, 8);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: color,
+        wireframe: true,
+        transparent: true,
+        opacity: opacity,
+        side: THREE.DoubleSide
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      ringMesh.rotation.x = Math.PI / 2;
+      return ringMesh;
+    }
 
-        /* Scroll-linked planet rotation and independent ring-plane rotation. */
-        sphere.style.transform='rotate('+(progress*360).toFixed(2)+'deg)';
-        const ringAngle=lerp(-20,18,progress);
-        orbit.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
-        rings.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
+    const ringA = createRing(3.2, 4.4, 0.40, 0x2A2927);
+    const ringB = createRing(2.6, 3.0, 0.55, 0xD95338);
+    const ringC = createRing(4.5, 5.0, 0.20, 0x787672);
 
-        /* Title: invisible at load, rises into the fixed middle-left column. */
-        const titleFade=smooth((progress-.025)/.30);
-        const titleRise=smooth((progress-.025)/.32);
-        title.style.setProperty('opacity',titleFade.toFixed(3),'important');
-        title.style.setProperty('transform','translateY('+lerp(90,0,titleRise).toFixed(2)+'px)','important');
+    saturnGroup.add(ringA);
+    saturnGroup.add(ringB);
+    saturnGroup.add(ringC);
 
-        /* Supporting copy follows the title with deliberate delays. */
-        const eyebrowP=smooth((progress-.34)/.18);
-        const descP=smooth((progress-.43)/.20);
-        const actionsP=smooth((progress-.58)/.20);
-        const readoutP=smooth((progress-.64)/.20);
+    saturnGroup.rotation.z = 0.22;
+    saturnGroup.rotation.x = 0.42;
+    heroScene.add(saturnGroup);
 
-        if(eyebrow){eyebrow.style.setProperty('opacity',eyebrowP.toFixed(3),'important');eyebrow.style.setProperty('transform','translateY('+lerp(20,0,eyebrowP).toFixed(2)+'px)','important');}
-        if(description){description.style.setProperty('opacity',descP.toFixed(3),'important');description.style.setProperty('transform','translateY('+lerp(20,0,descP).toFixed(2)+'px)','important');}
-        if(actions){actions.style.setProperty('opacity',actionsP.toFixed(3),'important');actions.style.setProperty('transform','translateY('+lerp(20,0,actionsP).toFixed(2)+'px)','important');}
-        if(readout){readout.style.setProperty('opacity',readoutP.toFixed(3),'important');readout.style.setProperty('transform','translateY('+lerp(18,0,readoutP).toFixed(2)+'px)','important');}
+    // EXACT BACKGROUND DUST
+    const particleCount = 800;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
 
-        /* Page chrome returns only after the opening composition is established. */
-        const chrome=smooth((progress-.72)/.22);
-        if(header){header.style.setProperty('opacity',chrome.toFixed(3),'important');header.style.pointerEvents=chrome>.65?'auto':'none';}
-        if(metadata){metadata.style.setProperty('opacity',chrome.toFixed(3),'important');metadata.style.pointerEvents=chrome>.65?'auto':'none';}
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      particlePositions[i] = (Math.random() - 0.5) * 80;
+      particlePositions[i + 1] = (Math.random() - 0.5) * 80;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 80;
+    }
 
-        const markP=smooth((progress-.78)/.16);
-        marks.forEach(mark=>mark.style.setProperty('opacity',markP.toFixed(3),'important'));
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
 
-        scene.style.pointerEvents=progress>.86?'auto':'none';
-        ticking=false;
+    const particleMat = new THREE.PointsMaterial({
+      color: 0x787672,
+      size: 0.03,
+      transparent: true,
+      opacity: 0.35
+    });
+
+    const particleSystem = new THREE.Points(particleGeo, particleMat);
+    heroScene.add(particleSystem);
+
+    const scrollTrack = document.getElementById('intro-scroll');
+    const title = document.getElementById('intro-title');
+    const eyebrow = document.getElementById('intro-eyebrow');
+    const description = document.getElementById('intro-description');
+    const actions = document.getElementById('intro-actions');
+    const readout = document.getElementById('intro-readout');
+    const marks = document.querySelectorAll('.intro-mark,.intro-section-number');
+    const mainHeader = document.querySelector('body > header');
+    const metadata = document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
+
+    let targetProgress = 0;
+    let currentProgress = 0;
+
+    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+    const smooth = (v) => {
+      const x = clamp(v, 0, 1);
+      return x * x * (3 - 2 * x);
+    };
+    const lerp = (a, b, t) => a + (b - a) * clamp(t, 0, 1);
+
+    function updateScrollProgress() {
+      if (!scrollTrack) return;
+      const rect = scrollTrack.getBoundingClientRect();
+      const maxScroll = Math.max(scrollTrack.offsetHeight - window.innerHeight, 1);
+      targetProgress = clamp(-rect.top / maxScroll, 0, 1);
+    }
+
+    function updateScene() {
+      currentProgress += (targetProgress - currentProgress) * 0.10;
+      const progress = currentProgress;
+
+      // More rotation over the same 500vh physical scroll.
+      let saturnRotY = 0;
+      let saturnScale = 1;
+      let saturnX = 0;
+
+      if (progress <= 0.20) {
+        saturnRotY = 0;
+      } else if (progress <= 0.40) {
+        saturnRotY = smooth((progress - 0.20) / 0.20) * 36;
+      } else if (progress <= 0.60) {
+        saturnRotY = 36 + smooth((progress - 0.40) / 0.20) * 48;
+      } else if (progress <= 0.75) {
+        saturnRotY = 84 + smooth((progress - 0.60) / 0.15) * 48;
+      } else if (progress <= 0.90) {
+        const t = smooth((progress - 0.75) / 0.15);
+        saturnRotY = 132 + t * 48;
+        saturnScale = 1 - t * 0.35;
+        saturnX = t * (window.innerWidth < 768 ? 0.3 : 2.2);
+      } else {
+        saturnRotY = 180;
+        saturnScale = 0.65;
+        saturnX = window.innerWidth < 768 ? 0.3 : 2.2;
       }
 
-      function requestUpdate(){
-        if(!ticking){ticking=true;requestAnimationFrame(updateScene);}
+      saturnGroup.rotation.y = saturnRotY * Math.PI / 180;
+      saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
+      saturnGroup.position.x = saturnX;
+
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        particleSystem.rotation.y = performance.now() * 0.000015;
       }
 
+<<<<<<< HEAD
       window.addEventListener('scroll',requestUpdate,{passive:true});
       window.addEventListener('resize',requestUpdate);
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateScene);
@@ -2914,13 +3213,171 @@ body.cinematic-opening{background:#050505 !important;}
     })();
 
   </script>
+=======
+      const titleFade = smooth((progress - 0.025) / 0.30);
+      const titleRise = smooth((progress - 0.025) / 0.32);
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 
-  <!-- 
+      if (title) {
+        title.style.setProperty('opacity', titleFade.toFixed(3), 'important');
+        title.style.setProperty('transform', `translateY(${lerp(90, 0, titleRise).toFixed(2)}px)`, 'important');
+      }
+
+      const eyebrowP = smooth((progress - 0.34) / 0.18);
+      const descP = smooth((progress - 0.43) / 0.20);
+      const actionsP = smooth((progress - 0.58) / 0.20);
+      const readoutP = smooth((progress - 0.64) / 0.20);
+
+      if (eyebrow) eyebrow.style.setProperty('opacity', eyebrowP.toFixed(3), 'important');
+      if (description) description.style.setProperty('opacity', descP.toFixed(3), 'important');
+      if (actions) actions.style.setProperty('opacity', actionsP.toFixed(3), 'important');
+      if (readout) readout.style.setProperty('opacity', readoutP.toFixed(3), 'important');
+
+      const chrome = smooth((progress - 0.72) / 0.22);
+      if (mainHeader) {
+        mainHeader.style.setProperty('opacity', chrome.toFixed(3), 'important');
+        mainHeader.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
+      }
+      if (metadata) {
+        metadata.style.setProperty('opacity', chrome.toFixed(3), 'important');
+        metadata.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
+      }
+
+      const promptP = 1 - smooth(progress / 0.16);
+      marks.forEach(mark => {
+        const value = mark.classList.contains('intro-section-number') ? 1 : promptP;
+        mark.style.setProperty('opacity', value.toFixed(3), 'important');
+      });
+    }
+
+    function renderHeroScene() {
+      requestAnimationFrame(renderHeroScene);
+      updateScene();
+      heroRenderer.render(heroScene, heroCamera);
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    window.addEventListener('resize', () => {
+      heroCamera.aspect = window.innerWidth / window.innerHeight;
+      heroCamera.updateProjectionMatrix();
+      heroRenderer.setSize(window.innerWidth, window.innerHeight);
+      updateScrollProgress();
+    });
+
+    updateScrollProgress();
+    requestAnimationFrame(renderHeroScene);
+    }
+  </script> <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
   -->
+<<<<<<< HEAD
 >>>>>>> feature/ui-upgrade
+=======
+  <script>
+    (function initArchiveStatus() {
+      const grid = document.getElementById('hardware-grid');
+      const status = document.getElementById('archive-status');
+      if (!grid || !status) return;
+
+      const sync = () => {
+        const hasRealCards = Array.from(grid.children).some(child => child.id !== 'archive-status');
+        status.hidden = hasRealCards;
+      };
+
+      sync();
+
+      if ('MutationObserver' in window) {
+        const observer = new MutationObserver(sync);
+        observer.observe(grid, { childList: true });
+      }
+    })();
+  </script>
+
+>>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
   <script src="js/app.js"></script>
 
+
+  <script>
+    (function initStarfield() {
+      const canvas = document.getElementById('starfield');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height, stars = [];
+      const STAR_COUNT = 60;
+      const COLOR = '28, 28, 26';
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      function createStars() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 2 + 1,
+            alpha: Math.random() * 0.4 + 0.1,
+            pulseSpeed: Math.random() * 0.015 + 0.005,
+            pulseDir: Math.random() > 0.5 ? 1 : -1,
+            vx: (Math.random() - 0.5) * 0.15,
+            vy: -Math.random() * 0.2 - 0.05,
+            isCross: Math.random() > 0.6
+          });
+        }
+      }
+
+      function draw4PointStar(x, y, size, alpha) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.strokeStyle = 'rgba(' + COLOR + ', ' + alpha + ')';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(-size * 2, 0);
+        ctx.lineTo(size * 2, 0);
+        ctx.moveTo(0, -size * 2);
+        ctx.lineTo(0, size * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach(star => {
+          star.x += star.vx;
+          star.y += star.vy;
+          if (star.y < -10) star.y = height + 10;
+          if (star.x < -10) star.x = width + 10;
+          if (star.x > width + 10) star.x = -10;
+
+          star.alpha += star.pulseSpeed * star.pulseDir;
+          if (star.alpha >= 0.5) { star.alpha = 0.5; star.pulseDir = -1; }
+          else if (star.alpha <= 0.08) { star.alpha = 0.08; star.pulseDir = 1; }
+
+          if (star.isCross) {
+            draw4PointStar(star.x, star.y, star.size, star.alpha);
+          } else {
+            ctx.fillStyle = 'rgba(' + COLOR + ', ' + star.alpha + ')';
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', () => {
+        resize();
+        createStars();
+      });
+
+      resize();
+      createStars();
+      animate();
+    })();
+  </script>
 </body>
 </html>
