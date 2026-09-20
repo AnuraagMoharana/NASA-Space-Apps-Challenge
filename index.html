@@ -1610,15 +1610,41 @@ body > header {
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 30;
     }
-</style>
+
+    /* Stability / layering fixes */
+    #solar-system-modal {
+      z-index: 9999 !important;
+    }
+
+    #archive-status {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      border: 1px dashed rgba(21,21,21,.16);
+      background: rgba(250,249,245,.55);
+      text-align: center;
+    }
+
+    #archive-status[hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      #archive-status {
+        min-height: 150px;
+      }
+    }
+
+  </style>
 </head>
 
 <body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
 
   <!-- Floating Starfield Background -->
-  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-[9998]" aria-hidden="true"></canvas>
+  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-30" aria-hidden="true"></canvas>
 
   <!-- TOP BAR / EXHIBIT READOUT STRIP -->
   <aside aria-label="Exhibit Metadata" class="w-full bg-space-900 border-b border-white/15 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
@@ -1672,7 +1698,7 @@ body > header {
         </button>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
             <path id="menu-icon-close" class="hidden" stroke-linecap="square" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
@@ -1762,7 +1788,15 @@ body > header {
           EMPTY DYNAMIC CONTAINER
           js/app.js owns this container and populates all cards dynamically.
         -->
-        <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div id="archive-status" class="col-span-full" role="status" aria-live="polite">
+            <div>
+              <div class="font-mono text-[10px] uppercase tracking-[.16em] text-coral-500 mb-2">ARCHIVE FEED</div>
+              <div class="font-serif text-2xl text-paper-100 mb-2">Catalogue module loading</div>
+              <p class="font-sans text-sm text-paper-400 max-w-md mx-auto">Hardware records are supplied by the project data module.</p>
+            </div>
+          </div>
+        </div>
 
       </div>
     </section>
@@ -2007,18 +2041,18 @@ body > header {
     3D SOLAR SYSTEM MODAL
     Preserved ID: solar-system-modal
   -->
-  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300">
+  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="solar-modal-title">
     
     <!-- Modal Header Bar -->
     <div class="w-full bg-space-900 border-b border-paper-100/10 px-4 sm:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3 font-mono text-xs text-paper-200">
         <span class="w-2 h-2 bg-coral-500 rounded-full animate-pulse"></span>
-        <span class="font-bold uppercase tracking-wider">3D SOLAR SYSTEM MAP</span>
+        <span id="solar-modal-title" class="font-bold uppercase tracking-wider">3D SOLAR SYSTEM MAP</span>
         <span class="hidden sm:inline text-paper-600">|</span>
         <span class="hidden sm:inline text-paper-400 text-[11px]">GARNIER CSS 3D</span>
       </div>
 
-      <button onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
+      <button id="solar-modal-close" onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
         <span>CLOSE EXHIBIT</span>
         <span class="text-coral-500">✕</span>
       </button>
@@ -2032,11 +2066,16 @@ body > header {
 
   <!-- UI-ONLY MODAL & NAV CONTROLLER -->
   <script>
+    let lastFocusedElement = null;
+
     window.openSolarModal = function() {
       const modal = document.getElementById('solar-system-modal');
       const iframe = document.getElementById('solar-iframe');
+      const closeButton = document.getElementById('solar-modal-close');
 
       if (!modal || !iframe) return;
+
+      lastFocusedElement = document.activeElement;
 
       if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
         iframe.src = 'solar-system/index.html';
@@ -2045,33 +2084,55 @@ body > header {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
+      document.body.setAttribute('data-modal-open', 'true');
+
+      window.setTimeout(() => {
+        if (closeButton) closeButton.focus();
+      }, 0);
     };
 
     window.closeSolarModal = function() {
       const modal = document.getElementById('solar-system-modal');
-
       if (!modal) return;
 
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.style.overflow = '';
+      document.body.removeAttribute('data-modal-open');
+
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+      }
     };
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       const iconOpen = document.getElementById('menu-icon-open');
       const iconClose = document.getElementById('menu-icon-close');
-      
-      if (menu) {
-        menu.classList.toggle('hidden');
-        iconOpen.classList.toggle('hidden');
-        iconClose.classList.toggle('hidden');
-      }
+      const button = document.getElementById('mobile-menu-btn');
+
+      if (!menu) return;
+
+      const willOpen = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !willOpen);
+
+      if (iconOpen) iconOpen.classList.toggle('hidden', willOpen);
+      if (iconClose) iconClose.classList.toggle('hidden', !willOpen);
+      if (button) button.setAttribute('aria-expanded', String(willOpen));
     }
 
     document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
+      if (event.key !== 'Escape') return;
+
+      const modal = document.getElementById('solar-system-modal');
+      if (modal && !modal.classList.contains('hidden')) {
         closeSolarModal();
+        return;
+      }
+
+      const menu = document.getElementById('mobile-menu');
+      if (menu && !menu.classList.contains('hidden')) {
+        toggleMobileMenu();
       }
     });
   </script>
@@ -2082,7 +2143,13 @@ body > header {
        exhibition page's continuous scroll timeline preserved. */
     const heroContainer = document.getElementById('canvas-container');
 
-    const heroScene = new THREE.Scene();
+    if (!heroContainer || !window.THREE) {
+      if (heroContainer) {
+        heroContainer.setAttribute('aria-hidden', 'true');
+        heroContainer.style.display = 'none';
+      }
+    } else {
+      const heroScene = new THREE.Scene();
     const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     heroCamera.position.set(0, 0, 12);
 
@@ -2221,7 +2288,9 @@ body > header {
       saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
       saturnGroup.position.x = saturnX;
 
-      particleSystem.rotation.y = performance.now() * 0.000015;
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        particleSystem.rotation.y = performance.now() * 0.000015;
+      }
 
       const titleFade = smooth((progress - 0.025) / 0.30);
       const titleRise = smooth((progress - 0.025) / 0.32);
@@ -2251,8 +2320,11 @@ body > header {
         metadata.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
       }
 
-      const markP = smooth((progress - 0.78) / 0.16);
-      marks.forEach(mark => mark.style.setProperty('opacity', markP.toFixed(3), 'important'));
+      const promptP = 1 - smooth(progress / 0.16);
+      marks.forEach(mark => {
+        const value = mark.classList.contains('intro-section-number') ? 1 : promptP;
+        mark.style.setProperty('opacity', value.toFixed(3), 'important');
+      });
     }
 
     function renderHeroScene() {
@@ -2272,10 +2344,31 @@ body > header {
 
     updateScrollProgress();
     requestAnimationFrame(renderHeroScene);
+    }
   </script> <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
   -->
+  <script>
+    (function initArchiveStatus() {
+      const grid = document.getElementById('hardware-grid');
+      const status = document.getElementById('archive-status');
+      if (!grid || !status) return;
+
+      const sync = () => {
+        const hasRealCards = Array.from(grid.children).some(child => child.id !== 'archive-status');
+        status.hidden = hasRealCards;
+      };
+
+      sync();
+
+      if ('MutationObserver' in window) {
+        const observer = new MutationObserver(sync);
+        observer.observe(grid, { childList: true });
+      }
+    })();
+  </script>
+
   <script src="js/app.js"></script>
 
 
