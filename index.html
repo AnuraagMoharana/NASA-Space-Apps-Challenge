@@ -17,7 +17,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<<<<<<< HEAD
     <script>
         tailwind.config = {
             theme: {
@@ -48,853 +47,9 @@
                         mono: ['IBM Plex Mono', 'monospace']
                     }
                 }
-=======
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            space: {
-              950: '#111111',
-              900: '#181818',
-              850: '#242424',
-              800: '#303030',
-              700: '#404040'
-            },
-            paper: {
-              50: '#ffffff',
-              100: '#fbfaf7',
-              200: '#f1efe9',
-              400: '#c7c3ba',
-              600: '#969188'
-            },
-            coral: {
-              400: '#ff6b4a',
-              500: '#ff5533',
-              600: '#e04422'
-            },
-            charcoal: {
-              DEFAULT: '#1C1C1A',
-              80: '#1C1C1ACC'
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
             }
         }
     </script>
-
-    <style>
-        /* Custom scrollbar for NASA Archival Aesthetic */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F8F7F2;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #E3DFD7;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D95338;
-        }
-
-        html {
-            overflow-y: scroll;
-            background-color: #F8F7F2;
-            color: #1C1C1A;
-            font-family: 'IBM Plex Sans', sans-serif;
-        }
-
-        /* Subtle technical grid overlay for museum archive feel */
-        .bg-grid-pattern {
-            background-image: radial-gradient(rgba(28, 28, 26, 0.08) 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
-
-        .border-stone-thin {
-            border: 1px solid rgba(28, 28, 26, 0.12);
-        }
-
-        .shadow-museum {
-            box-shadow: 0 10px 30px -10px rgba(28, 28, 26, 0.05);
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
-</head>
-<body class="bg-cream-100 text-charcoal-900 selection:bg-coral-500/20 selection:text-coral-600 antialiased">
-
-    <!-- MAIN HERO SCROLL TRACK (500vh container driving normalized continuous scroll progress 0.00 to 1.00) -->
-    <div id="scroll-track" class="relative w-full" style="height: 500vh;">
-        
-        <!-- STICKY 100VH VIEWPORT -->
-        <div id="sticky-viewport" class="sticky top-0 left-0 w-full h-screen overflow-hidden bg-cream-100 bg-grid-pattern flex flex-col justify-between">
-            
-            <!-- Three.js Canvas Container (Renders warm technical wireframe Saturn) -->
-            <div id="canvas-container" class="absolute inset-0 z-0 cursor-grab active:cursor-grabbing"></div>
-
-            <!-- HEADER NAVIGATION (Fades in at end of cinematic track progress > 0.90) -->
-            <header id="main-header" class="absolute top-0 left-0 w-full z-30 px-6 py-6 md:px-12 flex justify-between items-center opacity-0 transition-opacity duration-500 pointer-events-auto">
-                <div class="flex items-center gap-3">
-                    <div class="w-7 h-7 rounded-full border border-charcoal-900/30 flex items-center justify-center bg-cream-50">
-                        <div class="w-2 h-2 rounded-full bg-coral-500"></div>
-                    </div>
-                    <span class="font-mono text-xs md:text-sm tracking-widest text-charcoal-900 uppercase font-medium">NASA Archival Catalogue <span class="text-coral-500">///</span> Saturn (VI)</span>
-                </div>
-
-                <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-wider uppercase text-stone-600">
-                    <a href="#archive-section" class="hover:text-coral-500 transition-colors">01. Relics Archive</a>
-                    <a href="#telemetry-section" class="hover:text-coral-500 transition-colors">02. Audio Waveforms</a>
-                    <a href="#matrix-section" class="hover:text-coral-500 transition-colors">03. Physical Specs</a>
-                </nav>
-
-                <button onclick="scrollToArchive()" class="px-4 py-2 rounded-full border border-stone-300 bg-cream-50 hover:bg-cream-200 text-charcoal-900 font-mono text-xs tracking-wider uppercase transition shadow-sm">
-                    Explore Catalogue
-                </button>
-            </header>
-
-            <!-- INITIAL SCROLL PROMPT (Fades out immediately as user scrolls past 0.04) -->
-            <div id="initial-prompt" class="absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20 pointer-events-none transition-opacity duration-500">
-                <p class="text-[10px] md:text-xs tracking-[0.3em] uppercase text-stone-600 mb-3 font-mono">Scroll to Begin Archival Timeline</p>
-                <div class="w-5 h-9 border border-stone-400 rounded-full mx-auto flex items-start justify-center p-1 bg-cream-50/80">
-                    <div class="w-1.5 h-2.5 bg-coral-500 rounded-full animate-bounce"></div>
-                </div>
-            </div>
-
-            <!-- EDITORIAL OVERLAY LAYER -->
-            <div class="relative z-10 w-full h-full pointer-events-none flex flex-col justify-between p-6 md:p-16">
-                
-                <!-- MAIN TITLE BLOCK (Managed strictly by continuous scroll progress math) -->
-                <div id="title-block" class="absolute z-20 transition-all duration-75 flex flex-col max-w-xl opacity-0">
-                    <p id="relic-label" class="text-xs font-mono tracking-[0.3em] uppercase text-coral-500 font-semibold mb-3 opacity-0">
-                        EXHIBITION CATALOGUE N° 06 /// CASSINI ARCHIVE
-                    </p>
-                    
-                    <!-- Exact Required Title Text -->
-                    <h1 id="main-title" class="font-display text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.08] font-light text-charcoal-900">
-                        Relics of the<br/>
-                        <span class="italic font-normal text-coral-600">Solar System</span>
-                    </h1>
-                    
-                    <!-- Exact Required Supporting Copy -->
-                    <p id="sub-title" class="mt-6 text-xs sm:text-sm md:text-base text-stone-600 font-light leading-relaxed max-w-md opacity-0">
-                        An archival study of Saturn's atmospheric rings, magnetosphere, and ancient celestial relics gathered across 13 years of space exploration.
-                    </p>
-
-                    <div id="hero-actions" class="mt-8 flex items-center gap-4 opacity-0 pointer-events-auto">
-                        <button onclick="scrollToArchive()" class="px-6 py-3 bg-charcoal-900 hover:bg-stone-800 text-cream-50 rounded-full text-xs tracking-widest uppercase font-mono transition shadow-md flex items-center gap-2">
-                            <span>Inspect Relics</span>
-                            <i class="fa-solid fa-arrow-down text-[10px]"></i>
-                        </button>
-                        <button onclick="openSolarModal('solar-system/index.html')" class="px-5 py-3 bg-cream-50 hover:bg-cream-200 border border-stone-300 rounded-full text-charcoal-900 text-xs tracking-widest uppercase font-mono flex items-center gap-2.5 transition shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-coral-500"></span>
-                            <span>Interactive Solar System</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- TELEMETRY HUD (Fades in at end of scroll track progress > 0.90) -->
-                <div id="telemetry-hud" class="absolute bottom-8 right-6 md:right-16 z-20 opacity-0 transition-opacity duration-500 hidden sm:flex flex-col gap-2.5 font-mono text-xs text-stone-600 bg-cream-50/90 backdrop-blur-md p-5 rounded-2xl border-stone-thin shadow-museum max-w-xs">
-                    <div class="flex justify-between items-center border-b border-stone-200 pb-2">
-                        <span class="text-[10px] tracking-widest text-stone-500 uppercase">CELESTIAL BODY</span>
-                        <span class="text-coral-600 font-semibold">SATURN (VI)</span>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px]">
-                        <span class="text-stone-500">Dist. from Sun:</span>
-                        <span class="text-charcoal-900 font-medium">1.434 Billion km</span>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px]">
-                        <span class="text-stone-500">Orbital Velocity:</span>
-                        <span class="text-charcoal-900 font-medium">9.68 km/s</span>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px]">
-                        <span class="text-stone-500">Axial Tilt:</span>
-                        <span class="text-coral-500 font-mono font-semibold">26.73°</span>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px]">
-                        <span class="text-stone-500">Ring Span:</span>
-                        <span class="text-charcoal-900 font-medium">282,000 km</span>
-                    </div>
-                </div>
-
-                <!-- BOTTOM SCROLL PROGRESS INDICATOR BAR -->
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-48 h-1 bg-stone-200 rounded-full overflow-hidden z-20">
-                    <div id="timeline-progress-bar" class="h-full bg-coral-500 w-0 transition-all duration-75"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 01: ARCHIVAL RELICS CATALOGUE (INCLUDES PRESERVED #hardware-grid) -->
-    <section id="archive-section" class="relative z-20 bg-cream-50 py-28 px-6 md:px-16 text-charcoal-900 border-t border-stone-300">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <span class="text-xs font-mono tracking-[0.3em] uppercase text-coral-500 mb-3 block font-semibold">Cassini-Huygens Mission Catalogue</span>
-                <h2 class="font-display text-4xl md:text-5xl font-normal text-charcoal-900 mb-6">Archival Relics & Primary Artifacts</h2>
-                <p class="text-stone-600 text-sm md:text-base leading-relaxed font-light">
-                    Physical artifacts, telemetry scans, and scientific hardware captured during the 13-year Cassini exploration of the Saturnian system.
-                </p>
-            </div>
-
-            <!-- PRESERVED HARDWARE GRID CONTAINER FOR js/app.js DYNAMIC RENDERING -->
-            <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- FALLBACK / INITIAL CARDS (Preserving HTML structure while js/app.js populates) -->
-                <div onclick="openRelicModal('hex-pole')" class="bg-cream-100 rounded-2xl p-8 border-stone-thin shadow-museum hover:border-coral-500/50 transition-all duration-300 cursor-pointer group hover:-translate-y-1">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="text-xs font-mono text-coral-500 tracking-wider font-semibold">RELIC #01</span>
-                        <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-cream-200 text-stone-600 border border-stone-300">POLAR ANOMALY</span>
-                    </div>
-                    <h3 class="font-display text-2xl font-normal text-charcoal-900 group-hover:text-coral-600 transition-colors mb-3">Hexagonal North Pole Vortex</h3>
-                    <p class="text-stone-600 text-xs leading-relaxed font-light mb-6">
-                        A persistent six-sided wave pattern surrounding Saturn's north pole, spanning 30,000 km across with jet streams exceeding 320 km/h.
-                    </p>
-                    <div class="flex justify-between items-center font-mono text-[11px] text-stone-500 border-t border-stone-200 pt-4">
-                        <span>LATITUDE: +78° N</span>
-                        <span class="text-coral-500 group-hover:translate-x-1 transition-transform">Inspect Relic →</span>
-                    </div>
-                </div>
-
-                <div onclick="openRelicModal('enceladus')" class="bg-cream-100 rounded-2xl p-8 border-stone-thin shadow-museum hover:border-coral-500/50 transition-all duration-300 cursor-pointer group hover:-translate-y-1">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="text-xs font-mono text-coral-500 tracking-wider font-semibold">RELIC #02</span>
-                        <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-cream-200 text-stone-600 border border-stone-300">CRYOPLUMES</span>
-                    </div>
-                    <h3 class="font-display text-2xl font-normal text-charcoal-900 group-hover:text-coral-600 transition-colors mb-3">Enceladus Ice Geysers</h3>
-                    <p class="text-stone-600 text-xs leading-relaxed font-light mb-6">
-                        Vapor plumes containing water ice, simple organic molecules, and hydrothermal silica grains venting from tiger-stripe fissures.
-                    </p>
-                    <div class="flex justify-between items-center font-mono text-[11px] text-stone-500 border-t border-stone-200 pt-4">
-                        <span>ORIGIN: SOUTH POLE</span>
-                        <span class="text-coral-500 group-hover:translate-x-1 transition-transform">Inspect Relic →</span>
-                    </div>
-                </div>
-
-                <div onclick="openRelicModal('cassini-gap')" class="bg-cream-100 rounded-2xl p-8 border-stone-thin shadow-museum hover:border-coral-500/50 transition-all duration-300 cursor-pointer group hover:-translate-y-1">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="text-xs font-mono text-coral-500 tracking-wider font-semibold">RELIC #03</span>
-                        <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-cream-200 text-stone-600 border border-stone-300">RING STRUCTURE</span>
-                    </div>
-                    <h3 class="font-display text-2xl font-normal text-charcoal-900 group-hover:text-coral-600 transition-colors mb-3">Cassini Division Gap</h3>
-                    <p class="text-stone-600 text-xs leading-relaxed font-light mb-6">
-                        A 4,800 km wide gap between Ring A and Ring B maintained by gravitational orbital resonance with Mimas.
-                    </p>
-                    <div class="flex justify-between items-center font-mono text-[11px] text-stone-500 border-t border-stone-200 pt-4">
-                        <span>SPAN: 4,800 KM</span>
-                        <span class="text-coral-500 group-hover:translate-x-1 transition-transform">Inspect Relic →</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 02: AUDIO SIGNAL SYNTHESIS & SPECTROGRAM -->
-    <section id="telemetry-section" class="relative z-20 bg-cream-100 py-24 px-6 md:px-16 text-charcoal-900 border-t border-stone-300">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <div class="lg:col-span-5">
-                    <span class="text-xs font-mono text-coral-500 tracking-wider uppercase mb-3 block font-semibold">Cassini RPWS Data Waveform</span>
-                    <h2 class="font-display text-3xl md:text-4xl font-normal text-charcoal-900 mb-6">Radio & Plasma Wave Synthesizer</h2>
-                    <p class="text-stone-600 text-xs md:text-sm leading-relaxed font-light mb-8">
-                        Audio conversions of raw radio wave emissions captured by the Cassini RPWS instrument as it passed through Saturn's inner magnetosphere.
-                    </p>
-
-                    <div class="flex flex-wrap items-center gap-4">
-                        <button id="synth-play-btn" onclick="toggleAudioSynth()" class="px-6 py-3.5 rounded-full bg-coral-500 hover:bg-coral-600 text-cream-50 font-mono text-xs font-medium tracking-wider uppercase transition shadow-md flex items-center gap-3">
-                            <i id="synth-icon" class="fa-solid fa-play text-xs"></i>
-                            <span id="synth-text">Play Plasma Audio Signal</span>
-                        </button>
-                        <span class="text-xs font-mono text-stone-500">FREQUENCY: 20Hz - 12kHz</span>
-                    </div>
-                </div>
-
-                <!-- Canvas Visualizer Container -->
-                <div class="lg:col-span-7 bg-cream-50 rounded-2xl p-6 border-stone-thin shadow-museum relative overflow-hidden">
-                    <div class="flex justify-between items-center mb-4 text-xs font-mono text-stone-500 border-b border-stone-200 pb-3">
-                        <span>SIGNAL FEED /// RPWS CH-04</span>
-                        <span id="freq-readout" class="text-coral-500 font-semibold">AMPLITUDE: 0.00 dB</span>
-                    </div>
-
-                    <canvas id="spectrogram-canvas" class="w-full h-56 bg-cream-100 rounded-xl border border-stone-200"></canvas>
-
-                    <div class="grid grid-cols-3 gap-4 mt-4 text-center font-mono text-[10px] text-stone-600">
-                        <div class="p-2 bg-cream-200/60 rounded-lg border border-stone-200">MODULATION: FM FREQ</div>
-                        <div class="p-2 bg-cream-200/60 rounded-lg border border-stone-200">RING DUST: PLASMA NOISE</div>
-                        <div class="p-2 bg-cream-200/60 rounded-lg border border-stone-200">AURORAL EMISSION: 100 kHz</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 03: CELESTIAL SPECIFICATIONS MATRIX -->
-    <section id="matrix-section" class="relative z-20 bg-cream-50 py-24 px-6 md:px-16 text-charcoal-900 border-t border-stone-300">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="font-display text-3xl md:text-4xl font-normal text-charcoal-900 mb-4">Saturn Planetary Matrix</h2>
-                <p class="text-stone-600 text-xs md:text-sm font-light">
-                    Physical and orbital metrics verified by Cassini-Huygens, Voyager 1 & 2, and ground-based astronomical observatories.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="bg-cream-100 p-6 rounded-2xl border-stone-thin shadow-museum">
-                    <span class="text-[10px] font-mono text-stone-500 block mb-1">EQUATORIAL RADIUS</span>
-                    <span class="font-display text-2xl text-charcoal-900">60,268 km</span>
-                    <span class="text-xs text-stone-500 block mt-1">9.5x Earth Radius</span>
-                </div>
-                <div class="bg-cream-100 p-6 rounded-2xl border-stone-thin shadow-museum">
-                    <span class="text-[10px] font-mono text-stone-500 block mb-1">ROTATION PERIOD</span>
-                    <span class="font-display text-2xl text-charcoal-900">10h 33m 38s</span>
-                    <span class="text-xs text-stone-500 block mt-1">Magnetospheric Period</span>
-                </div>
-                <div class="bg-cream-100 p-6 rounded-2xl border-stone-thin shadow-museum">
-                    <span class="text-[10px] font-mono text-stone-500 block mb-1">KNOWN MOONS</span>
-                    <span class="font-display text-2xl text-charcoal-900">146 Moons</span>
-                    <span class="text-xs text-stone-500 block mt-1">63 Officially Named</span>
-                </div>
-                <div class="bg-cream-100 p-6 rounded-2xl border-stone-thin shadow-museum">
-                    <span class="text-[10px] font-mono text-stone-500 block mb-1">RING MASS</span>
-                    <span class="font-display text-2xl text-charcoal-900">1.5 × 10¹⁹ kg</span>
-                    <span class="text-xs text-stone-500 block mt-1">0.41x Mimas Mass</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="relative z-20 bg-cream-200 border-t border-stone-300 py-12 px-6 md:px-16 text-stone-600 text-xs font-mono">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-3">
-                <span class="text-charcoal-900 font-display text-sm uppercase tracking-wider">Relics of the Solar System</span>
-                <span class="text-stone-400">///</span>
-                <span>NASA Space Apps Exhibition</span>
-            </div>
-            <p>© 2026 NASA Space Apps Archival Project. Powered by WebGL Wireframe Engine.</p>
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-coral-500 transition-colors">
-                Back to Top ↑
-            </button>
-        </div>
-    </footer>
-
-    <!-- PRESERVED SOLAR SYSTEM MODAL CONTAINER AND IFRAME -->
-    <div id="solar-system-modal" class="fixed inset-0 z-50 bg-charcoal-900/80 backdrop-blur-md flex items-center justify-center p-4 md:p-8 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="bg-cream-100 border border-stone-300 max-w-5xl w-full h-[85vh] rounded-2xl relative shadow-2xl flex flex-col overflow-hidden">
-            <div class="flex justify-between items-center px-6 py-4 bg-cream-200 border-b border-stone-300">
-                <span class="text-xs font-mono text-coral-500 font-semibold uppercase tracking-wider">Interactive Solar System Visualizer</span>
-                <button onclick="closeSolarModal()" class="text-stone-600 hover:text-coral-500 text-lg font-mono transition-colors">
-                    ✕ Close
-                </button>
-            </div>
-            <div class="flex-1 w-full h-full bg-charcoal-900 relative">
-                <iframe id="solar-iframe" src="" class="w-full h-full border-0"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- PRESERVED GENERIC RELIC MODAL -->
-    <div id="relic-modal" class="fixed inset-0 z-50 bg-charcoal-900/60 backdrop-blur-md flex items-center justify-center p-6 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="bg-cream-50 border border-stone-300 max-w-2xl w-full p-8 rounded-2xl relative shadow-2xl">
-            <button onclick="closeRelicModal()" class="absolute top-6 right-6 text-stone-500 hover:text-coral-500 text-xl font-mono transition-colors">
-                ✕
-            </button>
-            <span class="text-xs font-mono text-coral-500 tracking-wider block mb-2 font-semibold">ARCHIVAL RELIC FILE</span>
-            <h3 id="modal-title" class="font-display text-3xl font-normal text-charcoal-900 mb-4">Relic File</h3>
-            <p id="modal-desc" class="text-stone-600 text-sm font-light leading-relaxed mb-6">Detailed archival documentation...</p>
-            
-            <button onclick="closeRelicModal()" class="w-full py-3 bg-charcoal-900 hover:bg-stone-800 text-cream-50 rounded-xl font-mono text-xs uppercase tracking-wider transition">
-                Close Archival File
-            </button>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT LOGIC ENGINE -->
-    <script>
-        // -------------------------------------------------------------
-        // 1. THREE.JS TECHNICAL BLUEPRINT WIREFRAME SATURN
-        // Renders warm stone/charcoal museum wireframe on warm cream canvas
-        // -------------------------------------------------------------
-        const heroContainer = document.getElementById('canvas-container');
-        const heroScene = new THREE.Scene();
-
-        const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        heroCamera.position.set(0, 0, 12);
-
-        const heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        heroRenderer.setSize(window.innerWidth, window.innerHeight);
-        heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        heroContainer.appendChild(heroRenderer.domElement);
-
-        // SATURN MODEL GROUP
-        const saturnGroup = new THREE.Group();
-
-        // Core Wireframe Sphere (Charcoal technical mesh)
-        const saturnGeo = new THREE.IcosahedronGeometry(2.2, 4);
-        const saturnMat = new THREE.MeshBasicMaterial({
-            color: 0x2A2927,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.35
-        });
-        const saturnMesh = new THREE.Mesh(saturnGeo, saturnMat);
-        saturnGroup.add(saturnMesh);
-
-        // Inner solid core mask (Cream filled to occlude back wireframes)
-        const innerGeo = new THREE.SphereGeometry(2.15, 32, 32);
-        const innerMat = new THREE.MeshBasicMaterial({
-            color: 0xF8F7F2,
-            transparent: true,
-            opacity: 0.95
-        });
-        const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-        saturnGroup.add(innerMesh);
-
-        // SATURN RINGS WIREFRAME (Multi-ring layers)
-        function createRing(innerRadius, outerRadius, opacity, color = 0x2A2927) {
-            const ringGeo = new THREE.RingGeometry(innerRadius, outerRadius, 128, 8);
-            const ringMat = new THREE.MeshBasicMaterial({
-                color: color,
-                wireframe: true,
-                transparent: true,
-                opacity: opacity,
-                side: THREE.DoubleSide
-            });
-            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-            ringMesh.rotation.x = Math.PI / 2;
-            return ringMesh;
-        }
-
-        const ringA = createRing(3.2, 4.4, 0.40, 0x2A2927);
-        const ringB = createRing(2.6, 3.0, 0.55, 0xD95338); // Terracotta ring layer
-        const ringC = createRing(4.5, 5.0, 0.20, 0x787672);
-
-        saturnGroup.add(ringA);
-        saturnGroup.add(ringB);
-        saturnGroup.add(ringC);
-
-        // Set Saturn Axial Tilt (26.73 degrees = ~0.466 rad)
-        saturnGroup.rotation.z = 0.22;
-        saturnGroup.rotation.x = 0.42;
-
-        heroScene.add(saturnGroup);
-
-        // CELESTIAL BACKGROUND DUST PARTICLES
-        const particleCount = 800;
-        const particleGeo = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-
-        for (let i = 0; i < particleCount * 3; i += 3) {
-            particlePositions[i] = (Math.random() - 0.5) * 80;
-            particlePositions[i + 1] = (Math.random() - 0.5) * 80;
-            particlePositions[i + 2] = (Math.random() - 0.5) * 80;
-        }
-
-        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        const particleMat = new THREE.PointsMaterial({
-            color: 0x787672,
-            size: 0.03,
-            transparent: true,
-            opacity: 0.35
-        });
-        const particleSystem = new THREE.Points(particleGeo, particleMat);
-        heroScene.add(particleSystem);
-
-        // -------------------------------------------------------------
-        // 2. CONTINUOUS SCROLL TIMELINE CONTROLLER
-        // Calculates normalized scroll progress from 0.00 to 1.00 strictly
-        // -------------------------------------------------------------
-        let targetProgress = 0;
-        let currentProgress = 0;
-
-        const scrollTrack = document.getElementById('scroll-track');
-        const titleBlock = document.getElementById('title-block');
-        const relicLabel = document.getElementById('relic-label');
-        const subTitle = document.getElementById('sub-title');
-        const heroActions = document.getElementById('hero-actions');
-        const mainHeader = document.getElementById('main-header');
-        const telemetryHud = document.getElementById('telemetry-hud');
-        const initialPrompt = document.getElementById('initial-prompt');
-        const timelineProgressBar = document.getElementById('timeline-progress-bar');
-
-        function updateScrollProgress() {
-            if (!scrollTrack) return;
-            const trackRect = scrollTrack.getBoundingClientRect();
-            const maxScroll = scrollTrack.offsetHeight - window.innerHeight;
-            const scrolled = -trackRect.top;
-            let p = scrolled / maxScroll;
-            targetProgress = Math.max(0, Math.min(1, p));
-        }
-
-        window.addEventListener('scroll', updateScrollProgress, { passive: true });
-        updateScrollProgress();
-
-        const clock = new THREE.Clock();
-
-        function renderHeroScene() {
-            requestAnimationFrame(renderHeroScene);
-
-            // Lerp currentProgress towards targetProgress for smooth 60fps cinematic interpolation
-            currentProgress += (targetProgress - currentProgress) * 0.08;
-
-            const elapsedTime = clock.getElapsedTime();
-
-            // Update bottom progress indicator bar
-            if (timelineProgressBar) {
-                timelineProgressBar.style.width = `${Math.min(100, currentProgress * 100)}%`;
-            }
-
-            // Initial scroll prompt fade out
-            if (currentProgress < 0.04) {
-                initialPrompt.style.opacity = (1 - currentProgress / 0.04).toString();
-            } else {
-                initialPrompt.style.opacity = '0';
-            }
-
-            // SATURN ROTATION & POSITION TIMELINE MATRIX:
-            
-            let saturnRotY = 0;
-            let saturnScale = 1.0;
-            let saturnX = 0;
-
-            if (currentProgress <= 0.20) {
-                // 0.00 - 0.20: Centered, 0° rotation, scale 1.0
-                saturnRotY = 0;
-                saturnScale = 1.0;
-                saturnX = 0;
-            } else if (currentProgress <= 0.40) {
-                // 0.20 - 0.40: Smooth rotation to 5° (0.087 rad)
-                const norm = (currentProgress - 0.20) / 0.20;
-                saturnRotY = norm * (5 * Math.PI / 180);
-                saturnScale = 1.0;
-                saturnX = 0;
-            } else if (currentProgress <= 0.60) {
-                // 0.40 - 0.60: Smooth rotation to 10° (0.174 rad)
-                const norm = (currentProgress - 0.40) / 0.20;
-                saturnRotY = (5 + norm * 5) * (Math.PI / 180);
-                saturnScale = 1.0;
-                saturnX = 0;
-            } else if (currentProgress <= 0.75) {
-                // 0.60 - 0.75: Smooth rotation to 15° (0.261 rad)
-                const norm = (currentProgress - 0.60) / 0.15;
-                saturnRotY = (10 + norm * 5) * (Math.PI / 180);
-                saturnScale = 1.0;
-                saturnX = 0;
-            } else if (currentProgress <= 0.90) {
-                // 0.75 - 0.90: Saturn scales down (~0.65x) and moves right
-                const norm = (currentProgress - 0.75) / 0.15;
-                saturnRotY = (15 + norm * 10) * (Math.PI / 180);
-                saturnScale = 1.0 - norm * 0.35;
-                saturnX = norm * (window.innerWidth < 768 ? 0.3 : 2.2);
-            } else {
-                // 0.90 - 1.00+: Final position right + continuous slow ambient spin
-                saturnRotY = (25 * Math.PI / 180) + (elapsedTime * 0.08);
-                saturnScale = 0.65;
-                saturnX = (window.innerWidth < 768 ? 0.3 : 2.2);
-            }
-
-            // Apply transformations
-            saturnGroup.rotation.y = saturnRotY;
-            saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
-            saturnGroup.position.x = saturnX;
-
-            // Background star drift
-            particleSystem.rotation.y = elapsedTime * 0.015;
-
-            // EDITORIAL TEXT TIMELINE MATRIX:
-            let titleOpacity = 0;
-            let titleTranslateX = -40;
-            let labelOpacity = 0;
-            let subTextOpacity = 0;
-            let actionsOpacity = 0;
-            let headerOpacity = 0;
-            let telemetryOpacity = 0;
-
-            if (currentProgress < 0.60) {
-                // STRICT RULE: Title MUST remain completely invisible during first 2 scroll phases
-                titleOpacity = 0;
-                titleTranslateX = -40;
-            } else if (currentProgress <= 0.75) {
-                // 0.60 - 0.75: Title slowly fades from 0 to 1 and moves to editorial position
-                const norm = (currentProgress - 0.60) / 0.15;
-                titleOpacity = norm;
-                titleTranslateX = -40 * (1 - norm);
-            } else {
-                titleOpacity = 1;
-                titleTranslateX = 0;
-            }
-
-            if (currentProgress > 0.75 && currentProgress <= 0.90) {
-                const norm = (currentProgress - 0.75) / 0.15;
-                labelOpacity = norm;
-                subTextOpacity = norm;
-            } else if (currentProgress > 0.90) {
-                labelOpacity = 1;
-                subTextOpacity = 1;
-                const norm = Math.min(1, (currentProgress - 0.90) / 0.10);
-                actionsOpacity = norm;
-                headerOpacity = norm;
-                telemetryOpacity = norm;
-            }
-
-            // Apply DOM styles
-            titleBlock.style.opacity = titleOpacity.toFixed(3);
-            titleBlock.style.transform = `translate3d(${titleTranslateX}px, 0, 0)`;
-            relicLabel.style.opacity = labelOpacity.toFixed(3);
-            subTitle.style.opacity = subTextOpacity.toFixed(3);
-            heroActions.style.opacity = actionsOpacity.toFixed(3);
-            mainHeader.style.opacity = headerOpacity.toFixed(3);
-            telemetryHud.style.opacity = telemetryOpacity.toFixed(3);
-
-            // Responsive positioning for title block
-            if (window.innerWidth >= 768) {
-                titleBlock.style.top = '28%';
-                titleBlock.style.left = '10%';
-            } else {
-                titleBlock.style.top = '16%';
-                titleBlock.style.left = '6%';
-            }
-
-            heroRenderer.render(heroScene, heroCamera);
-        }
-
-        requestAnimationFrame(renderHeroScene);
-
-        // -------------------------------------------------------------
-        // 3. AUDIO SYNTHESIZER & SPECTROGRAM CANVAS
-        // -------------------------------------------------------------
-        let audioCtx = null;
-        let oscillator = null;
-        let isAudioPlaying = false;
-
-        const specCanvas = document.getElementById('spectrogram-canvas');
-        const specCtx = specCanvas ? specCanvas.getContext('2d') : null;
-
-        function resizeCanvas() {
-            if (specCanvas) {
-                specCanvas.width = specCanvas.clientWidth;
-                specCanvas.height = specCanvas.clientHeight;
-            }
-        }
-        resizeCanvas();
-
-        function toggleAudioSynth() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            if (!isAudioPlaying) {
-                oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(140, audioCtx.currentTime);
-
-                gainNode.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                oscillator.start();
-                isAudioPlaying = true;
-                document.getElementById('synth-text').innerText = "Pause Plasma Signal";
-                document.getElementById('synth-icon').className = "fa-solid fa-pause text-xs";
-            } else {
-                if (oscillator) {
-                    oscillator.stop();
-                    oscillator.disconnect();
-                }
-                isAudioPlaying = false;
-                document.getElementById('synth-text').innerText = "Play Plasma Audio Signal";
-                document.getElementById('synth-icon').className = "fa-solid fa-play text-xs";
-            }
-        }
-
-        function drawSpectrogram() {
-            requestAnimationFrame(drawSpectrogram);
-            if (!specCtx) return;
-
-            specCtx.fillStyle = '#F8F7F2';
-            specCtx.fillRect(0, 0, specCanvas.width, specCanvas.height);
-
-            specCtx.beginPath();
-            specCtx.lineWidth = 2;
-            specCtx.strokeStyle = isAudioPlaying ? '#D95338' : '#787672';
-
-            const time = Date.now() * 0.003;
-            const sliceWidth = specCanvas.width / 40;
-            let x = 0;
-
-            for (let i = 0; i < 40; i++) {
-                const amp = isAudioPlaying ? Math.sin(i * 0.2 + time) * 25 + Math.cos(i * 0.4 + time) * 15 : Math.sin(i * 0.1 + time) * 3;
-                const y = specCanvas.height / 2 + amp;
-
-                if (i === 0) specCtx.moveTo(x, y);
-                else specCtx.lineTo(x, y);
-
-                x += sliceWidth;
-            }
-            specCtx.stroke();
-        }
-        drawSpectrogram();
-
-        // -------------------------------------------------------------
-        // 4. MODAL HANDLERS & NAVIGATION HELPERS
-        // Preserving window.openSolarModal & window.closeSolarModal
-        // -------------------------------------------------------------
-        window.openSolarModal = function(url) {
-            const modal = document.getElementById('solar-system-modal');
-            const iframe = document.getElementById('solar-iframe');
-            if (modal && iframe) {
-                iframe.src = url || 'solar-system/index.html';
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                modal.classList.add('opacity-100', 'pointer-events-auto');
-            }
-        };
-
-        window.closeSolarModal = function() {
-            const modal = document.getElementById('solar-system-modal');
-            const iframe = document.getElementById('solar-iframe');
-            if (modal && iframe) {
-                iframe.src = '';
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                modal.classList.remove('opacity-100', 'pointer-events-auto');
-            }
-        };
-
-        function openRelicModal(id) {
-            const modal = document.getElementById('relic-modal');
-            if (modal) {
-                document.getElementById('modal-title').innerText = "Relic Archival File";
-                document.getElementById('modal-desc').innerText = "Telemetry and hardware specifications for artifact ID: " + id;
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                modal.classList.add('opacity-100', 'pointer-events-auto');
-            }
-        }
-
-        function closeRelicModal() {
-            const modal = document.getElementById('relic-modal');
-            if (modal) {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                modal.classList.remove('opacity-100', 'pointer-events-auto');
-            }
-        }
-
-        function scrollToArchive() {
-            document.getElementById('archive-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Viewport resize handling
-        window.addEventListener('resize', () => {
-            heroCamera.aspect = window.innerWidth / window.innerHeight;
-            heroCamera.updateProjectionMatrix();
-            heroRenderer.setSize(window.innerWidth, window.innerHeight);
-
-            resizeCanvas();
-            updateScrollProgress();
-        });
-    </script>
-
-
-  <!-- PROJECT COMPATIBILITY BRIDGE
-       Gemini cinematic UI remains unchanged.
-       These hooks connect the Gemini buttons to the existing project structure. -->
-  <script>
-    /*
-      Existing project navigation targets.
-      These functions intentionally do not alter the Gemini animation.
-    */
-
-    window.scrollToSection = function(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-
-    /*
-      Keep the Gemini button API compatible with the project's existing
-      Solar System modal. The optional path argument is accepted but the
-      existing Julian Garnier iframe path remains authoritative.
-    */
-    window.openSolarModal = function() {
-      const modal = document.getElementById('solar-system-modal');
-      const iframe = document.getElementById('solar-iframe');
-
-      if (!modal || !iframe) return;
-
-      if (!iframe.src || iframe.src === 'about:blank' ||
-          !iframe.src.includes('solar-system/index.html')) {
-        iframe.src = 'solar-system/index.html';
-      }
-
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      modal.classList.add('opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = 'hidden';
-    };
-
-    window.closeSolarModal = function() {
-      const modal = document.getElementById('solar-system-modal');
-      if (!modal) return;
-
-      modal.classList.add('opacity-0', 'pointer-events-none');
-      modal.classList.remove('opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = '';
-    };
-
-    /*
-      Escape closes either project modal.
-    */
-    document.addEventListener('keydown', function(event) {
-      if (event.key !== 'Escape') return;
-
-      if (typeof window.closeSolarModal === 'function') {
-        window.closeSolarModal();
-      }
-
-      if (typeof window.closeRelicModal === 'function') {
-        window.closeRelicModal();
-      }
-    });
-
-    /*
-      Make the Gemini "Inspect Relics" / catalogue controls reliably land
-      on the existing hardware archive even if the page is opened directly.
-    */
-    window.scrollToArchive = function() {
-      const archive = document.getElementById('archive-section');
-      if (archive) {
-        archive.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    };
-  </script>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <!-- EXISTING PROJECT DATA / HARDWARE LOGIC
-       Do not replace this with Gemini's fallback data. -->
-=======
-=======
-  <!-- Three.js — exact Saturn model implementation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
-  <!-- Google Fonts: IBM Plex Sans, IBM Plex Mono & Fraunces -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* Custom Scrollbar */
@@ -919,21 +74,6 @@
       background-image: 
         linear-gradient(to right, rgba(242, 239, 233, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(242, 239, 233, 0.03) 1px, transparent 1px);
-    }
-
-    /* Three.js Saturn model viewport */
-    #canvas-container {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      pointer-events: none;
-    }
-    #canvas-container canvas {
-      display: block;
-      width: 100% !important;
-      height: 100% !important;
     }
 
     /* Target styling for dynamic children inside #hardware-grid populated by js/app.js */
@@ -2413,13 +1553,13 @@ body > header {
 }
 
       /* CINEMATIC INTRO — sticky viewport blueprint */
-    .intro-scroll{position:relative!important;height:500vh!important;width:100%!important}
+    .intro-scroll{position:relative!important;height:380vh!important;width:100%!important}
     .sticky-scene{position:sticky!important;top:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;background:#F1EFE9!important;isolation:isolate}
     .museum-grid-bg,.intro-grid{position:absolute!important;inset:0!important;pointer-events:none!important;opacity:.34;background-image:linear-gradient(to right,rgba(36,35,33,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,35,33,.035) 1px,transparent 1px);background-size:64px 64px}
     .saturn-viewport{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;z-index:2!important}
-    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(680px,58vw)!important;height:min(680px,58vw)!important;opacity:.82!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
-    #canvas-container{width:100%;height:100%;pointer-events:none}
-    #canvas-container canvas{display:block;width:100%!important;height:100%!important}
+    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(540px,46vw)!important;height:min(540px,46vw)!important;opacity:.82!important;color:#514E47!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
+    #intro-planet svg{display:block;width:100%;height:100%;overflow:visible}
+    #intro-planet-sphere,#intro-planet-orbit,#intro-ring-details{transform-box:fill-box;transform-origin:center;will-change:transform}
     #intro-ring-details{stroke:#625E56}
     .editorial-column{position:absolute!important;top:50%!important;left:max(7vw,2rem)!important;transform:translateY(-50%)!important;width:min(43vw,590px)!important;max-width:590px!important;z-index:10!important;pointer-events:none}
     .editorial-column>*{pointer-events:auto}
@@ -2441,73 +1581,12 @@ body > header {
     .intro-scroll-line{width:42px;height:1px;background:#B9B4AA}
     @media(max-width:900px){.intro-scroll{height:340vh!important}#intro-planet.saturn-canvas-wrapper{width:min(480px,58vw)!important;height:min(480px,58vw)!important}.editorial-column{left:6vw!important;width:50vw!important}#intro-title{font-size:clamp(2.5rem,6.8vw,4rem)!important}.intro-readout{right:5vw!important;width:30vw!important}}
     @media(max-width:640px){.intro-scroll{height:310vh!important}#intro-planet.saturn-canvas-wrapper{width:min(390px,72vw)!important;height:min(390px,72vw)!important}.editorial-column{left:20px!important;top:52%!important;width:calc(100vw - 40px)!important;max-width:none!important}#intro-title{max-width:12ch!important;font-size:clamp(2.45rem,12vw,3.8rem)!important}.intro-readout{display:none!important}.intro-mark-top{top:4vh!important;left:20px!important}.intro-mark-bottom{left:20px!important}}
-    /* Keep the cinematic sequence scroll-driven even when the device reports reduced motion. */
-
-  
-<<<<<<< HEAD
-
-/* ==========================================================================
-   BLACK-TO-PAPER CINEMATIC OPENING
-   ========================================================================== */
-#intro-scroll .sticky-scene{
-  background:#050505 !important;
-  transition:none !important;
-}
-#intro-scroll .museum-grid-bg{opacity:0 !important;}
-body.cinematic-opening{background:#050505 !important;}
-#intro-scroll #intro-planet{color:#D8D4CB !important;}
-@media (prefers-reduced-motion: reduce){
-  body.cinematic-opening,
-  #intro-scroll .sticky-scene{background:var(--paper,#F1EFE9) !important;}
-  #intro-scroll .museum-grid-bg{opacity:.34 !important;}
-  #intro-scroll #intro-planet{color:#514E47 !important;}
-}
-</style>
-=======
-    /* Floating starfield — subtle exhibition background layer */
-    #starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 30;
-    }
-
-    /* Stability / layering fixes */
-    #solar-system-modal {
-      z-index: 9999 !important;
-    }
-
-    #archive-status {
-      min-height: 180px;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-      border: 1px dashed rgba(21,21,21,.16);
-      background: rgba(250,249,245,.55);
-      text-align: center;
-    }
-
-    #archive-status[hidden] {
-      display: none !important;
-    }
-
-    @media (max-width: 640px) {
-      #archive-status {
-        min-height: 150px;
-      }
-    }
+    @media(prefers-reduced-motion:reduce){.intro-scroll{height:auto!important}.intro-planet.saturn-canvas-wrapper{transform:translate3d(27vw,0,0) scale(.62)!important}.editorial-column{opacity:1!important}#intro-title,#intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:1!important;transform:none!important}body>header,body>aside[aria-label="Exhibit Metadata"]{opacity:1!important;pointer-events:auto!important}}
 
   </style>
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 </head>
 
 <body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
-
-  <!-- Floating Starfield Background -->
-  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-30" aria-hidden="true"></canvas>
 
   <!-- TOP BAR / EXHIBIT READOUT STRIP -->
   <aside aria-label="Exhibit Metadata" class="w-full bg-space-900 border-b border-white/15 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
@@ -2561,7 +1640,7 @@ body.cinematic-opening{background:#050505 !important;}
         </button>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
             <path id="menu-icon-close" class="hidden" stroke-linecap="square" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
@@ -2570,441 +1649,468 @@ body.cinematic-opening{background:#050505 !important;}
       </div>
     </div>
 
-    <!-- Mobile Nav Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-paper-100/10 bg-space-900 px-6 py-6 font-mono text-sm uppercase tracking-wider space-y-4">
-      <a href="#archive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">01. Archive</a>
-      <a href="#science" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">02. Science</a>
-      <a href="#interactive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">03. Orbit Map</a>
-      <button onclick="toggleMobileMenu(); openSolarModal();" class="w-full mt-4 text-center border border-coral-500 bg-coral-500/10 text-coral-400 py-3 font-mono text-xs uppercase tracking-wider">
-        🌐 Launch Interactive 3D Orbit Map
-      </button>
-    </div>
-  </header>
-
-  <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-grow">
-
-    <!-- CINEMATIC SCROLL INTRO -->
-    <section id="intro-scroll" class="intro-scroll" aria-label="Exhibition introduction">
-      <div class="sticky-scene" id="sticky-scene">
-        <div class="museum-grid-bg" aria-hidden="true"></div>
-
-        <div id="canvas-container" class="absolute inset-0 z-10 pointer-events-none"></div>
-
-        <div class="intro-mark intro-mark-top" aria-hidden="true">
-          <span>REL 01</span><span>EXHIBITION ENTRY</span>
+    <!-- PRESERVED GENERIC RELIC MODAL -->
+    <div id="relic-modal" class="fixed inset-0 z-50 bg-charcoal-900/60 backdrop-blur-md flex items-center justify-center p-6 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-cream-50 border border-stone-300 max-w-2xl w-full p-8 rounded-2xl relative shadow-2xl">
+            <button onclick="closeRelicModal()" class="absolute top-6 right-6 text-stone-500 hover:text-coral-500 text-xl font-mono transition-colors">
+                ✕
+            </button>
+            <span class="text-xs font-mono text-coral-500 tracking-wider block mb-2 font-semibold">ARCHIVAL RELIC FILE</span>
+            <h3 id="modal-title" class="font-display text-3xl font-normal text-charcoal-900 mb-4">Relic File</h3>
+            <p id="modal-desc" class="text-stone-600 text-sm font-light leading-relaxed mb-6">Detailed archival documentation...</p>
+            
+            <button onclick="closeRelicModal()" class="w-full py-3 bg-charcoal-900 hover:bg-stone-800 text-cream-50 rounded-xl font-mono text-xs uppercase tracking-wider transition">
+                Close Archival File
+            </button>
         </div>
-        <div class="intro-mark intro-mark-bottom" aria-hidden="true">
-          <span>SCROLL TO ENTER</span><span class="intro-scroll-line"></span>
-        </div>
-
-        <div class="editorial-column" id="editorial-column">
-          <h1 id="intro-title">Relics of the<br /><em>Solar System</em></h1>
-
-          <div id="intro-eyebrow" class="intro-eyebrow">
-            <span class="intro-dot"></span>
-            A UNIVERSE OF HUMAN CURIOSITY
-          </div>
-
-          <p id="intro-description">
-            Real objects. Extraordinary journeys. A living archive of the
-            spacecraft, probes, and landers that expand our understanding
-            of the universe.
-          </p>
-
-          <div id="intro-actions" class="intro-actions">
-            <button onclick="openSolarModal()" class="btn-primary">Launch 3D Orbit Map</button>
-            <a href="#archive" class="intro-secondary">Explore the archive <span>↓</span></a>
-          </div>
-        </div>
-
-        <div id="intro-readout" class="intro-readout" aria-hidden="true">
-          <div class="intro-readout-head"><span>SYSTEM // SOLAR SYSTEM</span><span>EXHIBIT</span></div>
-          <div class="intro-readout-grid">
-            <div><small>MODE</small><strong>INTERACTIVE</strong></div>
-            <div><small>OBJECT</small><strong>WIRE MESH</strong></div>
-            <div><small>ARCHIVE</small><strong>SPACECRAFT</strong></div>
-            <div><small>STATUS</small><strong>SCROLL LINKED</strong></div>
-          </div>
-          <div class="intro-readout-foot"><span>REL 01 / SOLAR ARCHIVE</span><span>NASA SPACE APPS</span></div>
-        </div>
-
-        <div class="intro-section-number" aria-hidden="true">00</div>
-      </div>
-    </section>
-    <!-- ARCHIVE / HARDWARE SECTION -->
-    <section id="archive" class="py-20 sm:py-28 border-b border-paper-100/10 bg-white/[.025] relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        
-        <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-12 gap-6">
-          <div class="space-y-2">
-            <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 01 // DOSSIER CATALOGUE</div>
-            <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal">HARDWARE ARCHIVE</h2>
-          </div>
-          <p class="font-sans text-sm text-paper-400 max-w-md font-light">
-            Spacecraft, probes, landers, and rovers that expanded the frontiers of human awareness.
-          </p>
-        </div>
-
-        <!-- 
-          EMPTY DYNAMIC CONTAINER
-          js/app.js owns this container and populates all cards dynamically.
-        -->
-        <div id="hardware-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div id="archive-status" class="col-span-full" role="status" aria-live="polite">
-            <div>
-              <div class="font-mono text-[10px] uppercase tracking-[.16em] text-coral-500 mb-2">ARCHIVE FEED</div>
-              <div class="font-serif text-2xl text-paper-100 mb-2">Catalogue module loading</div>
-              <p class="font-sans text-sm text-paper-400 max-w-md mx-auto">Hardware records are supplied by the project data module.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SCIENCE UNLOCKED SECTION -->
-    <section id="science" class="py-20 sm:py-28 border-b border-paper-100/10 bg-space-950 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        
-        <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-16 gap-6">
-          <div class="space-y-2">
-            <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 02 // KNOWLEDGE BASE</div>
-            <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal">SCIENCE UNLOCKED</h2>
-          </div>
-          <p class="font-sans text-sm text-paper-400 max-w-md font-light">
-            Key physical insights and scientific milestones unlocked through automated deep space exploration.
-          </p>
-        </div>
-
-        <!-- Editorial Articles List -->
-        <div class="space-y-0 divide-y divide-paper-100/10 border-t border-b border-paper-100/10">
-          
-          <!-- Article 01 -->
-          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
-            <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">01</div>
-            <div class="lg:col-span-4 space-y-2">
-              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">CELESTIAL MECHANICS</span>
-              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Gravitational Assist Slingshots</h3>
-            </div>
-            <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
-              By stealing a fraction of a planet's orbital angular momentum, probes like Voyager and Cassini accelerated to velocities unattainable with conventional chemical propellants alone—paving the way to the outer gas giants.
-            </div>
-          </article>
-
-          <!-- Article 02 -->
-          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
-            <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">02</div>
-            <div class="lg:col-span-4 space-y-2">
-              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">ASTROBIOLOGY & HYDROLOGY</span>
-              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Subsurface Ocean Worlds</h3>
-            </div>
-            <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
-              Data from the Galileo and Cassini missions revealed liquid water oceans hiding beneath the icy crusts of Europa and Enceladus, shifting our search for extraterrestrial life away from Goldilocks planets toward icy moons.
-            </div>
-          </article>
-
-          <!-- Article 03 -->
-          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
-            <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">03</div>
-            <div class="lg:col-span-4 space-y-2">
-              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">HELIOPHYSICS</span>
-              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Heliospheric Boundary Dynamics</h3>
-            </div>
-            <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
-              Crossing the heliopause into the interstellar medium, instruments recorded the dramatic drop in solar wind particles and the influx of galactic cosmic rays—defining the physical edge of our Sun's magnetic realm.
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 3D ORBIT MAP PROMOTIONAL SECTION -->
-    <section id="interactive" class="py-20 sm:py-28 bg-space-900/80 border-b border-paper-100/10 relative overflow-hidden bg-tech-grid">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
-        <div class="border border-paper-100/10 bg-space-950 p-8 sm:p-14 relative">
-          
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div class="lg:col-span-8 space-y-6">
-              <div class="inline-flex items-center gap-2 border border-coral-500/30 bg-coral-500/10 px-3 py-1 font-mono text-xs text-coral-400 uppercase tracking-widest">
-                <span class="w-1.5 h-1.5 bg-coral-500"></span>
-                INTERACTIVE SIMULATION
-              </div>
-
-              <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal leading-tight">
-                THE SOLAR SYSTEM,<br />IN MOTION.
-              </h2>
-
-              <p class="font-sans text-sm sm:text-base text-paper-400 font-light max-w-xl leading-relaxed">
-                Step into an interactive 3D orbital laboratory. Adjust orbital speeds, zoom across planetary distances, and experience the gravitational choreography of our celestial neighborhood.
-              </p>
-
-              <div class="pt-2">
-                <button onclick="openSolarModal()" class="group inline-flex items-center gap-3 border border-coral-500 bg-coral-500 text-space-950 font-mono text-xs font-semibold tracking-wider uppercase px-8 py-4 hover:bg-coral-400 transition-all duration-200">
-                  <svg class="w-4 h-4 fill-current transition-transform group-hover:rotate-45" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                  Launch Interactive 3D Orbit Map
-                </button>
-              </div>
-            </div>
-
-            <!-- Orbit Visual Box — editorial technical thumbnail -->
-            <div class="lg:col-span-4 relative overflow-hidden border border-paper-100/15 bg-[#EEECE5] min-h-[300px] lg:min-h-[340px]">
-              <div class="absolute inset-0 bg-tech-grid opacity-50"></div>
-
-              <svg viewBox="0 0 720 500" class="absolute inset-0 w-full h-full" aria-label="Technical solar system preview" role="img">
-                <defs>
-                  <radialGradient id="thumb-sun" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#FFB07A"/>
-                    <stop offset="55%" stop-color="#FF6948"/>
-                    <stop offset="100%" stop-color="#D9472D"/>
-                  </radialGradient>
-                  <filter id="thumb-glow">
-                    <feGaussianBlur stdDeviation="9"/>
-                  </filter>
-                </defs>
-
-                <!-- orbital guide rings -->
-                <g fill="none" stroke="#77736C" stroke-width="1" opacity=".28">
-                  <ellipse cx="360" cy="255" rx="330" ry="70"/>
-                  <ellipse cx="360" cy="255" rx="290" ry="62"/>
-                  <ellipse cx="360" cy="255" rx="250" ry="54"/>
-                  <ellipse cx="360" cy="255" rx="210" ry="47"/>
-                  <ellipse cx="360" cy="255" rx="170" ry="40"/>
-                  <ellipse cx="360" cy="255" rx="135" ry="33"/>
-                </g>
-
-                <!-- asteroid belt -->
-                <g fill="#77736C" opacity=".38">
-                  <circle cx="465" cy="222" r="1.6"/><circle cx="480" cy="231" r="1.2"/>
-                  <circle cx="494" cy="239" r="1.5"/><circle cx="508" cy="246" r="1"/>
-                  <circle cx="522" cy="253" r="1.4"/><circle cx="537" cy="259" r="1"/>
-                  <circle cx="551" cy="266" r="1.5"/><circle cx="566" cy="272" r="1"/>
-                  <circle cx="580" cy="279" r="1.4"/><circle cx="595" cy="285" r="1"/>
-                  <circle cx="450" cy="288" r="1"/><circle cx="470" cy="294" r="1.4"/>
-                  <circle cx="490" cy="300" r="1"/><circle cx="510" cy="305" r="1.3"/>
-                  <circle cx="530" cy="311" r="1"/><circle cx="550" cy="317" r="1.5"/>
-                  <circle cx="570" cy="322" r="1"/><circle cx="590" cy="328" r="1.3"/>
-                </g>
-
-                <!-- sun -->
-                <circle cx="74" cy="255" r="74" fill="#FF5A3C" opacity=".13" filter="url(#thumb-glow)"/>
-                <circle cx="74" cy="255" r="48" fill="url(#thumb-sun)"/>
-                <circle cx="74" cy="255" r="40" fill="none" stroke="#FFB08D" opacity=".45"/>
-
-                <!-- planets -->
-                <g stroke="#4F4C47" fill="#EEECE5">
-                  <circle cx="145" cy="244" r="7"/>
-                  <circle cx="190" cy="263" r="10"/>
-                  <circle cx="245" cy="247" r="13"/>
-                  <circle cx="315" cy="265" r="16"/>
-                  <circle cx="402" cy="235" r="28"/>
-                  <circle cx="485" cy="272" r="36"/>
-                  <circle cx="585" cy="240" r="24"/>
-                  <circle cx="650" cy="277" r="19"/>
-                </g>
-
-                <!-- wireframe detail on larger planets -->
-                <g fill="none" stroke="#77736C" stroke-width=".8" opacity=".62">
-                  <ellipse cx="315" cy="265" rx="16" ry="7"/>
-                  <ellipse cx="315" cy="265" rx="7" ry="16"/>
-                  <ellipse cx="402" cy="235" rx="28" ry="12"/>
-                  <ellipse cx="402" cy="235" rx="12" ry="28"/>
-                  <ellipse cx="485" cy="272" rx="36" ry="15"/>
-                  <ellipse cx="485" cy="272" rx="15" ry="36"/>
-                  <ellipse cx="585" cy="240" rx="24" ry="10"/>
-                  <ellipse cx="585" cy="240" rx="10" ry="24"/>
-                  <ellipse cx="650" cy="277" rx="19" ry="8"/>
-                  <ellipse cx="650" cy="277" rx="8" ry="19"/>
-                </g>
-
-                <!-- Saturn ring -->
-                <ellipse cx="485" cy="272" rx="54" ry="16" fill="none" stroke="#FF5A3C" stroke-width="3" opacity=".85" transform="rotate(-12 485 272)"/>
-                <ellipse cx="485" cy="272" rx="62" ry="19" fill="none" stroke="#6F6B64" stroke-width="1" opacity=".55" transform="rotate(-12 485 272)"/>
-
-                <!-- technical registration marks -->
-                <g fill="#FF5A3C">
-                  <rect x="110" y="95" width="5" height="5"/>
-                  <rect x="620" y="82" width="5" height="5"/>
-                  <rect x="674" y="386" width="5" height="5"/>
-                </g>
-              </svg>
-
-              <div class="absolute left-5 top-5 border border-paper-900/20 bg-[#EEECE5]/90 px-3 py-2 font-mono text-[9px] tracking-[.18em] text-paper-900 uppercase">
-                <span class="inline-block w-1.5 h-1.5 bg-coral-500 mr-2"></span>
-                SOLAR SYSTEM SIMULATION
-                <span class="block ml-3 mt-1 text-[8px] text-paper-600">REAL-TIME 3D ORBITS</span>
-              </div>
-
-              <div class="absolute right-5 top-5 border-l border-coral-500 pl-3 font-mono text-[9px] leading-4 text-paper-900 uppercase tracking-wider">
-                8 PLANETS<br/>200+ MOONS<br/>REAL PHYSICS
-              </div>
-
-              <div class="absolute left-5 bottom-5 flex items-center gap-3 font-mono text-[9px] tracking-[.16em] uppercase text-paper-900">
-                <span class="flex h-8 w-8 items-center justify-center rounded-full border border-paper-900/50">▶</span>
-                <span>CLICK TO EXPLORE</span>
-              </div>
-
-              <div class="absolute right-5 bottom-5 border border-paper-900/20 bg-[#EEECE5]/80 px-3 py-2 font-mono text-[8px] tracking-[.18em] uppercase text-paper-600">
-                SCALE&nbsp;&nbsp;1.0x
-              </div>
-            </div>
-              <div class="font-mono text-xs text-paper-400 uppercase tracking-wider">
-                3D ENGINE: GARNIER CSS 3D
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-space-950 border-t border-paper-100/10 py-12 px-4 sm:px-8 font-mono text-xs text-paper-600">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-      
-      <div class="md:col-span-5 space-y-3">
-        <div class="font-serif text-lg text-paper-100">RELICS OF THE SOLAR SYSTEM</div>
-        <p class="font-sans text-xs text-paper-400 font-light max-w-sm leading-relaxed">
-          Developed for the NASA Space Apps Challenge. An open archival exhibit honoring human space exploration and space-science data.
-        </p>
-      </div>
-
-      <div class="md:col-span-3 space-y-2">
-        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">EXHIBIT INDEX</div>
-        <ul class="space-y-1 text-paper-400">
-          <li><a href="#archive" class="hover:text-coral-500 transition-colors">01. Hardware Archive</a></li>
-          <li><a href="#science" class="hover:text-coral-500 transition-colors">02. Science Unlocked</a></li>
-          <li><a href="#interactive" class="hover:text-coral-500 transition-colors">03. 3D Orbit Map</a></li>
-        </ul>
-      </div>
-
-      <div class="md:col-span-4 space-y-2">
-        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">CREDITS & SOURCE</div>
-        <div class="text-paper-400 space-y-1 font-light">
-          <div>DATA SOURCE: NASA Space Science Archives</div>
-          <div>3D ENGINE: Julian Garnier CSS Solar System</div>
-          <div>EVENT: NASA Space Apps Challenge</div>
-        </div>
-      </div>
-
     </div>
 
-    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-paper-100/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
-      <div>© RELICS OF THE SOLAR SYSTEM — NASA SPACE APPS PROJECT</div>
-      <div class="text-paper-600">MISSION CONTROL // HELIOCENTRIC ARCHIVE</div>
-    </div>
-  </footer>
+    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        // -------------------------------------------------------------
+        // 1. THREE.JS TECHNICAL BLUEPRINT WIREFRAME SATURN
+        // Renders warm stone/charcoal museum wireframe on warm cream canvas
+        // -------------------------------------------------------------
+        const heroContainer = document.getElementById('canvas-container');
+        const heroScene = new THREE.Scene();
 
-  <!-- 
-    3D SOLAR SYSTEM MODAL
-    Preserved ID: solar-system-modal
-  -->
-  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="solar-modal-title">
-    
-    <!-- Modal Header Bar -->
-    <div class="w-full bg-space-900 border-b border-paper-100/10 px-4 sm:px-8 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-3 font-mono text-xs text-paper-200">
-        <span class="w-2 h-2 bg-coral-500 rounded-full animate-pulse"></span>
-        <span id="solar-modal-title" class="font-bold uppercase tracking-wider">3D SOLAR SYSTEM MAP</span>
-        <span class="hidden sm:inline text-paper-600">|</span>
-        <span class="hidden sm:inline text-paper-400 text-[11px]">GARNIER CSS 3D</span>
-      </div>
+        const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        heroCamera.position.set(0, 0, 12);
 
-      <button id="solar-modal-close" onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
-        <span>CLOSE EXHIBIT</span>
-        <span class="text-coral-500">✕</span>
-      </button>
-    </div>
+        const heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        heroRenderer.setSize(window.innerWidth, window.innerHeight);
+        heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        heroContainer.appendChild(heroRenderer.domElement);
 
-    <!-- Modal Iframe Container -->
-    <div class="flex-grow w-full h-full relative bg-space-950">
-      <iframe id="solar-iframe" src="" class="w-full h-full border-0" title="Interactive 3D Solar System"></iframe>
-    </div>
-  </div>
+        // SATURN MODEL GROUP
+        const saturnGroup = new THREE.Group();
 
-  <!-- UI-ONLY MODAL & NAV CONTROLLER -->
+        // Core Wireframe Sphere (Charcoal technical mesh)
+        const saturnGeo = new THREE.IcosahedronGeometry(2.2, 4);
+        const saturnMat = new THREE.MeshBasicMaterial({
+            color: 0x2A2927,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.35
+        });
+        const saturnMesh = new THREE.Mesh(saturnGeo, saturnMat);
+        saturnGroup.add(saturnMesh);
+
+        // Inner solid core mask (Cream filled to occlude back wireframes)
+        const innerGeo = new THREE.SphereGeometry(2.15, 32, 32);
+        const innerMat = new THREE.MeshBasicMaterial({
+            color: 0xF8F7F2,
+            transparent: true,
+            opacity: 0.95
+        });
+        const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+        saturnGroup.add(innerMesh);
+
+        // SATURN RINGS WIREFRAME (Multi-ring layers)
+        function createRing(innerRadius, outerRadius, opacity, color = 0x2A2927) {
+            const ringGeo = new THREE.RingGeometry(innerRadius, outerRadius, 128, 8);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: color,
+                wireframe: true,
+                transparent: true,
+                opacity: opacity,
+                side: THREE.DoubleSide
+            });
+            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+            ringMesh.rotation.x = Math.PI / 2;
+            return ringMesh;
+        }
+
+        const ringA = createRing(3.2, 4.4, 0.40, 0x2A2927);
+        const ringB = createRing(2.6, 3.0, 0.55, 0xD95338); // Terracotta ring layer
+        const ringC = createRing(4.5, 5.0, 0.20, 0x787672);
+
+        saturnGroup.add(ringA);
+        saturnGroup.add(ringB);
+        saturnGroup.add(ringC);
+
+        // Set Saturn Axial Tilt (26.73 degrees = ~0.466 rad)
+        saturnGroup.rotation.z = 0.22;
+        saturnGroup.rotation.x = 0.42;
+
+        heroScene.add(saturnGroup);
+
+        // CELESTIAL BACKGROUND DUST PARTICLES
+        const particleCount = 800;
+        const particleGeo = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            particlePositions[i] = (Math.random() - 0.5) * 80;
+            particlePositions[i + 1] = (Math.random() - 0.5) * 80;
+            particlePositions[i + 2] = (Math.random() - 0.5) * 80;
+        }
+
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        const particleMat = new THREE.PointsMaterial({
+            color: 0x787672,
+            size: 0.03,
+            transparent: true,
+            opacity: 0.35
+        });
+        const particleSystem = new THREE.Points(particleGeo, particleMat);
+        heroScene.add(particleSystem);
+
+        // -------------------------------------------------------------
+        // 2. CONTINUOUS SCROLL TIMELINE CONTROLLER
+        // Calculates normalized scroll progress from 0.00 to 1.00 strictly
+        // -------------------------------------------------------------
+        let targetProgress = 0;
+        let currentProgress = 0;
+
+        const scrollTrack = document.getElementById('scroll-track');
+        const titleBlock = document.getElementById('title-block');
+        const relicLabel = document.getElementById('relic-label');
+        const subTitle = document.getElementById('sub-title');
+        const heroActions = document.getElementById('hero-actions');
+        const mainHeader = document.getElementById('main-header');
+        const telemetryHud = document.getElementById('telemetry-hud');
+        const initialPrompt = document.getElementById('initial-prompt');
+        const timelineProgressBar = document.getElementById('timeline-progress-bar');
+
+        function updateScrollProgress() {
+            if (!scrollTrack) return;
+            const trackRect = scrollTrack.getBoundingClientRect();
+            const maxScroll = scrollTrack.offsetHeight - window.innerHeight;
+            const scrolled = -trackRect.top;
+            let p = scrolled / maxScroll;
+            targetProgress = Math.max(0, Math.min(1, p));
+        }
+
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        updateScrollProgress();
+
+        const clock = new THREE.Clock();
+
+        function renderHeroScene() {
+            requestAnimationFrame(renderHeroScene);
+
+            // Lerp currentProgress towards targetProgress for smooth 60fps cinematic interpolation
+            currentProgress += (targetProgress - currentProgress) * 0.08;
+
+            const elapsedTime = clock.getElapsedTime();
+
+            // Update bottom progress indicator bar
+            if (timelineProgressBar) {
+                timelineProgressBar.style.width = `${Math.min(100, currentProgress * 100)}%`;
+            }
+
+            // Initial scroll prompt fade out
+            if (currentProgress < 0.04) {
+                initialPrompt.style.opacity = (1 - currentProgress / 0.04).toString();
+            } else {
+                initialPrompt.style.opacity = '0';
+            }
+
+            // SATURN ROTATION & POSITION TIMELINE MATRIX:
+            
+            let saturnRotY = 0;
+            let saturnScale = 1.0;
+            let saturnX = 0;
+
+            if (currentProgress <= 0.20) {
+                // 0.00 - 0.20: Centered, 0° rotation, scale 1.0
+                saturnRotY = 0;
+                saturnScale = 1.0;
+                saturnX = 0;
+            } else if (currentProgress <= 0.40) {
+                // 0.20 - 0.40: Smooth rotation to 5° (0.087 rad)
+                const norm = (currentProgress - 0.20) / 0.20;
+                saturnRotY = norm * (5 * Math.PI / 180);
+                saturnScale = 1.0;
+                saturnX = 0;
+            } else if (currentProgress <= 0.60) {
+                // 0.40 - 0.60: Smooth rotation to 10° (0.174 rad)
+                const norm = (currentProgress - 0.40) / 0.20;
+                saturnRotY = (5 + norm * 5) * (Math.PI / 180);
+                saturnScale = 1.0;
+                saturnX = 0;
+            } else if (currentProgress <= 0.75) {
+                // 0.60 - 0.75: Smooth rotation to 15° (0.261 rad)
+                const norm = (currentProgress - 0.60) / 0.15;
+                saturnRotY = (10 + norm * 5) * (Math.PI / 180);
+                saturnScale = 1.0;
+                saturnX = 0;
+            } else if (currentProgress <= 0.90) {
+                // 0.75 - 0.90: Saturn scales down (~0.65x) and moves right
+                const norm = (currentProgress - 0.75) / 0.15;
+                saturnRotY = (15 + norm * 10) * (Math.PI / 180);
+                saturnScale = 1.0 - norm * 0.35;
+                saturnX = norm * (window.innerWidth < 768 ? 0.3 : 2.2);
+            } else {
+                // 0.90 - 1.00+: Final position right + continuous slow ambient spin
+                saturnRotY = (25 * Math.PI / 180) + (elapsedTime * 0.08);
+                saturnScale = 0.65;
+                saturnX = (window.innerWidth < 768 ? 0.3 : 2.2);
+            }
+
+            // Apply transformations
+            saturnGroup.rotation.y = saturnRotY;
+            saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
+            saturnGroup.position.x = saturnX;
+
+            // Background star drift
+            particleSystem.rotation.y = elapsedTime * 0.015;
+
+            // EDITORIAL TEXT TIMELINE MATRIX:
+            let titleOpacity = 0;
+            let titleTranslateX = -40;
+            let labelOpacity = 0;
+            let subTextOpacity = 0;
+            let actionsOpacity = 0;
+            let headerOpacity = 0;
+            let telemetryOpacity = 0;
+
+            if (currentProgress < 0.60) {
+                // STRICT RULE: Title MUST remain completely invisible during first 2 scroll phases
+                titleOpacity = 0;
+                titleTranslateX = -40;
+            } else if (currentProgress <= 0.75) {
+                // 0.60 - 0.75: Title slowly fades from 0 to 1 and moves to editorial position
+                const norm = (currentProgress - 0.60) / 0.15;
+                titleOpacity = norm;
+                titleTranslateX = -40 * (1 - norm);
+            } else {
+                titleOpacity = 1;
+                titleTranslateX = 0;
+            }
+
+            if (currentProgress > 0.75 && currentProgress <= 0.90) {
+                const norm = (currentProgress - 0.75) / 0.15;
+                labelOpacity = norm;
+                subTextOpacity = norm;
+            } else if (currentProgress > 0.90) {
+                labelOpacity = 1;
+                subTextOpacity = 1;
+                const norm = Math.min(1, (currentProgress - 0.90) / 0.10);
+                actionsOpacity = norm;
+                headerOpacity = norm;
+                telemetryOpacity = norm;
+            }
+
+            // Apply DOM styles
+            titleBlock.style.opacity = titleOpacity.toFixed(3);
+            titleBlock.style.transform = `translate3d(${titleTranslateX}px, 0, 0)`;
+            relicLabel.style.opacity = labelOpacity.toFixed(3);
+            subTitle.style.opacity = subTextOpacity.toFixed(3);
+            heroActions.style.opacity = actionsOpacity.toFixed(3);
+            mainHeader.style.opacity = headerOpacity.toFixed(3);
+            telemetryHud.style.opacity = telemetryOpacity.toFixed(3);
+
+            // Responsive positioning for title block
+            if (window.innerWidth >= 768) {
+                titleBlock.style.top = '28%';
+                titleBlock.style.left = '10%';
+            } else {
+                titleBlock.style.top = '16%';
+                titleBlock.style.left = '6%';
+            }
+
+            heroRenderer.render(heroScene, heroCamera);
+        }
+
+        requestAnimationFrame(renderHeroScene);
+
+        // -------------------------------------------------------------
+        // 3. AUDIO SYNTHESIZER & SPECTROGRAM CANVAS
+        // -------------------------------------------------------------
+        let audioCtx = null;
+        let oscillator = null;
+        let isAudioPlaying = false;
+
+        const specCanvas = document.getElementById('spectrogram-canvas');
+        const specCtx = specCanvas ? specCanvas.getContext('2d') : null;
+
+        function resizeCanvas() {
+            if (specCanvas) {
+                specCanvas.width = specCanvas.clientWidth;
+                specCanvas.height = specCanvas.clientHeight;
+            }
+        }
+        resizeCanvas();
+
+        function toggleAudioSynth() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (!isAudioPlaying) {
+                oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(140, audioCtx.currentTime);
+
+                gainNode.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.start();
+                isAudioPlaying = true;
+                document.getElementById('synth-text').innerText = "Pause Plasma Signal";
+                document.getElementById('synth-icon').className = "fa-solid fa-pause text-xs";
+            } else {
+                if (oscillator) {
+                    oscillator.stop();
+                    oscillator.disconnect();
+                }
+                isAudioPlaying = false;
+                document.getElementById('synth-text').innerText = "Play Plasma Audio Signal";
+                document.getElementById('synth-icon').className = "fa-solid fa-play text-xs";
+            }
+        }
+
+        function drawSpectrogram() {
+            requestAnimationFrame(drawSpectrogram);
+            if (!specCtx) return;
+
+            specCtx.fillStyle = '#F8F7F2';
+            specCtx.fillRect(0, 0, specCanvas.width, specCanvas.height);
+
+            specCtx.beginPath();
+            specCtx.lineWidth = 2;
+            specCtx.strokeStyle = isAudioPlaying ? '#D95338' : '#787672';
+
+            const time = Date.now() * 0.003;
+            const sliceWidth = specCanvas.width / 40;
+            let x = 0;
+
+            for (let i = 0; i < 40; i++) {
+                const amp = isAudioPlaying ? Math.sin(i * 0.2 + time) * 25 + Math.cos(i * 0.4 + time) * 15 : Math.sin(i * 0.1 + time) * 3;
+                const y = specCanvas.height / 2 + amp;
+
+                if (i === 0) specCtx.moveTo(x, y);
+                else specCtx.lineTo(x, y);
+
+                x += sliceWidth;
+            }
+            specCtx.stroke();
+        }
+        drawSpectrogram();
+
+        // -------------------------------------------------------------
+        // 4. MODAL HANDLERS & NAVIGATION HELPERS
+        // Preserving window.openSolarModal & window.closeSolarModal
+        // -------------------------------------------------------------
+        window.openSolarModal = function(url) {
+            const modal = document.getElementById('solar-system-modal');
+            const iframe = document.getElementById('solar-iframe');
+            if (modal && iframe) {
+                iframe.src = url || 'solar-system/index.html';
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100', 'pointer-events-auto');
+            }
+        };
+
+        window.closeSolarModal = function() {
+            const modal = document.getElementById('solar-system-modal');
+            const iframe = document.getElementById('solar-iframe');
+            if (modal && iframe) {
+                iframe.src = '';
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        };
+
+        function openRelicModal(id) {
+            const modal = document.getElementById('relic-modal');
+            if (modal) {
+                document.getElementById('modal-title').innerText = "Relic Archival File";
+                document.getElementById('modal-desc').innerText = "Telemetry and hardware specifications for artifact ID: " + id;
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100', 'pointer-events-auto');
+            }
+        }
+
+        function closeRelicModal() {
+            const modal = document.getElementById('relic-modal');
+            if (modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        }
+
+        function scrollToArchive() {
+            document.getElementById('archive-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Viewport resize handling
+        window.addEventListener('resize', () => {
+            heroCamera.aspect = window.innerWidth / window.innerHeight;
+            heroCamera.updateProjectionMatrix();
+            heroRenderer.setSize(window.innerWidth, window.innerHeight);
+
+            resizeCanvas();
+            updateScrollProgress();
+        });
+    </script>
+
+
+  <!-- PROJECT COMPATIBILITY BRIDGE
+       Gemini cinematic UI remains unchanged.
+       These hooks connect the Gemini buttons to the existing project structure. -->
   <script>
-    let lastFocusedElement = null;
+    /*
+      Existing project navigation targets.
+      These functions intentionally do not alter the Gemini animation.
+    */
 
+    window.scrollToSection = function(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    /*
+      Keep the Gemini button API compatible with the project's existing
+      Solar System modal. The optional path argument is accepted but the
+      existing Julian Garnier iframe path remains authoritative.
+    */
     window.openSolarModal = function() {
       const modal = document.getElementById('solar-system-modal');
       const iframe = document.getElementById('solar-iframe');
-      const closeButton = document.getElementById('solar-modal-close');
 
       if (!modal || !iframe) return;
 
-      lastFocusedElement = document.activeElement;
-
-      if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('solar-system/index.html')) {
+      if (!iframe.src || iframe.src === 'about:blank' ||
+          !iframe.src.includes('solar-system/index.html')) {
         iframe.src = 'solar-system/index.html';
       }
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
       document.body.style.overflow = 'hidden';
-      document.body.setAttribute('data-modal-open', 'true');
-
-      window.setTimeout(() => {
-        if (closeButton) closeButton.focus();
-      }, 0);
     };
 
     window.closeSolarModal = function() {
       const modal = document.getElementById('solar-system-modal');
       if (!modal) return;
 
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
       document.body.style.overflow = '';
-      document.body.removeAttribute('data-modal-open');
-
-      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-        lastFocusedElement.focus();
-      }
     };
 
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const iconOpen = document.getElementById('menu-icon-open');
-      const iconClose = document.getElementById('menu-icon-close');
-      const button = document.getElementById('mobile-menu-btn');
-
-      if (!menu) return;
-
-      const willOpen = menu.classList.contains('hidden');
-      menu.classList.toggle('hidden', !willOpen);
-
-      if (iconOpen) iconOpen.classList.toggle('hidden', willOpen);
-      if (iconClose) iconClose.classList.toggle('hidden', !willOpen);
-      if (button) button.setAttribute('aria-expanded', String(willOpen));
-    }
-
+    /*
+      Escape closes either project modal.
+    */
     document.addEventListener('keydown', function(event) {
-      if (event.key !== 'Escape') return;
-
-      const modal = document.getElementById('solar-system-modal');
-      if (modal && !modal.classList.contains('hidden')) {
+      if (event.key === 'Escape') {
         closeSolarModal();
-        return;
-      }
-
-      const menu = document.getElementById('mobile-menu');
-      if (menu && !menu.classList.contains('hidden')) {
-        toggleMobileMenu();
       }
     });
   </script>
 
 
   <script>
-<<<<<<< HEAD
     /* Cinematic exhibition intro — UI-only presentation controller. */
-(function(){
+    (function(){
       const intro=document.getElementById('intro-scroll');
       const scene=document.getElementById('sticky-scene');
       const saturn=document.getElementById('intro-planet');
@@ -3019,365 +2125,85 @@ body.cinematic-opening{background:#050505 !important;}
       const marks=document.querySelectorAll('.intro-mark,.intro-section-number');
       const header=document.querySelector('body > header');
       const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
-      const root=document.documentElement;
-=======
-    /* Exact Saturn model from the supplied Gemini code, with the existing
-       exhibition page's continuous scroll timeline preserved. */
-    const heroContainer = document.getElementById('canvas-container');
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 
-    if (!heroContainer || !window.THREE) {
-      if (heroContainer) {
-        heroContainer.setAttribute('aria-hidden', 'true');
-        heroContainer.style.display = 'none';
-      }
-    } else {
-      const heroScene = new THREE.Scene();
-    const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    heroCamera.position.set(0, 0, 12);
+      if(!intro||!scene||!saturn||!sphere||!orbit||!rings||!title)return;
 
-    const heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    heroRenderer.setSize(window.innerWidth, window.innerHeight);
-    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    heroContainer.appendChild(heroRenderer.domElement);
+      let ticking=false;
+      const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
+      const smooth=(v)=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
+      const lerp=(a,b,t)=>a+(b-a)*clamp(t,0,1);
 
-    // EXACT MODEL GEOMETRY
-    const saturnGroup = new THREE.Group();
-
-<<<<<<< HEAD
-        /* Black at rest, then a slow reveal into the exhibition's warm paper. */
-        const colorP=smooth(progress/.30);
-        const mix=(a,b,t)=>{
-          const ah=parseInt(a.slice(1),16), bh=parseInt(b.slice(1),16);
-          const ar=ah>>16, ag=(ah>>8)&255, ab=ah&255;
-          const br=bh>>16, bg=(bh>>8)&255, bb=bh&255;
-          const r=Math.round(lerp(ar,br,t));
-          const g=Math.round(lerp(ag,bg,t));
-          const b=Math.round(lerp(ab,bb,t));
-          return 'rgb('+r+','+g+','+b+')';
-        };
-        const openingBg=mix('#050505','#F1EFE9',colorP);
-        scene.style.setProperty('background-color',openingBg,'important');
-        document.body.style.setProperty('background-color',openingBg,'important');
-        root.style.setProperty('--cinematic-opening-progress',colorP.toFixed(3));
-
-        /* Saturn shifts from a luminous wireframe on black to archival ink. */
-        const planetColor=mix('#D8D4CB','#514E47',colorP);
-        saturn.style.setProperty('color',planetColor,'important');
-
-        const grid=document.querySelector('.museum-grid-bg');
-        if(grid) grid.style.setProperty('opacity',(colorP*.34).toFixed(3),'important');
+      function updateScene(){
+        const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
+        const progress=clamp(-intro.getBoundingClientRect().top/scrollable,0,1);
+        const mobile=window.innerWidth<=900;
+        const small=window.innerWidth<=640;
 
         /* Saturn: centered at rest, then shifts right and shrinks. */
         const saturnShift=smooth((progress-.16)/.44);
         const x=lerp(0,small?16:(mobile?21:27),saturnShift);
-=======
-    const saturnGeo = new THREE.IcosahedronGeometry(2.2, 4);
-    const saturnMat = new THREE.MeshBasicMaterial({
-      color: 0x2A2927,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.35
-    });
-    const saturnMesh = new THREE.Mesh(saturnGeo, saturnMat);
-    saturnGroup.add(saturnMesh);
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
 
-    const innerGeo = new THREE.SphereGeometry(2.15, 32, 32);
-    const innerMat = new THREE.MeshBasicMaterial({
-      color: 0xF8F7F2,
-      transparent: true,
-      opacity: 0.95
-    });
-    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-    saturnGroup.add(innerMesh);
+        /* The hidden metadata/header still occupy normal document flow at the
+           very first frame. Lift Saturn slightly so its visual center is the
+           actual viewport center immediately on page load. It settles to the
+           true center during the first small scroll movement. */
+        const verticalSettle=smooth(progress/.12);
+        const y=lerp(small?-4.5:-5.5,0,verticalSettle);
 
-    function createRing(innerRadius, outerRadius, opacity, color = 0x2A2927) {
-      const ringGeo = new THREE.RingGeometry(innerRadius, outerRadius, 128, 8);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: color,
-        wireframe: true,
-        transparent: true,
-        opacity: opacity,
-        side: THREE.DoubleSide
-      });
-      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-      ringMesh.rotation.x = Math.PI / 2;
-      return ringMesh;
-    }
+        const scale=lerp(1,small?.62:(mobile?.68:.62),saturnShift);
+        saturn.style.transform=
+          'translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+scale.toFixed(3)+')';
 
-    const ringA = createRing(3.2, 4.4, 0.40, 0x2A2927);
-    const ringB = createRing(2.6, 3.0, 0.55, 0xD95338);
-    const ringC = createRing(4.5, 5.0, 0.20, 0x787672);
+        /* Scroll-linked planet rotation and independent ring-plane rotation. */
+        sphere.style.transform='rotate('+(progress*360).toFixed(2)+'deg)';
+        const ringAngle=lerp(-20,18,progress);
+        orbit.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
+        rings.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
 
-    saturnGroup.add(ringA);
-    saturnGroup.add(ringB);
-    saturnGroup.add(ringC);
+        /* Title: invisible at load, rises into the fixed middle-left column. */
+        const titleFade=smooth((progress-.025)/.30);
+        const titleRise=smooth((progress-.025)/.32);
+        title.style.setProperty('opacity',titleFade.toFixed(3),'important');
+        title.style.setProperty('transform','translateY('+lerp(90,0,titleRise).toFixed(2)+'px)','important');
 
-    saturnGroup.rotation.z = 0.22;
-    saturnGroup.rotation.x = 0.42;
-    heroScene.add(saturnGroup);
+        /* Supporting copy follows the title with deliberate delays. */
+        const eyebrowP=smooth((progress-.34)/.18);
+        const descP=smooth((progress-.43)/.20);
+        const actionsP=smooth((progress-.58)/.20);
+        const readoutP=smooth((progress-.64)/.20);
 
-    // EXACT BACKGROUND DUST
-    const particleCount = 800;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
+        if(eyebrow){eyebrow.style.setProperty('opacity',eyebrowP.toFixed(3),'important');eyebrow.style.setProperty('transform','translateY('+lerp(20,0,eyebrowP).toFixed(2)+'px)','important');}
+        if(description){description.style.setProperty('opacity',descP.toFixed(3),'important');description.style.setProperty('transform','translateY('+lerp(20,0,descP).toFixed(2)+'px)','important');}
+        if(actions){actions.style.setProperty('opacity',actionsP.toFixed(3),'important');actions.style.setProperty('transform','translateY('+lerp(20,0,actionsP).toFixed(2)+'px)','important');}
+        if(readout){readout.style.setProperty('opacity',readoutP.toFixed(3),'important');readout.style.setProperty('transform','translateY('+lerp(18,0,readoutP).toFixed(2)+'px)','important');}
 
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 80;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 80;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 80;
-    }
+        /* Page chrome returns only after the opening composition is established. */
+        const chrome=smooth((progress-.72)/.22);
+        if(header){header.style.setProperty('opacity',chrome.toFixed(3),'important');header.style.pointerEvents=chrome>.65?'auto':'none';}
+        if(metadata){metadata.style.setProperty('opacity',chrome.toFixed(3),'important');metadata.style.pointerEvents=chrome>.65?'auto':'none';}
 
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        const markP=smooth((progress-.78)/.16);
+        marks.forEach(mark=>mark.style.setProperty('opacity',markP.toFixed(3),'important'));
 
-    const particleMat = new THREE.PointsMaterial({
-      color: 0x787672,
-      size: 0.03,
-      transparent: true,
-      opacity: 0.35
-    });
-
-    const particleSystem = new THREE.Points(particleGeo, particleMat);
-    heroScene.add(particleSystem);
-
-    const scrollTrack = document.getElementById('intro-scroll');
-    const title = document.getElementById('intro-title');
-    const eyebrow = document.getElementById('intro-eyebrow');
-    const description = document.getElementById('intro-description');
-    const actions = document.getElementById('intro-actions');
-    const readout = document.getElementById('intro-readout');
-    const marks = document.querySelectorAll('.intro-mark,.intro-section-number');
-    const mainHeader = document.querySelector('body > header');
-    const metadata = document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
-
-    let targetProgress = 0;
-    let currentProgress = 0;
-
-    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-    const smooth = (v) => {
-      const x = clamp(v, 0, 1);
-      return x * x * (3 - 2 * x);
-    };
-    const lerp = (a, b, t) => a + (b - a) * clamp(t, 0, 1);
-
-    function updateScrollProgress() {
-      if (!scrollTrack) return;
-      const rect = scrollTrack.getBoundingClientRect();
-      const maxScroll = Math.max(scrollTrack.offsetHeight - window.innerHeight, 1);
-      targetProgress = clamp(-rect.top / maxScroll, 0, 1);
-    }
-
-    function updateScene() {
-      currentProgress += (targetProgress - currentProgress) * 0.10;
-      const progress = currentProgress;
-
-      // More rotation over the same 500vh physical scroll.
-      let saturnRotY = 0;
-      let saturnScale = 1;
-      let saturnX = 0;
-
-      if (progress <= 0.20) {
-        saturnRotY = 0;
-      } else if (progress <= 0.40) {
-        saturnRotY = smooth((progress - 0.20) / 0.20) * 36;
-      } else if (progress <= 0.60) {
-        saturnRotY = 36 + smooth((progress - 0.40) / 0.20) * 48;
-      } else if (progress <= 0.75) {
-        saturnRotY = 84 + smooth((progress - 0.60) / 0.15) * 48;
-      } else if (progress <= 0.90) {
-        const t = smooth((progress - 0.75) / 0.15);
-        saturnRotY = 132 + t * 48;
-        saturnScale = 1 - t * 0.35;
-        saturnX = t * (window.innerWidth < 768 ? 0.3 : 2.2);
-      } else {
-        saturnRotY = 180;
-        saturnScale = 0.65;
-        saturnX = window.innerWidth < 768 ? 0.3 : 2.2;
+        scene.style.pointerEvents=progress>.86?'auto':'none';
+        ticking=false;
       }
 
-      saturnGroup.rotation.y = saturnRotY * Math.PI / 180;
-      saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
-      saturnGroup.position.x = saturnX;
-
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        particleSystem.rotation.y = performance.now() * 0.000015;
+      function requestUpdate(){
+        if(!ticking){ticking=true;requestAnimationFrame(updateScene);}
       }
 
-<<<<<<< HEAD
       window.addEventListener('scroll',requestUpdate,{passive:true});
       window.addEventListener('resize',requestUpdate);
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateScene);
       else updateScene();
       window.addEventListener('load',updateScene);
     })();
-
-  </script>
-=======
-      const titleFade = smooth((progress - 0.025) / 0.30);
-      const titleRise = smooth((progress - 0.025) / 0.32);
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
-
-      if (title) {
-        title.style.setProperty('opacity', titleFade.toFixed(3), 'important');
-        title.style.setProperty('transform', `translateY(${lerp(90, 0, titleRise).toFixed(2)}px)`, 'important');
-      }
-
-      const eyebrowP = smooth((progress - 0.34) / 0.18);
-      const descP = smooth((progress - 0.43) / 0.20);
-      const actionsP = smooth((progress - 0.58) / 0.20);
-      const readoutP = smooth((progress - 0.64) / 0.20);
-
-      if (eyebrow) eyebrow.style.setProperty('opacity', eyebrowP.toFixed(3), 'important');
-      if (description) description.style.setProperty('opacity', descP.toFixed(3), 'important');
-      if (actions) actions.style.setProperty('opacity', actionsP.toFixed(3), 'important');
-      if (readout) readout.style.setProperty('opacity', readoutP.toFixed(3), 'important');
-
-      const chrome = smooth((progress - 0.72) / 0.22);
-      if (mainHeader) {
-        mainHeader.style.setProperty('opacity', chrome.toFixed(3), 'important');
-        mainHeader.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
-      }
-      if (metadata) {
-        metadata.style.setProperty('opacity', chrome.toFixed(3), 'important');
-        metadata.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
-      }
-
-      const promptP = 1 - smooth(progress / 0.16);
-      marks.forEach(mark => {
-        const value = mark.classList.contains('intro-section-number') ? 1 : promptP;
-        mark.style.setProperty('opacity', value.toFixed(3), 'important');
-      });
-    }
-
-    function renderHeroScene() {
-      requestAnimationFrame(renderHeroScene);
-      updateScene();
-      heroRenderer.render(heroScene, heroCamera);
-    }
-
-    window.addEventListener('scroll', updateScrollProgress, { passive: true });
-
-    window.addEventListener('resize', () => {
-      heroCamera.aspect = window.innerWidth / window.innerHeight;
-      heroCamera.updateProjectionMatrix();
-      heroRenderer.setSize(window.innerWidth, window.innerHeight);
-      updateScrollProgress();
-    });
-
-    updateScrollProgress();
-    requestAnimationFrame(renderHeroScene);
-    }
-  </script> <!-- 
-    DYNAMIC DATA LOADER SCRIPT
-    Preserved exactly as requested.
-  -->
-<<<<<<< HEAD
->>>>>>> feature/ui-upgrade
-=======
-  <script>
-    (function initArchiveStatus() {
-      const grid = document.getElementById('hardware-grid');
-      const status = document.getElementById('archive-status');
-      if (!grid || !status) return;
-
-      const sync = () => {
-        const hasRealCards = Array.from(grid.children).some(child => child.id !== 'archive-status');
-        status.hidden = hasRealCards;
-      };
-
-      sync();
-
-      if ('MutationObserver' in window) {
-        const observer = new MutationObserver(sync);
-        observer.observe(grid, { childList: true });
-      }
-    })();
   </script>
 
->>>>>>> db08f3d067830a2548f1d726dac75b3c71b64f50
+  <!-- EXISTING PROJECT DATA / HARDWARE LOGIC
+       Do not replace this with Gemini's fallback data. -->
   <script src="js/app.js"></script>
 
-
-  <script>
-    (function initStarfield() {
-      const canvas = document.getElementById('starfield');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let width, height, stars = [];
-      const STAR_COUNT = 60;
-      const COLOR = '28, 28, 26';
-
-      function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      }
-
-      function createStars() {
-        stars = [];
-        for (let i = 0; i < STAR_COUNT; i++) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            size: Math.random() * 2 + 1,
-            alpha: Math.random() * 0.4 + 0.1,
-            pulseSpeed: Math.random() * 0.015 + 0.005,
-            pulseDir: Math.random() > 0.5 ? 1 : -1,
-            vx: (Math.random() - 0.5) * 0.15,
-            vy: -Math.random() * 0.2 - 0.05,
-            isCross: Math.random() > 0.6
-          });
-        }
-      }
-
-      function draw4PointStar(x, y, size, alpha) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.strokeStyle = 'rgba(' + COLOR + ', ' + alpha + ')';
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(-size * 2, 0);
-        ctx.lineTo(size * 2, 0);
-        ctx.moveTo(0, -size * 2);
-        ctx.lineTo(0, size * 2);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, width, height);
-        stars.forEach(star => {
-          star.x += star.vx;
-          star.y += star.vy;
-          if (star.y < -10) star.y = height + 10;
-          if (star.x < -10) star.x = width + 10;
-          if (star.x > width + 10) star.x = -10;
-
-          star.alpha += star.pulseSpeed * star.pulseDir;
-          if (star.alpha >= 0.5) { star.alpha = 0.5; star.pulseDir = -1; }
-          else if (star.alpha <= 0.08) { star.alpha = 0.08; star.pulseDir = 1; }
-
-          if (star.isCross) {
-            draw4PointStar(star.x, star.y, star.size, star.alpha);
-          } else {
-            ctx.fillStyle = 'rgba(' + COLOR + ', ' + star.alpha + ')';
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size / 2, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        });
-        requestAnimationFrame(animate);
-      }
-
-      window.addEventListener('resize', () => {
-        resize();
-        createStars();
-      });
-
-      resize();
-      createStars();
-      animate();
-    })();
-  </script>
 </body>
 </html>
