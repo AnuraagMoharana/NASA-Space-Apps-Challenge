@@ -1932,10 +1932,11 @@
     }
 
     /* CINEMATIC INTRO — sticky viewport blueprint */
-    .intro-scroll {
+    #intro-scroll {
       position: relative !important;
       height: 500vh !important;
-      width: 100% !important
+      width: 100% !important;
+      padding: 0 !important;
     }
 
     .sticky-scene {
@@ -2296,11 +2297,21 @@
         min-height: 150px;
       }
     }
+
+    /* Pull the cinematic intro up to cover the invisible header space */
+    #intro-scroll {
+      margin-top: -120px !important;
+    }
+
+    /* Push the quiz back down to preserve the rest of the page's layout */
+    #space-quiz {
+      margin-top: 120px !important;
+    }
   </style>
 </head>
 
 <body
-  class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
+  class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col overflow-x-hidden">
 
   <!-- Floating Starfield Background -->
   <canvas id="starfield" class="fixed inset-0 pointer-events-none z-30" aria-hidden="true"></canvas>
@@ -2345,11 +2356,14 @@
         <a href="#archive" class="hover:text-coral-500 transition-colors flex items-center gap-1">
           <span class="text-coral-500">01.</span> ARCHIVE
         </a>
+        <a href="#space-quiz" class="hover:text-coral-500 transition-colors flex items-center gap-1">
+          <span class="text-coral-500">02.</span> QUIZ
+        </a>
         <a href="#science" class="hover:text-coral-500 transition-colors flex items-center gap-1">
-          <span class="text-coral-500">02.</span> SCIENCE
+          <span class="text-coral-500">03.</span> SCIENCE
         </a>
         <a href="#interactive" class="hover:text-coral-500 transition-colors flex items-center gap-1">
-          <span class="text-coral-500">03.</span> ORBIT MAP
+          <span class="text-coral-500">04.</span> ORBIT MAP
         </a>
       </nav>
 
@@ -2382,9 +2396,11 @@
       class="hidden md:hidden border-b border-paper-100/10 bg-space-900 px-6 py-6 font-mono text-sm uppercase tracking-wider space-y-4">
       <a href="#archive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">01.
         Archive</a>
-      <a href="#science" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">02.
+      <a href="#space-quiz" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">02.
+        Quiz</a>
+      <a href="#science" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">03.
         Science</a>
-      <a href="#interactive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">03.
+      <a href="#interactive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">04.
         Orbit Map</a>
       <button onclick="toggleMobileMenu(); openSolarModal();"
         class="w-full mt-4 text-center border border-coral-500 bg-coral-500/10 text-coral-400 py-3 font-mono text-xs uppercase tracking-wider">
