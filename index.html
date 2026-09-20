@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,7 +53,12 @@
   <!-- Google Fonts: IBM Plex Sans, IBM Plex Mono & Fraunces -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Google Model Viewer -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
   <style>
     /* Custom Scrollbar */
@@ -60,13 +66,16 @@
       width: 6px;
       height: 6px;
     }
+
     ::-webkit-scrollbar-track {
       background: #050505;
     }
+
     ::-webkit-scrollbar-thumb {
       background: #262626;
       border-radius: 0px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
       background: #ff5533;
     }
@@ -74,7 +83,7 @@
     /* Grid Overlay Pattern */
     .bg-tech-grid {
       background-size: 40px 40px;
-      background-image: 
+      background-image:
         linear-gradient(to right, rgba(242, 239, 233, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(242, 239, 233, 0.03) 1px, transparent 1px);
     }
@@ -88,6 +97,7 @@
       z-index: 10;
       pointer-events: none;
     }
+
     #canvas-container canvas {
       display: block;
       width: 100% !important;
@@ -95,7 +105,7 @@
     }
 
     /* Target styling for dynamic children inside #hardware-grid populated by js/app.js */
-    #hardware-grid > * {
+    #hardware-grid>* {
       background-color: #0a0a0a;
       border: 1px solid rgba(242, 239, 233, 0.12);
       padding: 1.5rem;
@@ -105,24 +115,31 @@
       justify-content: space-between;
       position: relative;
     }
-    #hardware-grid > *:hover {
+
+    #hardware-grid>*:hover {
       border-color: rgba(255, 85, 51, 0.5);
       background-color: #121212;
       transform: translateY(-2px);
     }
-    #hardware-grid h3, #hardware-grid .card-title {
+
+    #hardware-grid h3,
+    #hardware-grid .card-title {
       font-family: 'Fraunces', serif;
       font-size: 1.35rem;
       color: #f2efe9;
       margin-bottom: 0.5rem;
     }
-    #hardware-grid p, #hardware-grid .card-desc {
+
+    #hardware-grid p,
+    #hardware-grid .card-desc {
       font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.875rem;
       color: #a09c94;
       line-height: 1.5;
     }
-    #hardware-grid .tag, #hardware-grid .status-pill {
+
+    #hardware-grid .tag,
+    #hardware-grid .status-pill {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -133,1475 +150,2117 @@
       width: fit-content;
       margin-top: 1rem;
     }
-  
 
-/* ==========================================================================
+
+    /* ==========================================================================
    EXHIBITION / ARCHIVAL POLISH PASS
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    1. HARDWARE ARCHIVE (#hardware-grid)
    Seamless exhibition catalogue entries.
    -------------------------------------------------------------------------- */
 
-#hardware-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
-  padding-top: 1rem;
-}
+    #hardware-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      padding-top: 1rem;
+    }
 
-#hardware-grid > * {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  border-radius: 0 !important;
-  padding: 2rem !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transition: border-color 0.2s ease, background-color 0.2s ease !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+    #hardware-grid>* {
+      background-color: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      border-radius: 0 !important;
+      padding: 2rem !important;
+      box-shadow: none !important;
+      filter: none !important;
+      transition: border-color 0.2s ease, background-color 0.2s ease !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-#hardware-grid > *:hover {
-  border-color: rgba(255, 90, 60, 0.4) !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
+    #hardware-grid>*:hover {
+      border-color: rgba(255, 90, 60, 0.4) !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
 
-#hardware-grid h3,
-#hardware-grid .card-title {
-  font-family: 'Fraunces', serif;
-  font-weight: 500;
-  font-size: 1.25rem;
-  letter-spacing: -0.01em;
-  color: #111111;
-  margin-bottom: 0.5rem;
-}
+    #hardware-grid h3,
+    #hardware-grid .card-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      color: #111111;
+      margin-bottom: 0.5rem;
+    }
 
-#hardware-grid .catalog-number,
-#hardware-grid .metadata,
-#hardware-grid .tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #666666;
-}
+    #hardware-grid .catalog-number,
+    #hardware-grid .metadata,
+    #hardware-grid .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #666666;
+    }
 
-#hardware-grid p,
-#hardware-grid .description {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 0.925rem;
-  line-height: 1.6;
-  color: #444444;
-}
+    #hardware-grid p,
+    #hardware-grid .description {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.925rem;
+      line-height: 1.6;
+      color: #444444;
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    2. OVERALL SPACING & HERO VIEWPORT BALANCING
    -------------------------------------------------------------------------- */
 
-.hero-section {
-  min-height: calc(85vh - 80px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4rem 0 3rem 0;
-  position: relative;
-}
+    .hero-section {
+      min-height: calc(85vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 0 3rem 0;
+      position: relative;
+    }
 
-.section-container {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
+    .section-container {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    3. HERO & ORBITAL DIAGRAM
    -------------------------------------------------------------------------- */
 
-.hero-headline {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(2.75rem, 5vw, 4.25rem);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: #111111;
-  max-width: 22ch;
-  margin-bottom: 1.5rem;
-}
+    .hero-headline {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.75rem, 5vw, 4.25rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #111111;
+      max-width: 22ch;
+      margin-bottom: 1.5rem;
+    }
 
-.hero-orbital-bg {
-  opacity: 0.35;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
+    .hero-orbital-bg {
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    4. SECTION NUMBERS
    -------------------------------------------------------------------------- */
 
-.section-number {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: clamp(3.5rem, 7vw, 5.5rem);
-  font-weight: 300;
-  color: rgba(255, 90, 60, 0.15);
-  line-height: 1;
-  user-select: none;
-  letter-spacing: -0.04em;
-}
+    .section-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
+      font-weight: 300;
+      color: rgba(255, 90, 60, 0.15);
+      line-height: 1;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    5. CORAL ACCENTS
    Functional / structural elements only.
    -------------------------------------------------------------------------- */
 
-:root {
-  --color-coral: #FF5A3C;
-  --color-coral-subtle: rgba(255, 90, 60, 0.12);
-}
+    :root {
+      --color-coral: #FF5A3C;
+      --color-coral-subtle: rgba(255, 90, 60, 0.12);
+    }
 
-.btn-primary {
-  background-color: var(--color-coral);
-  color: #ffffff;
-  border: none;
-  border-radius: 0;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.825rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.85rem 1.75rem;
-  transition: background-color 0.2s ease;
-}
+    .btn-primary {
+      background-color: var(--color-coral);
+      color: #ffffff;
+      border: none;
+      border-radius: 0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.825rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 1.75rem;
+      transition: background-color 0.2s ease;
+    }
 
-.btn-primary:hover {
-  background-color: #E04326;
-}
+    .btn-primary:hover {
+      background-color: #E04326;
+    }
 
-.tech-marker {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-coral);
-  border-radius: 50%;
-  margin-right: 0.5rem;
-  vertical-align: middle;
-}
+    .tech-marker {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-coral);
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    6. TYPOGRAPHY SYSTEM
    -------------------------------------------------------------------------- */
 
-body {
-  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #222222;
-  background-color: #FAFAFA;
-  -webkit-font-smoothing: antialiased;
-}
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #222222;
+      background-color: #FAFAFA;
+      -webkit-font-smoothing: antialiased;
+    }
 
-h1,
-h2,
-h3,
-.serif-heading {
-  font-family: 'Fraunces', serif;
-}
+    h1,
+    h2,
+    h3,
+    .serif-heading {
+      font-family: 'Fraunces', serif;
+    }
 
-code,
-.mono,
-.metadata,
-.catalog-no {
-  font-family: 'IBM Plex Mono', monospace;
-}
+    code,
+    .mono,
+    .metadata,
+    .catalog-no {
+      font-family: 'IBM Plex Mono', monospace;
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    7. 3D SOLAR SYSTEM CONTAINER
    -------------------------------------------------------------------------- */
 
-#solar-system-modal {
-  background: rgba(250, 250, 250, 0.96);
-  backdrop-filter: blur(8px);
-}
+    #solar-system-modal {
+      background: rgba(250, 250, 250, 0.96);
+      backdrop-filter: blur(8px);
+    }
 
-.solar-system-wrapper {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-}
+    .solar-system-wrapper {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
 
-#solar-iframe {
-  border: none;
-  background: transparent;
-}
+    #solar-iframe {
+      border: none;
+      background: transparent;
+    }
 
-/* --------------------------------------------------------------------------
+    /* --------------------------------------------------------------------------
    8. RESPONSIVE CATALOGUE GRID
    -------------------------------------------------------------------------- */
 
-@media (max-width: 768px) {
-  #hardware-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+    @media (max-width: 768px) {
+      #hardware-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
 
-  #hardware-grid > * {
-    padding: 1.5rem !important;
-  }
+      #hardware-grid>* {
+        padding: 1.5rem !important;
+      }
 
-  .hero-section {
-    min-height: auto;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
+      .hero-section {
+        min-height: auto;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
 
-  .section-container {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
-  }
-}
+      .section-container {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+    }
 
-  
 
-/* ==========================================================================
+
+    /* ==========================================================================
    MINIMALIST NASA EXHIBITION SYSTEM
    Final visual override — light archival / scientific catalogue direction.
    ========================================================================== */
 
-:root {
-  --paper: #FAF9F5;
-  --white: #FFFFFF;
-  --ink: #111111;
-  --muted: #666666;
-  --line: rgba(17,17,17,.10);
-  --line-soft: rgba(17,17,17,.06);
-  --coral: #FF5A3C;
-  --coral-dark: #E04326;
-}
-
-/* Base */
-html,
-body {
-  background: var(--paper) !important;
-  color: #222 !important;
-}
-
-body {
-  font-family: 'IBM Plex Sans', sans-serif !important;
-  min-height: 100vh;
-}
-
-::selection {
-  background: var(--coral) !important;
-  color: #fff !important;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--paper) !important;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cccccc !important;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--coral) !important;
-}
-
-/* Quiet architectural grid */
-.bg-tech-grid {
-  background-color: var(--paper) !important;
-  background-size: 48px 48px !important;
-  background-image:
-    linear-gradient(to right, rgba(17,17,17,.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(17,17,17,.035) 1px, transparent 1px) !important;
-}
-
-/* Convert existing dark utility surfaces into paper/white surfaces */
-.bg-space-950,
-.bg-space-900,
-.bg-space-850,
-.bg-space-800,
-.bg-space-700 {
-  background-color: var(--paper) !important;
-}
-
-.bg-space-950\/95 {
-  background-color: rgba(250,249,245,.96) !important;
-}
-
-.bg-space-900\/80,
-.bg-space-900\/30 {
-  background-color: rgba(255,255,255,.72) !important;
-}
-
-.bg-white\/\[\.025\],
-.bg-white\/\[\.03\],
-.bg-white\/\[\.04\] {
-  background-color: #fff !important;
-}
-
-.bg-white\/\[\.03\] {
-  background-color: rgba(255,255,255,.7) !important;
-}
-
-/* Text becomes editorial black/grey */
-.text-paper-100,
-.text-paper-200 {
-  color: var(--ink) !important;
-}
-
-.text-paper-400,
-.text-paper-500,
-.text-paper-600 {
-  color: var(--muted) !important;
-}
-
-.text-coral-400,
-.text-coral-500,
-.text-coral-600 {
-  color: var(--coral) !important;
-}
-
-.border-paper-100\/10,
-.border-paper-100\/15 {
-  border-color: var(--line) !important;
-}
-
-.border-paper-100\/20 {
-  border-color: rgba(17,17,17,.14) !important;
-}
-
-.border-paper-100\/30 {
-  border-color: rgba(17,17,17,.20) !important;
-}
-
-/* Top exhibition metadata */
-aside[aria-label="Exhibit Metadata"] {
-  background: #fff !important;
-  color: var(--muted) !important;
-  border-color: var(--line) !important;
-}
-
-/* Navigation */
-header {
-  background: rgba(250,249,245,.94) !important;
-  border-color: var(--line) !important;
-  backdrop-filter: blur(10px);
-}
-
-header .text-paper-100,
-header .text-paper-200 {
-  color: var(--ink) !important;
-}
-
-header .text-paper-400 {
-  color: var(--muted) !important;
-}
-
-header .bg-space-900 {
-  background: #fff !important;
-}
-
-#mobile-menu {
-  background: #fff !important;
-  border-color: var(--line) !important;
-}
-
-/* Hero */
-.hero-section {
-  min-height: calc(85vh - 80px);
-}
-
-main > section {
-  border-color: var(--line) !important;
-}
-
-main > section:first-child {
-  background-color: var(--paper) !important;
-}
-
-main > section:not(:first-child) {
-  background-color: transparent !important;
-}
-
-.hero-headline {
-  font-family: 'Fraunces', serif !important;
-  font-size: clamp(2.75rem, 5vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.06;
-  letter-spacing: -.025em;
-  color: var(--ink) !important;
-  max-width: 20ch;
-}
-
-.hero-orbital-bg {
-  opacity: .30 !important;
-  mix-blend-mode: multiply;
-}
-
-main > section:first-child .text-paper-100,
-main > section:first-child .text-paper-200 {
-  color: var(--ink) !important;
-}
-
-main > section:first-child .text-paper-400 {
-  color: #555 !important;
-}
-
-/* Remove dashboard/card feeling from hero readout */
-main > section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
-  background: rgba(255,255,255,.55) !important;
-  border-color: var(--line) !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-main > section:first-child .bg-space-950 {
-  background: #fff !important;
-  border-color: var(--line) !important;
-}
-
-/* Buttons */
-.btn-primary {
-  background: var(--coral) !important;
-  color: #fff !important;
-  border-radius: 0 !important;
-}
-
-.btn-primary:hover {
-  background: var(--coral-dark) !important;
-}
-
-button[onclick="openSolarModal()"] {
-  border-radius: 0 !important;
-}
-
-button[onclick="openSolarModal()"].bg-coral-500 {
-  background: var(--coral) !important;
-  color: #fff !important;
-  border-color: var(--coral) !important;
-}
-
-button[onclick="openSolarModal()"].bg-coral-500:hover {
-  background: var(--coral-dark) !important;
-}
-
-a[href="#archive"] {
-  background: transparent !important;
-  color: var(--ink) !important;
-  border-color: var(--line) !important;
-}
-
-a[href="#archive"]:hover {
-  background: #fff !important;
-  border-color: rgba(17,17,17,.22) !important;
-}
-
-/* Section architecture */
-.section-number {
-  font-family: 'IBM Plex Mono', monospace;
-  color: rgba(255,90,60,.15) !important;
-  font-weight: 300;
-}
-
-section h2 {
-  font-family: 'Fraunces', serif !important;
-  color: var(--ink) !important;
-  font-weight: 400 !important;
-}
-
-section h3 {
-  font-family: 'Fraunces', serif !important;
-}
-
-section p {
-  color: #555 !important;
-}
-
-/* Hardware archive — museum catalogue entries */
-#hardware-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
-  gap: 2rem !important;
-  padding-top: 1rem !important;
-}
-
-#hardware-grid > * {
-  background: #fff !important;
-  color: var(--ink) !important;
-  border: 1px solid rgba(17,17,17,.08) !important;
-  border-radius: 0 !important;
-  padding: 2rem !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
-  transition: border-color .2s ease, background-color .2s ease !important;
-}
-
-#hardware-grid > *:hover {
-  background: #fff !important;
-  border-color: rgba(255,90,60,.45) !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-
-#hardware-grid h3,
-#hardware-grid .card-title {
-  font-family: 'Fraunces', serif !important;
-  font-weight: 500 !important;
-  font-size: 1.25rem !important;
-  color: var(--ink) !important;
-}
-
-#hardware-grid p,
-#hardware-grid .card-desc,
-#hardware-grid .description {
-  color: #444 !important;
-  font-family: 'IBM Plex Sans', sans-serif !important;
-  line-height: 1.6 !important;
-}
-
-#hardware-grid .tag,
-#hardware-grid .status-pill,
-#hardware-grid .catalog-number,
-#hardware-grid .metadata {
-  font-family: 'IBM Plex Mono', monospace !important;
-  color: #666 !important;
-  border-color: rgba(17,17,17,.10) !important;
-  background: transparent !important;
-}
-
-/* Science editorial list */
-#science {
-  background: #fff !important;
-}
-
-#science article {
-  background: transparent !important;
-}
-
-#science article:hover {
-  background: #FAF9F5 !important;
-}
-
-#science article h3 {
-  color: var(--ink) !important;
-}
-
-#science article p {
-  color: #555 !important;
-}
-
-.divide-paper-100\/10 > :not([hidden]) ~ :not([hidden]) {
-  border-color: var(--line) !important;
-}
-
-/* 3D section */
-#interactive {
-  background: var(--paper) !important;
-  background-image:
-    linear-gradient(to right, rgba(17,17,17,.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(17,17,17,.035) 1px, transparent 1px) !important;
-  background-size: 48px 48px !important;
-}
-
-#interactive > div > div {
-  background: #fff !important;
-  border-color: var(--line) !important;
-  box-shadow: none !important;
-}
-
-#interactive .bg-space-900 {
-  background: #fff !important;
-  border-color: var(--line) !important;
-}
-
-#interactive .text-paper-100,
-#interactive .text-paper-200 {
-  color: var(--ink) !important;
-}
-
-#interactive .text-paper-400 {
-  color: #555 !important;
-}
-
-/* Keep orbital accent restrained */
-#interactive .bg-amber-500\/80 {
-  background-color: #111 !important;
-  box-shadow: none !important;
-}
-
-/* Footer */
-footer {
-  background: #fff !important;
-  border-color: var(--line) !important;
-}
-
-footer .text-paper-100,
-footer .text-paper-200 {
-  color: var(--ink) !important;
-}
-
-footer .text-paper-400,
-footer .text-paper-600 {
-  color: var(--muted) !important;
-}
-
-/* Solar System modal — clean exhibition shell */
-#solar-system-modal {
-  background: rgba(250,249,245,.96) !important;
-  backdrop-filter: blur(8px);
-}
-
-#solar-system-modal > div:first-child {
-  background: #fff !important;
-  border-color: var(--line) !important;
-}
-
-#solar-system-modal .text-paper-100,
-#solar-system-modal .text-paper-200 {
-  color: var(--ink) !important;
-}
-
-#solar-system-modal .text-paper-400,
-#solar-system-modal .text-paper-600 {
-  color: var(--muted) !important;
-}
-
-#solar-system-modal > div:last-child {
-  background: #FAF9F5 !important;
-}
-
-#solar-iframe {
-  border: none !important;
-  background: transparent !important;
-}
-
-/* Kill decorative dashboard effects that conflict with minimalism */
-.shadow-\[0_0_20px_rgba\(245\,158\,11\,0\.8\)\] {
-  box-shadow: none !important;
-}
-
-.blur-\[120px\] {
-  display: none !important;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  #hardware-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
-
-  #hardware-grid > * {
-    padding: 1.5rem !important;
-  }
-
-  .hero-headline {
-    font-size: clamp(2.5rem, 12vw, 4rem) !important;
-  }
-}
-
-  
-
-/* ==========================================================================
+    :root {
+      --paper: #FAF9F5;
+      --white: #FFFFFF;
+      --ink: #111111;
+      --muted: #666666;
+      --line: rgba(17, 17, 17, .10);
+      --line-soft: rgba(17, 17, 17, .06);
+      --coral: #FF5A3C;
+      --coral-dark: #E04326;
+    }
+
+    /* Base */
+    html,
+    body {
+      background: var(--paper) !important;
+      color: #222 !important;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif !important;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: var(--coral) !important;
+      color: #fff !important;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--paper) !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cccccc !important;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--coral) !important;
+    }
+
+    /* Quiet architectural grid */
+    .bg-tech-grid {
+      background-color: var(--paper) !important;
+      background-size: 48px 48px !important;
+      background-image:
+        linear-gradient(to right, rgba(17, 17, 17, .035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(17, 17, 17, .035) 1px, transparent 1px) !important;
+    }
+
+    /* Convert existing dark utility surfaces into paper/white surfaces */
+    .bg-space-950,
+    .bg-space-900,
+    .bg-space-850,
+    .bg-space-800,
+    .bg-space-700 {
+      background-color: var(--paper) !important;
+    }
+
+    .bg-space-950\/95 {
+      background-color: rgba(250, 249, 245, .96) !important;
+    }
+
+    .bg-space-900\/80,
+    .bg-space-900\/30 {
+      background-color: rgba(255, 255, 255, .72) !important;
+    }
+
+    .bg-white\/\[\.025\],
+    .bg-white\/\[\.03\],
+    .bg-white\/\[\.04\] {
+      background-color: #fff !important;
+    }
+
+    .bg-white\/\[\.03\] {
+      background-color: rgba(255, 255, 255, .7) !important;
+    }
+
+    /* Text becomes editorial black/grey */
+    .text-paper-100,
+    .text-paper-200 {
+      color: var(--ink) !important;
+    }
+
+    .text-paper-400,
+    .text-paper-500,
+    .text-paper-600 {
+      color: var(--muted) !important;
+    }
+
+    .text-coral-400,
+    .text-coral-500,
+    .text-coral-600 {
+      color: var(--coral) !important;
+    }
+
+    .border-paper-100\/10,
+    .border-paper-100\/15 {
+      border-color: var(--line) !important;
+    }
+
+    .border-paper-100\/20 {
+      border-color: rgba(17, 17, 17, .14) !important;
+    }
+
+    .border-paper-100\/30 {
+      border-color: rgba(17, 17, 17, .20) !important;
+    }
+
+    /* Top exhibition metadata */
+    aside[aria-label="Exhibit Metadata"] {
+      background: #fff !important;
+      color: var(--muted) !important;
+      border-color: var(--line) !important;
+    }
+
+    /* Navigation */
+    header {
+      background: rgba(250, 249, 245, .94) !important;
+      border-color: var(--line) !important;
+      backdrop-filter: blur(10px);
+    }
+
+    header .text-paper-100,
+    header .text-paper-200 {
+      color: var(--ink) !important;
+    }
+
+    header .text-paper-400 {
+      color: var(--muted) !important;
+    }
+
+    header .bg-space-900 {
+      background: #fff !important;
+    }
+
+    #mobile-menu {
+      background: #fff !important;
+      border-color: var(--line) !important;
+    }
+
+    /* Hero */
+    .hero-section {
+      min-height: calc(85vh - 80px);
+    }
+
+    main>section {
+      border-color: var(--line) !important;
+    }
+
+    main>section:first-child {
+      background-color: var(--paper) !important;
+    }
+
+    main>section:not(:first-child) {
+      background-color: transparent !important;
+    }
+
+    .hero-headline {
+      font-family: 'Fraunces', serif !important;
+      font-size: clamp(2.75rem, 5vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -.025em;
+      color: var(--ink) !important;
+      max-width: 20ch;
+    }
+
+    .hero-orbital-bg {
+      opacity: .30 !important;
+      mix-blend-mode: multiply;
+    }
+
+    main>section:first-child .text-paper-100,
+    main>section:first-child .text-paper-200 {
+      color: var(--ink) !important;
+    }
+
+    main>section:first-child .text-paper-400 {
+      color: #555 !important;
+    }
+
+    /* Remove dashboard/card feeling from hero readout */
+    main>section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
+      background: rgba(255, 255, 255, .55) !important;
+      border-color: var(--line) !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+
+    main>section:first-child .bg-space-950 {
+      background: #fff !important;
+      border-color: var(--line) !important;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--coral) !important;
+      color: #fff !important;
+      border-radius: 0 !important;
+    }
+
+    .btn-primary:hover {
+      background: var(--coral-dark) !important;
+    }
+
+    button[onclick="openSolarModal()"] {
+      border-radius: 0 !important;
+    }
+
+    button[onclick="openSolarModal()"].bg-coral-500 {
+      background: var(--coral) !important;
+      color: #fff !important;
+      border-color: var(--coral) !important;
+    }
+
+    button[onclick="openSolarModal()"].bg-coral-500:hover {
+      background: var(--coral-dark) !important;
+    }
+
+    a[href="#archive"] {
+      background: transparent !important;
+      color: var(--ink) !important;
+      border-color: var(--line) !important;
+    }
+
+    a[href="#archive"]:hover {
+      background: #fff !important;
+      border-color: rgba(17, 17, 17, .22) !important;
+    }
+
+    /* Section architecture */
+    .section-number {
+      font-family: 'IBM Plex Mono', monospace;
+      color: rgba(255, 90, 60, .15) !important;
+      font-weight: 300;
+    }
+
+    section h2 {
+      font-family: 'Fraunces', serif !important;
+      color: var(--ink) !important;
+      font-weight: 400 !important;
+    }
+
+    section h3 {
+      font-family: 'Fraunces', serif !important;
+    }
+
+    section p {
+      color: #555 !important;
+    }
+
+    /* Hardware archive — museum catalogue entries */
+    #hardware-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+      gap: 2rem !important;
+      padding-top: 1rem !important;
+    }
+
+    #hardware-grid>* {
+      background: #fff !important;
+      color: var(--ink) !important;
+      border: 1px solid rgba(17, 17, 17, .08) !important;
+      border-radius: 0 !important;
+      padding: 2rem !important;
+      box-shadow: none !important;
+      filter: none !important;
+      transform: none !important;
+      transition: border-color .2s ease, background-color .2s ease !important;
+    }
+
+    #hardware-grid>*:hover {
+      background: #fff !important;
+      border-color: rgba(255, 90, 60, .45) !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    #hardware-grid h3,
+    #hardware-grid .card-title {
+      font-family: 'Fraunces', serif !important;
+      font-weight: 500 !important;
+      font-size: 1.25rem !important;
+      color: var(--ink) !important;
+    }
+
+    #hardware-grid p,
+    #hardware-grid .card-desc,
+    #hardware-grid .description {
+      color: #444 !important;
+      font-family: 'IBM Plex Sans', sans-serif !important;
+      line-height: 1.6 !important;
+    }
+
+    #hardware-grid .tag,
+    #hardware-grid .status-pill,
+    #hardware-grid .catalog-number,
+    #hardware-grid .metadata {
+      font-family: 'IBM Plex Mono', monospace !important;
+      color: #666 !important;
+      border-color: rgba(17, 17, 17, .10) !important;
+      background: transparent !important;
+    }
+
+    /* Science editorial list */
+    #science {
+      background: #fff !important;
+    }
+
+    #science article {
+      background: transparent !important;
+    }
+
+    #science article:hover {
+      background: #FAF9F5 !important;
+    }
+
+    #science article h3 {
+      color: var(--ink) !important;
+    }
+
+    #science article p {
+      color: #555 !important;
+    }
+
+    .divide-paper-100\/10> :not([hidden])~ :not([hidden]) {
+      border-color: var(--line) !important;
+    }
+
+    /* 3D section */
+    #interactive {
+      background: var(--paper) !important;
+      background-image:
+        linear-gradient(to right, rgba(17, 17, 17, .035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(17, 17, 17, .035) 1px, transparent 1px) !important;
+      background-size: 48px 48px !important;
+    }
+
+    #interactive>div>div {
+      background: #fff !important;
+      border-color: var(--line) !important;
+      box-shadow: none !important;
+    }
+
+    #interactive .bg-space-900 {
+      background: #fff !important;
+      border-color: var(--line) !important;
+    }
+
+    #interactive .text-paper-100,
+    #interactive .text-paper-200 {
+      color: var(--ink) !important;
+    }
+
+    #interactive .text-paper-400 {
+      color: #555 !important;
+    }
+
+    /* Keep orbital accent restrained */
+    #interactive .bg-amber-500\/80 {
+      background-color: #111 !important;
+      box-shadow: none !important;
+    }
+
+    /* Footer */
+    footer {
+      background: #fff !important;
+      border-color: var(--line) !important;
+    }
+
+    footer .text-paper-100,
+    footer .text-paper-200 {
+      color: var(--ink) !important;
+    }
+
+    footer .text-paper-400,
+    footer .text-paper-600 {
+      color: var(--muted) !important;
+    }
+
+    /* Solar System modal — clean exhibition shell */
+    #solar-system-modal {
+      background: rgba(250, 249, 245, .96) !important;
+      backdrop-filter: blur(8px);
+    }
+
+    #solar-system-modal>div:first-child {
+      background: #fff !important;
+      border-color: var(--line) !important;
+    }
+
+    #solar-system-modal .text-paper-100,
+    #solar-system-modal .text-paper-200 {
+      color: var(--ink) !important;
+    }
+
+    #solar-system-modal .text-paper-400,
+    #solar-system-modal .text-paper-600 {
+      color: var(--muted) !important;
+    }
+
+    #solar-system-modal>div:last-child {
+      background: #FAF9F5 !important;
+    }
+
+    #solar-iframe {
+      border: none !important;
+      background: transparent !important;
+    }
+
+    /* Kill decorative dashboard effects that conflict with minimalism */
+    .shadow-\[0_0_20px_rgba\(245\,158\,11\,0\.8\)\] {
+      box-shadow: none !important;
+    }
+
+    .blur-\[120px\] {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #hardware-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+
+      #hardware-grid>* {
+        padding: 1.5rem !important;
+      }
+
+      .hero-headline {
+        font-size: clamp(2.5rem, 12vw, 4rem) !important;
+      }
+    }
+
+
+
+    /* ==========================================================================
    WARM EDITORIAL BALANCE — soften the white minimalist system
    ========================================================================== */
 
-:root {
-  --paper: #F1EFE9;
-  --paper-deep: #E8E5DC;
-  --white: #FAF9F5;
-  --ink: #151515;
-  --muted: #625F59;
-  --line: rgba(21,21,21,.13);
-  --line-soft: rgba(21,21,21,.075);
-  --coral: #FF5A3C;
-  --coral-dark: #E04326;
-}
+    :root {
+      --paper: #F1EFE9;
+      --paper-deep: #E8E5DC;
+      --white: #FAF9F5;
+      --ink: #151515;
+      --muted: #625F59;
+      --line: rgba(21, 21, 21, .13);
+      --line-soft: rgba(21, 21, 21, .075);
+      --coral: #FF5A3C;
+      --coral-dark: #E04326;
+    }
 
-/* Main canvas */
-html,
-body {
-  background: var(--paper) !important;
-  color: var(--ink) !important;
-}
+    /* Main canvas */
+    html,
+    body {
+      background: var(--paper) !important;
+      color: var(--ink) !important;
+    }
 
-/* Warm paper instead of pure white */
-.bg-tech-grid {
-  background-color: var(--paper) !important;
-  background-size: 52px 52px !important;
-  background-image:
-    linear-gradient(to right, rgba(21,21,21,.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(21,21,21,.045) 1px, transparent 1px) !important;
-}
+    /* Warm paper instead of pure white */
+    .bg-tech-grid {
+      background-color: var(--paper) !important;
+      background-size: 52px 52px !important;
+      background-image:
+        linear-gradient(to right, rgba(21, 21, 21, .045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(21, 21, 21, .045) 1px, transparent 1px) !important;
+    }
 
-/* Dark utility backgrounds become warm charcoal/paper rather than stark white */
-.bg-space-950,
-.bg-space-900,
-.bg-space-850,
-.bg-space-800,
-.bg-space-700 {
-  background-color: #E8E5DC !important;
-}
+    /* Dark utility backgrounds become warm charcoal/paper rather than stark white */
+    .bg-space-950,
+    .bg-space-900,
+    .bg-space-850,
+    .bg-space-800,
+    .bg-space-700 {
+      background-color: #E8E5DC !important;
+    }
 
-.bg-space-950 {
-  background-color: #E8E5DC !important;
-}
+    .bg-space-950 {
+      background-color: #E8E5DC !important;
+    }
 
-.bg-space-900 {
-  background-color: #ECEAE4 !important;
-}
+    .bg-space-900 {
+      background-color: #ECEAE4 !important;
+    }
 
-/* White surfaces remain available as intentional contrast */
-.bg-white\/\[\.025\],
-.bg-white\/\[\.03\],
-.bg-white\/\[\.04\] {
-  background-color: rgba(250,249,245,.72) !important;
-}
+    /* White surfaces remain available as intentional contrast */
+    .bg-white\/\[\.025\],
+    .bg-white\/\[\.03\],
+    .bg-white\/\[\.04\] {
+      background-color: rgba(250, 249, 245, .72) !important;
+    }
 
-/* Typography */
-.text-paper-100,
-.text-paper-200 {
-  color: var(--ink) !important;
-}
+    /* Typography */
+    .text-paper-100,
+    .text-paper-200 {
+      color: var(--ink) !important;
+    }
 
-.text-paper-400,
-.text-paper-500,
-.text-paper-600 {
-  color: var(--muted) !important;
-}
+    .text-paper-400,
+    .text-paper-500,
+    .text-paper-600 {
+      color: var(--muted) !important;
+    }
 
-.text-coral-400,
-.text-coral-500,
-.text-coral-600 {
-  color: var(--coral) !important;
-}
+    .text-coral-400,
+    .text-coral-500,
+    .text-coral-600 {
+      color: var(--coral) !important;
+    }
 
-/* Borders */
-.border-paper-100\/10,
-.border-paper-100\/15 {
-  border-color: var(--line) !important;
-}
+    /* Borders */
+    .border-paper-100\/10,
+    .border-paper-100\/15 {
+      border-color: var(--line) !important;
+    }
 
-.border-paper-100\/20 {
-  border-color: rgba(21,21,21,.17) !important;
-}
+    .border-paper-100\/20 {
+      border-color: rgba(21, 21, 21, .17) !important;
+    }
 
-.border-paper-100\/30 {
-  border-color: rgba(21,21,21,.22) !important;
-}
+    .border-paper-100\/30 {
+      border-color: rgba(21, 21, 21, .22) !important;
+    }
 
-/* Top metadata strip */
-aside[aria-label="Exhibit Metadata"] {
-  background: #E8E5DC !important;
-  border-color: var(--line) !important;
-}
+    /* Top metadata strip */
+    aside[aria-label="Exhibit Metadata"] {
+      background: #E8E5DC !important;
+      border-color: var(--line) !important;
+    }
 
-/* Navigation */
-header {
-  background: rgba(241,239,233,.94) !important;
-  border-color: var(--line) !important;
-}
+    /* Navigation */
+    header {
+      background: rgba(241, 239, 233, .94) !important;
+      border-color: var(--line) !important;
+    }
 
-#mobile-menu {
-  background: #E8E5DC !important;
-  border-color: var(--line) !important;
-}
+    #mobile-menu {
+      background: #E8E5DC !important;
+      border-color: var(--line) !important;
+    }
 
-/* Hero */
-main > section:first-child {
-  background-color: var(--paper) !important;
-}
+    /* Hero */
+    main>section:first-child {
+      background-color: var(--paper) !important;
+    }
 
-.hero-headline {
-  color: var(--ink) !important;
-}
+    .hero-headline {
+      color: var(--ink) !important;
+    }
 
-/* Hero technical readout gets a slightly lighter paper panel */
-main > section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
-  background: rgba(250,249,245,.68) !important;
-  border-color: var(--line) !important;
-}
+    /* Hero technical readout gets a slightly lighter paper panel */
+    main>section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
+      background: rgba(250, 249, 245, .68) !important;
+      border-color: var(--line) !important;
+    }
 
-/* Archive: alternate paper tone keeps the page from becoming one white slab */
-#archive {
-  background: #E8E5DC !important;
-}
+    /* Archive: alternate paper tone keeps the page from becoming one white slab */
+    #archive {
+      background: #E8E5DC !important;
+    }
 
-#hardware-grid > * {
-  background: #FAF9F5 !important;
-  border-color: rgba(21,21,21,.11) !important;
-}
+    #hardware-grid>* {
+      background: #FAF9F5 !important;
+      border-color: rgba(21, 21, 21, .11) !important;
+    }
 
-#hardware-grid > *:hover {
-  background: #FFFFFF !important;
-  border-color: rgba(255,90,60,.45) !important;
-}
+    #hardware-grid>*:hover {
+      background: #FFFFFF !important;
+      border-color: rgba(255, 90, 60, .45) !important;
+    }
 
-/* Science */
-#science {
-  background: #F7F5F0 !important;
-}
+    /* Science */
+    #science {
+      background: #F7F5F0 !important;
+    }
 
-#science article:hover {
-  background: #ECEAE4 !important;
-}
+    #science article:hover {
+      background: #ECEAE4 !important;
+    }
 
-/* Interactive section */
-#interactive {
-  background-color: #E8E5DC !important;
-  background-image:
-    linear-gradient(to right, rgba(21,21,21,.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(21,21,21,.045) 1px, transparent 1px) !important;
-  background-size: 52px 52px !important;
-}
+    /* Interactive section */
+    #interactive {
+      background-color: #E8E5DC !important;
+      background-image:
+        linear-gradient(to right, rgba(21, 21, 21, .045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(21, 21, 21, .045) 1px, transparent 1px) !important;
+      background-size: 52px 52px !important;
+    }
 
-#interactive > div > div {
-  background: #F7F5F0 !important;
-  border-color: var(--line) !important;
-}
+    #interactive>div>div {
+      background: #F7F5F0 !important;
+      border-color: var(--line) !important;
+    }
 
-#interactive .bg-space-900 {
-  background: #ECEAE4 !important;
-}
+    #interactive .bg-space-900 {
+      background: #ECEAE4 !important;
+    }
 
-/* Footer */
-footer {
-  background: #DDD9D0 !important;
-  border-color: rgba(21,21,21,.14) !important;
-}
+    /* Footer */
+    footer {
+      background: #DDD9D0 !important;
+      border-color: rgba(21, 21, 21, .14) !important;
+    }
 
-/* Solar System modal */
-#solar-system-modal {
-  background: rgba(232,229,220,.97) !important;
-}
+    /* Solar System modal */
+    #solar-system-modal {
+      background: rgba(232, 229, 220, .97) !important;
+    }
 
-#solar-system-modal > div:first-child {
-  background: #E8E5DC !important;
-  border-color: var(--line) !important;
-}
+    #solar-system-modal>div:first-child {
+      background: #E8E5DC !important;
+      border-color: var(--line) !important;
+    }
 
-#solar-system-modal > div:last-child {
-  background: #DDD9D0 !important;
-}
+    #solar-system-modal>div:last-child {
+      background: #DDD9D0 !important;
+    }
 
-/* Keep the accent restrained */
-.btn-primary,
-button[onclick="openSolarModal()"].bg-coral-500 {
-  background: var(--coral) !important;
-}
+    /* Keep the accent restrained */
+    .btn-primary,
+    button[onclick="openSolarModal()"].bg-coral-500 {
+      background: var(--coral) !important;
+    }
 
-.btn-primary:hover,
-button[onclick="openSolarModal()"].bg-coral-500:hover {
-  background: var(--coral-dark) !important;
-}
+    .btn-primary:hover,
+    button[onclick="openSolarModal()"].bg-coral-500:hover {
+      background: var(--coral-dark) !important;
+    }
 
-/* Slightly more compact desktop rhythm */
-@media (min-width: 1024px) {
-  main > section {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
-  }
+    /* Slightly more compact desktop rhythm */
+    @media (min-width: 1024px) {
+      main>section {
+        padding-top: 6rem !important;
+        padding-bottom: 6rem !important;
+      }
 
-  main > section:first-child {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
-  }
-}
+      main>section:first-child {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+      }
+    }
 
-  
 
-/* --------------------------------------------------------------------------
+
+    /* --------------------------------------------------------------------------
    ROTATING WIRE-MESH PLANET — subtle background exhibit element
    -------------------------------------------------------------------------- */
 
-.wire-planet {
-  position: absolute;
-  width: min(46vw, 620px);
-  height: min(46vw, 620px);
-  right: -4%;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: .24;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
-}
+    .wire-planet {
+      position: absolute;
+      width: min(46vw, 620px);
+      height: min(46vw, 620px);
+      right: -4%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: .24;
+      pointer-events: none;
+      z-index: 0;
+      overflow: visible;
+    }
 
-.wire-planet svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
+    .wire-planet svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
 
-.wire-planet-sphere {
-  transform-origin: 50% 50%;
-  animation: wirePlanetRotate 32s linear infinite;
-}
+    .wire-planet-sphere {
+      transform-origin: 50% 50%;
+      animation: wirePlanetRotate 32s linear infinite;
+    }
 
-.wire-planet-ring {
-  transform-origin: 50% 50%;
-  animation: wirePlanetRing 42s linear infinite;
-}
+    .wire-planet-ring {
+      transform-origin: 50% 50%;
+      animation: wirePlanetRing 42s linear infinite;
+    }
 
-@keyframes wirePlanetRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+    @keyframes wirePlanetRotate {
+      from {
+        transform: rotate(0deg);
+      }
 
-@keyframes wirePlanetRing {
-  from { transform: rotate(-8deg); }
-  to { transform: rotate(352deg); }
-}
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  .wire-planet-sphere,
-  .wire-planet-ring { animation: none; }
-}
+    @keyframes wirePlanetRing {
+      from {
+        transform: rotate(-8deg);
+      }
 
-@media (max-width: 1024px) {
-  .wire-planet {
-    width: 480px;
-    height: 480px;
-    right: -12%;
-    opacity: .18;
-  }
-}
+      to {
+        transform: rotate(352deg);
+      }
+    }
 
-@media (max-width: 640px) {
-  .wire-planet {
-    width: 360px;
-    height: 360px;
-    right: -22%;
-    top: 28%;
-    opacity: .13;
-  }
-}
-  
+    @media (prefers-reduced-motion: reduce) {
 
-/* ==========================================================================
+      .wire-planet-sphere,
+      .wire-planet-ring {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .wire-planet {
+        width: 480px;
+        height: 480px;
+        right: -12%;
+        opacity: .18;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wire-planet {
+        width: 360px;
+        height: 360px;
+        right: -22%;
+        top: 28%;
+        opacity: .13;
+      }
+    }
+
+
+    /* ==========================================================================
    BALANCED 4-TONE EXHIBITION PALETTE
    Cream / Ivory / Stone / Charcoal with restrained coral accents
    ========================================================================== */
 
-:root {
-  --tone-cream: #F1EFE9;
-  --tone-ivory: #FAF9F5;
-  --tone-stone: #E1DED5;
-  --tone-charcoal: #242321;
-  --ink: #151515;
-  --muted: #625F59;
-  --line: rgba(21,21,21,.13);
-  --coral: #FF5A3C;
-  --coral-dark: #E04326;
-}
+    :root {
+      --tone-cream: #F1EFE9;
+      --tone-ivory: #FAF9F5;
+      --tone-stone: #E1DED5;
+      --tone-charcoal: #242321;
+      --ink: #151515;
+      --muted: #625F59;
+      --line: rgba(21, 21, 21, .13);
+      --coral: #FF5A3C;
+      --coral-dark: #E04326;
+    }
 
-/* HERO — cream */
-main > section:first-child,
-.hero-section {
-  background-color: var(--tone-cream) !important;
-}
+    /* HERO — cream */
+    main>section:first-child,
+    .hero-section {
+      background-color: var(--tone-cream) !important;
+    }
 
-/* ARCHIVE — stone */
-#archive {
-  background-color: var(--tone-stone) !important;
-}
+    /* ARCHIVE — stone */
+    #archive {
+      background-color: var(--tone-stone) !important;
+    }
 
-#archive #hardware-grid > * {
-  background-color: var(--tone-ivory) !important;
-}
+    #archive #hardware-grid>* {
+      background-color: var(--tone-ivory) !important;
+    }
 
-/* SCIENCE — ivory */
-#science {
-  background-color: var(--tone-ivory) !important;
-}
+    /* SCIENCE — ivory */
+    #science {
+      background-color: var(--tone-ivory) !important;
+    }
 
-#science article:hover {
-  background-color: var(--tone-cream) !important;
-}
+    #science article:hover {
+      background-color: var(--tone-cream) !important;
+    }
 
-/* INTERACTIVE — darker stone */
-#interactive {
-  background-color: #D7D3C9 !important;
-}
+    /* INTERACTIVE — darker stone */
+    #interactive {
+      background-color: #D7D3C9 !important;
+    }
 
-#interactive > div > div {
-  background-color: var(--tone-ivory) !important;
-}
+    #interactive>div>div {
+      background-color: var(--tone-ivory) !important;
+    }
 
-#interactive .bg-space-900 {
-  background-color: var(--tone-stone) !important;
-}
+    #interactive .bg-space-900 {
+      background-color: var(--tone-stone) !important;
+    }
 
-/* FOOTER — charcoal gives the page a strong visual anchor */
-footer {
-  background-color: var(--tone-charcoal) !important;
-  color: #F1EFE9 !important;
-}
+    /* FOOTER — charcoal gives the page a strong visual anchor */
+    footer {
+      background-color: var(--tone-charcoal) !important;
+      color: #F1EFE9 !important;
+    }
 
-footer .text-paper-100,
-footer .text-paper-200 {
-  color: #FAF9F5 !important;
-}
+    footer .text-paper-100,
+    footer .text-paper-200 {
+      color: #FAF9F5 !important;
+    }
 
-footer .text-paper-400,
-footer .text-paper-600 {
-  color: #B8B3A9 !important;
-}
+    footer .text-paper-400,
+    footer .text-paper-600 {
+      color: #B8B3A9 !important;
+    }
 
-footer .border-paper-100\/10 {
-  border-color: rgba(250,249,245,.14) !important;
-}
+    footer .border-paper-100\/10 {
+      border-color: rgba(250, 249, 245, .14) !important;
+    }
 
-/* HEADER — between cream and ivory */
-header {
-  background-color: rgba(241,239,233,.96) !important;
-}
+    /* HEADER — between cream and ivory */
+    header {
+      background-color: rgba(241, 239, 233, .96) !important;
+    }
 
-aside[aria-label="Exhibit Metadata"] {
-  background-color: var(--tone-stone) !important;
-}
+    aside[aria-label="Exhibit Metadata"] {
+      background-color: var(--tone-stone) !important;
+    }
 
-/* MOBILE MENU */
-#mobile-menu {
-  background-color: var(--tone-ivory) !important;
-}
+    /* MOBILE MENU */
+    #mobile-menu {
+      background-color: var(--tone-ivory) !important;
+    }
 
-/* HERO READOUT */
-main > section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
-  background-color: rgba(250,249,245,.72) !important;
-}
+    /* HERO READOUT */
+    main>section:first-child .border-paper-100\/10.bg-white\/\[\.04\] {
+      background-color: rgba(250, 249, 245, .72) !important;
+    }
 
-/* HARDWARE CARD CONTRAST */
-#hardware-grid > * {
-  border-color: rgba(21,21,21,.12) !important;
-}
+    /* HARDWARE CARD CONTRAST */
+    #hardware-grid>* {
+      border-color: rgba(21, 21, 21, .12) !important;
+    }
 
-#hardware-grid > *:hover {
-  background-color: #FFFFFF !important;
-  border-color: rgba(255,90,60,.48) !important;
-}
+    #hardware-grid>*:hover {
+      background-color: #FFFFFF !important;
+      border-color: rgba(255, 90, 60, .48) !important;
+    }
 
-/* SECTION DIVIDERS */
-main > section,
-.section-container {
-  border-color: var(--line) !important;
-}
+    /* SECTION DIVIDERS */
+    main>section,
+    .section-container {
+      border-color: var(--line) !important;
+    }
 
-/* Keep the wire planet visible but balanced against the four tones */
-.wire-planet {
-  opacity: .21 !important;
-}
+    /* Keep the wire planet visible but balanced against the four tones */
+    .wire-planet {
+      opacity: .21 !important;
+    }
 
-.wire-planet-sphere,
-.wire-planet-ring {
-  stroke: #4F4C46;
-}
+    .wire-planet-sphere,
+    .wire-planet-ring {
+      stroke: #4F4C46;
+    }
 
-/* CORAL — accent only, not a background */
-.btn-primary,
-button[onclick="openSolarModal()"].bg-coral-500 {
-  background-color: var(--coral) !important;
-}
+    /* CORAL — accent only, not a background */
+    .btn-primary,
+    button[onclick="openSolarModal()"].bg-coral-500 {
+      background-color: var(--coral) !important;
+    }
 
-.btn-primary:hover,
-button[onclick="openSolarModal()"].bg-coral-500:hover {
-  background-color: var(--coral-dark) !important;
-}
+    .btn-primary:hover,
+    button[onclick="openSolarModal()"].bg-coral-500:hover {
+      background-color: var(--coral-dark) !important;
+    }
 
-/* MOBILE: preserve the same color distribution */
-@media (max-width: 768px) {
-  #archive {
-    background-color: var(--tone-stone) !important;
-  }
+    /* MOBILE: preserve the same color distribution */
+    @media (max-width: 768px) {
+      #archive {
+        background-color: var(--tone-stone) !important;
+      }
 
-  #science {
-    background-color: var(--tone-ivory) !important;
-  }
+      #science {
+        background-color: var(--tone-ivory) !important;
+      }
 
-  #interactive {
-    background-color: #D7D3C9 !important;
-  }
-}
-  
+      #interactive {
+        background-color: #D7D3C9 !important;
+      }
+    }
 
-/* ==========================================================================
+
+    /* ==========================================================================
    CINEMATIC SCROLL INTRO
    ========================================================================== */
-.intro-scroll{position:relative;height:230vh;background:#F1EFE9!important;overflow:clip;border-bottom:1px solid rgba(21,21,21,.12)}
-.intro-stage{position:sticky;top:0;height:100vh;min-height:680px;overflow:hidden;isolation:isolate;color:#151515}
-.intro-grid{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(to right,rgba(21,21,21,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(21,21,21,.035) 1px,transparent 1px);background-size:52px 52px}
-.intro-stage:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 72% 50%,rgba(255,255,255,.48),transparent 34%)}
-.intro-planet{position:absolute;width:min(58vw,680px);height:min(58vw,680px);left:50%;top:50%;z-index:1;color:#5A5750;transform:translate3d(-50%,-50%,0) scale(1);will-change:transform;opacity:.76;pointer-events:none}
-.intro-planet svg{width:100%;height:100%;overflow:visible}
-.intro-mark{position:absolute;z-index:4;display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.13em;color:#625F59;text-transform:uppercase}
-.intro-mark-top{top:30px;left:clamp(24px,5vw,72px)}
-.intro-mark-bottom{bottom:34px;left:50%;transform:translateX(-50%)}
-.intro-scroll-line{width:48px;height:1px;background:#8D8981;position:relative}
-.intro-scroll-line:after{content:"";position:absolute;left:0;top:-2px;width:12px;height:5px;border-top:1px solid #FF5A3C}
-.intro-section-number{position:absolute;right:clamp(24px,5vw,72px);top:30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,90,60,.7);letter-spacing:.12em}
-.intro-content{position:absolute;inset:0;z-index:3;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.55fr);align-items:center;gap:clamp(40px,7vw,120px);padding:100px clamp(24px,7vw,110px) 80px;opacity:0;transform:translateY(34px);pointer-events:none;will-change:opacity,transform}
-.intro-copy{max-width:690px}
-.intro-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:#625F59}
-.intro-dot{width:6px;height:6px;background:#FF5A3C;border-radius:50%}
-.intro-copy h1{margin:0;color:#151515!important;font-family:'Fraunces',serif!important;font-size:clamp(3.4rem,6.5vw,6.8rem);font-weight:400;line-height:.92;letter-spacing:-.045em}
-.intro-copy h1 em{font-weight:300}
-.intro-copy p{max-width:570px;margin:28px 0 0;color:#625F59!important;font-family:'IBM Plex Sans',sans-serif;font-size:clamp(1rem,1.35vw,1.2rem);line-height:1.65}
-.intro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:32px}
-.intro-secondary{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border:1px solid rgba(21,21,21,.12);color:#151515;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;background:rgba(250,249,245,.5)}
-.intro-secondary span{color:#FF5A3C;font-size:15px}
-.intro-readout{width:min(100%,390px);justify-self:end;border-top:1px solid rgba(21,21,21,.15);border-bottom:1px solid rgba(21,21,21,.15);padding:18px 0;background:rgba(250,249,245,.24)}
-.intro-readout-head,.intro-readout-foot{display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:#625F59}
-.intro-readout-head{padding-bottom:14px;border-bottom:1px solid rgba(21,21,21,.09)}
-.intro-readout-head span:first-child{color:#FF5A3C}
-.intro-readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;padding:24px 0}
-.intro-readout-grid div{border-left:2px solid rgba(21,21,21,.10);padding-left:12px}
-.intro-readout-grid small,.intro-readout-grid strong{display:block;font-family:'IBM Plex Mono',monospace}
-.intro-readout-grid small{color:#8A867F;font-size:9px;letter-spacing:.1em}
-.intro-readout-grid strong{margin-top:4px;color:#242321;font-size:10px;letter-spacing:.04em;font-weight:500}
-.intro-readout-foot{padding-top:14px;border-top:1px solid rgba(21,21,21,.09)}
-.intro-readout-foot span:last-child{color:#8A867F}
-@media(max-width:900px){.intro-scroll{height:205vh}.intro-planet{width:520px;height:520px;left:68%;top:39%;opacity:.42}.intro-content{grid-template-columns:1fr;align-items:end;padding:100px 28px 80px}.intro-readout{display:none}}
-@media(max-width:640px){.intro-scroll{height:190vh}.intro-stage{min-height:620px}.intro-planet{width:390px;height:390px;left:72%;top:31%;opacity:.30}.intro-mark-top{top:22px;left:20px}.intro-section-number{top:22px;right:20px}.intro-mark-bottom{bottom:22px;white-space:nowrap}.intro-content{padding:90px 20px 62px}.intro-copy h1{font-size:clamp(3rem,15vw,4.5rem)}.intro-copy p{font-size:.96rem}}
-@media(prefers-reduced-motion:reduce){.intro-planet{transform:translate3d(-50%,-50%,0) scale(.72)!important}.intro-content{opacity:1!important;transform:none!important}}
-  
+    .intro-scroll {
+      position: relative;
+      height: 230vh;
+      background: #F1EFE9 !important;
+      overflow: clip;
+      border-bottom: 1px solid rgba(21, 21, 21, .12)
+    }
 
-/* ==========================================================================
+    .intro-stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      isolation: isolate;
+      color: #151515
+    }
+
+    .intro-grid {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: linear-gradient(to right, rgba(21, 21, 21, .035) 1px, transparent 1px), linear-gradient(to bottom, rgba(21, 21, 21, .035) 1px, transparent 1px);
+      background-size: 52px 52px
+    }
+
+    .intro-stage:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(circle at 72% 50%, rgba(255, 255, 255, .48), transparent 34%)
+    }
+
+    .intro-planet {
+      position: absolute;
+      width: min(58vw, 680px);
+      height: min(58vw, 680px);
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      color: #5A5750;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+      will-change: transform;
+      opacity: .76;
+      pointer-events: none
+    }
+
+    .intro-planet svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible
+    }
+
+    .intro-mark {
+      position: absolute;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .13em;
+      color: #625F59;
+      text-transform: uppercase
+    }
+
+    .intro-mark-top {
+      top: 30px;
+      left: clamp(24px, 5vw, 72px)
+    }
+
+    .intro-mark-bottom {
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .intro-scroll-line {
+      width: 48px;
+      height: 1px;
+      background: #8D8981;
+      position: relative
+    }
+
+    .intro-scroll-line:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -2px;
+      width: 12px;
+      height: 5px;
+      border-top: 1px solid #FF5A3C
+    }
+
+    .intro-section-number {
+      position: absolute;
+      right: clamp(24px, 5vw, 72px);
+      top: 30px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: rgba(255, 90, 60, .7);
+      letter-spacing: .12em
+    }
+
+    .intro-content {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, .55fr);
+      align-items: center;
+      gap: clamp(40px, 7vw, 120px);
+      padding: 100px clamp(24px, 7vw, 110px) 80px;
+      opacity: 0;
+      transform: translateY(34px);
+      pointer-events: none;
+      will-change: opacity, transform
+    }
+
+    .intro-copy {
+      max-width: 690px
+    }
+
+    .intro-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: #625F59
+    }
+
+    .intro-dot {
+      width: 6px;
+      height: 6px;
+      background: #FF5A3C;
+      border-radius: 50%
+    }
+
+    .intro-copy h1 {
+      margin: 0;
+      color: #151515 !important;
+      font-family: 'Fraunces', serif !important;
+      font-size: clamp(3.4rem, 6.5vw, 6.8rem);
+      font-weight: 400;
+      line-height: .92;
+      letter-spacing: -.045em
+    }
+
+    .intro-copy h1 em {
+      font-weight: 300
+    }
+
+    .intro-copy p {
+      max-width: 570px;
+      margin: 28px 0 0;
+      color: #625F59 !important;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1rem, 1.35vw, 1.2rem);
+      line-height: 1.65
+    }
+
+    .intro-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 32px
+    }
+
+    .intro-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border: 1px solid rgba(21, 21, 21, .12);
+      color: #151515;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: rgba(250, 249, 245, .5)
+    }
+
+    .intro-secondary span {
+      color: #FF5A3C;
+      font-size: 15px
+    }
+
+    .intro-readout {
+      width: min(100%, 390px);
+      justify-self: end;
+      border-top: 1px solid rgba(21, 21, 21, .15);
+      border-bottom: 1px solid rgba(21, 21, 21, .15);
+      padding: 18px 0;
+      background: rgba(250, 249, 245, .24)
+    }
+
+    .intro-readout-head,
+    .intro-readout-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .1em;
+      color: #625F59
+    }
+
+    .intro-readout-head {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(21, 21, 21, .09)
+    }
+
+    .intro-readout-head span:first-child {
+      color: #FF5A3C
+    }
+
+    .intro-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px 18px;
+      padding: 24px 0
+    }
+
+    .intro-readout-grid div {
+      border-left: 2px solid rgba(21, 21, 21, .10);
+      padding-left: 12px
+    }
+
+    .intro-readout-grid small,
+    .intro-readout-grid strong {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .intro-readout-grid small {
+      color: #8A867F;
+      font-size: 9px;
+      letter-spacing: .1em
+    }
+
+    .intro-readout-grid strong {
+      margin-top: 4px;
+      color: #242321;
+      font-size: 10px;
+      letter-spacing: .04em;
+      font-weight: 500
+    }
+
+    .intro-readout-foot {
+      padding-top: 14px;
+      border-top: 1px solid rgba(21, 21, 21, .09)
+    }
+
+    .intro-readout-foot span:last-child {
+      color: #8A867F
+    }
+
+    @media(max-width:900px) {
+      .intro-scroll {
+        height: 205vh
+      }
+
+      .intro-planet {
+        width: 520px;
+        height: 520px;
+        left: 68%;
+        top: 39%;
+        opacity: .42
+      }
+
+      .intro-content {
+        grid-template-columns: 1fr;
+        align-items: end;
+        padding: 100px 28px 80px
+      }
+
+      .intro-readout {
+        display: none
+      }
+    }
+
+    @media(max-width:640px) {
+      .intro-scroll {
+        height: 190vh
+      }
+
+      .intro-stage {
+        min-height: 620px
+      }
+
+      .intro-planet {
+        width: 390px;
+        height: 390px;
+        left: 72%;
+        top: 31%;
+        opacity: .30
+      }
+
+      .intro-mark-top {
+        top: 22px;
+        left: 20px
+      }
+
+      .intro-section-number {
+        top: 22px;
+        right: 20px
+      }
+
+      .intro-mark-bottom {
+        bottom: 22px;
+        white-space: nowrap
+      }
+
+      .intro-content {
+        padding: 90px 20px 62px
+      }
+
+      .intro-copy h1 {
+        font-size: clamp(3rem, 15vw, 4.5rem)
+      }
+
+      .intro-copy p {
+        font-size: .96rem
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      .intro-planet {
+        transform: translate3d(-50%, -50%, 0) scale(.72) !important
+      }
+
+      .intro-content {
+        opacity: 1 !important;
+        transform: none !important
+      }
+    }
+
+
+    /* ==========================================================================
    SATURN WIRE-MESH OPENING — planet rotation + slow ring-plane tilt
    ========================================================================== */
 
-.intro-mark,
-.intro-section-number {
-  opacity: 0;
-  transition: none;
-}
+    .intro-mark,
+    .intro-section-number {
+      opacity: 0;
+      transition: none;
+    }
 
-.intro-content {
-  opacity: 0;
-  transform: translateY(42px);
-}
+    .intro-content {
+      opacity: 0;
+      transform: translateY(42px);
+    }
 
-#intro-title {
-  opacity: 0;
-  transform: translateY(18px);
-  will-change: opacity, transform;
-}
+    #intro-title {
+      opacity: 0;
+      transform: translateY(18px);
+      will-change: opacity, transform;
+    }
 
-#intro-planet {
-  opacity: .82;
-  color: #514E47;
-}
+    #intro-planet {
+      opacity: .82;
+      color: #514E47;
+    }
 
-#intro-planet-sphere {
-  transform-box: fill-box;
-  transform-origin: center;
-  will-change: transform;
-}
+    #intro-planet-sphere {
+      transform-box: fill-box;
+      transform-origin: center;
+      will-change: transform;
+    }
 
-#intro-planet-orbit,
-#intro-ring-details {
-  transform-box: fill-box;
-  transform-origin: center;
-  will-change: transform;
-}
+    #intro-planet-orbit,
+    #intro-ring-details {
+      transform-box: fill-box;
+      transform-origin: center;
+      will-change: transform;
+    }
 
-#intro-ring-details {
-  stroke: #625E56;
-}
+    #intro-ring-details {
+      stroke: #625E56;
+    }
 
-@media (max-width: 640px) {
-  #intro-planet {
-    opacity: .68;
-  }
-}
+    @media (max-width: 640px) {
+      #intro-planet {
+        opacity: .68;
+      }
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  #intro-title {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-  
-/* ==========================================================================
+    @media (prefers-reduced-motion: reduce) {
+      #intro-title {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* ==========================================================================
    CINEMATIC TITLE TRANSITION — centered origin to editorial left lockup
    ========================================================================== */
-#intro-content {
-  opacity: 0;
-  transform: none;
-  transition: none !important;
-  will-change: opacity, transform;
-}
+    #intro-content {
+      opacity: 0;
+      transform: none;
+      transition: none !important;
+      will-change: opacity, transform;
+    }
 
-#intro-title {
-  opacity: 0;
-  transform: none;
-  will-change: opacity, transform;
-}
+    #intro-title {
+      opacity: 0;
+      transform: none;
+      will-change: opacity, transform;
+    }
 
-.intro-copy,
-.intro-copy > *,
-.intro-readout {
-  will-change: opacity, transform;
-}
+    .intro-copy,
+    .intro-copy>*,
+    .intro-readout {
+      will-change: opacity, transform;
+    }
 
-/* Keep the title visually independent so it can travel from center-bottom
+    /* Keep the title visually independent so it can travel from center-bottom
    into its final editorial position before the supporting copy appears. */
-#intro-title {
-  position: relative;
-}
+    #intro-title {
+      position: relative;
+    }
 
-/* The opening stays deliberately quiet: no visible typography at load. */
-#intro-scroll .intro-content,
-#intro-scroll #intro-title,
-#intro-scroll .intro-copy p,
-#intro-scroll .intro-eyebrow,
-#intro-scroll .intro-actions,
-#intro-scroll .intro-readout {
-  visibility: visible;
-}
+    /* The opening stays deliberately quiet: no visible typography at load. */
+    #intro-scroll .intro-content,
+    #intro-scroll #intro-title,
+    #intro-scroll .intro-copy p,
+    #intro-scroll .intro-eyebrow,
+    #intro-scroll .intro-actions,
+    #intro-scroll .intro-readout {
+      visibility: visible;
+    }
 
-/* ==========================================================================
+    /* ==========================================================================
    PERSISTENT SATURN EXHIBIT — follows the visitor through the full page
    ========================================================================== */
-#intro-content {
-  opacity: 0;
-  transform: none;
-  transition: none !important;
-  will-change: opacity;
-}
+    #intro-content {
+      opacity: 0;
+      transform: none;
+      transition: none !important;
+      will-change: opacity;
+    }
 
-#intro-title {
-  opacity: 0;
-  transform: none;
-  transition: none !important;
-  will-change: opacity;
-}
+    #intro-title {
+      opacity: 0;
+      transform: none;
+      transition: none !important;
+      will-change: opacity;
+    }
 
-.intro-copy p,
-.intro-eyebrow,
-.intro-actions,
-.intro-readout {
-  opacity: 0;
-  transition: none !important;
-  will-change: opacity;
-}
+    .intro-copy p,
+    .intro-eyebrow,
+    .intro-actions,
+    .intro-readout {
+      opacity: 0;
+      transition: none !important;
+      will-change: opacity;
+    }
 
-/* The opening should feel intentionally empty: only Saturn is present. */
-#intro-scroll .intro-content,
-#intro-scroll #intro-title,
-#intro-scroll .intro-copy p,
-#intro-scroll .intro-eyebrow,
-#intro-scroll .intro-actions,
-#intro-scroll .intro-readout {
-  visibility: visible;
-}
+    /* The opening should feel intentionally empty: only Saturn is present. */
+    #intro-scroll .intro-content,
+    #intro-scroll #intro-title,
+    #intro-scroll .intro-copy p,
+    #intro-scroll .intro-eyebrow,
+    #intro-scroll .intro-actions,
+    #intro-scroll .intro-readout {
+      visibility: visible;
+    }
 
-/* ==========================================================================
+    /* ==========================================================================
    PERSISTENT SATURN EXHIBIT — follows the visitor through the full page
    ========================================================================== */
-#intro-planet {
-  position: fixed !important;
-  left: 50vw !important;
-  top: 50vh !important;
-  z-index: 2 !important;
-  transition: none !important;
-}
+    #intro-planet {
+      position: fixed !important;
+      left: 50vw !important;
+      top: 50vh !important;
+      z-index: 2 !important;
+      transition: none !important;
+    }
 
-#intro-planet.intro-planet-follow {
-  pointer-events: none !important;
-}
+    #intro-planet.intro-planet-follow {
+      pointer-events: none !important;
+    }
 
-/* Keep page content readable while Saturn remains present as an exhibit layer. */
-main, footer, header, aside[aria-label="Exhibit Metadata"] {
-  position: relative;
-}
+    /* Keep page content readable while Saturn remains present as an exhibit layer. */
+    main,
+    footer,
+    header,
+    aside[aria-label="Exhibit Metadata"] {
+      position: relative;
+    }
 
-@media (max-width: 900px) {
-  #intro-planet {
-    opacity: .24 !important;
-  }
-}
-@media (max-width: 640px) {
-  #intro-planet {
-    opacity: .17 !important;
-  }
-}
+    @media (max-width: 900px) {
+      #intro-planet {
+        opacity: .24 !important;
+      }
+    }
 
-  
-/* ==========================================================================
+    @media (max-width: 640px) {
+      #intro-planet {
+        opacity: .17 !important;
+      }
+    }
+
+
+    /* ==========================================================================
    FINAL CINEMATIC OPENING — clean left-column reveal
    ========================================================================== */
 
-#intro-scroll {
-  height: 180vh !important;
-}
+    #intro-scroll {
+      height: 180vh !important;
+    }
 
-/* The intro wrapper itself is always present; individual elements fade. */
-#intro-content {
-  opacity: 1 !important;
-  transform: none !important;
-  pointer-events: none;
-}
+    /* The intro wrapper itself is always present; individual elements fade. */
+    #intro-content {
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: none;
+    }
 
-/* Title has a controlled editorial width so it cannot spill across the planet. */
-#intro-title {
-  position: absolute !important;
-  left: 50%;
-  top: 68vh;
-  width: min(620px, 44vw);
-  max-width: 620px;
-  margin: 0 !important;
-  opacity: 0;
-  transform: translate3d(-50%, -50%, 0);
-  transition: none !important;
-  will-change: left, top, transform, opacity;
-  z-index: 5;
-}
+    /* Title has a controlled editorial width so it cannot spill across the planet. */
+    #intro-title {
+      position: absolute !important;
+      left: 50%;
+      top: 68vh;
+      width: min(620px, 44vw);
+      max-width: 620px;
+      margin: 0 !important;
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0);
+      transition: none !important;
+      will-change: left, top, transform, opacity;
+      z-index: 5;
+    }
 
-/* Smaller text remains hidden until scrolling begins. */
-#intro-content .intro-eyebrow,
-#intro-content .intro-copy p,
-#intro-content .intro-actions,
-#intro-content .intro-readout {
-  opacity: 0;
-  transition: none !important;
-  will-change: opacity;
-}
+    /* Smaller text remains hidden until scrolling begins. */
+    #intro-content .intro-eyebrow,
+    #intro-content .intro-copy p,
+    #intro-content .intro-actions,
+    #intro-content .intro-readout {
+      opacity: 0;
+      transition: none !important;
+      will-change: opacity;
+    }
 
-/* Keep the title independent of the copy grid. */
-#intro-content .intro-copy {
-  position: static !important;
-  padding-top: 0 !important;
-}
+    /* Keep the title independent of the copy grid. */
+    #intro-content .intro-copy {
+      position: static !important;
+      padding-top: 0 !important;
+    }
 
-/* Final editorial positions: middle-left, with the supporting text below. */
-#intro-content .intro-eyebrow,
-#intro-content .intro-copy p,
-#intro-content .intro-actions {
-  position: absolute;
-  left: 7vw;
-  max-width: 44vw;
-}
+    /* Final editorial positions: middle-left, with the supporting text below. */
+    #intro-content .intro-eyebrow,
+    #intro-content .intro-copy p,
+    #intro-content .intro-actions {
+      position: absolute;
+      left: 7vw;
+      max-width: 44vw;
+    }
 
-#intro-content .intro-eyebrow {
-  top: 31vh;
-  margin: 0;
-}
+    #intro-content .intro-eyebrow {
+      top: 31vh;
+      margin: 0;
+    }
 
-#intro-content .intro-copy p {
-  top: 56vh;
-  margin: 0;
-}
+    #intro-content .intro-copy p {
+      top: 56vh;
+      margin: 0;
+    }
 
-#intro-content .intro-actions {
-  top: 70vh;
-  margin: 0;
-}
+    #intro-content .intro-actions {
+      top: 70vh;
+      margin: 0;
+    }
 
-/* The opening viewport is intentionally clean: chrome also fades in later. */
-body > aside[aria-label="Exhibit Metadata"],
-body > header {
-  opacity: 0;
-  pointer-events: none;
-  transition: none !important;
-  will-change: opacity;
-}
+    /* The opening viewport is intentionally clean: chrome also fades in later. */
+    body>aside[aria-label="Exhibit Metadata"],
+    body>header {
+      opacity: 0;
+      pointer-events: none;
+      transition: none !important;
+      will-change: opacity;
+    }
 
-@media (max-width: 900px) {
-  #intro-scroll { height: 170vh !important; }
+    @media (max-width: 900px) {
+      #intro-scroll {
+        height: 170vh !important;
+      }
 
-  #intro-title {
-    width: min(560px, 72vw);
-    max-width: 72vw;
-    top: 66vh;
-  }
+      #intro-title {
+        width: min(560px, 72vw);
+        max-width: 72vw;
+        top: 66vh;
+      }
 
-  #intro-content .intro-eyebrow,
-  #intro-content .intro-copy p,
-  #intro-content .intro-actions {
-    left: 6vw;
-    max-width: 72vw;
-  }
+      #intro-content .intro-eyebrow,
+      #intro-content .intro-copy p,
+      #intro-content .intro-actions {
+        left: 6vw;
+        max-width: 72vw;
+      }
 
-  #intro-content .intro-eyebrow { top: 31vh; }
-  #intro-content .intro-copy p { top: 54vh; }
-  #intro-content .intro-actions { top: 70vh; }
-}
+      #intro-content .intro-eyebrow {
+        top: 31vh;
+      }
 
-@media (max-width: 640px) {
-  #intro-scroll { height: 160vh !important; }
+      #intro-content .intro-copy p {
+        top: 54vh;
+      }
 
-  #intro-title {
-    width: calc(100vw - 40px);
-    max-width: none;
-    top: 64vh;
-  }
+      #intro-content .intro-actions {
+        top: 70vh;
+      }
+    }
 
-  #intro-content .intro-eyebrow,
-  #intro-content .intro-copy p,
-  #intro-content .intro-actions {
-    left: 20px;
-    max-width: calc(100vw - 40px);
-  }
+    @media (max-width: 640px) {
+      #intro-scroll {
+        height: 160vh !important;
+      }
 
-  #intro-content .intro-eyebrow { top: 30vh; }
-  #intro-content .intro-copy p { top: 53vh; }
-  #intro-content .intro-actions { top: 69vh; }
-}
+      #intro-title {
+        width: calc(100vw - 40px);
+        max-width: none;
+        top: 64vh;
+      }
 
-@media (prefers-reduced-motion: reduce) {
-  #intro-title {
-    opacity: 1 !important;
-    left: 7vw !important;
-    top: 43vh !important;
-    transform: translate3d(0, -50%, 0) !important;
-  }
+      #intro-content .intro-eyebrow,
+      #intro-content .intro-copy p,
+      #intro-content .intro-actions {
+        left: 20px;
+        max-width: calc(100vw - 40px);
+      }
 
-  #intro-content .intro-eyebrow,
-  #intro-content .intro-copy p,
-  #intro-content .intro-actions,
-  #intro-content .intro-readout,
-  body > aside[aria-label="Exhibit Metadata"],
-  body > header {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-}
+      #intro-content .intro-eyebrow {
+        top: 30vh;
+      }
 
-      /* CINEMATIC INTRO — sticky viewport blueprint */
-    .intro-scroll{position:relative!important;height:500vh!important;width:100%!important}
-    .sticky-scene{position:sticky!important;top:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;background:#F1EFE9!important;isolation:isolate}
-    .museum-grid-bg,.intro-grid{position:absolute!important;inset:0!important;pointer-events:none!important;opacity:.34;background-image:linear-gradient(to right,rgba(36,35,33,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,35,33,.035) 1px,transparent 1px);background-size:64px 64px}
-    .saturn-viewport{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;z-index:2!important}
-    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(680px,58vw)!important;height:min(680px,58vw)!important;opacity:.82!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
-    #canvas-container{width:100%;height:100%;pointer-events:none}
-    #canvas-container canvas{display:block;width:100%!important;height:100%!important}
-    #intro-ring-details{stroke:#625E56}
-    .editorial-column{position:absolute!important;top:50%!important;left:max(7vw,2rem)!important;transform:translateY(-50%)!important;width:min(43vw,590px)!important;max-width:590px!important;z-index:10!important;pointer-events:none}
-    .editorial-column>*{pointer-events:auto}
-    #intro-title{position:relative!important;left:auto!important;top:auto!important;width:auto!important;max-width:14ch!important;margin:0 0 1.4rem!important;font-family:'Fraunces',serif!important;font-size:clamp(2.9rem,5.3vw,5rem)!important;line-height:.98!important;letter-spacing:-.035em!important;color:#151515!important;opacity:0!important;transform:translateY(90px)!important;will-change:opacity,transform}
-    #intro-title em{font-weight:300}
-    #intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:0!important;will-change:opacity,transform}
-    #intro-eyebrow{display:flex;align-items:center;gap:.55rem;margin:0 0 1rem;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#625F59;transform:translateY(20px)}
-    #intro-description{max-width:44ch;margin:0 0 1.8rem;color:#625F59;font-family:'IBM Plex Sans',sans-serif;font-size:1rem;line-height:1.65;font-weight:300;transform:translateY(20px)}
-    #intro-actions{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;transform:translateY(20px)}
-    #intro-readout{position:absolute!important;right:7vw!important;bottom:10vh!important;width:min(330px,28vw)!important;z-index:8!important;font-family:'IBM Plex Mono',monospace;color:#625F59;transform:translateY(18px)}
-    .intro-readout-head,.intro-readout-foot{display:flex;justify-content:space-between;gap:1rem;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
-    .intro-readout-head{padding-bottom:.6rem;border-bottom:1px solid #D8D4CB}
-    .intro-readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1.5rem;padding:.8rem 0;border-bottom:1px solid #D8D4CB}
-    .intro-readout-grid small,.intro-readout-grid strong{display:block}.intro-readout-grid small{font-size:8px;color:#8A867D}.intro-readout-grid strong{margin-top:.2rem;font-size:9px;font-weight:400;color:#242321}
-    .intro-readout-foot{padding-top:.6rem;color:#8A867D}
-    body>header,body>aside[aria-label="Exhibit Metadata"]{transition:none!important;will-change:opacity}
-    .intro-mark-top{position:absolute!important;top:7vh!important;left:7vw!important;z-index:9!important;display:flex;gap:1rem;font:9px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8A867D}
-    .intro-mark-bottom{position:absolute!important;bottom:5vh!important;left:7vw!important;z-index:9!important;display:flex;align-items:center;gap:.75rem;font:9px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8A867D}
-    .intro-scroll-line{width:42px;height:1px;background:#B9B4AA}
-    @media(max-width:900px){.intro-scroll{height:340vh!important}#intro-planet.saturn-canvas-wrapper{width:min(480px,58vw)!important;height:min(480px,58vw)!important}.editorial-column{left:6vw!important;width:50vw!important}#intro-title{font-size:clamp(2.5rem,6.8vw,4rem)!important}.intro-readout{right:5vw!important;width:30vw!important}}
-    @media(max-width:640px){.intro-scroll{height:310vh!important}#intro-planet.saturn-canvas-wrapper{width:min(390px,72vw)!important;height:min(390px,72vw)!important}.editorial-column{left:20px!important;top:52%!important;width:calc(100vw - 40px)!important;max-width:none!important}#intro-title{max-width:12ch!important;font-size:clamp(2.45rem,12vw,3.8rem)!important}.intro-readout{display:none!important}.intro-mark-top{top:4vh!important;left:20px!important}.intro-mark-bottom{left:20px!important}}
-    @media(prefers-reduced-motion:reduce){.intro-scroll{height:auto!important}.intro-planet.saturn-canvas-wrapper{transform:translate3d(27vw,0,0) scale(.62)!important}.editorial-column{opacity:1!important}#intro-title,#intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:1!important;transform:none!important}body>header,body>aside[aria-label="Exhibit Metadata"]{opacity:1!important;pointer-events:auto!important}}
+      #intro-content .intro-copy p {
+        top: 53vh;
+      }
 
-  
+      #intro-content .intro-actions {
+        top: 69vh;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #intro-title {
+        opacity: 1 !important;
+        left: 7vw !important;
+        top: 43vh !important;
+        transform: translate3d(0, -50%, 0) !important;
+      }
+
+      #intro-content .intro-eyebrow,
+      #intro-content .intro-copy p,
+      #intro-content .intro-actions,
+      #intro-content .intro-readout,
+      body>aside[aria-label="Exhibit Metadata"],
+      body>header {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+    }
+
+    /* CINEMATIC INTRO — sticky viewport blueprint */
+    .intro-scroll {
+      position: relative !important;
+      height: 500vh !important;
+      width: 100% !important
+    }
+
+    .sticky-scene {
+      position: sticky !important;
+      top: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      overflow: hidden !important;
+      background: #F1EFE9 !important;
+      isolation: isolate
+    }
+
+    .museum-grid-bg,
+    .intro-grid {
+      position: absolute !important;
+      inset: 0 !important;
+      pointer-events: none !important;
+      opacity: .34;
+      background-image: linear-gradient(to right, rgba(36, 35, 33, .035) 1px, transparent 1px), linear-gradient(to bottom, rgba(36, 35, 33, .035) 1px, transparent 1px);
+      background-size: 64px 64px
+    }
+
+    .saturn-viewport {
+      position: absolute !important;
+      inset: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      pointer-events: none !important;
+      z-index: 2 !important
+    }
+
+    #intro-planet.saturn-canvas-wrapper {
+      position: relative !important;
+      left: auto !important;
+      top: auto !important;
+      width: min(680px, 58vw) !important;
+      height: min(680px, 58vw) !important;
+      opacity: .82 !important;
+      transform-origin: center !important;
+      transition: none !important;
+      will-change: transform;
+      flex: 0 0 auto
+    }
+
+    #canvas-container {
+      width: 100%;
+      height: 100%;
+      pointer-events: none
+    }
+
+    #canvas-container canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important
+    }
+
+    #intro-ring-details {
+      stroke: #625E56
+    }
+
+    .editorial-column {
+      position: absolute !important;
+      top: 50% !important;
+      left: max(7vw, 2rem) !important;
+      transform: translateY(-50%) !important;
+      width: min(43vw, 590px) !important;
+      max-width: 590px !important;
+      z-index: 10 !important;
+      pointer-events: none
+    }
+
+    .editorial-column>* {
+      pointer-events: auto
+    }
+
+    #intro-title {
+      position: relative !important;
+      left: auto !important;
+      top: auto !important;
+      width: auto !important;
+      max-width: 14ch !important;
+      margin: 0 0 1.4rem !important;
+      font-family: 'Fraunces', serif !important;
+      font-size: clamp(2.9rem, 5.3vw, 5rem) !important;
+      line-height: .98 !important;
+      letter-spacing: -.035em !important;
+      color: #151515 !important;
+      opacity: 0 !important;
+      transform: translateY(90px) !important;
+      will-change: opacity, transform
+    }
+
+    #intro-title em {
+      font-weight: 300
+    }
+
+    #intro-eyebrow,
+    #intro-description,
+    #intro-actions,
+    #intro-readout,
+    .intro-mark,
+    .intro-section-number {
+      opacity: 0 !important;
+      will-change: opacity, transform
+    }
+
+    #intro-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      margin: 0 0 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #625F59;
+      transform: translateY(20px)
+    }
+
+    #intro-description {
+      max-width: 44ch;
+      margin: 0 0 1.8rem;
+      color: #625F59;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      font-weight: 300;
+      transform: translateY(20px)
+    }
+
+    #intro-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      transform: translateY(20px)
+    }
+
+    #intro-readout {
+      position: absolute !important;
+      right: 7vw !important;
+      bottom: 10vh !important;
+      width: min(330px, 28vw) !important;
+      z-index: 8 !important;
+      font-family: 'IBM Plex Mono', monospace;
+      color: #625F59;
+      transform: translateY(18px)
+    }
+
+    .intro-readout-head,
+    .intro-readout-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase
+    }
+
+    .intro-readout-head {
+      padding-bottom: .6rem;
+      border-bottom: 1px solid #D8D4CB
+    }
+
+    .intro-readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .8rem 1.5rem;
+      padding: .8rem 0;
+      border-bottom: 1px solid #D8D4CB
+    }
+
+    .intro-readout-grid small,
+    .intro-readout-grid strong {
+      display: block
+    }
+
+    .intro-readout-grid small {
+      font-size: 8px;
+      color: #8A867D
+    }
+
+    .intro-readout-grid strong {
+      margin-top: .2rem;
+      font-size: 9px;
+      font-weight: 400;
+      color: #242321
+    }
+
+    .intro-readout-foot {
+      padding-top: .6rem;
+      color: #8A867D
+    }
+
+    body>header,
+    body>aside[aria-label="Exhibit Metadata"] {
+      transition: none !important;
+      will-change: opacity
+    }
+
+    .intro-mark-top {
+      position: absolute !important;
+      top: 7vh !important;
+      left: 7vw !important;
+      z-index: 9 !important;
+      display: flex;
+      gap: 1rem;
+      font: 9px/1 'IBM Plex Mono', monospace;
+      letter-spacing: .1em;
+      color: #8A867D
+    }
+
+    .intro-mark-bottom {
+      position: absolute !important;
+      bottom: 5vh !important;
+      left: 7vw !important;
+      z-index: 9 !important;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font: 9px/1 'IBM Plex Mono', monospace;
+      letter-spacing: .1em;
+      color: #8A867D
+    }
+
+    .intro-scroll-line {
+      width: 42px;
+      height: 1px;
+      background: #B9B4AA
+    }
+
+    @media(max-width:900px) {
+      .intro-scroll {
+        height: 340vh !important
+      }
+
+      #intro-planet.saturn-canvas-wrapper {
+        width: min(480px, 58vw) !important;
+        height: min(480px, 58vw) !important
+      }
+
+      .editorial-column {
+        left: 6vw !important;
+        width: 50vw !important
+      }
+
+      #intro-title {
+        font-size: clamp(2.5rem, 6.8vw, 4rem) !important
+      }
+
+      .intro-readout {
+        right: 5vw !important;
+        width: 30vw !important
+      }
+    }
+
+    @media(max-width:640px) {
+      .intro-scroll {
+        height: 310vh !important
+      }
+
+      #intro-planet.saturn-canvas-wrapper {
+        width: min(390px, 72vw) !important;
+        height: min(390px, 72vw) !important
+      }
+
+      .editorial-column {
+        left: 20px !important;
+        top: 52% !important;
+        width: calc(100vw - 40px) !important;
+        max-width: none !important
+      }
+
+      #intro-title {
+        max-width: 12ch !important;
+        font-size: clamp(2.45rem, 12vw, 3.8rem) !important
+      }
+
+      .intro-readout {
+        display: none !important
+      }
+
+      .intro-mark-top {
+        top: 4vh !important;
+        left: 20px !important
+      }
+
+      .intro-mark-bottom {
+        left: 20px !important
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      .intro-scroll {
+        height: auto !important
+      }
+
+      .intro-planet.saturn-canvas-wrapper {
+        transform: translate3d(27vw, 0, 0) scale(.62) !important
+      }
+
+      .editorial-column {
+        opacity: 1 !important
+      }
+
+      #intro-title,
+      #intro-eyebrow,
+      #intro-description,
+      #intro-actions,
+      #intro-readout,
+      .intro-mark,
+      .intro-section-number {
+        opacity: 1 !important;
+        transform: none !important
+      }
+
+      body>header,
+      body>aside[aria-label="Exhibit Metadata"] {
+        opacity: 1 !important;
+        pointer-events: auto !important
+      }
+    }
+
+
     /* Floating starfield — subtle exhibition background layer */
     #starfield {
       position: fixed;
@@ -1623,8 +2282,8 @@ body > header {
       display: grid;
       place-items: center;
       padding: 2rem;
-      border: 1px dashed rgba(21,21,21,.16);
-      background: rgba(250,249,245,.55);
+      border: 1px dashed rgba(21, 21, 21, .16);
+      background: rgba(250, 249, 245, .55);
       text-align: center;
     }
 
@@ -1637,17 +2296,18 @@ body > header {
         min-height: 150px;
       }
     }
-
   </style>
 </head>
 
-<body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body
+  class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
 
   <!-- Floating Starfield Background -->
   <canvas id="starfield" class="fixed inset-0 pointer-events-none z-30" aria-hidden="true"></canvas>
 
   <!-- TOP BAR / EXHIBIT READOUT STRIP -->
-  <aside aria-label="Exhibit Metadata" class="w-full bg-space-900 border-b border-white/15 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
+  <aside aria-label="Exhibit Metadata"
+    class="w-full bg-space-900 border-b border-white/15 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
     <div class="flex items-center gap-4">
       <span class="inline-flex items-center gap-1.5 text-paper-200">
         <span class="w-2 h-2 rounded-full bg-coral-500"></span>
@@ -1665,15 +2325,18 @@ body > header {
   <!-- HEADER / NAVIGATION -->
   <header class="sticky top-0 z-40 w-full bg-space-950/90 backdrop-blur-md border-b border-paper-100/10 transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
-      
+
       <!-- Brand Logo -->
       <a href="#" class="group flex items-center gap-3 focus:outline-none">
-        <div class="w-8 h-8 border border-paper-100/30 group-hover:border-coral-500 flex items-center justify-center transition-colors">
+        <div
+          class="w-8 h-8 border border-paper-100/30 group-hover:border-coral-500 flex items-center justify-center transition-colors">
           <div class="w-2 h-2 bg-coral-500"></div>
         </div>
         <div class="flex flex-col">
           <span class="font-mono text-xs tracking-widest text-paper-400 uppercase leading-none">NASA EXHIBIT</span>
-          <span class="font-serif text-lg font-bold tracking-tight text-paper-100 group-hover:text-coral-400 transition-colors leading-tight">RELICS // SOLAR SYSTEM</span>
+          <span
+            class="font-serif text-lg font-bold tracking-tight text-paper-100 group-hover:text-coral-400 transition-colors leading-tight">RELICS
+            // SOLAR SYSTEM</span>
         </div>
       </a>
 
@@ -1692,27 +2355,39 @@ body > header {
 
       <!-- Action & Mobile Toggle -->
       <div class="flex items-center gap-4">
-        <button onclick="openSolarModal()" class="hidden sm:inline-flex items-center gap-2 border border-coral-500/50 bg-coral-500/10 hover:bg-coral-500 hover:text-space-950 text-coral-400 text-xs font-mono tracking-wider uppercase px-4 py-2.5 transition-all duration-200">
-          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        <button onclick="openSolarModal()"
+          class="hidden sm:inline-flex items-center gap-2 border border-coral-500/50 bg-coral-500/10 hover:bg-coral-500 hover:text-space-950 text-coral-400 text-xs font-mono tracking-wider uppercase px-4 py-2.5 transition-all duration-200">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+          </svg>
           Launch 3D Map
         </button>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu"
+          aria-expanded="false" aria-controls="mobile-menu"
+          class="md:hidden p-2 text-paper-200 hover:text-coral-500 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path id="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-            <path id="menu-icon-close" class="hidden" stroke-linecap="square" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+            <path id="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+            <path id="menu-icon-close" class="hidden" stroke-linecap="square" stroke-width="1.5"
+              d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
     </div>
 
     <!-- Mobile Nav Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-paper-100/10 bg-space-900 px-6 py-6 font-mono text-sm uppercase tracking-wider space-y-4">
-      <a href="#archive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">01. Archive</a>
-      <a href="#science" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">02. Science</a>
-      <a href="#interactive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">03. Orbit Map</a>
-      <button onclick="toggleMobileMenu(); openSolarModal();" class="w-full mt-4 text-center border border-coral-500 bg-coral-500/10 text-coral-400 py-3 font-mono text-xs uppercase tracking-wider">
+    <div id="mobile-menu"
+      class="hidden md:hidden border-b border-paper-100/10 bg-space-900 px-6 py-6 font-mono text-sm uppercase tracking-wider space-y-4">
+      <a href="#archive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">01.
+        Archive</a>
+      <a href="#science" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">02.
+        Science</a>
+      <a href="#interactive" onclick="toggleMobileMenu()" class="block text-paper-200 hover:text-coral-500 py-1">03.
+        Orbit Map</a>
+      <button onclick="toggleMobileMenu(); openSolarModal();"
+        class="w-full mt-4 text-center border border-coral-500 bg-coral-500/10 text-coral-400 py-3 font-mono text-xs uppercase tracking-wider">
         🌐 Launch Interactive 3D Orbit Map
       </button>
     </div>
@@ -1769,32 +2444,82 @@ body > header {
         <div class="intro-section-number" aria-hidden="true">00</div>
       </div>
     </section>
+    <section id="space-quiz" class="bg-[#F1EFE9] text-[#151515] px-6 md:px-16 py-20 border-t border-neutral-300">
+      <div class="max-w-2xl mx-auto">
+
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5A3C] mb-2">Interactive // Knowledge Check</p>
+        <h2 class="font-serif text-3xl md:text-4xl mb-8">Space Explorer Quiz</h2>
+
+        <!-- Quiz card -->
+        <div id="quiz-card" class="border border-[#151515]/15 bg-white/40 p-6 md:p-8">
+
+          <!-- In-progress view -->
+          <div id="quiz-active">
+            <div class="flex items-center justify-between mb-6">
+              <span id="quiz-progress" class="font-mono text-xs uppercase tracking-widest text-neutral-500">
+                Question 1 / 4
+              </span>
+              <span id="quiz-score-live" class="font-mono text-xs uppercase tracking-widest text-[#FF5A3C]">
+                Score: 0
+              </span>
+            </div>
+
+            <h3 id="quiz-question" class="font-serif text-xl md:text-2xl mb-6 leading-snug">
+              <!-- question text injected here -->
+            </h3>
+
+            <div id="quiz-options" class="grid gap-3">
+              <!-- option buttons injected here -->
+            </div>
+
+            <p id="quiz-feedback" class="font-mono text-xs uppercase tracking-widest mt-5 min-h-[1rem]"></p>
+          </div>
+
+          <!-- Results view -->
+          <div id="quiz-results" class="hidden text-center py-6">
+            <p class="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500 mb-3">Mission Debrief</p>
+            <p class="font-serif text-4xl mb-2">
+              <span id="quiz-final-score">0</span><span class="text-2xl text-neutral-500">/4</span>
+            </p>
+            <p id="quiz-badge-msg" class="font-mono text-sm mt-4"></p>
+            <button id="quiz-restart"
+              class="mt-6 font-mono text-xs uppercase tracking-widest border border-[#151515]/30 px-5 py-2 hover:bg-[#151515] hover:text-white transition-colors">
+              Restart Quiz
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
     <!-- ARCHIVE / HARDWARE SECTION -->
     <section id="archive" class="py-20 sm:py-28 border-b border-paper-100/10 bg-white/[.025] relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        
+
         <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-12 gap-6">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-12 gap-6">
           <div class="space-y-2">
-            <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 01 // DOSSIER CATALOGUE</div>
+            <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 01 // DOSSIER CATALOGUE
+            </div>
             <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal">HARDWARE ARCHIVE</h2>
           </div>
           <p class="font-sans text-sm text-paper-400 max-w-md font-light">
             Spacecraft, probes, landers, and rovers that expanded the frontiers of human awareness.
           </p>
         </div>
-        
-        <div id="voyager-ticker-container" class="border border-[#c1502e]/40 bg-[#f5f1e8] px-6 py-4 mb-8 flex items-center justify-between">
+
+        <div id="voyager-ticker-container"
+          class="border border-[#c1502e]/40 bg-[#f5f1e8] px-6 py-4 mb-8 flex items-center justify-between">
           <div>
             <p class="text-[10px] uppercase tracking-[0.2em] text-[#c1502e] mb-1">Voyager 1 // Interstellar Space</p>
             <p class="text-xs uppercase tracking-widest text-neutral-500">Distance from Earth (Live)</p>
-           </div>
-           <div class="text-right">
-             <span id="voyager-distance-value" class="font-mono text-2xl md:text-3xl text-neutral-800 tabular-nums">
-      —
-             </span>
-             <span class="font-mono text-sm text-neutral-500 ml-1">km</span>
-           </div>
+          </div>
+          <div class="text-right">
+            <span id="voyager-distance-value" class="font-mono text-2xl md:text-3xl text-neutral-800 tabular-nums">
+              —
+            </span>
+            <span class="font-mono text-sm text-neutral-500 ml-1">km</span>
+          </div>
         </div>
         <!-- 
           EMPTY DYNAMIC CONTAINER
@@ -1805,7 +2530,8 @@ body > header {
             <div>
               <div class="font-mono text-[10px] uppercase tracking-[.16em] text-coral-500 mb-2">ARCHIVE FEED</div>
               <div class="font-serif text-2xl text-paper-100 mb-2">Catalogue module loading</div>
-              <p class="font-sans text-sm text-paper-400 max-w-md mx-auto">Hardware records are supplied by the project data module.</p>
+              <p class="font-sans text-sm text-paper-400 max-w-md mx-auto">Hardware records are supplied by the project
+                data module.</p>
             </div>
           </div>
         </div>
@@ -1816,9 +2542,10 @@ body > header {
     <!-- SCIENCE UNLOCKED SECTION -->
     <section id="science" class="py-20 sm:py-28 border-b border-paper-100/10 bg-space-950 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-8">
-        
+
         <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-16 gap-6">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-100/10 pb-8 mb-16 gap-6">
           <div class="space-y-2">
             <div class="font-mono text-xs text-coral-500 uppercase tracking-widest">SECTION 02 // KNOWLEDGE BASE</div>
             <h2 class="font-serif text-3xl sm:text-5xl text-paper-100 font-normal">SCIENCE UNLOCKED</h2>
@@ -1830,40 +2557,52 @@ body > header {
 
         <!-- Editorial Articles List -->
         <div class="space-y-0 divide-y divide-paper-100/10 border-t border-b border-paper-100/10">
-          
+
           <!-- Article 01 -->
-          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
+          <article
+            class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
             <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">01</div>
             <div class="lg:col-span-4 space-y-2">
               <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">CELESTIAL MECHANICS</span>
-              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Gravitational Assist Slingshots</h3>
+              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Gravitational
+                Assist Slingshots</h3>
             </div>
             <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
-              By stealing a fraction of a planet's orbital angular momentum, probes like Voyager and Cassini accelerated to velocities unattainable with conventional chemical propellants alone—paving the way to the outer gas giants.
+              By stealing a fraction of a planet's orbital angular momentum, probes like Voyager and Cassini accelerated
+              to velocities unattainable with conventional chemical propellants alone—paving the way to the outer gas
+              giants.
             </div>
           </article>
 
           <!-- Article 02 -->
-          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
+          <article
+            class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
             <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">02</div>
             <div class="lg:col-span-4 space-y-2">
-              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">ASTROBIOLOGY & HYDROLOGY</span>
-              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Subsurface Ocean Worlds</h3>
+              <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">ASTROBIOLOGY &
+                HYDROLOGY</span>
+              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Subsurface
+                Ocean Worlds</h3>
             </div>
             <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
-              Data from the Galileo and Cassini missions revealed liquid water oceans hiding beneath the icy crusts of Europa and Enceladus, shifting our search for extraterrestrial life away from Goldilocks planets toward icy moons.
+              Data from the Galileo and Cassini missions revealed liquid water oceans hiding beneath the icy crusts of
+              Europa and Enceladus, shifting our search for extraterrestrial life away from Goldilocks planets toward
+              icy moons.
             </div>
           </article>
 
           <!-- Article 03 -->
-          <article class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
+          <article
+            class="py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group hover:bg-space-900/30 transition-colors px-2 sm:px-4">
             <div class="lg:col-span-1 font-mono text-xl text-coral-500 font-light">03</div>
             <div class="lg:col-span-4 space-y-2">
               <span class="font-mono text-[10px] text-paper-600 uppercase tracking-wider">HELIOPHYSICS</span>
-              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Heliospheric Boundary Dynamics</h3>
+              <h3 class="font-serif text-2xl text-paper-100 group-hover:text-coral-400 transition-colors">Heliospheric
+                Boundary Dynamics</h3>
             </div>
             <div class="lg:col-span-7 font-sans text-sm text-paper-400 font-light leading-relaxed">
-              Crossing the heliopause into the interstellar medium, instruments recorded the dramatic drop in solar wind particles and the influx of galactic cosmic rays—defining the physical edge of our Sun's magnetic realm.
+              Crossing the heliopause into the interstellar medium, instruments recorded the dramatic drop in solar wind
+              particles and the influx of galactic cosmic rays—defining the physical edge of our Sun's magnetic realm.
             </div>
           </article>
 
@@ -1872,13 +2611,15 @@ body > header {
     </section>
 
     <!-- 3D ORBIT MAP PROMOTIONAL SECTION -->
-    <section id="interactive" class="py-20 sm:py-28 bg-space-900/80 border-b border-paper-100/10 relative overflow-hidden bg-tech-grid">
+    <section id="interactive"
+      class="py-20 sm:py-28 bg-space-900/80 border-b border-paper-100/10 relative overflow-hidden bg-tech-grid">
       <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         <div class="border border-paper-100/10 bg-space-950 p-8 sm:p-14 relative">
-          
+
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-8 space-y-6">
-              <div class="inline-flex items-center gap-2 border border-coral-500/30 bg-coral-500/10 px-3 py-1 font-mono text-xs text-coral-400 uppercase tracking-widest">
+              <div
+                class="inline-flex items-center gap-2 border border-coral-500/30 bg-coral-500/10 px-3 py-1 font-mono text-xs text-coral-400 uppercase tracking-widest">
                 <span class="w-1.5 h-1.5 bg-coral-500"></span>
                 INTERACTIVE SIMULATION
               </div>
@@ -1888,125 +2629,147 @@ body > header {
               </h2>
 
               <p class="font-sans text-sm sm:text-base text-paper-400 font-light max-w-xl leading-relaxed">
-                Step into an interactive 3D orbital laboratory. Adjust orbital speeds, zoom across planetary distances, and experience the gravitational choreography of our celestial neighborhood.
+                Step into an interactive 3D orbital laboratory. Adjust orbital speeds, zoom across planetary distances,
+                and experience the gravitational choreography of our celestial neighborhood.
               </p>
 
               <div class="pt-2">
-                <button onclick="openSolarModal()" class="group inline-flex items-center gap-3 border border-coral-500 bg-coral-500 text-space-950 font-mono text-xs font-semibold tracking-wider uppercase px-8 py-4 hover:bg-coral-400 transition-all duration-200">
-                  <svg class="w-4 h-4 fill-current transition-transform group-hover:rotate-45" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                <button onclick="openSolarModal()"
+                  class="group inline-flex items-center gap-3 border border-coral-500 bg-coral-500 text-space-950 font-mono text-xs font-semibold tracking-wider uppercase px-8 py-4 hover:bg-coral-400 transition-all duration-200">
+                  <svg class="w-4 h-4 fill-current transition-transform group-hover:rotate-45" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                  </svg>
                   Launch Interactive 3D Orbit Map
                 </button>
               </div>
             </div>
 
             <!-- Orbit Visual Box — editorial technical thumbnail -->
-            <div class="lg:col-span-4 relative overflow-hidden border border-paper-100/15 bg-[#EEECE5] min-h-[300px] lg:min-h-[340px]">
+            <div
+              class="lg:col-span-4 relative overflow-hidden border border-paper-100/15 bg-[#EEECE5] min-h-[300px] lg:min-h-[340px]">
               <div class="absolute inset-0 bg-tech-grid opacity-50"></div>
 
-              <svg viewBox="0 0 720 500" class="absolute inset-0 w-full h-full" aria-label="Technical solar system preview" role="img">
+              <svg viewBox="0 0 720 500" class="absolute inset-0 w-full h-full"
+                aria-label="Technical solar system preview" role="img">
                 <defs>
                   <radialGradient id="thumb-sun" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#FFB07A"/>
-                    <stop offset="55%" stop-color="#FF6948"/>
-                    <stop offset="100%" stop-color="#D9472D"/>
+                    <stop offset="0%" stop-color="#FFB07A" />
+                    <stop offset="55%" stop-color="#FF6948" />
+                    <stop offset="100%" stop-color="#D9472D" />
                   </radialGradient>
                   <filter id="thumb-glow">
-                    <feGaussianBlur stdDeviation="9"/>
+                    <feGaussianBlur stdDeviation="9" />
                   </filter>
                 </defs>
 
                 <!-- orbital guide rings -->
                 <g fill="none" stroke="#77736C" stroke-width="1" opacity=".28">
-                  <ellipse cx="360" cy="255" rx="330" ry="70"/>
-                  <ellipse cx="360" cy="255" rx="290" ry="62"/>
-                  <ellipse cx="360" cy="255" rx="250" ry="54"/>
-                  <ellipse cx="360" cy="255" rx="210" ry="47"/>
-                  <ellipse cx="360" cy="255" rx="170" ry="40"/>
-                  <ellipse cx="360" cy="255" rx="135" ry="33"/>
+                  <ellipse cx="360" cy="255" rx="330" ry="70" />
+                  <ellipse cx="360" cy="255" rx="290" ry="62" />
+                  <ellipse cx="360" cy="255" rx="250" ry="54" />
+                  <ellipse cx="360" cy="255" rx="210" ry="47" />
+                  <ellipse cx="360" cy="255" rx="170" ry="40" />
+                  <ellipse cx="360" cy="255" rx="135" ry="33" />
                 </g>
 
                 <!-- asteroid belt -->
                 <g fill="#77736C" opacity=".38">
-                  <circle cx="465" cy="222" r="1.6"/><circle cx="480" cy="231" r="1.2"/>
-                  <circle cx="494" cy="239" r="1.5"/><circle cx="508" cy="246" r="1"/>
-                  <circle cx="522" cy="253" r="1.4"/><circle cx="537" cy="259" r="1"/>
-                  <circle cx="551" cy="266" r="1.5"/><circle cx="566" cy="272" r="1"/>
-                  <circle cx="580" cy="279" r="1.4"/><circle cx="595" cy="285" r="1"/>
-                  <circle cx="450" cy="288" r="1"/><circle cx="470" cy="294" r="1.4"/>
-                  <circle cx="490" cy="300" r="1"/><circle cx="510" cy="305" r="1.3"/>
-                  <circle cx="530" cy="311" r="1"/><circle cx="550" cy="317" r="1.5"/>
-                  <circle cx="570" cy="322" r="1"/><circle cx="590" cy="328" r="1.3"/>
+                  <circle cx="465" cy="222" r="1.6" />
+                  <circle cx="480" cy="231" r="1.2" />
+                  <circle cx="494" cy="239" r="1.5" />
+                  <circle cx="508" cy="246" r="1" />
+                  <circle cx="522" cy="253" r="1.4" />
+                  <circle cx="537" cy="259" r="1" />
+                  <circle cx="551" cy="266" r="1.5" />
+                  <circle cx="566" cy="272" r="1" />
+                  <circle cx="580" cy="279" r="1.4" />
+                  <circle cx="595" cy="285" r="1" />
+                  <circle cx="450" cy="288" r="1" />
+                  <circle cx="470" cy="294" r="1.4" />
+                  <circle cx="490" cy="300" r="1" />
+                  <circle cx="510" cy="305" r="1.3" />
+                  <circle cx="530" cy="311" r="1" />
+                  <circle cx="550" cy="317" r="1.5" />
+                  <circle cx="570" cy="322" r="1" />
+                  <circle cx="590" cy="328" r="1.3" />
                 </g>
 
                 <!-- sun -->
-                <circle cx="74" cy="255" r="74" fill="#FF5A3C" opacity=".13" filter="url(#thumb-glow)"/>
-                <circle cx="74" cy="255" r="48" fill="url(#thumb-sun)"/>
-                <circle cx="74" cy="255" r="40" fill="none" stroke="#FFB08D" opacity=".45"/>
+                <circle cx="74" cy="255" r="74" fill="#FF5A3C" opacity=".13" filter="url(#thumb-glow)" />
+                <circle cx="74" cy="255" r="48" fill="url(#thumb-sun)" />
+                <circle cx="74" cy="255" r="40" fill="none" stroke="#FFB08D" opacity=".45" />
 
                 <!-- planets -->
                 <g stroke="#4F4C47" fill="#EEECE5">
-                  <circle cx="145" cy="244" r="7"/>
-                  <circle cx="190" cy="263" r="10"/>
-                  <circle cx="245" cy="247" r="13"/>
-                  <circle cx="315" cy="265" r="16"/>
-                  <circle cx="402" cy="235" r="28"/>
-                  <circle cx="485" cy="272" r="36"/>
-                  <circle cx="585" cy="240" r="24"/>
-                  <circle cx="650" cy="277" r="19"/>
+                  <circle cx="145" cy="244" r="7" />
+                  <circle cx="190" cy="263" r="10" />
+                  <circle cx="245" cy="247" r="13" />
+                  <circle cx="315" cy="265" r="16" />
+                  <circle cx="402" cy="235" r="28" />
+                  <circle cx="485" cy="272" r="36" />
+                  <circle cx="585" cy="240" r="24" />
+                  <circle cx="650" cy="277" r="19" />
                 </g>
 
                 <!-- wireframe detail on larger planets -->
                 <g fill="none" stroke="#77736C" stroke-width=".8" opacity=".62">
-                  <ellipse cx="315" cy="265" rx="16" ry="7"/>
-                  <ellipse cx="315" cy="265" rx="7" ry="16"/>
-                  <ellipse cx="402" cy="235" rx="28" ry="12"/>
-                  <ellipse cx="402" cy="235" rx="12" ry="28"/>
-                  <ellipse cx="485" cy="272" rx="36" ry="15"/>
-                  <ellipse cx="485" cy="272" rx="15" ry="36"/>
-                  <ellipse cx="585" cy="240" rx="24" ry="10"/>
-                  <ellipse cx="585" cy="240" rx="10" ry="24"/>
-                  <ellipse cx="650" cy="277" rx="19" ry="8"/>
-                  <ellipse cx="650" cy="277" rx="8" ry="19"/>
+                  <ellipse cx="315" cy="265" rx="16" ry="7" />
+                  <ellipse cx="315" cy="265" rx="7" ry="16" />
+                  <ellipse cx="402" cy="235" rx="28" ry="12" />
+                  <ellipse cx="402" cy="235" rx="12" ry="28" />
+                  <ellipse cx="485" cy="272" rx="36" ry="15" />
+                  <ellipse cx="485" cy="272" rx="15" ry="36" />
+                  <ellipse cx="585" cy="240" rx="24" ry="10" />
+                  <ellipse cx="585" cy="240" rx="10" ry="24" />
+                  <ellipse cx="650" cy="277" rx="19" ry="8" />
+                  <ellipse cx="650" cy="277" rx="8" ry="19" />
                 </g>
 
                 <!-- Saturn ring -->
-                <ellipse cx="485" cy="272" rx="54" ry="16" fill="none" stroke="#FF5A3C" stroke-width="3" opacity=".85" transform="rotate(-12 485 272)"/>
-                <ellipse cx="485" cy="272" rx="62" ry="19" fill="none" stroke="#6F6B64" stroke-width="1" opacity=".55" transform="rotate(-12 485 272)"/>
+                <ellipse cx="485" cy="272" rx="54" ry="16" fill="none" stroke="#FF5A3C" stroke-width="3" opacity=".85"
+                  transform="rotate(-12 485 272)" />
+                <ellipse cx="485" cy="272" rx="62" ry="19" fill="none" stroke="#6F6B64" stroke-width="1" opacity=".55"
+                  transform="rotate(-12 485 272)" />
 
                 <!-- technical registration marks -->
                 <g fill="#FF5A3C">
-                  <rect x="110" y="95" width="5" height="5"/>
-                  <rect x="620" y="82" width="5" height="5"/>
-                  <rect x="674" y="386" width="5" height="5"/>
+                  <rect x="110" y="95" width="5" height="5" />
+                  <rect x="620" y="82" width="5" height="5" />
+                  <rect x="674" y="386" width="5" height="5" />
                 </g>
               </svg>
 
-              <div class="absolute left-5 top-5 border border-paper-900/20 bg-[#EEECE5]/90 px-3 py-2 font-mono text-[9px] tracking-[.18em] text-paper-900 uppercase">
+              <div
+                class="absolute left-5 top-5 border border-paper-900/20 bg-[#EEECE5]/90 px-3 py-2 font-mono text-[9px] tracking-[.18em] text-paper-900 uppercase">
                 <span class="inline-block w-1.5 h-1.5 bg-coral-500 mr-2"></span>
                 SOLAR SYSTEM SIMULATION
                 <span class="block ml-3 mt-1 text-[8px] text-paper-600">REAL-TIME 3D ORBITS</span>
               </div>
 
-              <div class="absolute right-5 top-5 border-l border-coral-500 pl-3 font-mono text-[9px] leading-4 text-paper-900 uppercase tracking-wider">
-                8 PLANETS<br/>200+ MOONS<br/>REAL PHYSICS
+              <div
+                class="absolute right-5 top-5 border-l border-coral-500 pl-3 font-mono text-[9px] leading-4 text-paper-900 uppercase tracking-wider">
+                8 PLANETS<br />200+ MOONS<br />REAL PHYSICS
               </div>
 
-              <div class="absolute left-5 bottom-5 flex items-center gap-3 font-mono text-[9px] tracking-[.16em] uppercase text-paper-900">
+              <div
+                class="absolute left-5 bottom-5 flex items-center gap-3 font-mono text-[9px] tracking-[.16em] uppercase text-paper-900">
                 <span class="flex h-8 w-8 items-center justify-center rounded-full border border-paper-900/50">▶</span>
                 <span>CLICK TO EXPLORE</span>
               </div>
 
-              <div class="absolute right-5 bottom-5 border border-paper-900/20 bg-[#EEECE5]/80 px-3 py-2 font-mono text-[8px] tracking-[.18em] uppercase text-paper-600">
+              <div
+                class="absolute right-5 bottom-5 border border-paper-900/20 bg-[#EEECE5]/80 px-3 py-2 font-mono text-[8px] tracking-[.18em] uppercase text-paper-600">
                 SCALE&nbsp;&nbsp;1.0x
               </div>
             </div>
-              <div class="font-mono text-xs text-paper-400 uppercase tracking-wider">
-                3D ENGINE: GARNIER CSS 3D
-              </div>
+            <div class="font-mono text-xs text-paper-400 uppercase tracking-wider">
+              3D ENGINE: GARNIER CSS 3D
             </div>
           </div>
-
         </div>
+
+      </div>
       </div>
     </section>
 
@@ -2015,16 +2778,18 @@ body > header {
   <!-- FOOTER -->
   <footer class="bg-space-950 border-t border-paper-100/10 py-12 px-4 sm:px-8 font-mono text-xs text-paper-600">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-      
+
       <div class="md:col-span-5 space-y-3">
         <div class="font-serif text-lg text-paper-100">RELICS OF THE SOLAR SYSTEM</div>
         <p class="font-sans text-xs text-paper-400 font-light max-w-sm leading-relaxed">
-          Developed for the NASA Space Apps Challenge. An open archival exhibit honoring human space exploration and space-science data.
+          Developed for the NASA Space Apps Challenge. An open archival exhibit honoring human space exploration and
+          space-science data.
         </p>
       </div>
 
       <div class="md:col-span-3 space-y-2">
-        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">EXHIBIT INDEX</div>
+        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">EXHIBIT INDEX
+        </div>
         <ul class="space-y-1 text-paper-400">
           <li><a href="#archive" class="hover:text-coral-500 transition-colors">01. Hardware Archive</a></li>
           <li><a href="#science" class="hover:text-coral-500 transition-colors">02. Science Unlocked</a></li>
@@ -2033,7 +2798,8 @@ body > header {
       </div>
 
       <div class="md:col-span-4 space-y-2">
-        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">CREDITS & SOURCE</div>
+        <div class="text-paper-400 uppercase tracking-wider text-[11px] border-b border-paper-100/10 pb-1">CREDITS &
+          SOURCE</div>
         <div class="text-paper-400 space-y-1 font-light">
           <div>DATA SOURCE: NASA Space Science Archives</div>
           <div>3D ENGINE: Julian Garnier CSS Solar System</div>
@@ -2043,7 +2809,8 @@ body > header {
 
     </div>
 
-    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-paper-100/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+    <div
+      class="max-w-7xl mx-auto mt-12 pt-6 border-t border-paper-100/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
       <div>© RELICS OF THE SOLAR SYSTEM — NASA SPACE APPS PROJECT</div>
       <div class="text-paper-600">MISSION CONTROL // HELIOCENTRIC ARCHIVE</div>
     </div>
@@ -2053,8 +2820,10 @@ body > header {
     3D SOLAR SYSTEM MODAL
     Preserved ID: solar-system-modal
   -->
-  <div id="solar-system-modal" class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="solar-modal-title">
-    
+  <div id="solar-system-modal"
+    class="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md hidden flex-col transition-all duration-300"
+    role="dialog" aria-modal="true" aria-labelledby="solar-modal-title">
+
     <!-- Modal Header Bar -->
     <div class="w-full bg-space-900 border-b border-paper-100/10 px-4 sm:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3 font-mono text-xs text-paper-200">
@@ -2064,7 +2833,8 @@ body > header {
         <span class="hidden sm:inline text-paper-400 text-[11px]">GARNIER CSS 3D</span>
       </div>
 
-      <button id="solar-modal-close" onclick="closeSolarModal()" class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
+      <button id="solar-modal-close" onclick="closeSolarModal()"
+        class="inline-flex items-center gap-2 border border-paper-100/20 hover:border-coral-500 hover:text-coral-500 text-paper-200 font-mono text-xs uppercase px-3 py-1.5 transition-colors">
         <span>CLOSE EXHIBIT</span>
         <span class="text-coral-500">✕</span>
       </button>
@@ -2080,7 +2850,7 @@ body > header {
   <script>
     let lastFocusedElement = null;
 
-    window.openSolarModal = function() {
+    window.openSolarModal = function () {
       const modal = document.getElementById('solar-system-modal');
       const iframe = document.getElementById('solar-iframe');
       const closeButton = document.getElementById('solar-modal-close');
@@ -2103,7 +2873,7 @@ body > header {
       }, 0);
     };
 
-    window.closeSolarModal = function() {
+    window.closeSolarModal = function () {
       const modal = document.getElementById('solar-system-modal');
       if (!modal) return;
 
@@ -2133,7 +2903,7 @@ body > header {
       if (button) button.setAttribute('aria-expanded', String(willOpen));
     }
 
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
       if (event.key !== 'Escape') return;
 
       const modal = document.getElementById('solar-system-modal');
@@ -2162,200 +2932,200 @@ body > header {
       }
     } else {
       const heroScene = new THREE.Scene();
-    const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    heroCamera.position.set(0, 0, 12);
+      const heroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      heroCamera.position.set(0, 0, 12);
 
-    const heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    heroRenderer.setSize(window.innerWidth, window.innerHeight);
-    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    heroContainer.appendChild(heroRenderer.domElement);
+      const heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      heroRenderer.setSize(window.innerWidth, window.innerHeight);
+      heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      heroContainer.appendChild(heroRenderer.domElement);
 
-    // EXACT MODEL GEOMETRY
-    const saturnGroup = new THREE.Group();
+      // EXACT MODEL GEOMETRY
+      const saturnGroup = new THREE.Group();
 
-    const saturnGeo = new THREE.IcosahedronGeometry(2.2, 4);
-    const saturnMat = new THREE.MeshBasicMaterial({
-      color: 0x2A2927,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.35
-    });
-    const saturnMesh = new THREE.Mesh(saturnGeo, saturnMat);
-    saturnGroup.add(saturnMesh);
-
-    const innerGeo = new THREE.SphereGeometry(2.15, 32, 32);
-    const innerMat = new THREE.MeshBasicMaterial({
-      color: 0xF8F7F2,
-      transparent: true,
-      opacity: 0.95
-    });
-    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-    saturnGroup.add(innerMesh);
-
-    function createRing(innerRadius, outerRadius, opacity, color = 0x2A2927) {
-      const ringGeo = new THREE.RingGeometry(innerRadius, outerRadius, 128, 8);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: color,
+      const saturnGeo = new THREE.IcosahedronGeometry(2.2, 4);
+      const saturnMat = new THREE.MeshBasicMaterial({
+        color: 0x2A2927,
         wireframe: true,
         transparent: true,
-        opacity: opacity,
-        side: THREE.DoubleSide
+        opacity: 0.35
       });
-      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-      ringMesh.rotation.x = Math.PI / 2;
-      return ringMesh;
-    }
+      const saturnMesh = new THREE.Mesh(saturnGeo, saturnMat);
+      saturnGroup.add(saturnMesh);
 
-    const ringA = createRing(3.2, 4.4, 0.40, 0x2A2927);
-    const ringB = createRing(2.6, 3.0, 0.55, 0xD95338);
-    const ringC = createRing(4.5, 5.0, 0.20, 0x787672);
-
-    saturnGroup.add(ringA);
-    saturnGroup.add(ringB);
-    saturnGroup.add(ringC);
-
-    saturnGroup.rotation.z = 0.22;
-    saturnGroup.rotation.x = 0.42;
-    heroScene.add(saturnGroup);
-
-    // EXACT BACKGROUND DUST
-    const particleCount = 800;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 80;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 80;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 80;
-    }
-
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      color: 0x787672,
-      size: 0.03,
-      transparent: true,
-      opacity: 0.35
-    });
-
-    const particleSystem = new THREE.Points(particleGeo, particleMat);
-    heroScene.add(particleSystem);
-
-    const scrollTrack = document.getElementById('intro-scroll');
-    const title = document.getElementById('intro-title');
-    const eyebrow = document.getElementById('intro-eyebrow');
-    const description = document.getElementById('intro-description');
-    const actions = document.getElementById('intro-actions');
-    const readout = document.getElementById('intro-readout');
-    const marks = document.querySelectorAll('.intro-mark,.intro-section-number');
-    const mainHeader = document.querySelector('body > header');
-    const metadata = document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
-
-    let targetProgress = 0;
-    let currentProgress = 0;
-
-    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-    const smooth = (v) => {
-      const x = clamp(v, 0, 1);
-      return x * x * (3 - 2 * x);
-    };
-    const lerp = (a, b, t) => a + (b - a) * clamp(t, 0, 1);
-
-    function updateScrollProgress() {
-      if (!scrollTrack) return;
-      const rect = scrollTrack.getBoundingClientRect();
-      const maxScroll = Math.max(scrollTrack.offsetHeight - window.innerHeight, 1);
-      targetProgress = clamp(-rect.top / maxScroll, 0, 1);
-    }
-
-    function updateScene() {
-      currentProgress += (targetProgress - currentProgress) * 0.10;
-      const progress = currentProgress;
-
-      // More rotation over the same 500vh physical scroll.
-      let saturnRotY = 0;
-      let saturnScale = 1;
-      let saturnX = 0;
-
-      if (progress <= 0.20) {
-        saturnRotY = 0;
-      } else if (progress <= 0.40) {
-        saturnRotY = smooth((progress - 0.20) / 0.20) * 36;
-      } else if (progress <= 0.60) {
-        saturnRotY = 36 + smooth((progress - 0.40) / 0.20) * 48;
-      } else if (progress <= 0.75) {
-        saturnRotY = 84 + smooth((progress - 0.60) / 0.15) * 48;
-      } else if (progress <= 0.90) {
-        const t = smooth((progress - 0.75) / 0.15);
-        saturnRotY = 132 + t * 48;
-        saturnScale = 1 - t * 0.35;
-        saturnX = t * (window.innerWidth < 768 ? 0.3 : 2.2);
-      } else {
-        saturnRotY = 180;
-        saturnScale = 0.65;
-        saturnX = window.innerWidth < 768 ? 0.3 : 2.2;
-      }
-
-      saturnGroup.rotation.y = saturnRotY * Math.PI / 180;
-      saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
-      saturnGroup.position.x = saturnX;
-
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        particleSystem.rotation.y = performance.now() * 0.000015;
-      }
-
-      const titleFade = smooth((progress - 0.025) / 0.30);
-      const titleRise = smooth((progress - 0.025) / 0.32);
-
-      if (title) {
-        title.style.setProperty('opacity', titleFade.toFixed(3), 'important');
-        title.style.setProperty('transform', `translateY(${lerp(90, 0, titleRise).toFixed(2)}px)`, 'important');
-      }
-
-      const eyebrowP = smooth((progress - 0.34) / 0.18);
-      const descP = smooth((progress - 0.43) / 0.20);
-      const actionsP = smooth((progress - 0.58) / 0.20);
-      const readoutP = smooth((progress - 0.64) / 0.20);
-
-      if (eyebrow) eyebrow.style.setProperty('opacity', eyebrowP.toFixed(3), 'important');
-      if (description) description.style.setProperty('opacity', descP.toFixed(3), 'important');
-      if (actions) actions.style.setProperty('opacity', actionsP.toFixed(3), 'important');
-      if (readout) readout.style.setProperty('opacity', readoutP.toFixed(3), 'important');
-
-      const chrome = smooth((progress - 0.72) / 0.22);
-      if (mainHeader) {
-        mainHeader.style.setProperty('opacity', chrome.toFixed(3), 'important');
-        mainHeader.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
-      }
-      if (metadata) {
-        metadata.style.setProperty('opacity', chrome.toFixed(3), 'important');
-        metadata.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
-      }
-
-      const promptP = 1 - smooth(progress / 0.16);
-      marks.forEach(mark => {
-        const value = mark.classList.contains('intro-section-number') ? 1 : promptP;
-        mark.style.setProperty('opacity', value.toFixed(3), 'important');
+      const innerGeo = new THREE.SphereGeometry(2.15, 32, 32);
+      const innerMat = new THREE.MeshBasicMaterial({
+        color: 0xF8F7F2,
+        transparent: true,
+        opacity: 0.95
       });
-    }
+      const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+      saturnGroup.add(innerMesh);
 
-    function renderHeroScene() {
-      requestAnimationFrame(renderHeroScene);
-      updateScene();
-      heroRenderer.render(heroScene, heroCamera);
-    }
+      function createRing(innerRadius, outerRadius, opacity, color = 0x2A2927) {
+        const ringGeo = new THREE.RingGeometry(innerRadius, outerRadius, 128, 8);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: color,
+          wireframe: true,
+          transparent: true,
+          opacity: opacity,
+          side: THREE.DoubleSide
+        });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.rotation.x = Math.PI / 2;
+        return ringMesh;
+      }
 
-    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+      const ringA = createRing(3.2, 4.4, 0.40, 0x2A2927);
+      const ringB = createRing(2.6, 3.0, 0.55, 0xD95338);
+      const ringC = createRing(4.5, 5.0, 0.20, 0x787672);
 
-    window.addEventListener('resize', () => {
-      heroCamera.aspect = window.innerWidth / window.innerHeight;
-      heroCamera.updateProjectionMatrix();
-      heroRenderer.setSize(window.innerWidth, window.innerHeight);
+      saturnGroup.add(ringA);
+      saturnGroup.add(ringB);
+      saturnGroup.add(ringC);
+
+      saturnGroup.rotation.z = 0.22;
+      saturnGroup.rotation.x = 0.42;
+      heroScene.add(saturnGroup);
+
+      // EXACT BACKGROUND DUST
+      const particleCount = 800;
+      const particleGeo = new THREE.BufferGeometry();
+      const particlePositions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        particlePositions[i] = (Math.random() - 0.5) * 80;
+        particlePositions[i + 1] = (Math.random() - 0.5) * 80;
+        particlePositions[i + 2] = (Math.random() - 0.5) * 80;
+      }
+
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+      const particleMat = new THREE.PointsMaterial({
+        color: 0x787672,
+        size: 0.03,
+        transparent: true,
+        opacity: 0.35
+      });
+
+      const particleSystem = new THREE.Points(particleGeo, particleMat);
+      heroScene.add(particleSystem);
+
+      const scrollTrack = document.getElementById('intro-scroll');
+      const title = document.getElementById('intro-title');
+      const eyebrow = document.getElementById('intro-eyebrow');
+      const description = document.getElementById('intro-description');
+      const actions = document.getElementById('intro-actions');
+      const readout = document.getElementById('intro-readout');
+      const marks = document.querySelectorAll('.intro-mark,.intro-section-number');
+      const mainHeader = document.querySelector('body > header');
+      const metadata = document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
+
+      let targetProgress = 0;
+      let currentProgress = 0;
+
+      const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+      const smooth = (v) => {
+        const x = clamp(v, 0, 1);
+        return x * x * (3 - 2 * x);
+      };
+      const lerp = (a, b, t) => a + (b - a) * clamp(t, 0, 1);
+
+      function updateScrollProgress() {
+        if (!scrollTrack) return;
+        const rect = scrollTrack.getBoundingClientRect();
+        const maxScroll = Math.max(scrollTrack.offsetHeight - window.innerHeight, 1);
+        targetProgress = clamp(-rect.top / maxScroll, 0, 1);
+      }
+
+      function updateScene() {
+        currentProgress += (targetProgress - currentProgress) * 0.10;
+        const progress = currentProgress;
+
+        // More rotation over the same 500vh physical scroll.
+        let saturnRotY = 0;
+        let saturnScale = 1;
+        let saturnX = 0;
+
+        if (progress <= 0.20) {
+          saturnRotY = 0;
+        } else if (progress <= 0.40) {
+          saturnRotY = smooth((progress - 0.20) / 0.20) * 36;
+        } else if (progress <= 0.60) {
+          saturnRotY = 36 + smooth((progress - 0.40) / 0.20) * 48;
+        } else if (progress <= 0.75) {
+          saturnRotY = 84 + smooth((progress - 0.60) / 0.15) * 48;
+        } else if (progress <= 0.90) {
+          const t = smooth((progress - 0.75) / 0.15);
+          saturnRotY = 132 + t * 48;
+          saturnScale = 1 - t * 0.35;
+          saturnX = t * (window.innerWidth < 768 ? 0.3 : 2.2);
+        } else {
+          saturnRotY = 180;
+          saturnScale = 0.65;
+          saturnX = window.innerWidth < 768 ? 0.3 : 2.2;
+        }
+
+        saturnGroup.rotation.y = saturnRotY * Math.PI / 180;
+        saturnGroup.scale.set(saturnScale, saturnScale, saturnScale);
+        saturnGroup.position.x = saturnX;
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          particleSystem.rotation.y = performance.now() * 0.000015;
+        }
+
+        const titleFade = smooth((progress - 0.025) / 0.30);
+        const titleRise = smooth((progress - 0.025) / 0.32);
+
+        if (title) {
+          title.style.setProperty('opacity', titleFade.toFixed(3), 'important');
+          title.style.setProperty('transform', `translateY(${lerp(90, 0, titleRise).toFixed(2)}px)`, 'important');
+        }
+
+        const eyebrowP = smooth((progress - 0.34) / 0.18);
+        const descP = smooth((progress - 0.43) / 0.20);
+        const actionsP = smooth((progress - 0.58) / 0.20);
+        const readoutP = smooth((progress - 0.64) / 0.20);
+
+        if (eyebrow) eyebrow.style.setProperty('opacity', eyebrowP.toFixed(3), 'important');
+        if (description) description.style.setProperty('opacity', descP.toFixed(3), 'important');
+        if (actions) actions.style.setProperty('opacity', actionsP.toFixed(3), 'important');
+        if (readout) readout.style.setProperty('opacity', readoutP.toFixed(3), 'important');
+
+        const chrome = smooth((progress - 0.72) / 0.22);
+        if (mainHeader) {
+          mainHeader.style.setProperty('opacity', chrome.toFixed(3), 'important');
+          mainHeader.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
+        }
+        if (metadata) {
+          metadata.style.setProperty('opacity', chrome.toFixed(3), 'important');
+          metadata.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
+        }
+
+        const promptP = 1 - smooth(progress / 0.16);
+        marks.forEach(mark => {
+          const value = mark.classList.contains('intro-section-number') ? 1 : promptP;
+          mark.style.setProperty('opacity', value.toFixed(3), 'important');
+        });
+      }
+
+      function renderHeroScene() {
+        requestAnimationFrame(renderHeroScene);
+        updateScene();
+        heroRenderer.render(heroScene, heroCamera);
+      }
+
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+      window.addEventListener('resize', () => {
+        heroCamera.aspect = window.innerWidth / window.innerHeight;
+        heroCamera.updateProjectionMatrix();
+        heroRenderer.setSize(window.innerWidth, window.innerHeight);
+        updateScrollProgress();
+      });
+
       updateScrollProgress();
-    });
-
-    updateScrollProgress();
-    requestAnimationFrame(renderHeroScene);
+      requestAnimationFrame(renderHeroScene);
     }
   </script> <!-- 
     DYNAMIC DATA LOADER SCRIPT
@@ -2465,4 +3235,5 @@ body > header {
     })();
   </script>
 </body>
+
 </html>
