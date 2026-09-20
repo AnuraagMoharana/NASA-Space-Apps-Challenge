@@ -42,6 +42,9 @@
     };
   </script>
 
+  <!-- Three.js — preserved from previous Saturn planet implementation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Google Fonts: IBM Plex Sans, IBM Plex Mono & Fraunces -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1553,9 +1556,9 @@ body > header {
     .sticky-scene{position:sticky!important;top:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;background:#F1EFE9!important;isolation:isolate}
     .museum-grid-bg,.intro-grid{position:absolute!important;inset:0!important;pointer-events:none!important;opacity:.34;background-image:linear-gradient(to right,rgba(36,35,33,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,35,33,.035) 1px,transparent 1px);background-size:64px 64px}
     .saturn-viewport{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;z-index:2!important}
-    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(680px,58vw)!important;height:min(680px,58vw)!important;opacity:.82!important;color:#514E47!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
-    #intro-planet svg{display:block;width:100%;height:100%;overflow:visible}
-    #intro-planet-sphere,#intro-planet-orbit,#intro-ring-details{transform-box:fill-box;transform-origin:center;will-change:transform}
+    #intro-planet.saturn-canvas-wrapper{position:relative!important;left:auto!important;top:auto!important;width:min(680px,58vw)!important;height:min(680px,58vw)!important;opacity:.82!important;transform-origin:center!important;transition:none!important;will-change:transform;flex:0 0 auto}
+    #canvas-container{width:100%;height:100%;pointer-events:none}
+    #canvas-container canvas{display:block;width:100%!important;height:100%!important}
     #intro-ring-details{stroke:#625E56}
     .editorial-column{position:absolute!important;top:50%!important;left:max(7vw,2rem)!important;transform:translateY(-50%)!important;width:min(43vw,590px)!important;max-width:590px!important;z-index:10!important;pointer-events:none}
     .editorial-column>*{pointer-events:auto}
@@ -1666,19 +1669,9 @@ body > header {
 
         <div class="saturn-viewport" aria-hidden="true">
           <div id="intro-planet" class="saturn-canvas-wrapper">
-            <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g id="intro-planet-sphere" stroke="currentColor" stroke-width="0.78" stroke-linecap="round" opacity="0.9"></g>
-              <g id="intro-planet-orbit" stroke="currentColor" stroke-width="0.72" opacity="0.58"></g>
-              <g id="intro-ring-details" stroke="currentColor" stroke-width="0.58" opacity="0.42"></g>
-              <g id="intro-ring-accent" stroke="#FF5A3C" stroke-width="0.9" opacity="0.82"></g>
-              <circle cx="300" cy="300" r="210" stroke="#FF5A3C" stroke-width="0.9" stroke-dasharray="2 12" opacity=".28"/>
-              <circle cx="78" cy="250" r="3" fill="#FF5A3C"/>
-              <circle cx="520" cy="356" r="3" fill="#FF5A3C"/>
-            </svg>
+            <div id="canvas-container" class="w-full h-full"></div>
           </div>
-        </div>
-
-        <div class="intro-mark intro-mark-top" aria-hidden="true">
+        </div>        <div class="intro-mark intro-mark-top" aria-hidden="true">
           <span>REL 01</span><span>EXHIBITION ENTRY</span>
         </div>
         <div class="intro-mark intro-mark-bottom" aria-hidden="true">
@@ -1959,14 +1952,12 @@ body > header {
 
 
   <script>
-    /* Cinematic exhibition intro — UI-only presentation controller. */
+    /* Cinematic exhibition intro — original Three.js Saturn implementation,
+       with scroll-driven rotation accelerated to 180 degrees. */
     (function(){
       const intro=document.getElementById('intro-scroll');
       const scene=document.getElementById('sticky-scene');
       const saturn=document.getElementById('intro-planet');
-      const sphere=document.getElementById('intro-planet-sphere');
-      const orbit=document.getElementById('intro-planet-orbit');
-      const rings=document.getElementById('intro-ring-details');
       const title=document.getElementById('intro-title');
       const eyebrow=document.getElementById('intro-eyebrow');
       const description=document.getElementById('intro-description');
@@ -1975,118 +1966,91 @@ body > header {
       const marks=document.querySelectorAll('.intro-mark,.intro-section-number');
       const header=document.querySelector('body > header');
       const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
+      const heroContainer=document.getElementById('canvas-container');
 
-      if(!intro||!scene||!saturn||!sphere||!orbit||!rings||!title)return;
+      if(!intro||!scene||!saturn||!title||!heroContainer||typeof THREE==='undefined')return;
+
+      /* ORIGINAL PLANET CODE — kept intact from the previously working version. */
+      const heroScene=new THREE.Scene();
+      const heroCamera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000);
+      heroCamera.position.set(0,0,12);
+
+      const heroRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+      heroRenderer.setSize(window.innerWidth,window.innerHeight);
+      heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      heroContainer.appendChild(heroRenderer.domElement);
+
+      const saturnGroup=new THREE.Group();
+
+      const saturnGeo=new THREE.IcosahedronGeometry(2.2,4);
+      const saturnMat=new THREE.MeshBasicMaterial({
+        color:0x2A2927,
+        wireframe:true,
+        transparent:true,
+        opacity:0.35
+      });
+      const saturnMesh=new THREE.Mesh(saturnGeo,saturnMat);
+      saturnGroup.add(saturnMesh);
+
+      const innerGeo=new THREE.SphereGeometry(2.15,32,32);
+      const innerMat=new THREE.MeshBasicMaterial({
+        color:0xF8F7F2,
+        transparent:true,
+        opacity:0.95
+      });
+      const innerMesh=new THREE.Mesh(innerGeo,innerMat);
+      saturnGroup.add(innerMesh);
+
+      function createRing(innerRadius,outerRadius,opacity,color=0x2A2927){
+        const ringGeo=new THREE.RingGeometry(innerRadius,outerRadius,128,8);
+        const ringMat=new THREE.MeshBasicMaterial({
+          color:color,
+          wireframe:true,
+          transparent:true,
+          opacity:opacity,
+          side:THREE.DoubleSide
+        });
+        const ringMesh=new THREE.Mesh(ringGeo,ringMat);
+        ringMesh.rotation.x=Math.PI/2;
+        return ringMesh;
+      }
+
+      const ringA=createRing(3.2,4.4,0.40,0x2A2927);
+      const ringB=createRing(2.6,3.0,0.55,0xD95338);
+      const ringC=createRing(4.5,5.0,0.20,0x787672);
+
+      saturnGroup.add(ringA);
+      saturnGroup.add(ringB);
+      saturnGroup.add(ringC);
+
+      saturnGroup.rotation.z=0.22;
+      saturnGroup.rotation.x=0.42;
+      heroScene.add(saturnGroup);
+
+      const particleCount=800;
+      const particleGeo=new THREE.BufferGeometry();
+      const particlePositions=new Float32Array(particleCount*3);
+
+      for(let i=0;i<particleCount*3;i+=3){
+        particlePositions[i]=(Math.random()-0.5)*80;
+        particlePositions[i+1]=(Math.random()-0.5)*80;
+        particlePositions[i+2]=(Math.random()-0.5)*80;
+      }
+
+      particleGeo.setAttribute('position',new THREE.BufferAttribute(particlePositions,3));
+      const particleMat=new THREE.PointsMaterial({
+        color:0x787672,
+        size:0.03,
+        transparent:true,
+        opacity:0.35
+      });
+      const particleSystem=new THREE.Points(particleGeo,particleMat);
+      heroScene.add(particleSystem);
 
       let ticking=false;
       const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
       const smooth=(v)=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
       const lerp=(a,b,t)=>a+(b-a)*clamp(t,0,1);
-
-      /* Build the triangular wire-mesh planet and cross-hatched rings. UI-only visual geometry. */
-      function buildIntroMesh(){
-        const ns='http://www.w3.org/2000/svg';
-        const sphere=document.getElementById('intro-planet-sphere');
-        const orbit=document.getElementById('intro-planet-orbit');
-        const details=document.getElementById('intro-ring-details');
-        const accent=document.getElementById('intro-ring-accent');
-        if(!sphere||!orbit||!details||!accent)return;
-
-        const cx=300, cy=300, R=205, latSteps=11, lonSteps=24;
-        const points=[];
-        for(let i=0;i<=latSteps;i++){
-          const lat=-Math.PI/2+(Math.PI*i/latSteps);
-          const rr=R*Math.cos(lat);
-          const y=cy-R*Math.sin(lat);
-          const row=[];
-          for(let j=0;j<lonSteps;j++){
-            const lon=2*Math.PI*j/lonSteps;
-            row.push([cx+rr*Math.cos(lon),y]);
-          }
-          points.push(row);
-        }
-
-        const line=(parent,a,b)=>{
-          const el=document.createElementNS(ns,'line');
-          el.setAttribute('x1',a[0].toFixed(1)); el.setAttribute('y1',a[1].toFixed(1));
-          el.setAttribute('x2',b[0].toFixed(1)); el.setAttribute('y2',b[1].toFixed(1));
-          parent.appendChild(el);
-        };
-
-        /* Triangulated spherical mesh. */
-        for(let i=1;i<latSteps;i++){
-          for(let j=0;j<lonSteps;j++){
-            line(sphere,points[i][j],points[i][(j+1)%lonSteps]);
-          }
-        }
-        for(let j=0;j<lonSteps;j++){
-          for(let i=0;i<latSteps;i++){
-            line(sphere,points[i][j],points[i+1][j]);
-          }
-        }
-        for(let i=0;i<latSteps;i++){
-          for(let j=0;j<lonSteps;j++){
-            const a=points[i][j], b=points[i][(j+1)%lonSteps];
-            const c=points[i+1][(j+1)%lonSteps], d=points[i+1][j];
-            line(sphere,(i+j)%2===0?a:b,(i+j)%2===0?c:d);
-          }
-        }
-
-        /* Perspective torus mesh — dimensional crossed-wire rings. */
-        const ring=(parent,major,minor,tiltDeg,cols=36,rows=7)=>{
-          const tilt=tiltDeg*Math.PI/180;
-          const ct=Math.cos(tilt), st=Math.sin(tilt);
-          const pts=[];
-          const project=(u,v)=>{
-            const rr=major+minor*Math.cos(v);
-            const x3=rr*Math.cos(u);
-            const z3=rr*Math.sin(u);
-            const y3=minor*Math.sin(v);
-            const y=y3*ct-z3*st;
-            const z=y3*st+z3*ct;
-            const perspective=1/(1+z/1250);
-            return {x:cx+x3*perspective,y:cy-y*perspective,z};
-          };
-
-          for(let i=0;i<=rows;i++){
-            const v=2*Math.PI*i/rows;
-            const row=[];
-            for(let j=0;j<cols;j++) row.push(project(2*Math.PI*j/cols,v));
-            pts.push(row);
-          }
-
-          const draw=(a,b)=>{
-            const el=document.createElementNS(ns,'line');
-            el.setAttribute('x1',a.x.toFixed(1));
-            el.setAttribute('y1',a.y.toFixed(1));
-            el.setAttribute('x2',b.x.toFixed(1));
-            el.setAttribute('y2',b.y.toFixed(1));
-            const depth=(a.z+b.z)/2;
-            el.setAttribute('opacity',depth>0?'0.20':'0.58');
-            parent.appendChild(el);
-          };
-
-          for(let i=0;i<=rows;i++){
-            for(let j=0;j<cols;j++) draw(pts[i][j],pts[i][(j+1)%cols]);
-          }
-
-          for(let i=0;i<rows;i++){
-            for(let j=0;j<cols;j++){
-              const a=pts[i][j], b=pts[i][(j+1)%cols];
-              const d=pts[i+1][j], e=pts[i+1][(j+1)%cols];
-              draw((i+j)%2===0?a:b,(i+j)%2===0?e:d);
-            }
-          }
-        };
-
-        ring(orbit,270,54,-18,36,8);
-        ring(details,270,45,-18,36,6);
-        ring(details,270,36,-18,36,5);
-        ring(accent,270,28,-18,36,4);
-
-      }
-
-      buildIntroMesh();
 
       function updateScene(){
         const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
@@ -2094,33 +2058,14 @@ body > header {
         const mobile=window.innerWidth<=900;
         const small=window.innerWidth<=640;
 
-        /* Saturn: centered at rest, then shifts right and shrinks. */
-        const saturnShift=smooth((progress-.16)/.44);
-        const x=lerp(0,small?16:(mobile?21:27),saturnShift);
-
-        /* The hidden metadata/header still occupy normal document flow at the
-           very first frame. Lift Saturn slightly so its visual center is the
-           actual viewport center immediately on page load. It settles to the
-           true center during the first small scroll movement. */
         const verticalSettle=smooth(progress/.12);
         const y=lerp(small?-4.5:-5.5,0,verticalSettle);
 
-        const scale=lerp(1,small?.62:(mobile?.68:.62),saturnShift);
-        saturn.style.transform=
-          'translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+scale.toFixed(3)+')';
-
-        /* Gemini-style cinematic Saturn timeline.
-           The actual page scroll drives one continuous sequence:
-           0.00–0.20: centered at 0°
-           0.20–0.40: 0° → 5°
-           0.40–0.60: 5° → 10°
-           0.60–0.75: 10° → 15°
-           0.75–0.90: shrink + glide right, 15° → 25°
-           0.90–1.00: final position. */
         let saturnRotY=0;
         let saturnScale=1;
         let saturnX=0;
 
+        /* Same physical scroll distance, much more rotation. */
         if(progress<=0.20){
           saturnRotY=0;
         }else if(progress<=0.40){
@@ -2135,29 +2080,26 @@ body > header {
         }else if(progress<=0.90){
           const t=smooth((progress-0.75)/0.15);
           saturnRotY=120+t*60;
-          saturnScale=1-t*0.32;
-          saturnX=t*(small?16:(mobile?21:27));
+          saturnScale=1-t*0.35;
+          saturnX=t*(small?0.3:2.2);
         }else{
           saturnRotY=180;
-          saturnScale=0.68;
-          saturnX=small?16:(mobile?21:27);
+          saturnScale=0.65;
+          saturnX=small?0.3:2.2;
         }
 
-        saturn.style.transform=
-          'translate3d('+saturnX.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) scale('+saturnScale.toFixed(3)+')';
+        saturn.style.transform='translate3d(0,'+y.toFixed(2)+'vh,0)';
+        saturnGroup.rotation.y=saturnRotY*Math.PI/180;
+        saturnGroup.scale.set(saturnScale,saturnScale,saturnScale);
+        saturnGroup.position.x=saturnX;
 
-        sphere.style.transform='rotateY('+saturnRotY.toFixed(2)+'deg)';
-        const ringAngle=lerp(-20,18,progress);
-        orbit.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
-        rings.style.transform='rotate('+ringAngle.toFixed(2)+'deg)';
+        particleSystem.rotation.y=performance.now()*0.000015;
 
-        /* Title: invisible at load, rises into the fixed middle-left column. */
         const titleFade=smooth((progress-.025)/.30);
         const titleRise=smooth((progress-.025)/.32);
         title.style.setProperty('opacity',titleFade.toFixed(3),'important');
         title.style.setProperty('transform','translateY('+lerp(90,0,titleRise).toFixed(2)+'px)','important');
 
-        /* Supporting copy follows the title with deliberate delays. */
         const eyebrowP=smooth((progress-.34)/.18);
         const descP=smooth((progress-.43)/.20);
         const actionsP=smooth((progress-.58)/.20);
@@ -2168,7 +2110,6 @@ body > header {
         if(actions){actions.style.setProperty('opacity',actionsP.toFixed(3),'important');actions.style.setProperty('transform','translateY('+lerp(20,0,actionsP).toFixed(2)+'px)','important');}
         if(readout){readout.style.setProperty('opacity',readoutP.toFixed(3),'important');readout.style.setProperty('transform','translateY('+lerp(18,0,readoutP).toFixed(2)+'px)','important');}
 
-        /* Page chrome returns only after the opening composition is established. */
         const chrome=smooth((progress-.72)/.22);
         if(header){header.style.setProperty('opacity',chrome.toFixed(3),'important');header.style.pointerEvents=chrome>.65?'auto':'none';}
         if(metadata){metadata.style.setProperty('opacity',chrome.toFixed(3),'important');metadata.style.pointerEvents=chrome>.65?'auto':'none';}
@@ -2180,18 +2121,29 @@ body > header {
         ticking=false;
       }
 
+      function renderHeroScene(){
+        requestAnimationFrame(renderHeroScene);
+        heroRenderer.render(heroScene,heroCamera);
+      }
+      requestAnimationFrame(renderHeroScene);
+
       function requestUpdate(){
         if(!ticking){ticking=true;requestAnimationFrame(updateScene);}
       }
 
       window.addEventListener('scroll',requestUpdate,{passive:true});
-      window.addEventListener('resize',requestUpdate);
+      window.addEventListener('resize',()=>{
+        heroCamera.aspect=window.innerWidth/window.innerHeight;
+        heroCamera.updateProjectionMatrix();
+        heroRenderer.setSize(window.innerWidth,window.innerHeight);
+        requestUpdate();
+      });
+
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateScene);
       else updateScene();
       window.addEventListener('load',updateScene);
     })();
   </script>
-
   <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
