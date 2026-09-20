@@ -42,9 +42,6 @@
     };
   </script>
 
-  <!-- Three.js — preserved from previous Saturn planet implementation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
   <!-- Google Fonts: IBM Plex Sans, IBM Plex Mono & Fraunces -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,6 +70,25 @@
       background-image: 
         linear-gradient(to right, rgba(242, 239, 233, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(242, 239, 233, 0.03) 1px, transparent 1px);
+    }
+
+    /* Gemini Saturn presentation — preserved geometry and 3D transform model. */
+    .saturn-viewport{
+      perspective:1200px;
+      transform-style:preserve-3d;
+    }
+    .saturn-container{
+      transform-style:preserve-3d;
+      transition:transform 0.05s linear;
+      will-change:transform;
+    }
+    .saturn-sphere{
+      transform-style:preserve-3d;
+      will-change:transform;
+    }
+    .ring-plane{
+      transform-style:preserve-3d;
+      will-change:transform;
     }
 
     /* Target styling for dynamic children inside #hardware-grid populated by js/app.js */
@@ -1667,11 +1683,33 @@ body > header {
       <div class="sticky-scene" id="sticky-scene">
         <div class="museum-grid-bg" aria-hidden="true"></div>
 
-        <div class="saturn-viewport" aria-hidden="true">
-          <div id="intro-planet" class="saturn-canvas-wrapper">
-            <div id="canvas-container" class="w-full h-full"></div>
+        <div id="saturn-stage" class="absolute inset-0 flex items-center justify-center saturn-viewport pointer-events-none z-10">
+          <div id="saturn" class="saturn-container relative w-[340px] h-[340px] md:w-[460px] md:h-[460px] flex items-center justify-center">
+
+            <div id="saturn-sphere" class="saturn-sphere absolute inset-0 flex items-center justify-center">
+              <svg viewBox="0 0 200 200" class="w-full h-full stroke-charcoal/80 fill-none" style="stroke-width: 0.8;">
+                <ellipse cx="100" cy="100" rx="60" ry="60" stroke-dasharray="2 2" />
+                <ellipse cx="100" cy="100" rx="60" ry="48" />
+                <ellipse cx="100" cy="100" rx="60" ry="32" />
+                <ellipse cx="100" cy="100" rx="60" ry="16" />
+                <line x1="100" y1="40" x2="100" y2="160" stroke-dasharray="2 2" />
+                <ellipse cx="100" cy="100" rx="40" ry="60" />
+                <ellipse cx="100" cy="100" rx="20" ry="60" />
+              </svg>
+            </div>
+
+            <div id="saturn-orbit" class="ring-plane absolute inset-0 flex items-center justify-center">
+              <svg id="saturn-rings" viewBox="0 0 400 200" class="w-[180%] h-[180%] stroke-charcoal fill-none" style="stroke-width: 0.7;">
+                <ellipse cx="200" cy="100" rx="180" ry="42" class="opacity-30" />
+                <ellipse cx="200" cy="100" rx="165" ry="38" />
+                <ellipse cx="200" cy="100" rx="150" ry="34" stroke-dasharray="4 2" />
+                <ellipse cx="200" cy="100" rx="125" ry="28" class="opacity-40" />
+                <ellipse cx="200" cy="100" rx="100" ry="22" />
+              </svg>
+            </div>
+
           </div>
-        </div>        <div class="intro-mark intro-mark-top" aria-hidden="true">
+        </div>      <div class="intro-mark intro-mark-top" aria-hidden="true">
           <span>REL 01</span><span>EXHIBITION ENTRY</span>
         </div>
         <div class="intro-mark intro-mark-bottom" aria-hidden="true">
@@ -1952,199 +1990,131 @@ body > header {
 
 
   <script>
-    /* Cinematic exhibition intro — original Three.js Saturn implementation,
-       with scroll-driven rotation accelerated to 180 degrees. */
-    (function(){
-      const intro=document.getElementById('intro-scroll');
-      const scene=document.getElementById('sticky-scene');
-      const saturn=document.getElementById('intro-planet');
-      const title=document.getElementById('intro-title');
-      const eyebrow=document.getElementById('intro-eyebrow');
-      const description=document.getElementById('intro-description');
-      const actions=document.getElementById('intro-actions');
-      const readout=document.getElementById('intro-readout');
-      const marks=document.querySelectorAll('.intro-mark,.intro-section-number');
-      const header=document.querySelector('body > header');
-      const metadata=document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
-      const heroContainer=document.getElementById('canvas-container');
+    (function() {
+      const scrollTrack = document.getElementById('intro-scroll');
+      const saturn = document.getElementById('saturn');
+      const sphere = document.getElementById('saturn-sphere');
+      const orbit = document.getElementById('saturn-orbit');
+      const rings = document.getElementById('saturn-rings');
+      const title = document.getElementById('intro-title');
+      const eyebrow = document.getElementById('intro-eyebrow');
+      const description = document.getElementById('intro-description');
+      const actions = document.getElementById('intro-actions');
+      const readout = document.getElementById('intro-readout');
+      const marks = document.querySelectorAll('.intro-mark,.intro-section-number');
+      const mainHeader = document.querySelector('body > header');
+      const metadata = document.querySelector('body > aside[aria-label="Exhibit Metadata"]');
 
-      if(!intro||!scene||!saturn||!title||!heroContainer||typeof THREE==='undefined')return;
+      if (!scrollTrack || !saturn || !sphere || !orbit || !rings) return;
 
-      /* ORIGINAL PLANET CODE — kept intact from the previously working version. */
-      const heroScene=new THREE.Scene();
-      const heroCamera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000);
-      heroCamera.position.set(0,0,12);
-
-      const heroRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-      heroRenderer.setSize(heroContainer.clientWidth || window.innerWidth,heroContainer.clientHeight || window.innerHeight);
-      heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-      heroContainer.appendChild(heroRenderer.domElement);
-
-      const saturnGroup=new THREE.Group();
-
-      const saturnGeo=new THREE.IcosahedronGeometry(2.2,4);
-      const saturnMat=new THREE.MeshBasicMaterial({
-        color:0x2A2927,
-        wireframe:true,
-        transparent:true,
-        opacity:0.35
-      });
-      const saturnMesh=new THREE.Mesh(saturnGeo,saturnMat);
-      saturnGroup.add(saturnMesh);
-
-      const innerGeo=new THREE.SphereGeometry(2.15,32,32);
-      const innerMat=new THREE.MeshBasicMaterial({
-        color:0xF8F7F2,
-        transparent:true,
-        opacity:0.95
-      });
-      const innerMesh=new THREE.Mesh(innerGeo,innerMat);
-      saturnGroup.add(innerMesh);
-
-      function createRing(innerRadius,outerRadius,opacity,color=0x2A2927){
-        const ringGeo=new THREE.RingGeometry(innerRadius,outerRadius,128,8);
-        const ringMat=new THREE.MeshBasicMaterial({
-          color:color,
-          wireframe:true,
-          transparent:true,
-          opacity:opacity,
-          side:THREE.DoubleSide
-        });
-        const ringMesh=new THREE.Mesh(ringGeo,ringMat);
-        ringMesh.rotation.x=Math.PI/2;
-        return ringMesh;
+      function lerp(start, end, amt) {
+        return (1 - amt) * start + amt * end;
       }
 
-      const ringA=createRing(3.2,4.4,0.40,0x2A2927);
-      const ringB=createRing(2.6,3.0,0.55,0xD95338);
-      const ringC=createRing(4.5,5.0,0.20,0x787672);
-
-      saturnGroup.add(ringA);
-      saturnGroup.add(ringB);
-      saturnGroup.add(ringC);
-
-      saturnGroup.rotation.z=0.22;
-      saturnGroup.rotation.x=0.42;
-      heroScene.add(saturnGroup);
-
-      const particleCount=800;
-      const particleGeo=new THREE.BufferGeometry();
-      const particlePositions=new Float32Array(particleCount*3);
-
-      for(let i=0;i<particleCount*3;i+=3){
-        particlePositions[i]=(Math.random()-0.5)*80;
-        particlePositions[i+1]=(Math.random()-0.5)*80;
-        particlePositions[i+2]=(Math.random()-0.5)*80;
+      function smooth(t) {
+        t = Math.max(0, Math.min(1, t));
+        return t * t * (3 - 2 * t);
       }
 
-      particleGeo.setAttribute('position',new THREE.BufferAttribute(particlePositions,3));
-      const particleMat=new THREE.PointsMaterial({
-        color:0x787672,
-        size:0.03,
-        transparent:true,
-        opacity:0.35
-      });
-      const particleSystem=new THREE.Points(particleGeo,particleMat);
-      heroScene.add(particleSystem);
+      let currentProgress = 0;
+      let targetProgress = 0;
 
-      let ticking=false;
-      const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
-      const smooth=(v)=>{const x=clamp(v,0,1);return x*x*(3-2*x);};
-      const lerp=(a,b,t)=>a+(b-a)*clamp(t,0,1);
+      function updateScrollProgress() {
+        const rect = scrollTrack.getBoundingClientRect();
+        const totalScrollable = rect.height - window.innerHeight;
+        if (totalScrollable <= 0) return;
 
-      function updateScene(){
-        const scrollable=Math.max(intro.offsetHeight-window.innerHeight,1);
-        const progress=clamp(-intro.getBoundingClientRect().top/scrollable,0,1);
-        const mobile=window.innerWidth<=900;
-        const small=window.innerWidth<=640;
+        const scrolled = -rect.top;
+        targetProgress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
+      }
 
-        const verticalSettle=smooth(progress/.12);
-        const y=lerp(small?-4.5:-5.5,0,verticalSettle);
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+      window.addEventListener('resize', updateScrollProgress, { passive: true });
 
-        let saturnRotY=0;
-        let saturnScale=1;
-        let saturnX=0;
+      function render() {
+        currentProgress = lerp(currentProgress, targetProgress, 0.08);
+        const progress = currentProgress;
 
-        /* Same physical scroll distance, much more rotation. */
-        if(progress<=0.20){
-          saturnRotY=0;
-        }else if(progress<=0.40){
-          const t=smooth((progress-0.20)/0.20);
-          saturnRotY=30*t;
-        }else if(progress<=0.60){
-          const t=smooth((progress-0.40)/0.20);
-          saturnRotY=30+t*40;
-        }else if(progress<=0.75){
-          const t=smooth((progress-0.60)/0.15);
-          saturnRotY=70+t*50;
-        }else if(progress<=0.90){
-          const t=smooth((progress-0.75)/0.15);
-          saturnRotY=120+t*60;
-          saturnScale=1-t*0.35;
-          saturnX=t*(small?0.3:2.2);
-        }else{
-          saturnRotY=180;
-          saturnScale=0.65;
-          saturnX=small?0.3:2.2;
+        const small = window.innerWidth < 640;
+        const mobile = window.innerWidth < 768;
+
+        let saturnRotY = 0;
+        let saturnScale = 1;
+        let saturnX = 0;
+
+        /* Gemini geometry, with the requested higher rotation-per-scroll ratio. */
+        if (progress <= 0.20) {
+          saturnRotY = 0;
+        } else if (progress <= 0.40) {
+          const t = smooth((progress - 0.20) / 0.20);
+          saturnRotY = 36 * t;
+        } else if (progress <= 0.60) {
+          const t = smooth((progress - 0.40) / 0.20);
+          saturnRotY = 36 + t * 48;
+        } else if (progress <= 0.75) {
+          const t = smooth((progress - 0.60) / 0.15);
+          saturnRotY = 84 + t * 48;
+        } else if (progress <= 0.90) {
+          const t = smooth((progress - 0.75) / 0.15);
+          saturnRotY = 132 + t * 48;
+          saturnScale = 1 - t * 0.32;
+          saturnX = t * (small ? 0 : (mobile ? 18 : 25));
+        } else {
+          saturnRotY = 180;
+          saturnScale = 0.68;
+          saturnX = small ? 0 : (mobile ? 18 : 25);
         }
 
-        saturn.style.transform='translate3d(0,'+y.toFixed(2)+'vh,0)';
-        saturnGroup.rotation.y=saturnRotY*Math.PI/180;
-        saturnGroup.scale.set(saturnScale,saturnScale,saturnScale);
-        saturnGroup.position.x=saturnX;
+        const verticalSettle = smooth(Math.min(progress / 0.12, 1));
+        const y = lerp(small ? -2 : -4, 0, verticalSettle);
 
-        particleSystem.rotation.y=performance.now()*0.000015;
+        saturn.style.transform =
+          `translate3d(${saturnX.toFixed(2)}vw, ${y.toFixed(2)}vh, 0) scale(${saturnScale.toFixed(3)})`;
 
-        const titleFade=smooth((progress-.025)/.30);
-        const titleRise=smooth((progress-.025)/.32);
-        title.style.setProperty('opacity',titleFade.toFixed(3),'important');
-        title.style.setProperty('transform','translateY('+lerp(90,0,titleRise).toFixed(2)+'px)','important');
+        sphere.style.transform = `rotateY(${saturnRotY.toFixed(2)}deg)`;
 
-        const eyebrowP=smooth((progress-.34)/.18);
-        const descP=smooth((progress-.43)/.20);
-        const actionsP=smooth((progress-.58)/.20);
-        const readoutP=smooth((progress-.64)/.20);
+        const ringAngle = lerp(-20, 18, progress);
+        orbit.style.transform = `rotate(${ringAngle.toFixed(2)}deg)`;
+        rings.style.transform = `rotate(${ringAngle.toFixed(2)}deg)`;
 
-        if(eyebrow){eyebrow.style.setProperty('opacity',eyebrowP.toFixed(3),'important');eyebrow.style.setProperty('transform','translateY('+lerp(20,0,eyebrowP).toFixed(2)+'px)','important');}
-        if(description){description.style.setProperty('opacity',descP.toFixed(3),'important');description.style.setProperty('transform','translateY('+lerp(20,0,descP).toFixed(2)+'px)','important');}
-        if(actions){actions.style.setProperty('opacity',actionsP.toFixed(3),'important');actions.style.setProperty('transform','translateY('+lerp(20,0,actionsP).toFixed(2)+'px)','important');}
-        if(readout){readout.style.setProperty('opacity',readoutP.toFixed(3),'important');readout.style.setProperty('transform','translateY('+lerp(18,0,readoutP).toFixed(2)+'px)','important');}
+        /* Existing page typography timeline retained. */
+        const titleFade = smooth((progress - 0.025) / 0.30);
+        const titleRise = smooth((progress - 0.025) / 0.32);
+        if (title) {
+          title.style.setProperty('opacity', titleFade.toFixed(3), 'important');
+          title.style.setProperty('transform', `translateY(${lerp(90,0,titleRise).toFixed(2)}px)`, 'important');
+        }
 
-        const chrome=smooth((progress-.72)/.22);
-        if(header){header.style.setProperty('opacity',chrome.toFixed(3),'important');header.style.pointerEvents=chrome>.65?'auto':'none';}
-        if(metadata){metadata.style.setProperty('opacity',chrome.toFixed(3),'important');metadata.style.pointerEvents=chrome>.65?'auto':'none';}
+        const eyebrowP = smooth((progress - 0.34) / 0.18);
+        const descP = smooth((progress - 0.43) / 0.20);
+        const actionsP = smooth((progress - 0.58) / 0.20);
+        const readoutP = smooth((progress - 0.64) / 0.20);
 
-        const markP=smooth((progress-.78)/.16);
-        marks.forEach(mark=>mark.style.setProperty('opacity',markP.toFixed(3),'important'));
+        if (eyebrow) eyebrow.style.setProperty('opacity', eyebrowP.toFixed(3), 'important');
+        if (description) description.style.setProperty('opacity', descP.toFixed(3), 'important');
+        if (actions) actions.style.setProperty('opacity', actionsP.toFixed(3), 'important');
+        if (readout) readout.style.setProperty('opacity', readoutP.toFixed(3), 'important');
 
-        scene.style.pointerEvents=progress>.86?'auto':'none';
-        ticking=false;
+        const chrome = smooth((progress - 0.72) / 0.22);
+        if (mainHeader) {
+          mainHeader.style.setProperty('opacity', chrome.toFixed(3), 'important');
+          mainHeader.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
+        }
+        if (metadata) {
+          metadata.style.setProperty('opacity', chrome.toFixed(3), 'important');
+          metadata.style.pointerEvents = chrome > 0.65 ? 'auto' : 'none';
+        }
+
+        const markP = smooth((progress - 0.78) / 0.16);
+        marks.forEach(mark => mark.style.setProperty('opacity', markP.toFixed(3), 'important'));
+
+        requestAnimationFrame(render);
       }
 
-      function renderHeroScene(){
-        requestAnimationFrame(renderHeroScene);
-        heroRenderer.render(heroScene,heroCamera);
-      }
-      requestAnimationFrame(renderHeroScene);
-
-      function requestUpdate(){
-        if(!ticking){ticking=true;requestAnimationFrame(updateScene);}
-      }
-
-      window.addEventListener('scroll',requestUpdate,{passive:true});
-      window.addEventListener('resize',()=>{
-        heroCamera.aspect=(heroContainer.clientWidth || window.innerWidth)/(heroContainer.clientHeight || window.innerHeight);
-        heroCamera.updateProjectionMatrix();
-        heroRenderer.setSize(heroContainer.clientWidth || window.innerWidth,heroContainer.clientHeight || window.innerHeight);
-        requestUpdate();
-      });
-
-      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateScene);
-      else updateScene();
-      window.addEventListener('load',updateScene);
+      updateScrollProgress();
+      render();
     })();
-  </script>
-  <!-- 
+  </script>  <!-- 
     DYNAMIC DATA LOADER SCRIPT
     Preserved exactly as requested.
   -->
