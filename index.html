@@ -2032,40 +2032,58 @@ body > header {
           }
         }
 
-        /* Dense elliptical ring mesh matching the reference artwork. */
-        const ring=(parent,rx,ry,rotation,alphaStep)=>{
-          const rows=5, cols=30;
-          const rad=rotation*Math.PI/180;
-          const cos=Math.cos(rad), sin=Math.sin(rad);
-          const p=[];
+        /* Perspective torus mesh — dimensional crossed-wire rings. */
+        const ring=(parent,major,minor,tiltDeg,cols=36,rows=7)=>{
+          const tilt=tiltDeg*Math.PI/180;
+          const ct=Math.cos(tilt), st=Math.sin(tilt);
+          const pts=[];
+          const project=(u,v)=>{
+            const rr=major+minor*Math.cos(v);
+            const x3=rr*Math.cos(u);
+            const z3=rr*Math.sin(u);
+            const y3=minor*Math.sin(v);
+            const y=y3*ct-z3*st;
+            const z=y3*st+z3*ct;
+            const perspective=1/(1+z/1250);
+            return {x:cx+x3*perspective,y:cy-y*perspective,z};
+          };
+
           for(let i=0;i<=rows;i++){
-            const scale=0.72+(i/rows)*0.30;
+            const v=2*Math.PI*i/rows;
             const row=[];
-            for(let j=0;j<cols;j++){
-              const a=2*Math.PI*j/cols;
-              const x=rx*scale*Math.cos(a), y=ry*scale*Math.sin(a);
-              row.push([cx+x*cos-y*sin,cy+x*sin+y*cos]);
-            }
-            p.push(row);
+            for(let j=0;j<cols;j++) row.push(project(2*Math.PI*j/cols,v));
+            pts.push(row);
           }
+
+          const draw=(a,b)=>{
+            const el=document.createElementNS(ns,'line');
+            el.setAttribute('x1',a.x.toFixed(1));
+            el.setAttribute('y1',a.y.toFixed(1));
+            el.setAttribute('x2',b.x.toFixed(1));
+            el.setAttribute('y2',b.y.toFixed(1));
+            const depth=(a.z+b.z)/2;
+            el.setAttribute('opacity',depth>0?'0.20':'0.58');
+            parent.appendChild(el);
+          };
+
           for(let i=0;i<=rows;i++){
-            for(let j=0;j<cols;j++) line(parent,p[i][j],p[i][(j+1)%cols]);
+            for(let j=0;j<cols;j++) draw(pts[i][j],pts[i][(j+1)%cols]);
           }
+
           for(let i=0;i<rows;i++){
             for(let j=0;j<cols;j++){
-              const a=p[i][j], b=p[i][(j+1)%cols];
-              const d=p[i+1][j], e=p[i+1][(j+1)%cols];
-              line(parent,(i+j)%2===0?a:b,(i+j)%2===0?e:d);
+              const a=pts[i][j], b=pts[i][(j+1)%cols];
+              const d=pts[i+1][j], e=pts[i+1][(j+1)%cols];
+              draw((i+j)%2===0?a:b,(i+j)%2===0?e:d);
             }
           }
         };
 
-        ring(orbit,315,92,-18);
-        ring(details,286,80,-18);
-        ring(details,258,70,-18);
-        ring(details,230,61,-18);
-        ring(details,202,53,-18);
-        ring(accent,260,67,-18);
+        ring(orbit,270,54,-18,36,8);
+        ring(details,270,45,-18,36,6);
+        ring(details,270,36,-18,36,5);
+        ring(accent,270,28,-18,36,4);
+
       }
 
       buildIntroMesh();
