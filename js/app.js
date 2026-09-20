@@ -83,3 +83,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// --- Voyager 1 Live Distance Ticker ---
+
+(function () {
+  // Physics constants
+  const INITIAL_DISTANCE_KM = 24310000000; // approx distance as of baseline date
+  const VELOCITY_KM_PER_SEC = 17.0;
+  const BASELINE_DATE = new Date("2026-01-01T00:00:00Z");
+
+  const tickerEl = document.getElementById("voyager-distance-value");
+
+  /**
+   * Kinematics: d(t) = d0 + v * t
+   * t = elapsed seconds since baseline date
+   */
+  function calculateCurrentDistanceKm() {
+    const now = new Date();
+    const elapsedSeconds = (now.getTime() - BASELINE_DATE.getTime()) / 1000;
+    return INITIAL_DISTANCE_KM + VELOCITY_KM_PER_SEC * elapsedSeconds;
+  }
+
+  function formatWithCommas(number) {
+    return Math.round(number).toLocaleString("en-US");
+  }
+
+  function renderLoop() {
+    if (tickerEl) {
+      const distanceKm = calculateCurrentDistanceKm();
+      tickerEl.textContent = formatWithCommas(distanceKm);
+    }
+    requestAnimationFrame(renderLoop);
+  }
+
+  if (tickerEl) {
+    requestAnimationFrame(renderLoop);
+  }
+})();
