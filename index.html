@@ -2032,20 +2032,20 @@ body > header {
           saturnRotY=0;
         }else if(progress<=0.40){
           const t=smooth((progress-0.20)/0.20);
-          saturnRotY=5*t;
+          saturnRotY=30*t;
         }else if(progress<=0.60){
           const t=smooth((progress-0.40)/0.20);
-          saturnRotY=5+t*5;
+          saturnRotY=30+t*40;
         }else if(progress<=0.75){
           const t=smooth((progress-0.60)/0.15);
-          saturnRotY=10+t*5;
+          saturnRotY=70+t*50;
         }else if(progress<=0.90){
           const t=smooth((progress-0.75)/0.15);
-          saturnRotY=15+t*10;
+          saturnRotY=120+t*60;
           saturnScale=1-t*0.32;
           saturnX=t*(small?16:(mobile?21:27));
         }else{
-          saturnRotY=25;
+          saturnRotY=180;
           saturnScale=0.68;
           saturnX=small?16:(mobile?21:27);
         }
