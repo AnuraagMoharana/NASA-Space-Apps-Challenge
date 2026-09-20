@@ -1601,10 +1601,16 @@ body > header {
     @media(max-width:640px){.intro-scroll{height:310vh!important}#intro-planet.saturn-canvas-wrapper{width:min(390px,72vw)!important;height:min(390px,72vw)!important}.editorial-column{left:20px!important;top:52%!important;width:calc(100vw - 40px)!important;max-width:none!important}#intro-title{max-width:12ch!important;font-size:clamp(2.45rem,12vw,3.8rem)!important}.intro-readout{display:none!important}.intro-mark-top{top:4vh!important;left:20px!important}.intro-mark-bottom{left:20px!important}}
     @media(prefers-reduced-motion:reduce){.intro-scroll{height:auto!important}.intro-planet.saturn-canvas-wrapper{transform:translate3d(27vw,0,0) scale(.62)!important}.editorial-column{opacity:1!important}#intro-title,#intro-eyebrow,#intro-description,#intro-actions,#intro-readout,.intro-mark,.intro-section-number{opacity:1!important;transform:none!important}body>header,body>aside[aria-label="Exhibit Metadata"]{opacity:1!important;pointer-events:auto!important}}
 
-  </style>
+  
+    /* Floating starfield — subtle exhibition background layer */
+    #starfield { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }
+</style>
 </head>
 
 <body class="bg-space-950 text-paper-100 font-sans antialiased selection:bg-coral-500 selection:text-space-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Floating Starfield Background -->
+  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true"></canvas>
 
   <!-- TOP BAR / EXHIBIT READOUT STRIP -->
   <aside aria-label="Exhibit Metadata" class="w-full bg-space-900 border-b border-white/15 py-1.5 px-4 sm:px-8 text-xs font-mono text-paper-400 flex flex-wrap justify-between items-center gap-2">
@@ -2264,5 +2270,86 @@ body > header {
   -->
   <script src="js/app.js"></script>
 
+
+  <script>
+    (function initStarfield() {
+      const canvas = document.getElementById('starfield');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height, stars = [];
+      const STAR_COUNT = 60;
+      const COLOR = '28, 28, 26';
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      function createStars() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 2 + 1,
+            alpha: Math.random() * 0.4 + 0.1,
+            pulseSpeed: Math.random() * 0.015 + 0.005,
+            pulseDir: Math.random() > 0.5 ? 1 : -1,
+            vx: (Math.random() - 0.5) * 0.15,
+            vy: -Math.random() * 0.2 - 0.05,
+            isCross: Math.random() > 0.6
+          });
+        }
+      }
+
+      function draw4PointStar(x, y, size, alpha) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.strokeStyle = 'rgba(' + COLOR + ', ' + alpha + ')';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(-size * 2, 0);
+        ctx.lineTo(size * 2, 0);
+        ctx.moveTo(0, -size * 2);
+        ctx.lineTo(0, size * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach(star => {
+          star.x += star.vx;
+          star.y += star.vy;
+          if (star.y < -10) star.y = height + 10;
+          if (star.x < -10) star.x = width + 10;
+          if (star.x > width + 10) star.x = -10;
+
+          star.alpha += star.pulseSpeed * star.pulseDir;
+          if (star.alpha >= 0.5) { star.alpha = 0.5; star.pulseDir = -1; }
+          else if (star.alpha <= 0.08) { star.alpha = 0.08; star.pulseDir = 1; }
+
+          if (star.isCross) {
+            draw4PointStar(star.x, star.y, star.size, star.alpha);
+          } else {
+            ctx.fillStyle = 'rgba(' + COLOR + ', ' + star.alpha + ')';
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', () => {
+        resize();
+        createStars();
+      });
+
+      resize();
+      createStars();
+      animate();
+    })();
+  </script>
 </body>
 </html>
